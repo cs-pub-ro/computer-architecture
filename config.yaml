@@ -1,0 +1,60 @@
+stages:
+  - make_assets
+  - embed_reveal
+  - docusaurus
+
+build_dir: /build
+output_type: last
+output_dir: /output
+
+make_assets:
+  plugin: command
+  options:
+    command: make
+    locations:
+      - chapters/template-chapter/template-topic/slides
+    args:
+      - all
+
+embed_reveal:
+  plugin: reveal_embed
+  options:
+    target: docusaurus
+    extension: mdx
+    build:
+      template-chapter-template-topic: template-chapter-template-topic
+
+docusaurus:
+  plugin: docusaurus
+  options:
+    course_name: Template
+    sidebar: js
+    structure:
+      - Introduction: chapters/landing-page/README.md
+      - Template Chapter:
+          - Template Topic:
+              path: chapters/template-chapter/template-topic/
+              extra:
+                - media/
+              subsections:
+                - Reading/: reading/
+                - Drills/: drills/
+                - Guides/: guides/
+                - Slides: /build/embed_reveal/template-chapter-template-topic
+          - Yet Another Topic:
+              path: chapters/template-chapter/yet-another-topic/
+              subsections:
+                - Drills/: drills/
+    static_assets:
+      - template-chapter-template-topic: /build/make_assets/chapters/template-chapter/template-topic/slides/_site
+    config_meta:
+      title: Template Repo
+      url: http://localhost/
+      baseUrl: /oer-template/
+      onBrokenLinks: warn
+      onBrokenMarkdownLinks: warn
+    config_socials:
+      Main site: https://example.com
+      OCW: https://example.com
+      Facebook: https://www.facebook.com/zuck/
+    copyright_string: Example Copyright

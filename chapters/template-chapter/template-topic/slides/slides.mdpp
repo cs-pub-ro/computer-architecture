@@ -1,0 +1,19 @@
+---
+title: "Template repo: Template Course"
+revealOptions:
+  background-color: 'aquamarine'
+  transition: 'none'
+  slideNumber: true
+  autoAnimateDuration: 0.0
+---
+
+!INCLUDE "intro.md"
+
+---
+
+!INCLUDE "content.md"
+
+---
+
+* We can include `*.md*` files in order to create modular courses
+  * To include external files, we use the `!INCLUDE` directive

@@ -1,0 +1,21 @@
+CFLAGS = -Wall -Wextra
+CPPFLAGS = -I utils/ -I utils/log/ -D USE_MUTEX
+LDLIBS = -lpthread
+
+EXEC = race_condition_mutex
+OBJ = $(patsubst %,%.o,$(EXEC))
+SRC = race_condition.c
+
+all: $(EXEC)
+
+$(EXEC): $(OBJ) utils/log/log.o
+
+$(OBJ): $(SRC)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+
+utils/log/log.o: utils/log/log.c
+
+clean::
+	-rm -f $(OBJ) utils/log/log.o
+	-rm -f $(EXEC)
+	-rm -f *~
