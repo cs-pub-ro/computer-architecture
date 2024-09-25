@@ -31,6 +31,14 @@ docusaurus:
     sidebar: js
     structure:
       - Introduction: chapters/landing-page/README.md
+      - Lab0 - Recapitulare:
+          - Circuite combinaționale:
+              path: chapters/lab0/combinational/
+              extra:
+                - media/
+              subsections:
+                - Reading/: reading/
+                - Drills/: drills/
       - Template Chapter:
           - Template Topic:
               path: chapters/template-chapter/template-topic/
@@ -48,13 +56,13 @@ docusaurus:
     static_assets:
       - template-chapter-template-topic: /build/make_assets/chapters/template-chapter/template-topic/slides/_site
     config_meta:
-      title: Template Repo
+      title: Computer Architecture
       url: http://localhost/
-      baseUrl: /oer-template/
+      baseUrl: /computer-architecture/
       onBrokenLinks: warn
       onBrokenMarkdownLinks: warn
     config_socials:
-      Main site: https://example.com
-      OCW: https://example.com
+      Main site: https://curs.upb.ro
+      OCW: https://ocw.cs.pub.ro/courses/ac-is
       Facebook: https://www.facebook.com/zuck/
-    copyright_string: Example Copyright
+    copyright_string: Comnputer Architecture Team
