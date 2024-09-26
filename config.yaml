@@ -27,32 +27,112 @@ embed_reveal:
 docusaurus:
   plugin: docusaurus
   options:
-    course_name: Template
+    course_name: Computer Architecture
     sidebar: js
+    math: true
     structure:
       - Introduction: chapters/landing-page/README.md
       - Lab0 - Recapitulare:
           - Circuite combinaționale:
-              path: chapters/lab0/combinational/
+              path: chapters/combinational-circuits/intro
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+          - Porti logice:
+              path: chapters/combinational-circuits/logic-gates
               extra:
                 - media/
               subsections:
                 - Reading/: reading/
-                - Drills/: drills/
-      - Template Chapter:
-          - Template Topic:
-              path: chapters/template-chapter/template-topic/
+          - Summatoare:
+              path: chapters/combinational-circuits/adders
               extra:
                 - media/
               subsections:
                 - Reading/: reading/
-                - Drills/: drills/
-                - Guides/: guides/
-                - Slides: /build/embed_reveal/template-chapter-template-topic
-          - Yet Another Topic:
-              path: chapters/template-chapter/yet-another-topic/
+          - Circuite secvențiale:
+              path: chapters/sequential-circuits/intro
+              extra:
+                - media/
               subsections:
-                - Drills/: drills/
+                - Lectura/: reading/
+          - Bistabil D:
+              path: chapters/sequential-circuits/d-flip-flop
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+          - Automate finite:
+              path: chapters/sequential-circuits/fsms
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+      - Lab1 - Verilog:
+          - Limbaj Verilog:
+              path: chapters/verilog/intro
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+          - Descriere structurala:
+              path: chapters/verilog/basic
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+                - Exercitii/: drills/
+      - Lab2 - Verilog:
+          - Operatori:
+              path: chapters/verilog/operators
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+                - Exercitii/: drills/
+          - Parametri:
+              path: chapters/verilog/parameters
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+                - Exercitii/: drills/
+          - Testare:
+              path: chapters/verilog/testing
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+                - Exercitii/: drills/
+      - Lab3 - Verilog:
+          - Always:
+              path: chapters/verilog/always
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+                - Exercitii/: drills/
+          - Debouncer:
+              path: chapters/verilog/debouncer
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+      - Lab4 - Verilog:
+          - Automate finite:
+              path: chapters/verilog/fsms
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+          - Memorie:
+              path: chapters/verilog/memory
+              extra:
+                - media/
+              subsections:
+                - Lectura/: reading/
+                - Exercitii/: drills/
     static_assets:
       - template-chapter-template-topic: /build/make_assets/chapters/template-chapter/template-topic/slides/_site
     config_meta:
@@ -64,5 +144,4 @@ docusaurus:
     config_socials:
       Main site: https://curs.upb.ro
       OCW: https://ocw.cs.pub.ro/courses/ac-is
-      Facebook: https://www.facebook.com/zuck/
     copyright_string: Comnputer Architecture Team
