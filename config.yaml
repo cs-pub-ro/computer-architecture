@@ -133,6 +133,20 @@ docusaurus:
               subsections:
                 - Lectura/: reading/
                 - Exercitii/: drills/
+      - Template Chapter:
+          - Template Topic:
+              path: chapters/template-chapter/template-topic/
+              extra:
+                - media/
+              subsections:
+                - Reading/: reading/
+                - Drills/: drills/
+                - Guides/: guides/
+                - Slides: /build/embed_reveal/template-chapter-template-topic
+          - Yet Another Topic:
+              path: chapters/template-chapter/yet-another-topic/
+              subsections:
+                - Drills/: drills/
     static_assets:
       - template-chapter-template-topic: /build/make_assets/chapters/template-chapter/template-topic/slides/_site
     config_meta:
