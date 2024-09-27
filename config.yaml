@@ -127,8 +127,6 @@ docusaurus:
                     - Teorie/: reading/
               - Debouncer:
                   path: chapters/verilog/debouncer
-                  extra:
-                    - media/
                   subsections:
                     - Teorie/: reading/
                     - Practică/: drills/
