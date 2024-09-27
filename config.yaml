@@ -32,12 +32,18 @@ docusaurus:
     math: true
     structure:
       - Introduction: chapters/landing-page/README.md
-      - Regulament:
-          - Info: chapters/rules/README.md
-      - Notare:
-          - Info: chapters/grading/README.md
-      - Echipa:
-          - Info: chapters/team/README.md
+      - Regulament: chapters/rules/rules.md
+      - Notare: chapters/grading/grading.md
+      - Echipa: chapters/team/team.md
+      - Tutoriale:
+          path: chapters/guides
+          extra:
+            - media/
+          subsections:
+            - Instalare Vivado/: install/
+            - Creare proiect Vivado/: project/
+            - Simulare Vivado/: simulation/
+            - Programare FPGA Vivado/: programming/
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
