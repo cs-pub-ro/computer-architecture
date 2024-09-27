@@ -100,8 +100,6 @@ docusaurus:
                     - Practică/: drills/
               - Parametri:
                   path: chapters/verilog/parameters
-                  extra:
-                    - media/
                   subsections:
                     - Teorie/: reading/
                     - Practică/: drills/
