@@ -2,14 +2,11 @@
 slug: /
 ---
 
-# Introduction
+# Descriere
 
-This is a landing page for the contents of this course.
-Here you will find all the documentation needed for this course.
-It is meant to be used by teachers, trainers, students and hobbyists who want to learn about topics on calculus and statistics.
+Aceasta este pagina pentru cursul de Arhitectectura Calculatoarelor de la Faculatea de Autmatică și Calculatoare parte a Universității Națioanle de Știință și Tehnologie Politehinca București (UNSTPB). Cursul are loc în anul 3 domeniu Ingineria Sistemelor seriile AA, AB și AC.
 
-The course is structured in chapters, each with their own sections.
-See chapters in the sidebar or in the top-level menu.
+În meniu veți putea găsi informații despre regulament, notare, echipă, tutoriale, laboratoare și cursuri.
 
 ## Licensing and Contributing
 
