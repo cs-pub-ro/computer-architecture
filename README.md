@@ -1,7 +1,7 @@
-# OER Template Repository
+# Computer Architecture Course Repository
 
 These are open educational resources ([OER](https://en.wikipedia.org/wiki/Open_educational_resources)).
-The repository should be used as a template for the your own classes.
+The repository is used for Computer Architecture Course.
 
 ## Using the Content
 
@@ -11,28 +11,6 @@ Each chapter has its own folder.
 
 Lecture content is expected to be presented and followed.
 Practice content is expected to be used hands-on individually or as part of team.
-
-## Publishing Workflow
-
-Before building the repository you have to set up the following items:
-
-* Select the GitHub Pages branch by following the [Configuring a publishing source for your GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) tutorial.
-   You will have to set up the `gh-pages` branch as the publishing branch, if it is not already set up.
-
-In order to publish the content of this repository, we use a GitHub workflow located in `.github/workflows/deployment.yml`.
-This workflow will build the site using [Docusaurus](https://docusaurus.io/) and publish the contents to a link similar to `<github_username>.github.io/repository-name`.
-
-## Your first TODOs
-
-To configure this repo for the class for which you intend to develop content, you must make the following changes:
-
-* Change the repository name to match your class name (the default name is `oer-template`).
-* In `config.yaml`:
-  * Change `title` to you class name.
-  * Change `url` to `<github_usename>.github.io`.
-  * Change `baseurl` to `/` if the repository is the only one with a GitHub page in your profile.
-     Otherwise, change it to `/<repository_name>/`.
-  * Change links to social media sites, if applicable.
 
 ## Running Locally
 
