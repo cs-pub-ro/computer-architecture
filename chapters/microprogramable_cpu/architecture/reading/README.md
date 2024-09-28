@@ -10,7 +10,7 @@
     - Registrele generale au dimensiunea de 16 biţi
     - Unitatea aritmetico-logică (UAL) prelucrează operanzi pe 16 biţi
     - Magistrala procesorului (MAG) este pe 16 biţi
-    - Spaţiul de adresare este de $2^16$ Cuvinte, adică 64 Kcuvinte
+    - Spaţiul de adresare este de $2^{16}$ Cuvinte, adică 64 Kcuvinte
 
   - UAL pentru întregi reprezentaţi în cod complementar
     - Procesorul dispune de o singură unitate aritmetică-logică ce operează cu întregi cu semn pe 16 biţi
@@ -22,18 +22,18 @@
       - Modurile de adresare sunt numeroase şi foarte flexibile
 
 **Arhitectura setului de instrucţiuni (ISA - Instruction Set Architecture)** este folosită pentru a abstractiza funcţionarea internă a unui procesor. ISA defineşte “personalitatea” unui procesor: cum funcţionează procesorul d.p.d.v. al programatorului, ce fel de instrucţiuni execută, care este semantica acestora. ISA este cea mai importantă parte a design-ului unui procesor; alte aspecte cum sunt componentele de calcul și stocare, interacţiunea cu memoriile, pipeline-ul, fluxul de date în procesor putând fi schimbate de la o versiune la alta a procesorului.
-La ora actuală există două filozofii de design pentru un procesor: //Complex Instruction Set Computer (CISC)// şi //Reduced Instruction Set Computer (RISC)//. În afară de acestea există şi ISA-uri pentru procesoare specializate, cum sunt GPU-urile pentru plăci grafice si DSP-urile pentru procesare de semnal.
+La ora actuală există două filozofii de design pentru un procesor: _Complex Instruction Set Computer (CISC)_ şi _Reduced Instruction Set Computer (RISC)_. În afară de acestea există şi ISA-uri pentru procesoare specializate, cum sunt GPU-urile pentru plăci grafice si DSP-urile pentru procesare de semnal.
 
 Principalele categorii de instrucțiuni sunt cele aritmetico-logice, de control secvențial, și respectiv de acces la memorie. Formatul instrucțiunilor RISC are o lungime fixă, cu lungimea unei instrucțiuni în general egală cu lungimea cuvantului de memorie; în cazul CISC, lungimea unei instrucțiuni variază în funcție de formatul instrucțiunii. RISC are un număr mic de moduri de adresare, spre deosebire de CISC, care are un număr mare de moduri de adresare (dar care nu sunt totdeauna utilizate).
 
 Setul de instrucțiuni RISC este orientat pe registre (peste 32 de registre). Pentru că accesul la memorie e mult mai lent decât lucrul cu registrele, RISC încurajează lucrul cu aceștia. Face acest lucru prin creșterea numărului de registreși prin limitarea explicită a acceselor la memorie. În general instrucțiunile au 2 operanzi (registre) și un registru destinație. Ca principiu, arhitectura RISC are mai multe registre generale, în timp ce CISC are mai mulți speciali. Practic toate procesoarele moderne împrumută atât caracteristici CISC, cât și RISC. 
 
-În cadrul arhitecturilor RISC există o limitare explicită, și anume: singurul mod de acces la memorie este prin //load// și //store//. Aceasta se deosebește fundamental de CISC care are instrucțiuni cu operanzi locații de memorie. Totuși, deși RISC impune această disciplină de lucru cu memoria, doar 20-25% din codul unui program e reprezentat de loads & stores. 
+În cadrul arhitecturilor RISC există o limitare explicită, și anume: singurul mod de acces la memorie este prin _load_ și _store_. Aceasta se deosebește fundamental de CISC care are instrucțiuni cu operanzi locații de memorie. Totuși, deși RISC impune această disciplină de lucru cu memoria, doar 20-25% din codul unui program e reprezentat de loads & stores. 
 
 **Observaţii**
 
-  - **Procesorul didactic este consistent din punctul de vedere al dimensiunii: 16 biţi**. Procesoarele reale, în marea lor majoritate, nu respectă aceasta regulă. Spre exemplu, Pentium 4 cu arhitectura pe 32 de biţi (IA-32) include registre pe 128 de biţi şi dispune de o magistrală de adrese pe 36 de biţi (spaţiul total de adresare este de 64 TB). În consecinţă părerile sunt impărţite în legătură cu care ar fi o definiţie corectă pentru dimensiunea procesorului. Cea mai frecventă definiţie spune că dimensiunea unui procesor este dată de dimensiunea registrelor şi a unităţilor aritmetico-logice. \\ \\
-  - **Spaţiul de adresare pentru un procesor pe N biţi este de 2<sup>N</sup> locaţii de memorie**. În funcţie de organizarea acesteia însă, aceste locaţii pot fi octeţi sau cuvinte de mai multi octeţi. Memoria calculatorului didactic este organizată ca un **spaţiu contiguu de 64 Kcuvinte de 16 biţi fiecare**. Aşadar spaţiul total de adresare  pentru calculatorul didactic este de 128 Kbytes. Memoria din calculatoarele voastre însă este adresabilă la nivel de octet. Dacă calculatorul didactic ar fi fost echipat cu o astfel de memorie, spaţiul de adresare ar fi fost de 64 KB, deoarece la fiecare locaţie se poate stoca fix un byte.\\ \\
+  - **Procesorul didactic este consistent din punctul de vedere al dimensiunii: 16 biţi**. Procesoarele reale, în marea lor majoritate, nu respectă aceasta regulă. Spre exemplu, Pentium 4 cu arhitectura pe 32 de biţi (IA-32) include registre pe 128 de biţi şi dispune de o magistrală de adrese pe 36 de biţi (spaţiul total de adresare este de 64 TB). În consecinţă părerile sunt impărţite în legătură cu care ar fi o definiţie corectă pentru dimensiunea procesorului. Cea mai frecventă definiţie spune că dimensiunea unui procesor este dată de dimensiunea registrelor şi a unităţilor aritmetico-logice.
+  - **Spaţiul de adresare pentru un procesor pe N biţi este de 2<sup>N</sup> locaţii de memorie**. În funcţie de organizarea acesteia însă, aceste locaţii pot fi octeţi sau cuvinte de mai multi octeţi. Memoria calculatorului didactic este organizată ca un **spaţiu contiguu de 64 Kcuvinte de 16 biţi fiecare**. Aşadar spaţiul total de adresare  pentru calculatorul didactic este de 128 Kbytes. Memoria din calculatoarele voastre însă este adresabilă la nivel de octet. Dacă calculatorul didactic ar fi fost echipat cu o astfel de memorie, spaţiul de adresare ar fi fost de 64 KB, deoarece la fiecare locaţie se poate stoca fix un byte.
   - Prin faptul ca procesorul permite lucrul cu operanzi direct din memorie se înţelege că ei nu trebuie aduşi în prealabil de către programator într-un registru general. Cu toate acestea **nu se poate lucra cu ambii operanzi direct din memorie**. Acest tip de procesare specific arhitecturilor CISC poartă numele de procesare Registru-Memorie. Spre deosebire de aceasta, arhitecturile RISC tipice necesită încărcarea prealabilă a operanzilor în registrele generale. De aceea, aceste procesoare se mai numesc Registru-Registru sau Load/Store. Arhitecturile Memorie-Memorie sunt foarte rare, datorită complexităţii hardware-ului şi performanţelor scăzute.
 
 
@@ -56,10 +56,10 @@ Deoarece timpul de acces la memoria M este relativ mare (de ordinul zecilor de n
 
 | Registrul | Funcția |
 |-----------|---------|
-| RA, RB, RC | La dispoziția programatorului pentru stocarea operanzilor. \\ RA este folosit în lucrul cu porturile. |
+| RA, RB, RC | La dispoziția programatorului pentru stocarea operanzilor. RA este folosit în lucrul cu porturile. |
 | IS        | Indicatorul de stivă. |
-| XA, XB    | Se pot folosi pentru stocarea operanzilor. \\ Sunt folosiți pentru adresarea memoriei ca și registre index. |
-| BA, BB    | Se pot folosi pentru stocarea operanzilor. \\ Sunt folosiți pentru adresarea memoriei ca și registre de bază. |
+| XA, XB    | Se pot folosi pentru stocarea operanzilor. Sunt folosiți pentru adresarea memoriei ca și registre index. |
+| BA, BB    | Se pot folosi pentru stocarea operanzilor. Sunt folosiți pentru adresarea memoriei ca și registre de bază. |
 
 
 ### Unitatea aritmetică logică UAL

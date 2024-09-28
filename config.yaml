@@ -155,6 +155,7 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
+                    - Practică/: drills/
           - 7 Calculator Didactic:
               - Arhitectura:
                   path: chapters/microprogramable_cpu/architecture

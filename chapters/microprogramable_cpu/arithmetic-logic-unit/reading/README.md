@@ -127,35 +127,4 @@ _Figure: Exemplu de shiftare aritmetică la dreapta_
 
 > **Important**: Shiftarea logică spre stânga (*SHL*) și shiftarea aritmetică spre stânga (*SAL*) se efectuează în același mod. Se păstrează, însă, ambele mnemonici (*SHL* / *SAL*) pentru a se putea păstra contextul folosirii acestora, logic sau aritmetic.
 
-> **Important**: Rezultatul shiftării cu *n* biți la stânga este echivalent cu înmulțirea cu 2^n. Shiftarea la dreapta cu *n* biți este echivalentă cu împărțirea la 2^n.
-
-## Modulul UAL
-
-Descărcați scheletul de cod și completați conținutul **modulului alu.v**, folosind intrările și ieșirile prezentate mai jos.
-
-```verilog
-module alu(
-    input oe,
-    input [3:0] opcode,
-    input [width-1 : 0] in1,
-    input [width-1 : 0] in2,
-    input carry,
-    output [width-1 : 0] out,
-    output [flags_width-1 : 0] flags
-    );
-```
-
-Codurile de identificare ale operațiilor (cei 4 biți S) sunt definite în modulul ```alu.v``` din scheletul de laborator și in codul de mai jos.
-
-```verilog
-`define ADC 		0
-`define SBB1		1
-`define SBB2		2
-`define NOT		3
-`define AND		4
-`define OR		5
-`define XOR		6
-`define SHL		7
-`define SHR		8
-`define SAR		9
-```
+> **Important**: Rezultatul shiftării cu *n* biți la stânga este echivalent cu înmulțirea cu $2^n$. Shiftarea la dreapta cu *n* biți este echivalentă cu împărțirea la $2^n$.

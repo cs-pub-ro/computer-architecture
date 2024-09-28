@@ -57,3 +57,9 @@ _site/
 
 # Builder output folder
 /.output/
+
+# Vivado files
+*.jou
+*.log
+build_project/
+.Xil/

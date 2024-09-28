@@ -46,5 +46,5 @@
  - Platformă: Moodle - VPL/Quiz
  - Durată: 180 de minute
  - Structură:
-   - 40 de întrebări teoretice
+   - 20 de întrebări teoretice
    - 1 problemă

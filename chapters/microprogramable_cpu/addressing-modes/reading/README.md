@@ -27,7 +27,7 @@ Modurile de adresare permise de calculatorul didactic sunt tipice arhitecturilor
 
 Operandul se găseşte în RG.
 
-Exemplu: ```asm MOV RA, RB```
+Exemplu: ```MOV RA, RB```
 
 Instrucțiunea are ca efect încărcarea în registrul RA a valorii din registrul RB.
 
@@ -37,12 +37,12 @@ Instrucțiunea are ca efect încărcarea în registrul RA a valorii din registru
 
 Operandul este specificat în instrucțiune.
 
-Exemplu: ```asm MOV RA, 7```
+Exemplu: ```MOV RA, 7```
 
 Instrucțiunea va avea ca efect încarcarea valorii "7" în registrul RA. "7" poartă numele de operand imediat.
 
 
-###= Operandul e specificat doar prin deplasament ###=
+## Operandul e specificat doar prin deplasament
 
 
 ### 3. Adresare directă
@@ -50,7 +50,7 @@ Instrucțiunea va avea ca efect încarcarea valorii "7" în registrul RA. "7" po
 
 Adresa efectivă este specificată în instrucțiune.
 
-Exemplu: ```asm MOV RA, [12]```
+Exemplu: ```MOV RA, [12]```
 
 Instrucțiunea va încărca valorea aflată în memorie la adresa "12" în registrul RA. "12" poarta numele de deplasament.
 
@@ -60,7 +60,7 @@ Instrucțiunea va încărca valorea aflată în memorie la adresa "12" în regis
 
 Adresa efectivă se citește din memorie, din locația a cărei adresă este specificată în instrucțiune.
 
-Exemplu: ```asm MOV RA, [[12]]```
+Exemplu: ```MOV RA, [[12]]```
 
 Instrucțiunea are ca efect încărcarea valorii aflată la adresa ce se găsește în memorie la adresa "12". Acest mod de adresare seamană foarte bine cu pointerii din C. La adresa "12" se găsește pointer-ul către operand.
 
@@ -70,7 +70,7 @@ Instrucțiunea are ca efect încărcarea valorii aflată la adresa ce se găseș
 
 Adresa efectivă se găsește în unul din registrele XA, XB, BA, BB.
 
-Exemplu: ```asm MOV RA, [BA]```
+Exemplu: ```MOV RA, [BA]```
 
 Instrucțiunea va încărca în RA valoarea aflată în memorie la adresa conținută în BA.
 
@@ -78,7 +78,7 @@ Instrucțiunea va încărca în RA valoarea aflată în memorie la adresa conți
 
 Adresa efectivă se obține ca sumă a conținutului unui registru de bază cu conținutul unui registru index.
 
-Exemplu: ```asm MOV RA, [BA][XA]``` sau ```asm MOV RA, [BA+XA]```
+Exemplu: ```MOV RA, [BA][XA]``` sau ```MOV RA, [BA+XA]```
 
 Instrucțiunile încarcă în RA valoarea aflată în memorie la adresa obținută prin adunarea conținutului registrelor BA și XA. BA, BB poartă numele de registre de bază, iar XA, XB poartă numele de registre index. Întotdeauna suma se va face între un registru bază și unul index.
 
@@ -86,7 +86,7 @@ Instrucțiunile încarcă în RA valoarea aflată în memorie la adresa obținut
 
 Față de modul precedent de adresare apare deosebirea că registrele index se incrementează după generarea adresei efective. Incrementarea registrului index (XA sau XB) are deci loc după participarea la calculul adresei efective.
 
-Exemplu: ```asm MOV RA, [BA][XA+]``` sau ```asm MOV RA, [BA+XA+]```
+Exemplu: ```MOV RA, [BA][XA+]``` sau ```MOV RA, [BA+XA+]```
 
 Aceste instrucțiuni sunt echivalente cu:
 ```asm
@@ -98,7 +98,7 @@ INC XA
 
 Adresa efectivă se obține prin suma unui registru de bază cu continutul registrului XA. Înaintea generării adresei, registrul XA este decrementat.
 
-Exemplu: ```asm MOV RA, [BA][XA-]``` sau ```asm MOV RA, [BA+XA-]```
+Exemplu: ```MOV RA, [BA][XA-]``` sau ```MOV RA, [BA+XA-]```
 
 Aceste instrucțiuni sunt echivalente cu:
 ```asm
@@ -114,7 +114,7 @@ Observații: Motivul pentru care XB nu poate fi utilizat în acest mod de adresa
 
 Adresa efectivă se obține prin adunarea unui registru de bază cu un deplasament.
 
-Exemplu: ```asm MOV RA, [BA]+7``` sau ```asm MOV RA, [BA+7]```
+Exemplu: ```MOV RA, [BA]+7``` sau ```MOV RA, [BA+7]```
 
 Instrucțiunea încarcă în registrul RA valoarea aflată în memorie la adresa rezultată în urma adunării conținutului registrului de bază cu deplasamentul (7).
 
@@ -122,7 +122,7 @@ Instrucțiunea încarcă în registrul RA valoarea aflată în memorie la adresa
 
 Adresa efectivă se obține prin adunarea unui registru index cu un deplasament.
 
-Exemplu: ```asm MOV RA, [XA]+7``` sau ```asm MOV RA, [XA+7]```
+Exemplu: ```MOV RA, [XA]+7``` sau ```MOV RA, [XA+7]```
 
 Instrucțiunea încarcă în registrul RA valoarea aflată în memorie la adresa rezultată în urma adunării conținutului registrului de index cu deplasamentul (7).
 
@@ -130,7 +130,7 @@ Instrucțiunea încarcă în registrul RA valoarea aflată în memorie la adresa
 
 Adresa efectivă se obține prin adunarea unui registru de bază cu un registru index și cu un deplasament.
 
-Exemplu: ```asm MOV RA, [BA][XA]+7``` sau ```asm MOV RA, [BA+XA+7]```
+Exemplu: ```MOV RA, [BA][XA]+7``` sau ```MOV RA, [BA+XA+7]```
 
 Instrucțiunea încarcă în registrul RA valoarea aflată în memorie la adresa rezultată în urma adunării conținutului registrului de bază (BA) cu registrul index (XA) și cu deplasamentul (7).
 
@@ -147,7 +147,7 @@ Procesorul calculatorului didactic suportă mai multe moduri de adresare a opera
 
 Adresa efectivă se găsește într-unul din registrele _XA_, _XB_, _BA_ sau _BB_. Modul de determinare a acesteia este prezentat în imaginea de mai jos.
 
-Ex: ```asm mov RA, [BA]```
+Ex: ```mov RA, [BA]```
 
 
 ![Adresare indirectă prin registru](../media/addr_reg.png)
@@ -160,7 +160,7 @@ _Figure: Adresare indirectă prin registru_
 
 Adresa efectivă se obține prin sumarea conținutului unui registru de bază (_BA_ sau _BB_) cu conținutul unui registru index (_XA_ sau _XB_). Modul de determinare a acesteia este prezentat în imaginea de mai jos. 
 
-Ex: ```asm mov RA, [BA + XA]```
+Ex: ```mov RA, [BA + XA]```
 
 
 ![Adresare indirectă prin sumă de registre](../media/addr_sum.png)
@@ -177,6 +177,8 @@ Automatul care trebuie implementat în UC este descris în diagrama de stări di
 _Figure: Diagrama de stări a unității de comandă_
 
 După cum puteți observa, la stările deja implementate în laboratoarele anterioare au fost adăugate o serie de stări noi, necesare pentru adresarea indirectă prin registru sau sumă de registre. În cadrul acestui laborator va trebui să implementați aceste noi stări și să completați condițiile corecte pentru decodificarea noilor moduri de adresare.
+
+TODO: schimbat total cu cram.data
 
 Memoria calculatorului didactic este implementată cu ajutorul unui IP Core Xilinx de tipul Block Memory. Parametrii unui core sunt stocați într-un fișier _.xco_. Acest fișier este folosit de utilitarul de generare a IP Core-urilor pentru a genera o instanță a core-ului selectat. Core-ul de tip Block Memory oferă o serie de parametri care pot fi configurați, precum dimensiunea cuvântului, numărul de cuvinte și semnalele disponibile. Block Memory oferă și posibilitatea inițializării memoriei în momentul generării. Conținutul memoriei poate fi specificat într-un fișier _.coe_ referențiat apoi de fișierul _.xco_. În figura de mai jos puteți observa formatul fișierul _.coe_. Valorile din fișier sunt mapate în memoria generată începând de la adresa 0.
 
