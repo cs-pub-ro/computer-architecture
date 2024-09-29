@@ -12,7 +12,7 @@ make_assets:
   options:
     command: make
     locations:
-      - chapters/template-chapter/template-topic/slides
+      - chapters/intro/soc/slides
     args:
       - all
 
@@ -22,7 +22,7 @@ embed_reveal:
     target: docusaurus
     extension: mdx
     build:
-      template-chapter-template-topic: template-chapter-template-topic
+      intro: slides/intro
 
 docusaurus:
   plugin: docusaurus
@@ -178,9 +178,13 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
+      - Curs:
+          path: /build/embed_reveal
+          subsections:
+            - 0 Introducere: intro/intro.mdx
       
     static_assets:
-      - template-chapter-template-topic: /build/make_assets/chapters/template-chapter/template-topic/slides/_site
+      - slides/intro: /build/make_assets/chapters/intro/soc/slides/_site
     config_meta:
       title: Computer Architecture
       url: http://localhost/

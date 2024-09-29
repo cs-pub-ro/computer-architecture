@@ -1,0 +1,15 @@
+---
+title: "Computer Architecture: 0 Introduction"
+revealOptions:
+  background-color: 'white'
+  transition: 'none'
+  slideNumber: true
+  autoAnimateDuration: 0.0
+---
+
+!INCLUDE "intro.md"
+
+---
+
+!INCLUDE "content.md"
+
