@@ -8,22 +8,35 @@ Există mai multe tipuri de sumatoare pentru adunarea numerelor pe _n_ biți, ia
   - sumatorul elementar parțial (_Half adder_) - însumează doi operanzi pe 1 bit și oferă la ieșire suma acestora și transportul.
   - sumatorul elementar complet (_Full adder_) - însumează doi operanzi pe 1 bit și un transport și oferă la ieșire suma acestora și transportul. 
 
+<div align="center">
+
 ![Diagrama bloc pentru half adder](../media/half-adder.png)
 
 _Figure: Diagrama bloc pentru half adder_
+
+</div>
+
+<div align="center">
 
 ![Diagrama bloc pentru full adder](../media/full-adder.png)
 
 _Figure: Diagrama bloc pentru full adder_
 
+</div>
+
+<div align="center">
+
 ![Diagrama semnale pentru full adder](../media/diagrama_semnale_full_adder.jpg)
 
 _Figure: Diagrama semnale pentru full adder_
+
+</div>
 
 ## Sumatorul elementar parțial
 
 Acest sumator este în continuare descris prin expresiile booleene, tabelul de adevăr și schema logică.
 
+<div align="center">
 
 | a | b | sum | c_out |
 |---|---|-----|-------|
@@ -32,6 +45,8 @@ Acest sumator este în continuare descris prin expresiile booleene, tabelul de a
 | 1 | 0 | 1   | 0     |
 | 1 | 1 | 0   | 1     |
 _Table: Tabelul de adevăr pentru sumatorul elementar parțial_
+
+</div>
 
 Din tabelul de adevăr se pot deduce următoarele formule:
 
@@ -42,10 +57,13 @@ c_out = a && b
 
 Conform acestor formule putem exprima circuitul prin porți logice, ca în imaginea de mai jos:
 
+<div align="center">
 
 ![ Schema logică pentru half adder](../media/half-adder-gates.png)
 
 _Figure: Schema logică pentru half adder_
+
+</div>
 
 
 Dintr-un tabel de adevăr, pentru fiecare output se va deduce o funcție/expresie aplicând următoarele reguli:
@@ -67,9 +85,11 @@ void half_adder(const int a, const int b, int &sum, int &carry) {
     carry = a & b;     // Carry is the AND of the inputs
 }
 ```
+[Codul sursa pentru functia half_adder](https://github.com/cs-pub-ro/computer-architecture/blob/main/chapters/combinational-circuits/adders/demos/ripple/half_adder.hpp)
 
 În multe cazuri aceste formule sunt prea complexe, conținând multe operații și necesitând multe porți logice pentru a fi implementate. Pentru a reduce complexitatea formulelor rezultate se poate aplica un procedeu de **minimizare**, care va reduce dimensiunea termenilor sau chiar îi va elimina. Minimizarea se poate realiza folosind teoremele algebrei booleene sau grafic, prin diagrame [Karnaugh](http://www.ee.surrey.ac.uk/Projects/Labview/minimisation/karnaugh.html).
 
+<div align="center">
 
 ## Sumatorul elementar complet
 
@@ -85,6 +105,7 @@ void half_adder(const int a, const int b, int &sum, int &carry) {
 |  1  |  1  |  1     |  1    |  1      |
 _Table: Tabelul de adevăr pentru full adder_
 
+</div>
 
 Din tabelul de adevăr se pot deduce următoarele formule:
 
@@ -95,10 +116,13 @@ c_out = ((a ^ b) && c_in) || (a && b)
 
 Conform acestor formule putem exprima circuitul prin porți logice sau putem folosi sumatoare elementare parțiale, ca în imaginea de mai jos:
 
+<div align="center">
 
 ![ Schema logică pentru full adder](../media/full-adder-gates.png)
 
 _Figure: Schema logică pentru full adder_
+
+</div>
 
 ```C++
 void full_adder(const int a, const int b, const int cin, int &sum, int &carry)
@@ -123,17 +147,20 @@ void full_adder(const int a, const int b, const int cin, int &sum, int &carry) {
     carry = carry1 | carry2;
 }
 ```
-
+[Codul sursa pentru functia full_adder](https://github.com/cs-pub-ro/computer-architecture/blob/main/chapters/combinational-circuits/adders/demos/ripple/full_adder.hpp)
 
 
 ## Sumatorul cu transport succesiv
 
 Cel mai intuitiv mod de a forma un sumator este de a lega în cascadă mai multe sumatoare elementare complete pe 1 bit. În acest fel se formează un sumator cu transport succesiv (eng. _ripple-carry adder_), cum este cel pe 4 biți din imaginea de mai jos, care primește la intrare ```a[3:0]```, ```b[3:0]```, ```c_in``` și are ca ieșiri suma ```s[3:0]``` și transportul ```c_out```. În cazul sumatoarelor pe mai mulți biți nu mai este indicat de pornit întâi de la o tabelă de adevăr deoarece aceasta ajunge la dimensiuni prea mari.
 
+<div align="center">
 
 ![ Schema sumatorului cu transport succesiv, pe 4 biți](../media/ripple-carry.png)
 
 _Figure: Schema sumatorului cu transport succesiv, pe 4 biți_
+
+</div>
 
 ```C++
 template <int N>
@@ -152,13 +179,17 @@ void ripple_adder(const int (&a)[N], const int (&b)[N], int (&sum)[N], const int
     carry_out = carry_tmp[N];
 }
 ```
+[Codul sursa pentru functia ripple_adder](https://github.com/cs-pub-ro/computer-architecture/blob/main/chapters/combinational-circuits/adders/demos/ripple/ripple_adder.hpp)
 
 Un alt avantaj al acestui design simplu, este că se pot forma sumatoare pe mai mulți biți din înlănțuirea oricâtor sumatoare. De exemplu, pentru a însuma numere pe 16 biți se poate crea un sumator ripple-carry din legarea în cascadă a 4 sumatoare pe 4 biți, ca în imaginea de mai jos.
 
+<div align="center">
 
 ![ Schema sumatorului cu transport succesiv, pe 16 biți](../media/ripple-carry16.png)
 
 _Figure: Schema sumatorului cu transport succesiv, pe 16 biți_
+
+</div>
  
 Deși are un design simplu, dezavantajul acestui sumator este că este **lent**, fiecare sumator elementar necesitând transportul de la sumatorul precedent. Există alte sumatoare, cum ar fi cel cu transport anticipat (eng. [Carry-lookahead adder](http://www.eng.ucy.ac.cy/theocharides/Courses/ECE210/Carrylookahead_supp4.pdf)
 ), care oferă o funcționare mai rapidă, eliminând așteptarea propagării transportului.
@@ -175,3 +206,4 @@ for (int i = 0; i < M; i += 4) {
     ripple_adder<4>(*(int(*)[4])(a16 + i), *(int(*)[4])(b16 + i), *(int(*)[4])(sum16 + i), carry16[i / 4], carry16[i / 4 + 1]);
 }
 ```
+[Codul sursa](https://github.com/cs-pub-ro/computer-architecture/blob/main/chapters/combinational-circuits/adders/demos/ripple/ripple.cpp)

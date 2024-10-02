@@ -59,7 +59,7 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-              - Summatoare:
+              - Sumatoare:
                   path: chapters/combinational-circuits/adders
                   extra:
                     - media/

@@ -3,9 +3,15 @@
 Prin automate finite (eng. _Finite-state machine - FSM_) înțelegem de fapt un circuit secvențial sincron așa cum a fost el descris anterior. De obicei, proiectarea unui automat finit pornește de la o descriere informală a modului în care automatul trebuie să funcționeze. Primul pas în realizarea automatului este descrierea formală a funcționării acestuia. Două dintre metodele prin care un automat finit poate fi descris sistematic sunt:
   - **Diagrama de stări** prezintă într-un mod grafic funcționarea unui automat finit. Stările automatului sunt reprezentate prin noduri, iar tranzițiile sunt reprezentate prin arce între starea sursă și starea destinație. Fiecare arc este marcat cu condiția necesară pentru a fi efectuată o tranziție. De asemenea, eventualele semnale de ieșire ale automatului sunt marcate în dreptul stărilor care generează acele ieșiri.
 
+<div align="center">
+
 ![ Exemplu de diagramă de stări](../media/fsm-simplu.png)
 
 _Figure: Exemplu de diagramă de stări_
+
+</div>
+
+<div align="center">
 
   - **Tabelul de tranziții** prezintă funcționarea unui automat finit sub formă de tabel. Fiecare rând al tabelului reprezintă o tranziție a automatului și conține starea curentă, starea următoare și intrările necesare pentru a activa tranziția.
 
@@ -15,6 +21,8 @@ _Figure: Exemplu de diagramă de stări_
 | S1             | 0 | S0               |
 
 _Table: Exemplu de tabel de tranziții_
+
+</div>
 
 În continuare vom proiecta două automate finite simple:
 
@@ -40,10 +48,13 @@ Dacă ne aflăm în starea ''SA'' și automatul primește la intrare valoarea:
 
 În momentul de față comportamentul automatului a fost descris complet, toate cele 4 stări identificate având definite tranzițiile pentru toate combinațiile semnalelor de intrare. Figura de mai jos prezintă diagrama de stări a automatului.
 
+<div align="center">
 
 ![ Automatul de recunoaștere a secvenței "ba"](../media/fsm-ba.png)
 
 _Figure: Automatul de recunoaștere a secvenței "ba"_
+
+</div>
 
 O dată determinată diagrama de stări a automatului, putem trece la implementarea acestuia într-un limbaj cunoscut (C/C++/C#/Java):
 
@@ -116,7 +127,7 @@ void FSM_ba() {
   }
 }
 ```
-
+[Codul sursa pentru functia FSM_ba](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/sequential-circuits/fsms/demos/fsm)
 
 ## Intersecție semaforizată
 
@@ -140,9 +151,13 @@ Vom adăuga astfel o ieșire (''T''), care va controla valoarea maximă a număr
 
 Diagrama de stări a automatului va urmări tranziția celor 3 culori ale semaforului pentru mașini: verde -> galben -> roșu -> verde . 
 
+<div align="center">
+
 ![ Automatul intersecției](../media/fsm_intersectie.jpg)
 
 _Figure: Automatul intersecției_
+
+</div>
 
 Odată determinată diagrama de stări a automatului, putem trece la implementarea acestuia într-un limbaj cunoscut (C/C++/C#/Java): 
 
@@ -241,3 +256,4 @@ void FSM_intersectie() {
     }
 }
 ```
+[Codul sursa pentru functia FSM_intersectie](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/sequential-circuits/fsms/demos/semaphore)
