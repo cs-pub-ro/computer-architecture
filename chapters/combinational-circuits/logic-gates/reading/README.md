@@ -100,5 +100,5 @@ int mux4to1(int s0, int s1, int i0, int i1, int i2, int i3) {
     }
 }
 ```
-[Codul sursa pentru functia mux4to1](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/combinational-circuits/logic-gates/demos/mux4to1) 
+[Codul sursa pentru functia mux4to1](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/combinational-circuits/logic-gates/demos/mux4to1)
 
