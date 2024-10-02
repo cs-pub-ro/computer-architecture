@@ -7,7 +7,7 @@ Circuitele logice combinaționale aplică funcții logice pe semnalele de intrar
 
 _Figure:Diagrama bloc pentru un circuit combinațional cu n intrări și m ieșiri_
 
-<div>
+</div>
 
 
 Logica combinațională poate fi reprezentată prin:
