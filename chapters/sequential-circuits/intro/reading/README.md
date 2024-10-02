@@ -6,7 +6,10 @@ Logica secvențială poate fi de două tipuri: **sincronă** și asincronă. În
 
 În continuare ne vom referi doar la circuitele secvențiale sincrone.
 
+<div align="center">
 
 ![ Schema bloc a unui circuit secvențial sincron](../media/circuit-secv.png)
 
 _Figure: Schema bloc a unui circuit secvențial sincron_
+
+</div>
