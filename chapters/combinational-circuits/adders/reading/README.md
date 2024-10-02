@@ -36,7 +36,6 @@ _Figure: Diagrama semnale pentru full adder_
 
 Acest sumator este în continuare descris prin expresiile booleene, tabelul de adevăr și schema logică.
 
-<div align="center">
 
 | a | b | sum | c_out |
 |---|---|-----|-------|
