@@ -2,7 +2,7 @@
 
 Circuitele logice combinaționale aplică funcții logice pe semnalele de intrare pentru a obține semnalele de ieșire. Valorile de ieșire depind doar de valorile de intrare, iar când starea unei intrări se schimbă, acest lucru se reflectă imediat la ieșirile circuitului.
 
- <div align="center">
+<div align="center">
  
 ![Diagrama bloc pentru un circuit combinațional cu n intrări și m ieșiri](../media/circuit-comb.png)
 
