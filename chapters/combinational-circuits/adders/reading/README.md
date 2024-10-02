@@ -45,8 +45,6 @@ Acest sumator este în continuare descris prin expresiile booleene, tabelul de a
 | 1 | 1 | 0   | 1     |
 _Table: Tabelul de adevăr pentru sumatorul elementar parțial_
 
-</div>
-
 Din tabelul de adevăr se pot deduce următoarele formule:
 
 ```
