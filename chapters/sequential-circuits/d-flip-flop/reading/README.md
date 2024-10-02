@@ -20,8 +20,6 @@ Intrările și ieșirile circuitului sunt:
 
 Ca mod de funcționare, ecuația caracteristică a sa este ''Qnext = D'', adică starea următoare (''Qnext'') a bistabilului depinde doar de intrarea ''D'', fiind independentă de starea curentă (''Q''), după cum se observă și din tabelul de mai jos. 
 
-<div align="center">
-
 | D | Q | Qnext |
 |---|---|-------|
 | 0 | 0 | 0     |
