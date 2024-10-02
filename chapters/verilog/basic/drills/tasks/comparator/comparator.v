@@ -1,4 +1,4 @@
-module task3(
+module comparator(
     output wire o_w_lt,
     output wire o_w_gt,
     output wire o_w_eq,

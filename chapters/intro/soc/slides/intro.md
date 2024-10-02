@@ -4,7 +4,7 @@
 
 ---
 
-### Biografie
+<!-- ### Biografie
 
  - Licență: UPB-ACS/IPP-ENSTA "Interacțiunea om-robot într-un context de asistență socială"
  - Disertație: UPB-ACS/IPP-ENSTA "Social engineering attack using humanoid robots"
@@ -12,7 +12,7 @@
  - Post-Doctorat: NUS "Singapore Blockchain Innovation Programme"
  - Proiecte: CuEVM, NRSL/HNRSL, ENRICHME
 
----
+--- -->
 
 ### Cuprins materie
 

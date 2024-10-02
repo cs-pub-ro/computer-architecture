@@ -1,4 +1,4 @@
-module task01 (
+module halfadder (
     output wire o_w_s,
     output wire o_w_cout,
     input wire i_w_a,
