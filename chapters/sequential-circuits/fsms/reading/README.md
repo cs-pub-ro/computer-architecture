@@ -11,8 +11,6 @@ _Figure: Exemplu de diagramă de stări_
 
 </div>
 
-<div align="center">
-
   - **Tabelul de tranziții** prezintă funcționarea unui automat finit sub formă de tabel. Fiecare rând al tabelului reprezintă o tranziție a automatului și conține starea curentă, starea următoare și intrările necesare pentru a activa tranziția.
 
 | Starea curentă | x | Starea următoare |
