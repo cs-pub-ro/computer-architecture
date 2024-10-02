@@ -22,8 +22,6 @@ _Figure: Exemplu de diagramă de stări_
 
 _Table: Exemplu de tabel de tranziții_
 
-</div>
-
 În continuare vom proiecta două automate finite simple:
 
 ## Recunoaşterea secvenței "ba"
