@@ -45,6 +45,13 @@ docusaurus:
             - Simulare Vivado/: simulation/
             - Programare FPGA Vivado/: programming/
             - Rulare exemple practice/: runtasks/
+            - Docker:
+                path: docker/
+                extra:
+                  - media/
+                subsections:
+                  - Windows/: windows/
+                  - Linux/: linux/
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
