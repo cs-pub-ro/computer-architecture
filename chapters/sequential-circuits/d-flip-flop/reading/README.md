@@ -29,8 +29,6 @@ Ca mod de funcționare, ecuația caracteristică a sa este ''Qnext = D'', adică
 
 _Table: Tabelul de tranziții pentru bistabilul D_
 
-</div>
-
 Pentru a înțelege mai ușor comportamentul bistabilelor, pe lângă tabelele de tranziții mai sunt utile și diagramele de semnale (eng. _timing diagrams_), cum este cea din figura de mai jos, unde se poate observa cum ieșirea ''Q'' se schimbă doar pe frontul crescător de ceas și devine egală cu intrarea ''D'' în momentul tranziției ceasului.
 
 <div align="center">
