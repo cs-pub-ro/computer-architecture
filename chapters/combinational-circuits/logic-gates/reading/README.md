@@ -3,8 +3,6 @@
 Porțile logice reprezintă componentele de bază disponibile în realizarea circuitelor combinaționale. Ele oglindesc operațiile din algebra booleană, algebră care stă la baza teoriei circuitelor combinaționale. În sunt prezentate cele mai întâlnite porți logice împreună cu operația booleană pe care o implementează.
 
 
-<div align="center">
-
 | Denumire                  | Simbol                                      | Operator     | a | b | f |
 |---------------------------|---------------------------------------------|--------------|---|---|---|
 | Inversor (NOT)            | ![NOT Gate](../media/gate-not.png)          | f = !a       | 0 |   | 1 |
@@ -35,8 +33,6 @@ Porțile logice reprezintă componentele de bază disponibile în realizarea cir
 |                           |                                             |              | 1 | 1 | 1 |
 _Table: Tabel de adevăr pentru porti logice elementare_
 
-</div>
-
 ## Multiplexorul 4:1
 
 Un multiplexor digital este un circuit combinațional care implementează o funcție de selecție a uneia dintre intrările sale.
@@ -65,8 +61,6 @@ Alegerea semnalului de ieșire se face pe baza intrărilor de selecție, care re
 Funcția inversă a multiplexorului este realizată de către circuitele de demultiplexare, care preiau un semnal de intrare și folosesc intrările de selecție pentru a-l transmite pe una din ieșirile posibile.
 
 
-<div align="center">
-
 | S2 | S1 | out |
 |----|----|-----|
 | 0  | 0  | I1  |
@@ -74,8 +68,6 @@ Funcția inversă a multiplexorului este realizată de către circuitele de demu
 | 1  | 0  | I3  |
 | 1  | 1  | I4  |
 _Table: Tabel de adevăr pentru multiplexorul 4:1_
-
-</div>
 
 Deoarece multiplexorul 4:1 are 6 intrări, tabelul de adevăr devine destul de mare și nu mai este indicat de pornit de la acesta pentru obținerea funcției logice. Din descrierea funcționării circuitului și proprietățile porții AND, putem deduce termenii formulei:
 
