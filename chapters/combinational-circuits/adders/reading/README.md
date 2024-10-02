@@ -86,7 +86,6 @@ void half_adder(const int a, const int b, int &sum, int &carry) {
 
 În multe cazuri aceste formule sunt prea complexe, conținând multe operații și necesitând multe porți logice pentru a fi implementate. Pentru a reduce complexitatea formulelor rezultate se poate aplica un procedeu de **minimizare**, care va reduce dimensiunea termenilor sau chiar îi va elimina. Minimizarea se poate realiza folosind teoremele algebrei booleene sau grafic, prin diagrame [Karnaugh](http://www.ee.surrey.ac.uk/Projects/Labview/minimisation/karnaugh.html).
 
-<div align="center">
 
 ## Sumatorul elementar complet
 
@@ -102,7 +101,6 @@ void half_adder(const int a, const int b, int &sum, int &carry) {
 |  1  |  1  |  1     |  1    |  1      |
 _Table: Tabelul de adevăr pentru full adder_
 
-</div>
 
 Din tabelul de adevăr se pot deduce următoarele formule:
 
