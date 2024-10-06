@@ -8,11 +8,11 @@
  - 10p Tema (bonus)
 
 ### Promovare:
- - minim 25p laborator
- - minim 25p examen final
+ - Minim 25p Laborator
+ - Minim 50p Total
 
 ### Test circuite combinaționale
- - Materia necesară: laborataorele 1,2 și 3
+ - Materia necesară: laboratoarele 1,2 și 3
  - Durată: 60 de minute
  - Când: la începutul laboratorului 4
  - Strcutură: 3 exerciții practice de implementat în verilog
@@ -20,7 +20,7 @@
  - Platformă: Calculator Laborator - Safe Exam Browser - Moodle - VPL
 
 ### Test circuite secvențiale
- - Materia necesară: laborataorele 4,5 și 6
+ - Materia necesară: laboratoarele 4,5 și 6
  - Durată: 60 de minute
  - Când: la începutul laboratorului 7
  - Strcutură: 3 exerciții practice de implementat în verilog
@@ -28,7 +28,7 @@
  - Platformă: Calculator Laborator - Safe Exam Browser - Moodle - VPL
 
 ### Colocviu final calculator didactic
- - Materia necesară: toate laborataorele
+ - Materia necesară: toate laboratoarele
  - Durată: 120 de minute
  - Când: la ultimul laborator
  - Strcutură:
@@ -41,6 +41,7 @@
  - Durată: Întreg semestrul cu termen limită începutul ultimii săptămâni de laborator
  - Platformă: Moodle - VPL
  - Punctaj: Se va adăuga punctajului de laborator (nu se ia în considerare la punctajul minim)
+ - Punctaj: Punctajul total de laborator se trunchează la 50 de puncte.
 
 ### Examen Final (AB)
  - Platformă: Moodle - VPL/Quiz
