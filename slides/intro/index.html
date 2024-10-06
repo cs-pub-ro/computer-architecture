@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Computer Architecture: 0 Introduction</title>
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./dist/reset.css" />
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/base16/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown data-separator="\r?\n---\r?\n" data-separator-vertical="\r?\n----\r?\n">
+          <textarea data-template>
+            
+
+## Arhitectura Calculatoarelor (seria AB)
+
+### Ștefan Dan Ciocîrlan
+
+---
+
+<!-- ### Biografie
+
+ - Licență: UPB-ACS/IPP-ENSTA "Interacțiunea om-robot într-un context de asistență socială"
+ - Disertație: UPB-ACS/IPP-ENSTA "Social engineering attack using humanoid robots"
+ - Doctorat: UPB-ACS/NUS "Number representation systems in computer engineering"
+ - Post-Doctorat: NUS "Singapore Blockchain Innovation Programme"
+ - Proiecte: CuEVM, NRSL/HNRSL, ENRICHME
+
+--- -->
+
+### Cuprins materie
+
+0. Introducere
+1. Structură Calculator Numeric
+2. Reprezentarea și prelucrarea informației
+3. Memorii
+4. UAL
+5. Arhitectura Calculatorului Didactic
+6. Limbaje de asamblare
+7. Subsistem intrare/ieșire
+8. Întreruperi
+9. Microprogramare
+
+---
+
+### Obiectivele materiei
+
+ - Cultură generală despre arhitectura calculatoarelor
+   - Reprezentarea informației
+   - Memorii
+   - Seturi de instrucțiuni
+   - Codificare instrucțiuni
+   - Limbaj de asamblare
+   - Întreruperi de procesor
+ - Descriere hardware a unui procesor prin limbajul Verilog
+
+---
+
+
+#### Structură Calculator Numeric
+
+![Model general calculator numeric](media/mgcn.png)
+
+----
+
+![Model structural calculator numeric](media/mscn.png)
+
+----
+
+![Structură calculator numeric](media/scn.png)
+
+----
+
+![Structură bloc calculator numeric](media/sbcn.png)
+
+---
+
+#### Transfer memorie
+
+ - Programat
+ - Prin access direct la memorie
+ - Prin canal I/E
+
+---
+
+#### Modelul funcțional al unui Calcualtor Numeric
+
+          </textarea>
+        </section>
+      </div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./mermaid/dist/mermaid.min.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        slideNumber: true,
+        highlight: {
+          highlightOnLoad: false
+        },
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"background-color":"white","transition":"none","slideNumber":true,"autoAnimateDuration":0,"_":["slides.md"],"static":"_site"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+      Reveal.addEventListener('ready', function (event) {
+        const blocks = Reveal.getRevealElement().querySelectorAll('pre code:not(.mermaid)');
+        const hlp = Reveal.getPlugin('highlight');
+        blocks.forEach(hlp.highlightBlock);
+      });
+    </script>
+
+    <script>
+      const mermaidOptions = extend({ startOnLoad: false }, {});
+      mermaid.startOnLoad = false;
+      mermaid.initialize(mermaidOptions);
+      const cb = function (event) {
+        mermaid.init(mermaidOptions, '.stack.present > .present pre code.mermaid');
+        mermaid.init(mermaidOptions, '.slides > .present:not(.stack) pre code.mermaid');
+      }
+      Reveal.addEventListener('ready', cb);
+      Reveal.addEventListener('slidetransitionend', cb);
+    </script>
+  </body>
+</html>
