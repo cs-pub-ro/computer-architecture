@@ -25,9 +25,13 @@ Un limbaj de descriere hardware conține o serie de abstractizări sau moduri de
 
 **Circuitele logice combinaționale** aplică funcții logice pe intrări pentru a obține ieșirile. Valorile de ieșire depind astfel doar de valorile curente de intrare, iar când starea unei intrări se schimbă, se reflectă imediat asupra ieșiri.
 
+<div align="center">
+
 ![Diagrama bloc pentru un circuit combinațional cu n intrări și m ieșiri](../media/circuit-comb.png)
 
 _Figure: Diagrama bloc pentru un circuit combinațional cu n intrări și m ieșiri_
+
+</div>
 
 Logica combinațională poate fi reprezentată prin:
   - diagrame structurale la nivel de porți logice, 
@@ -36,9 +40,12 @@ Logica combinațională poate fi reprezentată prin:
 
 Spre deosebire de **circuitele** logice combinaționale, cele **secvențiale** (eng: sequential logic) nu mai depind exclusiv de valoarea curentă a intrărilor, ci și de stările anterioare ale circuitului. Logica secvențială poate fi de două tipuri: sincronă și asincronă.
 
+<div align="center">
 
 ![Schema bloc a unui circuit secvențial sincron](../media/circuit-secv.png)
 
 _Figure: Schema bloc a unui circuit secvențial sincron_
+
+</div>
 
 În primul caz, cel cu care vom lucra și la laborator, este folosit un semnal de ceas care comandă elementul/elementele de memorare, acestea schimbându-și starea doar la impulsurile de ceas. În al doilea caz, ieșirile se modifică atunci când se modifică și intrările, neexistând un semnal de ceas pentru elementele de memorare. Circuitele secvențiale asincrone sunt mai greu de proiectat, pot apărea probleme de sincronizare și sunt folosite mai rar. În continuare ne vom referi doar la circuitele secvențiale sincrone.
