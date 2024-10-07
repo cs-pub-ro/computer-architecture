@@ -40,14 +40,21 @@ Un multiplexor digital este un circuit combinațional care implementează o func
   - $n$ intrări de selecție
   - o ieșire
 
+<div align="center">
 
 ![Diagrama bloc a multiplexorului 4:1](../media/mux4.png)
 
 _Figure: Diagrama bloc a multiplexorului 4:1_
 
+</div>
+
+<div align="center">
+
 ![Schema logică a multiplexorului 4:1](../media/mux4-gates.png)
 
 _Figure: Schema logică a multiplexorului 4:1_
+
+</div>
 
 Alegerea semnalului de ieșire se face pe baza intrărilor de selecție, care reprezintă în baza 2 numărul intrării ce trebuie selectate. În exemplul din imaginea de mai sus avem schema bloc a unui multiplexor cu 4 intrări, iar acesta are nevoie de două intrări de selecție.
 
@@ -62,7 +69,6 @@ Funcția inversă a multiplexorului este realizată de către circuitele de demu
 | 1  | 1  | I4  |
 _Table: Tabel de adevăr pentru multiplexorul 4:1_
 
-
 Deoarece multiplexorul 4:1 are 6 intrări, tabelul de adevăr devine destul de mare și nu mai este indicat de pornit de la acesta pentru obținerea funcției logice. Din descrierea funcționării circuitului și proprietățile porții AND, putem deduce termenii formulei:
 
 $$f = \bar s_1\ \cdotp\ \bar s_2\ \cdotp\ I_1\ +\ s_1\ \cdotp \bar s_2\ \cdotp\ I_2\ +\ \bar s_1\ \cdotp\ s_2\ \cdotp\ I_3\ +\ s_1\ \cdotp\ s_2\ \cdotp\ I_4$$ 
@@ -72,9 +78,9 @@ Conform formulei se poate realiza circuitul cu porți logice din imaginea de mai
 ```C++
 int mux4to1(int s0, int s1, int i0, int i1, int i2, int i3) {
     // Use the select value to choose the appropriate input
-    switch ((s1 << 1) | s0) {
+    switch ((s1 << 1) | s0) {  // Combine s0 and s1 into a 2-bit value
         case 0:
-            return i0;
+            return i0; // If s1 and s0 are both 0, return input i0
         case 1:
             return i1;
         case 2:
@@ -86,4 +92,5 @@ int mux4to1(int s0, int s1, int i0, int i1, int i2, int i3) {
     }
 }
 ```
+[Codul sursa pentru functia mux4to1](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/combinational-circuits/logic-gates/demos/mux4to1)
 
