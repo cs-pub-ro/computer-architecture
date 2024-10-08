@@ -3,10 +3,11 @@
 ## Cerințe necesare
 1. Să aveți VSCode instalat
 2. Să aveți un Desktop Environment sau un Window Manager ce rulează cu X Server.
-3. Să aveți Docker CE instalat (Atenție, nu Docker Desktop! O să trebuiască privileged execution pentru a forwarda folderul `/dev`, iar acesta face acest lucru foarte enervant și dificil)
+3. Asigurați-vă că aveți instalat Docker CE (Atenție, nu Docker Desktop! Va fi nevoie de execuție cu privilegii pentru a redirecționa folderul `/dev`, ceea ce complică și îngreunează procesul)
    - [Ubuntu/Fedora](https://docs.docker.com/engine/install/)
    - Arch: ```sudo pacman -S docker```
-      * Dacă aveți deja Docker Desktop instalat de pe AUR, o să vă apară conflicte. Vă apar pachetele conflictuale, e alegerea voastră ce pachete păstrați.
+      * Dacă aveți deja Docker Desktop instalat de pe AUR, o să vă apară conflicte. 
+	    Vă apar pachetele conflictuale, e alegerea voastră ce pachete păstrați.
 
 ## Rulare
 
@@ -44,7 +45,7 @@ vivado
 Următoarea metodă o să expună un port la SSH pe un container privilegiat, neparolat, care are expus `/dev`-ul vostru. Asigurează-te că nu există posibilitatea ca o mașină remote să se poată conecta la acel port sau modifică `sshd_config`-ul astfel încât să respecte cerințele de securitate, sau schimbă parola de root (în Dockerfile).
 
 #### Devcontainer fără GUI
-Va trebui să editatezi `devcontainer.json` (ai comentate deja liniile necesare, decommentează `image`) ca să iți apară în formatul acesta:
+Trebuie să editezi fișierul `devcontainer.json` (liniile necesare sunt deja comentate, decomentează `image`) pentru a-l aduce în următorul format:
 ```json
 {
 	"name": "Vivado Slim Dev",
@@ -86,8 +87,10 @@ Va trebui să faci [pasul asta](#primesc-eroare-cand-scriu-in-shell-vivadonu-apa
 
 Există 2 opțiuni rapide:
 1. Instalează Xwayland și urmează setup-ul/configurarea pentru DE-ul/WM-ul tău.
-2. Instalează Xephyr și folosește comanda aceasta: ```Xephyr -br -ac -noreset -screen 1920x1080 :1```. Înlocuiește `1920x1080` cu rezoluția folosită de tine, o să se deschidă o fereastră. 
-După, scrii ```DISPLAY=:1 ssh -X -p 2222 root@localhost```. `GUI`-ul de la Vivado va apărea în noua fereastră deschisă.
+2. Instalează Xephyr și folosește comanda aceasta: ```Xephyr -br -ac -noreset -screen 1920x1080 :1```. 
+Înlocuiește `1920x1080` cu rezoluția folosită de tine, o să se deschidă o fereastră. 
+După, scrii ```DISPLAY=:1 ssh -X -p 2222 root@localhost```. 
+GUI-ul de la Vivado va apărea în noua fereastră deschisă.
 
 Mai multe detalii [aici](https://www.dbts-analytics.com/notesxfwdgb.html)
 
@@ -96,7 +99,8 @@ Scrie în `shell`, înainte să execuți Vivado, ```export _JAVA_AWT_WM_NONREPAR
 O altă variantă este să decommentezi linia din Dockerfile care dă `echo` la această linie în `.bashrc`.
 
 ### Stuck la deschiderea hardware managerului
-În terminalul din VSCode, scrie ```hw_server```. Dacă o să funcționeze, o să apară un output sub următorul format:
+În terminalul din VSCode, scrie ```hw_server```. 
+Dacă o să funcționeze, o să apară un output sub următorul format:
 ```
 ****** Xilinx hw_server v2022.1
   **** Build date : Apr 18 2022 at 16:10:30
