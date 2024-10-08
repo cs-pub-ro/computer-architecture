@@ -1,0 +1,77 @@
+\begin{frame}
+    \frametitle{Expersii Regulate/Logică combinațională}
+    \newsavebox{\asciiregular}
+    \begin{lrbox}{\asciiregular}
+        \begin{varwidth}{\maxdimen}
+        \VerbatimInput[fontsize=\scriptsize]{media/regular.ascii}
+        \end{varwidth}
+    \end{lrbox}%
+
+    \begin{figure}[h]
+        \centering
+        \scalebox{0.8}{\usebox{\asciiregular}}
+    \end{figure}
+    \begin{itemize}
+        \item Expresii regulate $O = [a-zA-Z0-9]+$
+        \item Logică combinațională $O = i_0 \oplus i_1$
+        \item Are nevoie de toată intrarea pentru a produce ieșirea
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Automat Finite}
+    \newsavebox{\asciifsm}
+    \begin{lrbox}{\asciifsm}
+        \begin{varwidth}{\maxdimen}
+        \VerbatimInput[fontsize=\scriptsize]{media/fsm.ascii}
+        \end{varwidth}
+    \end{lrbox}%
+
+    \begin{figure}[h]
+        \centering
+        \scalebox{0.8}{\usebox{\asciifsm}}
+    \end{figure}
+    \begin{itemize}
+        \item Are o stare internă ce poate fi modificată
+        \item Nu poate accessa intrări anterior anterior
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Automat cu stivă/pushdown}
+    \newsavebox{\asciistackfsm}
+    \begin{lrbox}{\asciistackfsm}
+        \begin{varwidth}{\maxdimen}
+        \VerbatimInput[fontsize=\scriptsize]{media/stackfsm.ascii}
+        \end{varwidth}
+    \end{lrbox}%
+
+    \begin{figure}[h]
+        \centering
+        \scalebox{0.8}{\usebox{\asciistackfsm}}
+    \end{figure}
+    \begin{itemize}
+        \item Are o stivă unde paote stoca și re accesa intrările.
+        \item Stiva este limitată, o intrare citită salvată și folosită nu poate fi folosită din nou.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Model Turing Machine}
+    \newsavebox{\asciituring}
+    \begin{lrbox}{\asciituring}
+        \begin{varwidth}{\maxdimen}
+        \VerbatimInput[fontsize=\scriptsize]{media/turing.ascii}
+        \end{varwidth}
+    \end{lrbox}%
+
+    \begin{figure}[h]
+        \centering
+        \scalebox{0.8}{\usebox{\asciituring}}
+    \end{figure}
+    \begin{itemize}
+        \item Are o rolă infinită și poate reaccesa intrările și ieșirle anterioare.
+    \end{itemize}
+\end{frame}
