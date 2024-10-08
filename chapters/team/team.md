@@ -23,7 +23,7 @@
 | Nume | E-mail | Github |
 |-|-|-|
 |ing. Teodor Dicu|dicu.teodor@gmail.com |DTeodor-Alexaandru|
-|ing. Cătălin Ștefan Rucăreanu|rucareanu2001@gmail.com|catalin-rucareanu2001|
+|ing. Cătălin-Ștefan Rucăreanu|rucareanu2001@gmail.com|catalin-rucareanu2001|
 |ing. Ionuț Pascal|pascal.ionut72@gmail.com|pascalionut|
 |ing. Tiberiu Gingu|tiberiu.gingu22@gmail.com|TiberiuGingu|
 

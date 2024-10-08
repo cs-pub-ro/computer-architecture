@@ -1,12 +1,12 @@
-# Utilizare imagine docker Linux
+# Utilizare imagine Docker Linux
 
 ## Cerințe necesare
-1. Sa aveti VSCode instalat
-2. Sa aveti un Desktop Environment sau un Window manager ce ruleaza cu X Server.
-3. Sa aveti Docker CE instalat (Atentie, nu docker desktop! O sa trebuiasca privileged execution pentru a forwarda folderul /dev iar acesta face acest lucru foarte enervant si dificil)
-	- [Ubuntu/Fedora](https://docs.docker.com/engine/install/)
-	- Arch: ```sudo pacman -S docker```
-		* Daca aveti deja docker desktop instalat de pe AUR o sa va apara conflicte. Va apar frumos acolo pachetele conflictuale, e alegerea voastra what comes next.
+1. Să aveți VSCode instalat
+2. Să aveți un Desktop Environment sau un Window Manager ce rulează cu X Server.
+3. Să aveți Docker CE instalat (Atenție, nu Docker Desktop! O să trebuiască privileged execution pentru a forwarda folderul `/dev`, iar acesta face acest lucru foarte enervant și dificil)
+   - [Ubuntu/Fedora](https://docs.docker.com/engine/install/)
+   - Arch: ```sudo pacman -S docker```
+      * Dacă aveți deja Docker Desktop instalat de pe AUR, o să vă apară conflicte. Vă apar pachetele conflictuale, e alegerea voastră ce pachete păstrați.
 
 ## Rulare
 
@@ -39,10 +39,12 @@ vivado
 ```
 
 ## Troubleshooting
-### Primesc eroare cand scriu in shell ```vivado```/nu apare GUI-ul
-Inainte de a rula urmatoarele solutii, **asigurati-va inainte ca .devcontainer/{sshd_config,Dockerfile,devcontainer.json} respecta cerintele de securitate impuse de voi**. Urmatoarea metoda o sa expuna un port la ssh pe un container privilegiat neparolat care are expus /dev-ul vostru. Asigurati-va ca nu exista posibilitatea ca o masina remote sa se poata conecta la acel port al vostru, sau modificati sshd_config-ul astfel incat sa respecte cerintele de securitate, sau schimbati parola de root (in dockerfile)
-#### Devcontainer fara GUI
-Va trebui sa editati devcontainer.json (aveti comentate deja liniile necesare, decomentati image) ca sa va apara in felul acesta:
+### Primesc eroare când scriu în shell ```vivado``` / nu apare GUI-ul
+Înainte de a rula următoarele soluții, **asigurați-vă că `.devcontainer/{sshd_config, Dockerfile, devcontainer.json}` respectă cerințele de securitate impuse de voi**. 
+Următoarea metodă o să expună un port la SSH pe un container privilegiat, neparolat, care are expus `/dev`-ul vostru. Asigurează-te că nu există posibilitatea ca o mașină remote să se poată conecta la acel port sau modifică `sshd_config`-ul astfel încât să respecte cerințele de securitate, sau schimbă parola de root (în Dockerfile).
+
+#### Devcontainer fără GUI
+Va trebui să editatezi `devcontainer.json` (ai comentate deja liniile necesare, decommentează `image`) ca să iți apară în formatul acesta:
 ```json
 {
 	"name": "Vivado Slim Dev",
@@ -65,12 +67,14 @@ Va trebui sa editati devcontainer.json (aveti comentate deja liniile necesare, d
 	}
 }
 ```
-Dupa apasati ```Ctrl+Shift+P``` si apasati pe ```Dev Containers: Rebuild and Reopen in Container```.
+După, apasă ```Ctrl+Shift+P``` și alege ```Dev Containers: Rebuild and Reopen in Container```.
 
-Pentru a putea accesa gui-ul deschideti un terminal (nu acela de pe vscode) si scrieti ```ssh -XY -p 2222 root@localhost```. Nu va trebui sa introduceti nicio parola. Puteti modifica portul cu ce doriti voi atata timp cat modificati acest lucru si in devcontainer.json la appPort.
+Pentru a putea accesa `GUI`-ul, deschide-ți un terminal (nu cel din VSCode) și scrie ```ssh -XY -p 2222 root@localhost```. 
+Nu ar trebui să introduci nicio parolă. 
+Poți modifica portul cu ce dorești tu, atât timp cât modifici acest lucru și în `devcontainer.json` la `appPort`.
 
-#### Setup manual de docker fara GUI
-In radacina proiectului computer-architecture executati
+#### Setup manual de Docker fără GUI
+În rădăcina proiectului `computer-architecture`, execută:
 ```
 cd .devcontainer
 docker build -t vivado-slim-sshx .
@@ -78,19 +82,21 @@ cd ..
 docker run -it -v /dev:/dev -p 2222:22 -v $PWD:/workspaces/computer-architecture vivado-slim-sshx
 ```
 ### Am wayland. Ce fac?
-Va trebui sa faci [pasul asta](#primesc-eroare-cand-scriu-in-shell-vivadonu-apare-gui-ul).
+Va trebui să faci [pasul asta](#primesc-eroare-cand-scriu-in-shell-vivadonu-apare-gui-ul).
 
-Exista 2 optiuni rapide:
-1. Instaleaza Xwayland si urmeaza setup-ul/configurarea pentru DE-ul/WM-ul tau
-2. Instaleaxa Xephyr si foloseste comanda aceasta: ```Xephyr -br -ac -noreset -screen 1920x1080 :1```. Inlocuieste 1920x1080 cu rezolutia folosita de tine, o sa se deschida o fereastra. Dupa scrii ```DISPLAY=:1 ssh -X -p 2222 root@localhost```. Gui-ul de la vivado va aparea in fereastra de tocmai s-a deschis
+Există 2 opțiuni rapide:
+1. Instalează Xwayland și urmează setup-ul/configurarea pentru DE-ul/WM-ul tău.
+2. Instalează Xephyr și folosește comanda aceasta: ```Xephyr -br -ac -noreset -screen 1920x1080 :1```. Înlocuiește `1920x1080` cu rezoluția folosită de tine, o să se deschidă o fereastră. 
+După, scrii ```DISPLAY=:1 ssh -X -p 2222 root@localhost```. `GUI`-ul de la Vivado va apărea în noua fereastră deschisă.
 
 Mai multe detalii [aici](https://www.dbts-analytics.com/notesxfwdgb.html)
 
-### Am ecran alb cand deschid cu wayland
-scrie in shell inainte sa executi vivado ```export _JAVA_AWT_WM_NONREPARENTING=1```. Sau decomenteaza linia din Dockerfile care da echo la aceasta linie in .bashrc
+### Am ecran alb când deschid cu Wayland
+Scrie în `shell`, înainte să execuți Vivado, ```export _JAVA_AWT_WM_NONREPARENTING=1```. 
+O altă variantă este să decommentezi linia din Dockerfile care dă `echo` la această linie în `.bashrc`.
 
 ### Stuck la deschiderea hardware managerului
-In terminalul din vscode scrie ```hw_server```, daca o sa functioneze o sa apare cv gen
+În terminalul din VSCode, scrie ```hw_server```. Dacă o să funcționeze, o să apară un output sub următorul format:
 ```
 ****** Xilinx hw_server v2022.1
   **** Build date : Apr 18 2022 at 16:10:30
@@ -101,4 +107,4 @@ INFO: Use Ctrl-C to exit hw_server application
 
 INFO: To connect to this hw_server instance use url: TCP:ba86b6047b8c:3121
 ```
-Copiati ce este intre TCP: si :3121 si folositi-l ca 'url' la conexiune remote
+Copiază ce este între `TCP:` și `:3121` și folosește-l ca 'url' la conexiunea remote.

@@ -20,4 +20,4 @@
 - Punctajul pentru laborator poate fi obținut printr-una din aceste metode:
   - se păstrează punctajul complet din anii precedenți (dacă respectă condiția de intrare în examen).
   - se reface în totalitate (activitate laborator + teme + teste + colocviu).
-- Refacerea poate fi făcută în orice interval orar, păstrat până la sfârșitul semestrului, în limita locurilor disponibiledupă anunțarea asistentului prin e-mail.
+- Refacerea poate fi făcută în orice interval orar, păstrat până la sfârșitul semestrului, în limita locurilor disponibile după anunțarea asistentului prin e-mail.

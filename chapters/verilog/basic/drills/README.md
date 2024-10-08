@@ -31,4 +31,4 @@
   | 1 | 1 | 0 | 1 |
   | 1 | 1 | 1 | 0 |
 
-  Intrările sun `a`, `b`, `c` iar ieșirea este `f`. Implementați modulul verilog este definit de acest tabel de adevăr.
+  Intrările sunt `a`, `b`, `c` iar ieșirea este `f`. Implementați modulul verilog este definit de acest tabel de adevăr.
