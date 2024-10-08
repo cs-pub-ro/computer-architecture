@@ -41,7 +41,7 @@
  - Durată: Întreg semestrul cu termen limită începutul ultimii săptămâni de laborator
  - Platformă: Moodle - VPL
  - Punctaj: Se va adăuga punctajului de laborator (nu se ia în considerare la punctajul minim)
- - Punctaj: Punctajul total de laborator se trunchează la 50 de puncte.
+ - Punctaj: Punctajul total de laborator se trunchiază la 50 de puncte.
 
 ### Examen Final (AB)
  - Platformă: Moodle - VPL/Quiz
