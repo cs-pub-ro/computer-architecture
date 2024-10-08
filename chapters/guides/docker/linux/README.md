@@ -91,8 +91,7 @@ Există 2 opțiuni rapide:
 Înlocuiește `1920x1080` cu rezoluția folosită de tine, o să se deschidă o fereastră. 
 După, scrii ```DISPLAY=:1 ssh -X -p 2222 root@localhost```. 
 GUI-ul de la Vivado va apărea în noua fereastră deschisă.
-
-S-ar putea să fie nevoie și de un ```unset XDG_SEAT``` [în cazul în care nu toate inputurile tastaturii sau mouse-ului nu sunt luate în considerare](https://unix.stackexchange.com/questions/690782/mouse-and-keyboard-not-getting-captured-by-xephyr)
+S-ar putea să fie nevoie și de un ```unset XDG_SEAT``` [în cazul în care nu toate inputurile tastaturii sau mouse-ului sunt luate în considerare](https://unix.stackexchange.com/questions/690782/mouse-and-keyboard-not-getting-captured-by-xephyr)
 
 Mai multe detalii [aici](https://www.dbts-analytics.com/notesxfwdgb.html)
 
