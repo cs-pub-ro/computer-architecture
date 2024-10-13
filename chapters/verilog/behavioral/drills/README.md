@@ -12,7 +12,7 @@ De exemplu, dacă dorim să afișăm cifra 6, ieșirea noastră va avea valoarea
 
 Pentru mai multe detalii asupra acestui tip de modul, consultați pagina de [Wiki](https://en.wikipedia.org/wiki/Seven-segment_display).
 
-Pentru implementarea exercițiilor se vor utiliza scheletele de cod din arhiva laboratorului. Scheletele de cod conțin deja un proiect Xilinx ISE, iar unele din ele și un modul de testare. Urmăriți cerința și zonele marcate cu TODO.
+Pentru implementarea exercițiilor se vor utiliza scheletele de cod din arhiva laboratorului. Scheletele de cod conține deja un proiect Xilinx ISE, iar unele din ele și un modul de testare. Urmăriți cerința și zonele marcate cu TODO.
 
   - **(4p)** Implementați și simulați un **multiplicator pe 4 biți** fără a folosi operatorul * (înmulțire).
     - _Hint_: Folosiți convenția Verilog pentru interfața modulului. Câți biți are ieșirea? 

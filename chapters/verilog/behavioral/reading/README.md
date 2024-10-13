@@ -2,7 +2,7 @@
 
 În laboratoarele anterioare am studiat descrierea structurală, folosind primitive, precum și descrierea comportamentală, folosind atribuiri continue. Am remarcat faptul că generalizarea modulelor folosind parametri conduce la o capacitate de reutilizare mai mare, cu schimbări minime. Cu toate acestea, soluțiile prezentate nu sunt pretabile funcțiilor complexe, întrucât ele devin complicat de implementat sau de urmărit, în momentul când este găsit un bug în cod.
 
-In continuare vom trece prin elementele Verilog folosite pentru descrierea comportamentală la nivel procedural, ce se vor axa în continuarea pe conceptul de “**ce face** circuitul”.  Se folosesc construcții de nivel înalt, similare altor limbaje de programare întâlnite până în prezent, prin care putem descrie mai facil algoritmul care calculează ieșirile circuitului.
+In continuare vom trece prin elementele Verilog folosite pentru descrierea comportamentală la nivel procedural, ce se vor axa în continuare pe conceptul de “**ce face** circuitul”.  Se folosesc construcții de nivel înalt, similare altor limbaje de programare întâlnite până în prezent, prin care putem descrie mai facil algoritmul care calculează ieșirile circuitului.
 
 
 ## Tipul reg
@@ -30,7 +30,7 @@ Declararea unei variabile de tip reg (deci o variabilă de tip registru în Veri
 În afară de folosirea atribuirilor continue, circuitele pot fi descrise comportamental și prin blocuri always. În interiorul acestora se pot folosi construcții de limbaj similare celor din limbajele procedurale.
 
 
-Construcțiile de repetiție sunt sintetizabile doar dacă ele au un număr **fix** de iterații. Trebuie acordată o deosebită atenție în momentul în care se implementează structuri repetitive utilizând _while_ sau _repeat_, acestea fiind mult mai susceptibile la greșeli de implementare care vor genera, în final, un cod simulabil dar nesintetizabil.
+Construcțiile de repetiție sunt sintetizabile doar dacă ele au un număr **fix** de iterații. Trebuie acordată o deosebită atenție în momentul în care se implementează structuri repetitive utilizând _while_ sau _repeat_, acestea fiind mult mai susceptibile la greșeli de implementare care vor genera, în final, un cod simulabil, dar nesintetizabil.
 
 | Cod Verilog | Cod C |
 |-------------|-------|
@@ -45,7 +45,7 @@ Construcțiile de repetiție sunt sintetizabile doar dacă ele au un număr **fi
 
 Blocurile _always_ descriu un comportament ciclic, codul acestora fiind executat în continuu. Prezența operatorului _@_ face ca blocul să se “execute” doar la apariția unor evenimente. Evenimentele sunt reprezentate de modificarea unuia sau mai multor semnale.
 
-În cadrul acestui laborator ne axăm doar pe descrierea circuitelor combinaționale, și vom folosi doar blocuri ''always @(*)'', unde (*) se numește **sensitivity list**. Folosirea wildcard-ului * implică “execuția” blocului _always_ la orice eveniment de modificare a oricărui semnal folosit în cadrul blocului.
+În cadrul acestui laborator ne axăm doar pe descrierea circuitelor combinaționale și vom folosi doar blocuri ''always @(*)'', unde (*) se numește **sensitivity list**. Folosirea wildcard-ului * implică “execuția” blocului _always_ la orice eveniment de modificare a oricărui semnal folosit în cadrul blocului.
 
 Instrucțiunile din blocul _always_ sunt încadrate între cuvintele cheie ''begin'' și ''end'' și sunt “executate” secvențial atunci când blocul este activat. 
 
@@ -59,7 +59,7 @@ end
 ```
 
 
-În locul wildcard-ului, *, sensitivity list-ul poate conține o listă de semnale la modificarea cărora blocul _always_ să fie activat. Acestea se declară prin numele lor, folosind or sau , pentru a le separa. 
+În locul wildcard-ului *, sensitivity list-ul poate conține o listă de semnale la modificarea cărora blocul _always_ să fie activat. Acestea se declară prin numele lor, folosind or sau , pentru a le separa. 
 
 Este foarte important ca lista de semnale dată unui bloc _always@_ să fie **completă**, altfel nu toate combinațiile de intrări sunt acoperite și unele variabile pot rămâne neatribuite corespunzător. Pentru a evita astfel de erori se recomandă folosirea wildcard-ului *.
 
