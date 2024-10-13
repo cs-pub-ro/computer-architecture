@@ -11,7 +11,7 @@ run: build_project/build.xpr
 simulation: build_project/build.xpr
 	vivado -mode batch -source tcl_files/simulation.tcl
 
-clean:
+clean: 
 	rm -rf vivado*
 	rm -rf build_project
 	rm -rf .Xil

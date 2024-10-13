@@ -6,7 +6,7 @@ module adder_4bits(
     input wire i_w_cin
 );
 
-    //TODO 1.1: Implement with 4 full-adders
+    //TODO 1.1: Implement with 4 full-adders 
     wire [3:0] l_w_carry;
     fulladder l_m_fulladder_0 ( .o_w_s(o_w_s[0]), .o_w_cout(l_w_carry[0]), .i_w_a(i_w_a[0]), .i_w_b(i_w_b[0]), .i_w_cin(i_w_cin) );
     fulladder l_m_fulladder_1 ( .o_w_s(o_w_s[1]), .o_w_cout(l_w_carry[1]), .i_w_a(i_w_a[1]), .i_w_b(i_w_b[1]), .i_w_cin(l_w_carry[0]) );

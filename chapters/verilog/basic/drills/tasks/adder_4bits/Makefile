@@ -9,7 +9,7 @@ run: build_project/build.xpr
 	vivado -mode batch -source tcl_files/run.tcl
 
 simulation: build_project/build.xpr
-	vivado -mode batch -source tcl_files/simulation.tcl
+	vivado -mode batch -source tcl_files/simulation.tcl 
 
 clean:
 	rm -rf vivado*

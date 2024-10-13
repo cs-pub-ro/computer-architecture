@@ -12,7 +12,7 @@ module test_comparator;
     //local variables for loop
     integer i,j;
 
-    //Module initialization
+    //Module initialization 
     comparator l_m_comparator(
         .o_w_lt(l_w_lt),
         .o_w_gt(l_w_gt),

@@ -21,7 +21,7 @@
 2. Reprezentarea și prelucrarea informației
 3. Memorii
 4. UAL
-5. Arhitectura Calculatorului Didactic
+5. Arhitectura Calculatorului Didactic 
 6. Limbaje de asamblare
 7. Subsistem intrare/ieșire
 8. Întreruperi

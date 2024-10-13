@@ -5,4 +5,4 @@ import_files -force -fileset constrs_1 -norecurse fulladder.xdc
 set_property top fulladder [get_fileset sources_1]
 set_property top test_fulladder [get_fileset sim_1]
 update_compile_order -fileset sources_1
-update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1 

@@ -35,7 +35,7 @@ module test_adder_4bits;
             "l_r_a=%0d, ", l_r_a,
             "l_r_b=%0d, ", l_r_b,
             "l_r_cin=%0d, ", l_r_cin
-            );
+            ); 
 
         l_r_a = 0;
         l_r_b = 0;

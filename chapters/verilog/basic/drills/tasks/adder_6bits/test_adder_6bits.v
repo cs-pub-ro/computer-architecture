@@ -11,7 +11,7 @@ module test_adder_6bits;
     integer i,j,k;
 
     //Module initialization
-    adder_6bits l_m_adder_6bits(
+    adder_6bits l_m_adder_6bits( 
         .o_w_s(l_w_s),
         .i_w_a(l_r_a),
         .i_w_b(l_r_b)

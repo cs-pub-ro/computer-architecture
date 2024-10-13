@@ -11,11 +11,11 @@
  - Minim 25p Laborator
  - Minim 50p Total
 
-### Test circuite combinaționale
+### Test circuite combinaționale 
  - Materia necesară: laboratoarele 1,2 și 3
  - Durată: 60 de minute
  - Când: la începutul laboratorului 4
- - Strcutură: 3 exerciții practice de implementat în verilog
+ - Strcutură: 3 exerciții practice de implementat în verilog 
  - Locație: sala de laborator
  - Platformă: Calculator Laborator - Safe Exam Browser - Moodle - VPL
 

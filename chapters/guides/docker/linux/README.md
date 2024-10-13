@@ -97,7 +97,7 @@ S-ar putea să fie nevoie și de un ```unset XDG_SEAT``` [în cazul în care nu 
 Mai multe detalii [aici](https://www.dbts-analytics.com/notesxfwdgb.html)
 
 ### Am ecran alb când deschid cu Wayland
-Scrie în `shell`, înainte să execuți Vivado, ```export _JAVA_AWT_WM_NONREPARENTING=1```. 
+Scrie în `shell`, înainte să execuți Vivado, ```export _JAVA_AWT_WM_NONREPARENTING=1```.  
 O altă variantă este să decommentezi linia din Dockerfile care dă `echo` la această linie în `.bashrc`.
 
 ### Stuck la deschiderea hardware managerului
