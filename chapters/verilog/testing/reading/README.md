@@ -5,10 +5,13 @@ Pentru testarea unui modul folosind simulatorul se creează module speciale de t
 Pentru a creea un modul de test și a-l simula puteți urma tutorialul de simulare [[https:_ocw.cs.pub.ro/courses/ac-is/tutoriale/2-ise-simulare|aici]], iar această secțiune va prezenta câteva din construcțiile de limbaj pe care le puteți folosi într-un astfel de modul. 
 
 
+<div align="center">
+
 ![Diagrama testare circuit](../media/circuit_tb.png)
 
 _Figure: Diagrama testare circuit_
 
+</div>
 
 ## Blocul initial
 
