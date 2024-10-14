@@ -1,0 +1,99 @@
+\begin{frame}
+    \frametitle{Memoria}
+    Tipuri de memorie:
+    \begin{itemize}
+        \item Regiștri
+        \item Tampon (Cache)
+        \item Principală (RAM)
+        \item Memorie auxiliară/externă (HDD, SSD) - Poate să fie parte din subsistemul de intrare/ieșire
+    \end{itemize}
+    Proprietați:
+    \begin{itemize}
+        \item Fiecare Locație are același număr de biți
+        \item Fiecare locație are o adresă unică 
+        \item Spațiul de adresare este omoegen și toate locațiile de memorie sunt echivalente
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Memoria}
+    \newsavebox{\asciimemwrite}
+    \begin{lrbox}{\asciimemwrite}
+        \begin{varwidth}{\maxdimen}
+        \VerbatimInput[fontsize=\scriptsize]{media/memwrite.ascii}
+        \end{varwidth}
+    \end{lrbox}%
+
+    \begin{figure}[h]
+        \centering
+        \scalebox{0.8}{\usebox{\asciimemwrite}}
+    \end{figure}
+    \begin{itemize}
+        \item Timp acces memorie depinde de lungimea addresei
+        \item Timp ciclu de scriere/citire depinde de lungimea cuvântului
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Unitate centrală de prelucrare}
+    Componente:
+    \begin{itemize}
+        \item Unitatea aritmetică și logică (UAL).
+        \item Unitatea de comandă.
+    \end{itemize}
+    Tipuri de UAL:
+    \begin{itemize}
+        \item UAL cu o singură magistrală.
+        \item UAL cu o singură magistrală și un acumulator.
+        \item UAL cu trei magistrale.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Unitatea de comandă}
+    \begin{itemize}
+        \item Decodifică instrucțiunile și generează semnalele de control.
+        \item Preia instrucțiunea de la adresa dată de registru contor program (CP).
+        \item Poate să fie implementată:
+        \begin{itemize}
+            \item Unitate de comandă microprogramată
+            \item Unitate de comandă convențională (Automat)
+        \end{itemize}
+        \item Dependent de setul de instrucțiuni.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Set de instrucțiuni}
+    Tipuri de instrucțiuni:
+    \begin{itemize}
+        \item Transfer de date
+        \item Operații aritmetice
+        \item Operații logice și de deplasare
+        \item Operații de comparare
+        \item Control de flux
+    \end{itemize}
+    Fiecare instrucțiune are un cod de operație și specificatori de operanzi.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Subsistem de intrare/ieșire}
+    Rolul subsistemului de intrare/ieșire este de a asigura conversia de format și viteză între UCP și dispozitivele periferice.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Limbaje de programare}
+    \newsavebox{\asciiplcomp}
+    \begin{lrbox}{\asciiplcomp}
+        \begin{varwidth}{\maxdimen}
+        \VerbatimInput[fontsize=\scriptsize]{media/plcomp.ascii}
+        \end{varwidth}
+    \end{lrbox}%
+
+    \begin{figure}[h]
+        \centering
+        \scalebox{0.8}{\usebox{\asciiplcomp}}
+    \end{figure}
+    Rolul limbajelor de programare este de a crea iluzia unei ierarhi de calculatoare virtuale.
+\end{frame}
