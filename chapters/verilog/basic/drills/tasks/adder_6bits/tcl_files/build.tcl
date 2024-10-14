@@ -5,4 +5,4 @@ import_files -force -fileset constrs_1 -norecurse adder_6bits.xdc
 set_property top adder_6bits [get_fileset sources_1]
 set_property top test_adder_6bits [get_fileset sim_1]
 update_compile_order -fileset sources_1
-update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1 

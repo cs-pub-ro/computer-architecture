@@ -5,7 +5,7 @@
 
 ----
 
-![Model structural calculator numeric](media/mscn.png)
+![Model structural calculator numeric](media/mscn.png) 
 
 ----
 

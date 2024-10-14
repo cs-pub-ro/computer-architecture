@@ -68,7 +68,7 @@ git clone https://github.com/cs-pub-ro/computer-architecture.git
 ## Rulare
 
 ### Porniți XLaunch
-1. Deschideți XLaunch (Desktop sau Start Menu)
+1. Deschideți XLaunch (Desktop sau Start Menu) 
 
 2. Selectați opțiunile pentru Disaply și apăsați butonul "Next".
 

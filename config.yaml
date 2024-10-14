@@ -11,7 +11,7 @@ make_assets:
   plugin: command
   options:
     command: make
-    locations:
+    locations: 
       - chapters/intro/soc/slides
     args:
       - all

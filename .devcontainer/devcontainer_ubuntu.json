@@ -5,7 +5,11 @@
 		"--rm",
 		"--privileged"
 	],
-	"mounts": ["type=bind,source=/dev,target=/dev"],
+	"mounts": ["type=bind,source=/dev,target=/dev", "type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix"],
+	"containerEnv": {
+		"DISPLAY" : ":0.0" 
+	},
+	// run the command on host xhost +local:docker
 	"customizations": {
 		"vscode": {
 			"extensions": [
