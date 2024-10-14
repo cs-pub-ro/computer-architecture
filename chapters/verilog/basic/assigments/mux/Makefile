@@ -1,20 +1,47 @@
+COMPILER=iverilog
+INTERPRETER=vvp
+SIMULATOR=gtkwave
+FLAGS=-Wall -Winfloop
+SOLUTION_FLAGS=-DSEL_WIDTH=2
+TOP_MODULE=mux
+TOP_SIM_MODULE=test_${TOP_MODULE}
+TOP_EVALUATE_MODULE=evaluate_${TOP_MODULE}
+SOLUTION_MODULE=solution_${TOP_MODULE}
+SOLUTION_SIM_MODULE=test_${SOLUTION_MODULE}
+OTHER_SOURCES=
+DUMP_VCD_FILE=test.vcd
+EVALUATE_FILE=evaluate.out
+GRADE_SCRIPT=grade.sh
+
 all: build
 
-build: build_project/build.xpr
+build:
+	$(COMPILER) $(FLAGS) $(TOP_MODULE).v $(TOP_SIM_MODULE).v $(OTHER_SOURCES) -o $(TOP_MODULE).vvp
 
-build_project/build.xpr:
-	vivado -mode batch -source tcl_files/build.tcl
+build_solution:
+	$(COMPILER) $(FLAGS) ${SOLUTION_FLAGS} ${SOLUTION_SIM_MODULE}.v ${SOLUTION_MODULE}.v $(OTHER_SOURCES) -o $(SOLUTION_MODULE).vvp
 
-run: build_project/build.xpr
-	vivado -mode batch -source tcl_files/run.tcl
+build_evaluate:
+	$(COMPILER) $(FLAGS) ${SOLUTION_FLAGS} ${TOP_MODULE}.v ${SOLUTION_MODULE}.v ${TOP_EVALUATE_MODULE}.v $(OTHER_SOURCES) -o $(TOP_EVALUATE_MODULE).vvp
 
-simulation: build_project/build.xpr
-	vivado -mode batch -source tcl_files/simulation.tcl
 
-vivado: build_project/build.xpr
-	vivado build_project/build.xpr
+run: build
+	$(INTERPRETER) $(TOP_MODULE).vvp
+
+run_solution: build_solution
+	$(INTERPRETER) $(SOLUTION_MODULE).vvp
+
+run_evaluate: build_evaluate
+	$(INTERPRETER) $(TOP_EVALUATE_MODULE).vvp &> $(EVALUATE_FILE)
+
+simulate: run
+	$(SIMULATOR) $(DUMP_VCD_FILE)
+
+simulate_solution: run_solution
+	$(SIMULATOR) $(DUMP_VCD_FILE)
+
+evaluate: run_evaluate
+	./${GRADE_SCRIPT} $(EVALUATE_FILE)
 
 clean:
-	rm -rf vivado*
-	rm -rf build_project
-	rm -rf .Xil
+	rm *.vvp $(DUMP_VCD_FILE) $(EVALUATE_FILE)
