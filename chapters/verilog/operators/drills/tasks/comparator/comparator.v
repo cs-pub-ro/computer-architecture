@@ -1,11 +1,11 @@
-module task0 #(
-    parameter p_width = 1
+module comparator #(
+    parameter p_width = 4
 ) (
     output wire o_w_gt,
     output wire o_w_lt,
     output wire o_w_eq,
-    input wire [p_width:0] i_w_a,
-    input wire [p_width:0] i_w_b
+    input wire [(p_width-1):0] i_w_a,
+    input wire [(p_width-1):0] i_w_b
 );
 
     //TODO 1: Implement adder

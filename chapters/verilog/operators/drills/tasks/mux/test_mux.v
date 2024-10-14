@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module test_task1;
+module test_mux;
     //Inputs
     reg [3:0] l_r_in;
     reg [1:0] l_r_sel;
@@ -11,7 +11,7 @@ module test_task1;
     integer i,j;
 
     //Module initialization
-    task1 l_m_task1(
+    mux l_m_mux(
         .o_w_out(l_w_out),
         .i_w_in(l_r_in),
         .i_w_sel(l_r_sel)

@@ -1,21 +1,22 @@
 `timescale 1ns / 1ps
-module test_task0;
+module test_adder;
+    localparam l_p_width = 6;
     //Inputs
-    reg [3:0] l_r_a;
-    reg [3:0] l_r_b;
+    reg [(l_p_width-1):0] l_r_a;
+    reg [(l_p_width-1):0] l_r_b;
 
     //Outputs
-    wire [4:0] l_w_s;
+    wire [(l_p_width+1):0] l_w_s;
     
     //local variables for loop
     integer i,j;
 
     //Module initialization
-    task0 l_m_task0(
+    adder #( .p_widith(l_p_width) ) l_m_adder (
         .o_w_s(l_w_s),
         .i_w_a(l_r_a),
         .i_w_b(l_r_b)
-        );
+    );
     
     //Simulation tests
     initial begin

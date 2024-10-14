@@ -1,4 +1,4 @@
-module task1(
+module mux(
     output wire o_w_out,
     input wire [3:0] i_w_in,
     input wire [1:0] i_w_sel
