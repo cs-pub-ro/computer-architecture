@@ -1,5 +1,7 @@
 # Practice: Memory
 
+  Soluția se află în repo-ul materiei [GitHub](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/verilog/memory/drills/tasks). 
+
  - Implementați modulul register pornind de la declarația din fișierul register.v. Semnalele oe și we reprezintă Output Enable, respectiv Write Enable.
 oe controlează ieșirea registrului. Când oe este high ieșirea este activă având valoarea memorată de registru. Când oe este low ieșirea va fi 0. Acest semnal trebuie să fie asincron: modificarea lui va avea efect imediat asupra ieșirii și nu se va aștepta tranziția semnalului de ceas.
 we controlează scrierea în registru. Când we este high registrul va memora valoarea aflată în semnalul de intrare. Când we este low valoarea registrului nu se va modifica, ignorând practic semnalul de intrare. Acest semnal trebuie să fie sincron: modificarea valorii memorate de registru se face doar în momentul tranziției semnalului de ceas.
