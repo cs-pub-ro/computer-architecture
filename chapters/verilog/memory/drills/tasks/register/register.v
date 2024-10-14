@@ -1,4 +1,4 @@
-module task0#(
+module register#(
     parameter p_data_width = 7
 )(
     output wire [(p_data_width - 1):0] o_w_out,
