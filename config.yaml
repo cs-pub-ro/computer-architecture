@@ -52,6 +52,7 @@ docusaurus:
                 subsections:
                   - Windows/: windows/
                   - Linux/: linux/
+                  - MacOS/: macos/
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
