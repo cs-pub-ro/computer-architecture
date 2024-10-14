@@ -1,0 +1,14 @@
+{
+    "latex-workshop.latex.outDir": "out",
+    "latex-workshop.synctex.afterBuild.enabled": true,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.latex.build.forceRecipeUsage": false,
+    "latex-workshop.latex.search.rootFiles.include": ["**/courses/0/main.tex"], // Change this to the path of your main tex file
+    "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+    "latex-workshop.latex.autoClean.run": "onBuilt",
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "python.analysis.typeCheckingMode": "off",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true
+}

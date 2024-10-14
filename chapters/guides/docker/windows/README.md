@@ -114,3 +114,9 @@ docker run --rm -it -v /dev:/dev gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:
 ```bash
 vivado
 ```
+
+
+## Troubleshooting
+### Vivado nu vede seriala catre FPGA (laptop)
+
+Urmăriți tutorialul până la finalul sesiunii "Attach the device to wsl2" [usbipd](https://hackmd.io/@aeefs2Y8TMms-cjTDX4cfw/r1fqAa_Da)

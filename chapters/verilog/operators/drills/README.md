@@ -1,5 +1,7 @@
 # Practice: Operators
 
+  Soluția se află în repo-ul materiei [GitHub](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/verilog/operators/drills/tasks). 
+
  - Implementați și simulați un comparator pe 4 biți. Acesta are două intrări și 3 ieșiri (pentru mai mic, egal și mai mare).
 
 Hint: Unei variabile îi poate fi atribuită valoarea unei expresii logice.

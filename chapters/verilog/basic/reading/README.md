@@ -61,14 +61,14 @@ Un singur modul sau o singură primitivă nu poate îndeplini singură funcția 
 |---------------------------------------|---------------------------------------------------------------------|
 | ![Gates](../media/gates.png) | ```wire y1, y2; xor(out, y1, y2); and(y1, in1, in2); nand(y2, in3, in4, in5);``` |
 
-_Table: Exemplu de fromare a unei porti complexe din primitive_
+_Table: Exemplu de formare a unei porti complexe din primitive_
 
 
 În exemplul anterior y1 și y2 sunt semnale de câte 1 bit care leagă ieșirile porților and (y1) și nand (y2) la intrările porții xor.
 
 Pentru a declara semnale pe mai mulți biți se pot folosi vectori precum în declarațiile următoare: m reprezintă un semnal de 8 biți, iar n reprezintă un semnal de 5 biți. Bitul cel mai semnificativ (eng. most significant bit - MSB) este situat întotdeauna în stânga, iar bitul cel mai puțin semnificativ (eng. least significant bit - LSB) în dreapta.
 
-În mod implicit semnalele care nu sunt declarate sunt considerate ca fiind de tip wire și având 1 bit (ex. in1, in2, … din codul de mai sus). Putem accesa individual biții dintr-un wire sau putem accesa un grup consecutiv de biți specificând intervalul (ex. m[0], m[3:1], m[7:2]).
+În mod implicit porturile care nu sunt declarate sunt considerate ca fiind de tip wire și având 1 bit (ex. in1, in2, … din codul de mai sus). Putem accesa individual biții dintr-un wire sau putem accesa un grup consecutiv de biți specificând intervalul (ex. m[0], m[3:1], m[7:2]).
 
 ```verilog
 wire[7:0] m; _ 8 biti, MSB este bitul 7, LSB bitul 0 

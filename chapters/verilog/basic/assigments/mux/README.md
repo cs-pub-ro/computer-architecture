@@ -1,0 +1,1 @@
+Implementați un multiplexor. Apăsați butonul run din VPL pentru a afla tipul multiplexorului pe care trebuie sa îl implementați.

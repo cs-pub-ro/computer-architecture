@@ -1,0 +1,20 @@
+{
+	"name": "Vivado Slim Dev",
+	// "build": { "dockerfile": "Dockerfile" },
+	"image": "gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0",
+	"runArgs": [
+		"--rm",
+		"--privileged"
+	],
+	// "appPort": "2222:22",
+	"mounts": ["type=bind,source=/dev,target=/dev"],
+	//"otherPortsAttributes": {"requireLocalPort": "true", "elevateIfNeeded" : "true"},
+	// "postStartCommand": "/usr/local/sbin/sshd",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mshr-h.veriloghdl"
+			]
+		}
+	}
+}

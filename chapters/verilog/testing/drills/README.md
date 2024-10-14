@@ -1,5 +1,7 @@
 # Practice: Testing simulation
 
+  Soluția se află în repo-ul materiei [GitHub](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/verilog/testing/drills/tasks/adder_4bits). 
+
  - Sumatorul pe 4 biți. Testare.
    - Implementați și simulați un sumator pe 4 biți, cu două intrări și o ieșire
 
