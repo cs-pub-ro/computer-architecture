@@ -2,13 +2,16 @@
 
 Pentru testarea unui modul folosind simulatorul se creează module speciale de test, în care, printre altele, se vor atribui valori intrărilor. Simularea permite detecția rapidă a erorilor de implementare și corectarea acestora. 
 
-Pentru a creea un modul de test și a-l simula puteți urma tutorialul de simulare [[https:_ocw.cs.pub.ro/courses/ac-is/tutoriale/2-ise-simulare|aici]], iar această secțiune va prezenta câteva din construcțiile de limbaj pe care le puteți folosi într-un astfel de modul. 
+Pentru a crea un modul de test și a-l simula puteți urma tutorialul de simulare [aici](https://cs-pub-ro.github.io/computer-architecture/Tutoriale/Simulare%20Vivado/), iar această secțiune va prezenta câteva din construcțiile de limbaj pe care le puteți folosi într-un astfel de modul. 
 
+
+<div align="center">
 
 ![Diagrama testare circuit](../media/circuit_tb.png)
 
 _Figure: Diagrama testare circuit_
 
+</div>
 
 ## Blocul initial
 
@@ -43,7 +46,7 @@ Atât în modulele de test cât și în modulele testate se pot folosi construc�
 $display(arguments);
 ```
 
-Argumentele acestei comenzi sunt similare cu cele ale funcției _printf_ din C, ca în exemplul de mai jos, iar specificația completă o puteți găsi ![aici](https://www.chipverify.com/verilog/verilog-display-tasks). _$display_ adaugă o linie nouă, iar dacă nu se dorește acest lucru se poate folosi comanda _$write_. 
+Argumentele acestei comenzi sunt similare cu cele ale funcției _printf_ din C, ca în exemplul de mai jos, iar specificația completă o puteți găsi [aici](https://www.chipverify.com/verilog/verilog-display-tasks). _$display_ adaugă o linie nouă, iar dacă nu se dorește acest lucru se poate folosi comanda _$write_. 
 
 ```verilog
 a = 1; b = 4;

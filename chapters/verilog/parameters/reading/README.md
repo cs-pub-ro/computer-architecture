@@ -2,7 +2,7 @@
 
 ## Parameter
 
-Cuvântul rezervat ''parameter'' este o construcție de limbaj în verilog care permite unui modul să fie reutilizat cu specificații diferite. Spre exemplu, un sumator poate fi parametrizat să accepte o valoare pentru numărul de biți care poate să fie configurată diferit de la o simulare la alta. Comportamentul lor este similar cu cel al argumentelor unor funcții în alte limbaje de programare cunoscute. Folosind  ''parameter'' este declarată o valoare constantă, prin urmare este ilegală modificarea valorii acesteia în timpul simulării. De asemenea, este ilegal ca un alt tip de dată să aibă același nume ca unul dintre parametri.
+Cuvântul rezervat ''parameter'' este o construcție de limbaj în Verilog care permite unui modul să fie reutilizat cu specificații diferite. Spre exemplu, un sumator poate fi parametrizat să accepte o valoare pentru numărul de biți care poate să fie configurată diferit de la o simulare la alta. Comportamentul lor este similar cu cel al argumentelor unor funcții în alte limbaje de programare cunoscute. Folosind  ''parameter'', este declarată o valoare constantă, prin urmare, este ilegală modificarea valorii acesteia în timpul simulării. De asemenea, este ilegal ca un alt tip de dată să aibă același nume ca unul dintre parametri.
 
 ```verilog
 parameter MSB = 7;       // MSB este un parametru cu valoarea constantă 7
@@ -16,7 +16,7 @@ O variabilă de tip parametru este vizibilă local, în modulul ce a fost declar
 ## Construirea și instanțierea modulelor parametrizabile
 
 
-Instanțierea modulelor a fost folosită și în laboratorul anterior pentru a invoca logica implementată într-un alt modul. În acel context, era necesar să cunoaștem dimensiunea semnalelor din interfață pentru a le potrivi cu variabilele conectate la instanță. În cazul în care un modul are dimensiunile porturilor parametrizate, acesta poate fi instanțiat  cu valori particulare ale parametrilor (diferite de cele predefinite). Să considerăm ca exemplu un modul de mai jos:
+Instanțierea modulelor a fost folosită și în laboratorul anterior pentru a invoca logica implementată într-un alt modul. În acel context, era necesar să cunoaștem dimensiunea semnalelor din interfață pentru a le potrivi cu variabilele conectate la instanță. În cazul în care un modul are dimensiunile porturilor parametrizate, acesta poate fi instanțiat  cu valori particulare ale parametrilor (diferite de cele predefinite). Să considerăm drept exemplu modulul de mai jos:
 
 ```verilog
 module my_beautiful_module (out, a, b);
@@ -62,7 +62,7 @@ my_beautiful_parameterized_module #(.a_width(3),
                                     .b_width(2),
                                     .out_width(5)) inst2(out, a, b);
 
-// Sau, menținându-se ordinea parametrilor, doar prin specificarea noilor // dimensiuni:
+// Sau, menținându-se ordinea parametrilor, doar prin specificarea noilor dimensiuni:
 
 my_beautiful_parameterized_module #(3, 2, 5) inst3(out, a, b);
 ```

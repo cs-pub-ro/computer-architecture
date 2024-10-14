@@ -12,7 +12,7 @@ module test_fulladder;
     //local variables for loop
     integer i,j,k;
 
-    //Module initialization
+    //Module initialization 
     fulladder l_m_fulladder(
         .o_w_s(l_w_s),
         .o_w_cout(l_w_cout),
