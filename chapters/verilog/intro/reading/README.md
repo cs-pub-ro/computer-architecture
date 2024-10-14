@@ -23,7 +23,7 @@ Un limbaj de descriere hardware conține o serie de abstractizări sau moduri de
 ## Ce tipuri de circuite putem construi?
 
 
-**Circuitele logice combinaționale** aplică funcții logice pe intrări pentru a obține ieșirile. Valorile de ieșire depind astfel doar de valorile curente de intrare, iar când starea unei intrări se schimbă, se reflectă imediat asupra ieșiri.
+**Circuitele logice combinaționale** aplică funcții logice pe intrări pentru a obține ieșirile. Valorile de ieșire depind astfel doar de valorile curente de intrare, iar când starea unei intrări se schimbă, se reflectă imediat asupra ieșirii.
 
 <div align="center">
 
