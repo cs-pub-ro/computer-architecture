@@ -5,7 +5,7 @@ module halfadder (
     input wire i_w_b
 );
     //TODO 0.1: Implement half-adder
-    xor(o_w_s, i_w_a, i_w_b);
+    xor(o_w_s, i_w_a, i_w_b); 
     and(o_w_cout, i_w_a, i_w_b);
 
 endmodule

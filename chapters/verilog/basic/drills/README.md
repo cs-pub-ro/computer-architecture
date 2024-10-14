@@ -15,7 +15,7 @@
   Soluția se află în repo-ul materiei [GitHub](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/verilog/basic/drills/tasks/adder_6bits). Încărcați programul pe FPGA (```make vivado```), urmărind ghidul.
 
 ## 4. **Comparator** pe un bit.
-  Acesta are două intrări și 3 ieșiri (pentru mai mic, egal și mai mare). Soluția se află în repo-ul materiei [GitHub](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/verilog/basic/drills/tasks/comparator). Simulați și încărcați pe FPGA.
+  Acesta are două intrări și 3 ieșiri (pentru mai mic, egal și mai mare). Soluția se află în repo-ul materiei [GitHub](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/verilog/basic/drills/tasks/comparator). Simulați și încărcați pe FPGA. 
 
 ## Test
   Aveți următorul tabel de adevăr:
@@ -31,4 +31,4 @@
   | 1 | 1 | 0 | 1 |
   | 1 | 1 | 1 | 0 |
 
-  Intrările sun `a`, `b`, `c` iar ieșirea este `f`. Implementați modulul verilog este definit de acest tabel de adevăr.
+  Intrările sunt `a`, `b`, `c` iar ieșirea este `f`. Implementați modulul verilog este definit de acest tabel de adevăr.
