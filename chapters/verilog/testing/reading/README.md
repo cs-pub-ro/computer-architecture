@@ -28,7 +28,7 @@ initial begin
 end 
 ```
 
-Blocurile ''initial'' nu sunt sintetizabile, fiind folosite doar în simulări.
+Blocurile _initial_ nu sunt sintetizabile, fiind folosite doar în simulări.
 
 
 ## Sincronizarea prin întârziere
@@ -40,7 +40,7 @@ Folosind operatorul _#_ se poate specifica o durată de timp între apariția in
 ## Afișare
 
 
-Atât în modulele de test cât și în modulele testate se pot folosi construcții pentru afișare în interiorul blocurilor _initial_ și _always_. Una dintre aceste instrucțiuni este ''display'':
+Atât în modulele de test cât și în modulele testate se pot folosi construcții pentru afișare în interiorul blocurilor _initial_ și _always_. Una dintre aceste instrucțiuni este _display_:
 
 ```verilog
 $display(arguments);

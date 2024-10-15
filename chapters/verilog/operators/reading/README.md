@@ -54,7 +54,7 @@ Este o eroare să folosiți aceeași variabilă destinație pentru mai multe atr
 
 Pentru specificarea valorilor întregi este folosită următoarea sintaxă:
 
-''[size]['radix] constant_value''
+''[size]'[radix] constant_value''
 
   - numerele conțin doar caracterele bazei lor și caracterul '_' 
   - pentru a ușura citirea, se poate folosi caracterul '_' ca delimitator 
