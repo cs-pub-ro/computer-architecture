@@ -1,0 +1,65 @@
+\begin{frame}
+    \frametitle{Viratul Memory}
+    Benefits of Virtual Memory:
+    \begin{itemize}
+        \item Memory management
+        \item Protection
+        \item Share memory
+        \item Process reallocation
+        \item Process creation and start up time (without loading the entire process in memory)
+    \end{itemize}
+    The process of getting the physical address from the virtual address is called translation.
+    The virtual memory replacement is done by the operating system.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Allocation Policies}
+    \begin{itemize}
+        \item Paged virtual memory: The virtual memory is divided into pages.
+        \item Segmented virtual memory: The virtual memory is divided into segments.
+        \item Combined virtual memory: The virtual memory is divided into segments of size multiple of page size.
+    \end{itemize}
+    The miss penalty is the time to get the page from the disk, so the operating system must minimize the number of misses.
+    There is a full associativity type of memory, where the page can be placed anywhere in the main memory.
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{TLB vs MMU}
+
+    \begin{itemize}
+        \item \textbf{Translation Lookaside Buffer (TLB)}
+        \begin{itemize}
+            \item Specialized cache for speeding up virtual to physical address translation.
+            \item Stores recent translations.
+            \item Checked first during address translation.
+            \item Very fast, small size.
+        \end{itemize}
+        \item \textbf{Memory Management Unit (MMU)}
+        \begin{itemize}
+            \item Hardware component for managing memory and caching operations.
+            \item Translates virtual addresses to physical addresses using page tables.
+            \item Handles page faults and memory protection.
+            \item More complex and integrated into the CPU.
+        \end{itemize}
+    \end{itemize}
+    
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{|p{2cm}|p{3cm}|p{3cm}|}
+            \hline
+            \textbf{Component} & \textbf{Function} & \textbf{Characteristics} \\
+            \hline
+            TLB & Caches recent address translations & Fast, small size \\
+            \hline
+            MMU & Manages memory, performs address translations & Complex, integrated into CPU \\
+            \hline
+        \end{tabular}
+    \end{table}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exam Questions}
+    
+\end{frame}
