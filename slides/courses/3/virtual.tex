@@ -61,5 +61,58 @@
 
 \begin{frame}
     \frametitle{Exam Questions}
-    
+    \begin{itemize}
+        \item If I increase the block size to reduce the miss rate, what happens to the CPU execution time?
+        \item If I increase the cache size to reduce the miss rate, what happens to the CPU execution time?
+        \item If I increase the associativity to reduce the miss rate, what happens to the CPU execution time?
+        \item If I add multiple levels of cache, what happens to the CPU execution time?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Block size increase}
+    We have a cache of size $n$ and a block size of $b_{0}$.
+    The miss rate is $m_{0}$ and the miss penalty is $p_{access}$ plus $p_{byte}$
+    for each byte in clock cycles. If we increase the block size to $b_{1}$,
+    the miss rate will be $m_{1}$. Compute Average memory access time (AMAT)
+    for both cases. The hit time is $h$.
+\end{frame}
+\begin{frame}
+    \frametitle{Block size increase}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Cache size increase}
+    We have a block size of $b_{0}$ and a miss rate of $m_{0}$.
+    The miss penalty is $p_{access}$ plus $p_{byte}$ for each byte in clock cycles.
+    If we increase the cache size to $n_{1}$, the miss rate will be $m_{1}$.
+    Compute Average memory access time (AMAT) for both cases.
+    The hit time is $h_{0}$ for first cache and $h_{1}$ for the second one.
+\end{frame}
+\begin{frame}
+    \frametitle{Cache size increase}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Associativity increase}
+    We have a cache of size $n$ and a block size of $b_{0}$ with a $k_{0}$-way associativity.
+    The miss rate is $m_{0}$ and the miss penalty is $p_{access}$ plus $p_{byte}$ for
+    each byte in clock cycles. If we increase the associativity to $k_{1}$,
+    the miss rate will be $m_{1}$, and will increase the clock cycle time from $c_{0}$ to $c_{1}$.
+    Hit time is $h$ for both. Compute Average memory access time (AMAT) for both cases.
+\end{frame}
+\begin{frame}
+    \frametitle{Associativity increase}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Multiple levels of cache}
+    Suppose that in $m$ memory references thare are $m_{1}$ misses in the first cache and $m_{2}$ misses in the second cache.
+    The hit time for the first cache is $h_{1}$ and for the second cache is $h_{2}$.
+    The miss penalty for the second chache is $p_{2}$.
+    Compute the Average memory access time (AMAT).
+\end{frame}
+\begin{frame}
+    \frametitle{Multiple levels of cache}
 \end{frame}
