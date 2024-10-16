@@ -1,0 +1,65 @@
+\begin{frame}
+    \frametitle{Memory Hierarchy}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item CPU make requests to memory for specific addresses.
+            \begin{itemize}
+                \item Hit: Data found.
+                \item Miss: Data not found.
+            \end{itemize}
+            \item For cache memory:
+            \begin{itemize}
+                \item cache hit, cache miss.
+                \item Hardware manages cache. (L1, L2, L3)
+                \item Use block/line as unit of transfer.
+            \end{itemize}
+            \item For virtual memory:
+            \begin{itemize}
+                \item page hit, page fault (pault)
+                \item OS manages virtual memory.
+                \item Use page as unit of transfer.
+            \end{itemize}
+            \item Memory hierarchy creates the illusion of a large, fast memory.
+        \end{itemize}
+
+        \column{0.5\textwidth}
+        \newsavebox{\asciimemheir}
+        \begin{lrbox}{\asciimemheir}
+            \begin{varwidth}{\maxdimen}
+            \VerbatimInput[fontsize=\scriptsize]{media/memheir.ascii}
+            \end{varwidth}
+        \end{lrbox}%
+
+        \begin{figure}[h]
+            \centering
+            \scalebox{0.7}{\usebox{\asciimemheir}}
+        \end{figure}
+
+    \end{columns}
+    \note{
+        Memory hierarchy creates the illusion of a large, fast memory.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Memory Locality}
+    \begin{itemize}
+        \item Temporal locality: If a memory location is referenced, it will tend to be referenced again soon.
+        \item Spatial locality: If a memory location is referenced, nearby memory locations will tend to be referenced soon.
+    \end{itemize}
+    A full cache memory miss depends on the latency (how long to get the first byte) and the bandwidth (how long to get the entire line/block) of the main memory.
+\end{frame}
+
+\begin{frame}
+    \frametitle{CPU execution time}
+    \begin{itemize}
+        \item CPU execution time = CPU clock cycles * Clock cycle time (CLKT)
+        \item CPU clock cycles = Instruction count (IC) * CPI
+        \item CPI = Cycles per instruction
+        \item With memory hierarchy: CPU clock cycles = (CPU clock cycles + Memory stall cycles) * Clock cycle time
+        \item Memory stall cycles = Number of misses * Miss penalty
+        \item Memory stall cycles = IC * Misses per instruction * Miss penalty
+        \item Misses per instruction = Miss rate * Memory access per instruction (can be separete for read and write)
+    \end{itemize}
+\end{frame}

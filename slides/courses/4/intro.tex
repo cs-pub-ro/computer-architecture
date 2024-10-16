@@ -1,0 +1,29 @@
+\begin{frame}
+    \frametitle{ALU Structure}
+    \begin{columns}
+        \column{0.5\textwidth}
+            \begin{itemize}
+                \item ALU (Arithmetic Logic Unit) is a combinational circuit.
+                \item It performs arithmetic and logic (bitwise and comparison) operations.
+                \item It has two inputs and one output.
+                \item It has a control input for selecting the operation.
+                \item It has a status output for the result.
+                \item It can be variable in cycle time and complexity.
+            \end{itemize}
+
+        \column{0.5\textwidth}
+            \newsavebox{\asciialu}
+            \begin{lrbox}{\asciialu}
+                \begin{varwidth}{\maxdimen}
+                \VerbatimInput[fontsize=\scriptsize]{media/alu.ascii}
+                \end{varwidth}
+            \end{lrbox}%
+
+            \begin{figure}[h]
+                \centering
+                \scalebox{0.7}{\usebox{\asciialu}}
+            \end{figure}
+    \end{columns}
+    \note{
+    }
+\end{frame}
