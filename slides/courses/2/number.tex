@@ -200,7 +200,7 @@
         }
     \end{equation}
     \note{
-     The Morris floating point system is given by the size and the size of the exponent size called simple $g$. The first $g$ bits represent the value $G$, which is added with $1$ to obtain the exponent size ($es$). The next bit is the exponent sign bit, followed by $es$ bits, which represent the absolute value of the exponent. The next bit is the fraction sign, and the remaining bits are considered fraction bits. The hidden bit is always $1$. The value is computed by $2^{\text{exponent}} \times (-1)^{\text{fractionSign}} \times (1+\frac{f}{2^{fs}})$, where exponent is $(-1)^{\text{exponentSign}} \times \text{exponentAbsoluteValue}$. The $0$ is represented by all bits of zero, and error cases are represented by only $1s$
+   The Morris floating point system is given by the size and the size of the exponent size called simple $g$. The first $g$ bits represent the value $G$, which is added with $1$ to obtain the exponent size ($es$). The next bit is the exponent sign bit, followed by $es$ bits, which represent the absolute value of the exponent. The next bit is the fraction sign, and the remaining bits are considered fraction bits. The hidden bit is always $1$. The value is computed by $2^{\text{exponent}} \times (-1)^{\text{fractionSign}} \times (1+\frac{f}{2^{fs}})$, where exponent is $(-1)^{\text{exponentSign}} \times \text{exponentAbsoluteValue}$. The $0$ is represented by all bits of zero, and error cases are represented by only $1s$
     }
 \end{frame}
 
