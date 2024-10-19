@@ -1,0 +1,39 @@
+\begin{frame}
+    \frametitle{Status Flags}
+    \begin{itemize}
+        \item Zero flag (Z)
+        \item Carry flag (C)
+        \item Sign flag (S)
+        \item Overflow flag (O)
+        \item Parity flag (P)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Let's do some math}
+    \begin{equation}
+        \begin{aligned}
+            &Z=\neg | result\\
+            &C=result[n+1]\\
+            &S=result[n]\\
+            &O=\text{operation defined}\\
+            &P=\neg \oplus result
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Overflow flag}
+    \begin{itemize}
+        \item Add two positive numbers and get a negative number
+        \item Add two negative numbers and get a positive number
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exam Question}
+    Template: what is the status flags for the following operation X?
+
+    Example: what is the status flags for the following operation (signed integers) $4'b0110+4'b1001$?
+\end{frame}
+    
