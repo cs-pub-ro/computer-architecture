@@ -113,6 +113,7 @@ module my_module(
         for (i = 0; i < 4; i = i + 1) begin
             {c, o[i]} = a[i] + b[i] + c;
         end
+        o[4] = c;
     end
 endmodule
 ```
