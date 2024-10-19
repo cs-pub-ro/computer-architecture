@@ -29,9 +29,12 @@
     \end{itemize}
     There are three main strategies for block placement:
     \begin{itemize}
-        \item Direct Mapping (1-way set associative) $pos_{cache}=pos_{ram} \% n$
-        \item Fully Associative (n-way set associative) $ \forall \ pos_{cache}$
-        \item K-Set Associative (k-way set associative) $\forall pos_{cache} \ \in \text{set } \ pos_{ram} \% \frac{n}{k}$
+        \item Direct Mapping (1-way set associative):\\
+        $p_{\text{cache}}=p_{\text{ram}} \mod n$
+        \item Fully Associative (n-way set associative):\\
+        $ \forall \ p_{\text{cache}}$
+        \item K-Set Associative (k-way set associative):\\
+        $\forall p_{\text{cache}} \ \in \text{set } (p_{\text{ram}} \mod \frac{n}{k})$
     \end{itemize}
 \end{frame}
 
@@ -57,32 +60,31 @@
         \end{tabular}
     \end{table}
     \begin{itemize}
-        \item Tag: Identifies the block.
-        \item Index: Identifies the set.
-        \item Block Offset: Identifies the byte in the block.
-        \item There is also a valid bit.
-        \item The increase in associativity decreases the number of bits in the index and increases the number of bits in the tag.
-        \item The increase in the number of sets increases the hardware complexity.
+        \item \textbf{Tag}: Identifies the block in memory.
+        \item \textbf{Index}: Identifies the set within the cache.
+        \item \textbf{Block Offset}: Specifies the exact byte within the block.
+        \item A valid bit is also included to indicate if the block is valid.
+        \item Increasing the associativity reduces the number of bits needed for the index but increases the bits required for the tag.
+        \item Increasing the number of sets raises the complexity of the hardware.
     \end{itemize}
 \end{frame}
-
 
 \begin{frame}
     \frametitle{Block Identification}
     \note{
-    Draw the block identification with the TLB and the cache.
+        Illustrate the block identification process involving the TLB and the cache.
     }
 \end{frame}
 
 \begin{frame}
     \frametitle{Block Replacement}
     \begin{itemize}
-        \item When a block is to be replaced, the cache controller must decide which block to replace.
-        \item The replacement policy can be:
+        \item When a block needs to be replaced, the cache controller must determine which block to evict.
+        \item The replacement policy can be one of the following:
         \begin{itemize}
             \item Random
-            \item LRU (Least Recently Used) (expensive to implement, partially implemented)
-            \item FIFO
+            \item LRU (Least Recently Used) - this can be expensive to implement and is often only partially implemented
+            \item FIFO (First In, First Out)
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -90,71 +92,77 @@
 \begin{frame}
     \frametitle{Block Replacement}
     \note{
-    Explain the LRU policy.
+        Explain the LRU (Least Recently Used) policy.
     }
 \end{frame}
 
 \begin{frame}
     \frametitle{Write Strategy}
+    \textbf{Write Strategy:}
     \begin{itemize}
-        \item Write Through: Write to cache and RAM. (L1 and L2)
-        \item Write Back: Write to cache and mark the block as dirty. Write to RAM only when the block is replaced. (L3)
+        \item \textbf{Write Through:} Write to both the cache and RAM (L1 and L2).
+        \item \textbf{Write Back:} Write to the cache and mark the block as dirty. Write to RAM only when the block is replaced (L3).
     \end{itemize}
-    Allocation policy:
+    
+    \textbf{Allocation Policy:}
     \begin{itemize}
-        \item Write Allocate: Load the block in the cache and write to it. (Write Back)
-        \item No Write Allocate: Write to RAM only. (Write Through)
+        \item \textbf{Write Allocate:} Load the block into the cache and write to it (used with Write Back).
+        \item \textbf{No Write Allocate:} Write directly to RAM only (used with Write Through).
     \end{itemize}
-    Write buffer (Victim buffer):
+\end{frame}
+
+\begin{frame}
+    \frametitle{Write Buffer}
+    \textbf{Write Buffer (Victim Buffer):}
     \begin{itemize}
-        \item Used to store the write operations.
-        \item It is fixed in size. (8-16 entries) When it is full, the CPU must wait.
-        \item It helps in avoiding the write stalls.
-        \item Must react when read after write operations address the same block.
+        \item Stores write operations.
+        \item Has a fixed size (usually 8-16 entries). When full, the CPU must wait.
+        \item Helps avoid write stalls.
+        \item Must respond correctly when read-after-write operations access the same block.
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Write Strategy}
     \note{
-    Explain the write buffer.
+        Explain the write buffer.
     }
 \end{frame}
 
 \begin{frame}
     \frametitle{Exam Question}
-    Template: Compute the number of bits for the tag, index, and block offset for a cache memory with the following characteristics: X cache size, Y Block Placement, and Z block size.
+    Template: Calculate the number of bits for the tag, index, and block offset for a cache memory with the following characteristics: X cache size, Y block placement, and Z block size.
 
-    Example: Compute the number of bits for the tag, index, and block offset for a cache memory with the following characteristics: 64KB size, 4-way set associative, 64B block size.
+    Example: Calculate the number of bits for the tag, index, and block offset for a cache memory with the following characteristics: 64KB size, 4-way set associative, 64B block size.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Type of misses}
+    \frametitle{Types of Misses}
     \begin{itemize}
         \item Compulsory (cold start): The first access to a block.
-        \item Capacity: The cache is too small.
-        \item Conflict: Too many blocks map to the same set.
-        \item Coherence: Another cache modifies the block.
+        \item Capacity: Occurs when the cache is too small.
+        \item Conflict: Happens when too many blocks map to the same set.
+        \item Coherence: Arises when another cache modifies the block.
     \end{itemize}
     \note{
     }
 \end{frame}
 
 \begin{frame}
-    \frametitle{Type of misses}
+    \frametitle{Types of Misses}
     \note{
-    Explain the types of misses.
+        Explain the different types of cache misses.
     }
 \end{frame}
 
 \begin{frame}
     \frametitle{Cache Memory Benchmark}
     \begin{itemize}
-        \item Average Memory Access Time (AMAT) = Hit Time + Miss Rate * Miss Penalty
-        \item Hit Time = Time to access the cache.
-        \item Miss Penalty = Time to access the main memory.
-        \item Miss Rate = Number of misses/number of accesses.
-        \item CPU execution Time
-        \item Power consumption
+        \item Average Memory Access Time (AMAT) = Hit Time + Miss Rate $\times$ Miss Penalty
+        \item Hit Time: The time taken to access the cache.
+        \item Miss Penalty: The time taken to access the main memory.
+        \item Miss Rate: The ratio of misses to the total number of accesses.
+        \item CPU Execution Time
+        \item Power Consumption
     \end{itemize}
 \end{frame}
