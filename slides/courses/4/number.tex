@@ -1,27 +1,27 @@
 \subsection{ADD/SUB}
-
 \begin{frame}
-    \frametitle{ADD/SUB}
- A selector can be made such that any of $ADD$ or $SUB$ can be performed with the same hardware in the case of two complements.
- Let's consider the following notations for the operands $x$ and $y$.
+    \frametitle{Addition/Subtraction}
+    A selector can be designed so that either addition (ADD) or subtraction (SUB)
+    can be performed using the same hardware when working with two's complement representations.
+    Let's define the operands $x$ and $y$ with the following notations:
     \begin{equation}
         \begin{aligned}
-            &result=
-                \begin{cases}
- x+y,& \text{if ADD}\\
- x+(-y), & \text{if SUB}
-                \end{cases}
+            &\text{result} =
+            \begin{cases}
+                x + y, & \text{if ADD} \\
+                x + (-y), & \text{if SUB}
+            \end{cases}
         \end{aligned}
     \end{equation}
 \end{frame}
 
 \begin{frame}
-    \frametitle{ADD/SUB}
+    \frametitle{Addition/Subtraction}
 \end{frame}
 
 \begin{frame}
     \frametitle{Adder}
- The types of adder implementations in hardware are:
+    The various types of adder implementations in hardware include:
     \begin{itemize}
         \item Ripple Carry Adder
         \item Carry Lookahead Adder
@@ -191,7 +191,8 @@
 
 \begin{frame}
     \frametitle{MUL}
- The multiplication operation is a series of additions. To multiply two numbers, add the first number to itself as many times as the second number.
+ The multiplication operation is a series of additions. To multiply two numbers,
+ add the first number to itself as many times as the second number.
     \begin{equation}
         \begin{aligned}
             &P = M \times R\\
@@ -215,7 +216,8 @@
 
 \begin{frame}
     \frametitle{Booth's Algorithm}
- Booth's algorithm is a multiplication algorithm that multiplies two signed binary numbers in two-component notation. The algorithm reduces the number of additions required for the multiplication of two numbers.
+ Booth's algorithm is a multiplication algorithm that multiplies two signed binary numbers in two-component notation.
+ The algorithm reduces the number of additions required for the multiplication of two numbers.
     \begin{equation}
         \begin{aligned}
             &|M|=|R|=n\\
@@ -261,7 +263,8 @@
 \subsection{DIV/MOD}
 
 \begin{frame}
-    \frametitle{DIV/MOD Debate}In computer engineering, integer division is a debated issue. The next formulas define integer division:
+    \frametitle{DIV/MOD Debate}In computer engineering, integer division is a debated issue.
+    The next formulas define integer division:
     \begin{equation}
         \begin{aligned}
  \text{Dividend} &= \text{Divisor} \times \text{Quotient} + \text{Remainder}\\

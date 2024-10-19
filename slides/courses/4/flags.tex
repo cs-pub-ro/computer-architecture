@@ -1,41 +1,40 @@
 \begin{frame}
-        \frametitle{Status Flags}
-        \begin{itemize}
-            \item Zero flag (Z)
-            \item Carry flag (C)
-            \item Sign flag (S)
-            \item Overflow flag (O)
-            \item Parity flag (P)
-        \end{itemize}
+    \frametitle{Status Flags}
+    \begin{itemize}
+        \item Zero Flag (Z)
+        \item Carry Flag (C)
+        \item Sign Flag (S)
+        \item Overflow Flag (O)
+        \item Parity Flag (P)
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Let's do some math}
+    \frametitle{Mathematical Operations}
     \begin{equation}
         \begin{aligned}
-            &Z=\neg | result\\
-            &C=result[n+1]\\
-            &S=result[n]\\
-            &O=\text{operation defined}\\
-            &P=\neg \oplus result
+            &Z = \neg | \text{result} \\ 
+            &C = \text{result}[n+1] \\ 
+            &S = \text{result}[n] \\ 
+            &O = \text{Operation defined} \\ 
+            &P = \neg \oplus \text{result} 
         \end{aligned}
     \end{equation}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Overflow flag}
+    \frametitle{Overflow Flag}
     \begin{itemize}
-        \item Add two positive numbers and get a negative number
-        \item Add two negative numbers and get a positive number
-        \item Multiply two numbers and get a result on more bits
-        \item Substract from a negative number a positive number and get a positive number
+        \item Adding two positive numbers results in a negative number.
+        \item Adding two negative numbers results in a positive number.
+        \item Multiplying two numbers produces a result that exceeds the available bits.
+        \item Subtracting a positive number from a negative number results in a positive number.
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Exam Question}
-    Template: What are the status flags for the following operation X?
+    Template: What are the status flags for the following operation \( X \)?
 
-    Example: What are the status flags for the following operation (signed integers) $4'b0110+4'b1001$?
+    Example: What are the status flags for the following operation (signed integers) \( 4'b0110 + 4'b1001 \)?
 \end{frame}
-    

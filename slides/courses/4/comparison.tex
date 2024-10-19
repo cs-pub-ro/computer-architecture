@@ -1,26 +1,26 @@
 \begin{frame}
     \frametitle{Comparison Operations}
     \begin{itemize}
-        \item Less than (lt) $<$
-        \item Less than or equal (le) $\leq$
-        \item Greater than (gt) $>$
-        \item Greater than or equal (ge) $\geq$
-        \item Equal (eq) $==$
-        \item Not equal (ne) $\neq$
+        \item Less than (lt): $<$
+        \item Less than or equal (le): $\leq$
+        \item Greater than (gt): $>$
+        \item Greater than or equal (ge): $\geq$
+        \item Equal (eq): $==$
+        \item Not equal (ne): $\neq$
     \end{itemize}
     \note{
     }
 \end{frame}
 
 \begin{frame}
-    \frametitle{Let's do some math}
+    \frametitle{Let's Do Some Math}
     We only need to implement $lt$ and $eq$.
     \begin{equation}
         \begin{aligned}
-            &le = lt\ |\ eq\\
-            &gt = \neg le\\
-            &ge = \neg lt\\
-            &ne = \neg eq
+            & le = lt \lor eq \\
+            & gt = \neg le \\
+            & ge = \neg lt \\
+            & ne = \neg eq
         \end{aligned}
     \end{equation}
     \note{
