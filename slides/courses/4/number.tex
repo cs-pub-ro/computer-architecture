@@ -2,14 +2,14 @@
 
 \begin{frame}
     \frametitle{ADD/SUB}
-    A selector cand be done such that any of $ADD$ or $SUB$ can be performend with the same hardware in the case of two's complement.
-    Let's consider the following notations for the operands $x$ and $y$.
+ A selector can be made such that any of $ADD$ or $SUB$ can be performed with the same hardware in the case of two complements.
+ Let's consider the following notations for the operands $x$ and $y$.
     \begin{equation}
         \begin{aligned}
             &result=
                 \begin{cases}
-                    x+y,& \text{if ADD}\\
-                    x+(-y), & \text{if SUB}
+ x+y,& \text{if ADD}\\
+ x+(-y), & \text{if SUB}
                 \end{cases}
         \end{aligned}
     \end{equation}
@@ -21,7 +21,7 @@
 
 \begin{frame}
     \frametitle{Adder}
-    Type of adder implementations in hardware are:
+ The types of adder implementations in hardware are:
     \begin{itemize}
         \item Ripple Carry Adder
         \item Carry Lookahead Adder
@@ -34,7 +34,7 @@
 
 \begin{frame}
     \frametitle{Half adder}
-    A half adder is a combinational circuit that adds two bits and produces a sum bit and a carry bit.
+ A half adder is a combinational circuit that adds two bits and produces a sum and carry bits.
     \begin{figure}
         \centering
         \includegraphics[width=0.7\textwidth]{media/half-adder-gates.png}
@@ -44,7 +44,7 @@
 
 \begin{frame}
     \frametitle{Full adder}
-    A full adder is a combinational circuit that adds three bits and produces a sum bit and a carry bit.
+ A full adder is a combinational circuit that adds three bits and produces a sum and carry bits.
     \begin{figure}
         \centering
         \includegraphics[width=0.7\textwidth]{media/full-adder-gates.png}
@@ -54,7 +54,7 @@
 
 \begin{frame}
     \frametitle{Ripple Carry Adder}
-    The simplest adder is the ripple carry adder. It is composed of a chain of full adders. The carry out of one full adder is the carry in of the next full adder.
+ The simplest adder is the ripple carry adder. It is composed of a chain of full adders. The carry-out of one full adder is the carry-in of the next full adder.
     \begin{figure}
         \centering
         \includegraphics[width=0.7\textwidth]{media/ripple-carry.png}
@@ -91,12 +91,12 @@
 
 \begin{frame}
     \frametitle{Carry Lookahead Adder}
-    The carry lookahead adder is a more complex adder that reduces the time to calculate the carry out of each full adder. It is composed of two main blocks:
+ The carry lookahead adder is a more complex adder that reduces the time to calculate the carry-out of each full adder. It is composed of two main blocks:
     \begin{itemize}
         \item Generate block
         \item Propagate block
     \end{itemize}
-    The carry out and sum of each full adder is calculated by the following formula:
+ The following formula calculates the carry-out and sum of each full adder:
     \begin{equation}
         \begin{aligned}
             &c_{out}[i]=G[i] \ | \ (P[i] \ \& \ c_{in}[i])\\
@@ -118,7 +118,7 @@
 \begin{frame}
     \frametitle{Let's do some math}
     \begin{equation}
-        \resizebox{0.9\textwidth}{!}{%
+ \resizebox{0.9\textwidth}{!}{%
             $
             \begin{aligned}
                 &c_{in}[i+1]=c_{out}[i]=G[i] \ | \  (P[i] \ \& \ c_{in}[i])\\
@@ -129,7 +129,7 @@
                 &\text{Notation: } i \geq j \text{ , } P[i, j] = \prod_{k=j}^{i} P[k] \\
                 &c_{in}[i+1]=G[i] \ | \  (\sum_{j=1}^{i} P[i, j] \  \& \ G[j-1]) \ | \  (P[i, 0] \ \& \ c_{in}[0])\\
             \end{aligned}$%
-        }
+ }
     \end{equation}
 \end{frame}
 
@@ -180,18 +180,18 @@
 
 \begin{frame}
     \frametitle{Exam Questions}
-    Template: Given the x-bit adder of type y, calculate the number of gates for the carry out.
+ Template: Given the x-bit adder of type y, calculate the number of gates for the carry-out.
 
-    Example: Given the 8-bit ripple carry adder, calculate the number of gates for the carry out.
+ Example: Given the 8-bit ripple carry adder, calculate the number of gates for the carry-out.
 
-    Example: Given the 16-bit carry lookahead adder Brent-Kung on 4-bits with Carry Skip adder, calculate the number of gates for the carry out.
+ Example: Given the 16-bit carry-lookahead adder Brent-Kung on 4-bits with Carry Skip adder, calculate the number of gates for the carry-out.
 \end{frame}
 
 \subsection{MUL}
 
 \begin{frame}
     \frametitle{MUL}
-    The multiplication operation is a series of additions. The multiplication of two numbers is done by adding the first number to itself as many times as the second number.
+ The multiplication operation is a series of additions. To multiply two numbers, add the first number to itself as many times as the second number.
     \begin{equation}
         \begin{aligned}
             &P = M \times R\\
@@ -215,7 +215,7 @@
 
 \begin{frame}
     \frametitle{Booth's Algorithm}
-    Booth's algorithm is a multiplication algorithm that multiplies two signed binary numbers in two's complement notation. The algorithm is designed to reduce the number of additions for the multiplication of two numbers.
+ Booth's algorithm is a multiplication algorithm that multiplies two signed binary numbers in two-component notation. The algorithm reduces the number of additions required for the multiplication of two numbers.
     \begin{equation}
         \begin{aligned}
             &|M|=|R|=n\\
@@ -234,15 +234,15 @@
 
 \begin{frame}
     \frametitle{Booth's Algorithm}
-    Booth's Algorithm steps:
+ Booth's Algorithm steps:
     \begin{equation}
         \begin{aligned}
             &P=\{0,R,1'b0\}\\
             &\text{for n steps}\\
             &\begin{cases}
-                \text{if } P[1:0]=2'b01 \text{ then } P=P+M_{+}\\
-                \text{if } P[1:0]=2'b10 \text{ then } P=P+M_{-}\\
-                \text{otherwise } P=P\\
+ \text{if } P[1:0]=2'b01 \text{ then } P=P+M_{+}\\
+ \text{if } P[1:0]=2'b10 \text{ then } P=P+M_{-}\\
+ \text{otherwise } P=P\\
             \end{cases}\\
             &P=P \ggg 1\\
             &\text{end for}\\
@@ -253,9 +253,9 @@
 
 \begin{frame}
     \frametitle{Exam Questions}
-    Template: Given the x-bit Booth's algorithm, how many additions are done for $M \times R$?
+ Template: Given the x-bit Booth's algorithm, how many additions are for $M \times R$?
 
-    Example: Given the 8-bit Booth's algorithm, how many additions are done for $8'b0010_0110 \times 8'b1111_0110$?
+ Example: Given the 8-bit Booth's algorithm, how many additions are for $8'b0010_0110 \times 8'b1111_0110$?
 \end{frame}
 
 \subsection{DIV/MOD}
@@ -264,24 +264,24 @@
     \frametitle{DIV/MOD Debate}In computer engineering, integer division is a debated issue. The next formulas define integer division:
     \begin{equation}
         \begin{aligned}
-        \text{Dividend} &= \text{Divisor} \times \text{Quotient} + \text{Remainder}\\
-        \text{Remainder} &= \text{Dividend} - \text{Divisor} \times \text{Quotient} 
+ \text{Dividend} &= \text{Divisor} \times \text{Quotient} + \text{Remainder}\\
+ \text{Remainder} &= \text{Dividend} - \text{Divisor} \times \text{Quotient} 
         \end{aligned}
     \end{equation}
-    To understand the debate, the next operations might help $(-5)/2$ and $5/(-2)$.
-    Taking the first one, $5=2 \times -3 + 1$, but another solution is $5=2 \times -2 + (-1)$.
-    A similar choice is for the second one, $-5=-2 \times 3 + 1$ and $-5=-2 \times 2 + (-1)$.
+The following operations might help $(-5)/2$ and $5/(-2)$ might help to understand the debate.
+ Taking the first one, $5=2 \times -3 + 1$, but another solution is $5=2 \times -2 + (-1)$.
+ A similar choice is for the second one, $-5=-2 \times 3 + 1$ and $-5=-2 \times 2 + (-1)$.
 \end{frame}
 
 \begin{frame}
     \frametitle{DIV/MOD Debate}
-    Next, the possible choices are categorised into different types of division \footnote{Modulo operation. (2022, November 16). In Wikipedia. https://en.wikipedia.org/wiki/Modulo\_operation}:
+We can categorize the following types of divisions \footnote{Modulo operation. (2022, November 16). In Wikipedia. https://en.wikipedia.org/wiki/Modulo\_operation}:
     \begin{itemize}
         \item Truncated division. $\text{Quotient}=[\frac{\text{Dividend}}{\text{Divisor}}]$ (round down). The remainder and the dividend have equal signs.
         \item Floored division. $\text{Quotient}=\lfloor \frac{\text{Dividend}}{\text{Divisor}} \rfloor$ (integer part). The remainder and the divisor have equal signs.
-        \item Euclidean division.  The remainder is always positive. \par  $\text{Quotient}=\text{sign}(\text{Divisor}) \times \lfloor  \frac{\text{Dividend}}{|\text{Divisor}|} \rfloor = \begin{cases}
-             \lfloor  \frac{\text{Dividend}}{\text{Divisor}} \rfloor & \text{if } \text{Divisor}>0\\
-             \lceil  \frac{\text{Dividend}}{\text{Divisor}} \rceil & \text{if } \text{Divisor}<0
+        \item Euclidean division.  The remainder is always positive. \par  $\text{Quotient}=\text{sign}(\text{Divisor}) \times \lfloor \frac{\text{Dividend}}{|\text{Divisor}|} \rfloor = \begin{cases}
+             \lfloor \frac{\text{Dividend}}{\text{Divisor}} \rfloor & \text{if } \text{Divisor}>0\\
+             \lceil \frac{\text{Dividend}}{\text{Divisor}} \rceil & \text{if } \text{Divisor}<0
         \end{cases}$
         \item Round division. $\text{Quotient}=\text{round}(\frac{\text{Dividend}}{\text{Divisor}})$
         \item Ceiling division. $\text{Quotient}=\lceil \frac{\text{Dividend}}{\text{Divisor}} \rceil$. The remainder and the divisor have opposite signs.
@@ -310,7 +310,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Booth's Algorithm for non restoring division for unsigned numbers}
+    \frametitle{Booth's Algorithm for non-restoring division for unsigned numbers}
     \begin{equation}
         \begin{aligned}
             &R=\{0,Q\}\\
