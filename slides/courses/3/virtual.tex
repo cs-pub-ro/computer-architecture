@@ -6,10 +6,10 @@
         \item Protection
         \item Share memory
         \item Process reallocation
-        \item Process creation and start up time (without loading the entire process in memory)
+        \item Process creation and start-up time (without loading the entire process in memory)
     \end{itemize}
     The process of getting the physical address from the virtual address is called translation.
-    The virtual memory replacement is done by the operating system.
+    The operating system replaces the virtual memory.
 \end{frame}
 
 \begin{frame}
@@ -50,9 +50,9 @@
             \hline
             \textbf{Component} & \textbf{Function} & \textbf{Characteristics} \\
             \hline
-            TLB & Caches recent address translations & Fast, small size \\
+    TLB & Caches recent address translations & Fast, small size \\
             \hline
-            MMU & Manages memory, performs address translations & Complex, integrated into CPU \\
+    MMU & Manages memory, performs address translations & Complex, integrated into CPU \\
             \hline
         \end{tabular}
     \end{table}
@@ -88,7 +88,7 @@
     The miss penalty is $p_{access}$ plus $p_{byte}$ for each byte in clock cycles.
     If we increase the cache size to $n_{1}$, the miss rate will be $m_{1}$.
     Compute Average memory access time (AMAT) for both cases.
-    The hit time is $h_{0}$ for first cache and $h_{1}$ for the second one.
+    The hit time is $h_{0}$ for the first cache and $h_{1}$ for the second one.
 \end{frame}
 \begin{frame}
     \frametitle{Cache size increase}
@@ -97,7 +97,7 @@
 \begin{frame}
     \frametitle{Associativity increase}
     We have a cache of size $n$ and a block size of $b_{0}$ with a $k_{0}$-way associativity.
-    The miss rate is $m_{0}$ and the miss penalty is $p_{access}$ plus $p_{byte}$ for
+    The miss rate is $m_{0}$, and the miss penalty is $p_{access}$ plus $p_{byte}$ for
     each byte in clock cycles. If we increase the associativity to $k_{1}$,
     the miss rate will be $m_{1}$, and will increase the clock cycle time from $c_{0}$ to $c_{1}$.
     Hit time is $h$ for both. Compute Average memory access time (AMAT) for both cases.
@@ -108,9 +108,9 @@
 
 \begin{frame}
     \frametitle{Multiple levels of cache}
-    Suppose that in $m$ memory references thare are $m_{1}$ misses in the first cache and $m_{2}$ misses in the second cache.
-    The hit time for the first cache is $h_{1}$ and for the second cache is $h_{2}$.
-    The miss penalty for the second chache is $p_{2}$.
+    Suppose that in $m$ memory references, there are $m_{1}$ misses in the first cache and $m_{2}$ misses in the second cache.
+    The hit time for the first cache is $h_{1}$, and for the second cache is $h_{2}$.
+    The miss penalty for the second cache is $p_{2}$.
     Compute the Average memory access time (AMAT).
 \end{frame}
 \begin{frame}

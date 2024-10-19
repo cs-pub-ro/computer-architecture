@@ -3,7 +3,7 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item CPU make requests to memory for specific addresses.
+            \item CPU makes requests to memory for specific addresses.
             \begin{itemize}
                 \item Hit: Data found.
                 \item Miss: Data not found.
@@ -12,13 +12,13 @@
             \begin{itemize}
                 \item cache hit, cache miss.
                 \item Hardware manages cache. (L1, L2, L3)
-                \item Use block/line as unit of transfer.
+                \item Use block/line as a unit of transfer.
             \end{itemize}
             \item For virtual memory:
             \begin{itemize}
                 \item page hit, page fault (pault)
                 \item OS manages virtual memory.
-                \item Use page as unit of transfer.
+                \item Use page as a unit of transfer.
             \end{itemize}
             \item Memory hierarchy creates the illusion of a large, fast memory.
         \end{itemize}
@@ -38,7 +38,7 @@
 
     \end{columns}
     \note{
-        Memory hierarchy creates the illusion of a large, fast memory.
+    Memory hierarchy creates the illusion of a large, fast memory.
     }
 \end{frame}
 
@@ -48,7 +48,7 @@
         \item Temporal locality: If a memory location is referenced, it will tend to be referenced again soon.
         \item Spatial locality: If a memory location is referenced, nearby memory locations will tend to be referenced soon.
     \end{itemize}
-    A full cache memory miss depends on the latency (how long to get the first byte) and the bandwidth (how long to get the entire line/block) of the main memory.
+    A full cache memory miss depends on the main memory's latency (how long it takes to get the first byte) and bandwidth (how long it takes to get the entire line/block).
 \end{frame}
 
 \begin{frame}
@@ -60,6 +60,6 @@
         \item With memory hierarchy: CPU clock cycles = (CPU clock cycles + Memory stall cycles) * Clock cycle time
         \item Memory stall cycles = Number of misses * Miss penalty
         \item Memory stall cycles = IC * Misses per instruction * Miss penalty
-        \item Misses per instruction = Miss rate * Memory access per instruction (can be separete for read and write)
+        \item Misses per instruction = Miss rate * Memory access per instruction (can be separated for read and write)
     \end{itemize}
 \end{frame}
