@@ -54,7 +54,9 @@
 
 \begin{frame}
     \frametitle{Ripple Carry Adder}
- The simplest adder is the ripple carry adder. It is composed of a chain of full adders. The carry-out of one full adder is the carry-in of the next full adder.
+ The simplest adder is the ripple carry adder.
+ It is composed of a chain of full adders.
+ The carry-out of one full adder is the carry-in of the next full adder.
     \begin{figure}
         \centering
         \includegraphics[width=0.7\textwidth]{media/ripple-carry.png}
@@ -91,7 +93,8 @@
 
 \begin{frame}
     \frametitle{Carry Lookahead Adder}
- The carry lookahead adder is a more complex adder that reduces the time to calculate the carry-out of each full adder. It is composed of two main blocks:
+ The carry lookahead adder is a more complex adder that reduces the time to calculate the carry-out of each full adder.
+ It is composed of two main blocks:
     \begin{itemize}
         \item Generate block
         \item Propagate block
@@ -190,9 +193,7 @@
 \subsection{MUL}
 
 \begin{frame}
-    \frametitle{MUL}
- The multiplication operation is a series of additions. To multiply two numbers,
- add the first number to itself as many times as the second number.
+    \frametitle{Multiplication}
     \begin{equation}
         \begin{aligned}
             &P = M \times R\\
@@ -216,7 +217,7 @@
 
 \begin{frame}
     \frametitle{Booth's Algorithm}
- Booth's algorithm is a multiplication algorithm that multiplies two signed binary numbers in two-component notation.
+ Booth's algorithm is a multiplication algorithm that multiplies two signed binary numbers in two's complement notation.
  The algorithm reduces the number of additions required for the multiplication of two numbers.
     \begin{equation}
         \begin{aligned}
