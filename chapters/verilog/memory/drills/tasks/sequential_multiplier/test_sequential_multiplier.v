@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module test_task1;
+module test_sequential_multiplier;
 
     localparam l_p_data_width = 8;
     //Inputs
@@ -18,7 +18,7 @@ module test_task1;
     integer i,j,k;
 
     //Module initialization
-    task1 #(.p_data_width(l_p_data_width)) l_m_task1(
+    sequential_multiplier #(.p_data_width(l_p_data_width)) l_m_sequential_multiplier(
         .o_w_out(l_w_out),
         .i_w_clk(l_r_clk),
         .i_w_reset(l_r_reset),

@@ -1,10 +1,11 @@
 `timescale 1ns / 1ps
-module test_task0;
+module test_ram_reader;
     localparam l_p_data_width = 8;
+    localparam l_p_address_width = 10;
     //Inputs
     reg l_r_clk;
-    reg l_r_reset;
     reg [(l_p_data_width - 1):0] l_r_in;
+    reg [(l_p_address_width - 1):0] l_r_address;
     reg l_r_oe;
     reg l_r_we;
 
@@ -15,10 +16,10 @@ module test_task0;
     integer i,j,k;
 
     //Module initialization
-    task0 #(.p_data_width(l_p_data_width)) l_m_task0(
+    ram_reader #(.p_data_width(l_p_data_width), .p_address_width(l_p_address_width)) l_m_ram_reader(
         .o_w_out(l_w_out),
         .i_w_clk(l_r_clk),
-        .i_w_reset(l_r_reset),
+        .i_w_address(l_r_address),
         .i_w_in(l_r_in),
         .i_w_oe(l_r_oe),
         .i_w_we(l_r_we)
@@ -35,7 +36,7 @@ module test_task0;
         $monitor(
             "Time = %0t, ", $time,
             "l_w_out=%0d, ", l_w_out,
-            "l_r_reset=%0d, ", l_r_reset,
+            "l_r_address=%0d, ", l_r_address,
             "l_r_clk=%0d, ", l_r_clk,
             "l_r_in=%0d, ", l_r_in,
             "l_r_oe=%0d, ", l_r_oe,
@@ -43,9 +44,8 @@ module test_task0;
             );
 
         l_r_clk = 0;
-        l_r_reset = 0;
+        l_r_address = 0;
         #10;
-        l_r_reset = 1;
         for(i=0;i<2;i=i+1)
         begin
             l_r_oe = i;
@@ -54,6 +54,7 @@ module test_task0;
                 l_r_we = j;
                 for(k=2;k<4;k=k+1)
                 begin
+                    l_r_address = k;
                     l_r_in = k;
                     #10;
                 end
