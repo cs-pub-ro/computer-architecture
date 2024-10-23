@@ -1,0 +1,168 @@
+\begin{frame}
+    \frametitle{Cache Memory Propriety}
+    \begin{itemize}
+        \item Miss Rate
+        \item Average Memory Access Time
+        \item Hit Time
+        \item Miss Penalty
+        \item Cache Size
+        \item Block Size
+        \item Associativity
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cache Memory Performence}
+    \begin{itemize}
+        \item Block Placement
+        \item Block Identification
+        \item Block Replacement
+        \item Write Strategy
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Block Placement}
+    \begin{itemize}
+        \item Cache memory contains a number $n$ of blocks.
+        \item RAM memory contains a number $m$ of blocks, ussualy $m \gg n$.
+    \end{itemize}
+    There are three main strategies for block placement:
+    \begin{itemize}
+        \item Direct Mapping (1-way set associative):\\
+        $p_{\text{cache}}=p_{\text{ram}} \mod n$
+        \item Fully Associative (n-way set associative):\\
+        $ \forall \ p_{\text{cache}}$
+        \item K-Set Associative (k-way set associative):\\
+        $\forall p_{\text{cache}} \ \in \text{set } (p_{\text{ram}} \mod \frac{n}{k})$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Block Placement}
+    \note{
+    Draw the block placement for each strategy.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Block Identification}
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
+            \hline
+            \multicolumn{3}{|p{11cm}|}{\textbf{Address}} \\
+            \hline
+            \multicolumn{2}{|p{8cm}|}{\textbf{Block Address}} & \multicolumn{1}{p{3cm}|}{\textbf{Block Offset}} \\
+            \hline
+            \multicolumn{1}{|p{5cm}|}{\textbf{Tag}} & \multicolumn{1}{|p{3cm}|}{\textbf{Index}} & \multicolumn{1}{p{3cm}|}{\textbf{Block Offset}} \\
+            \hline
+        \end{tabular}
+    \end{table}
+    \begin{itemize}
+        \item \textbf{Tag}: Identifies the block in memory.
+        \item \textbf{Index}: Identifies the set within the cache.
+        \item \textbf{Block Offset}: Specifies the exact byte within the block.
+        \item A valid bit is also included to indicate if the block is valid.
+        \item Increasing the associativity reduces the number of bits needed for the index but increases the bits required for the tag.
+        \item Increasing the number of sets raises the complexity of the hardware.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Block Identification}
+    \note{
+        Illustrate the block identification process involving the TLB and the cache.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Block Replacement}
+    \begin{itemize}
+        \item When a block needs to be replaced, the cache controller must determine which block to evict.
+        \item The replacement policy can be one of the following:
+        \begin{itemize}
+            \item Random
+            \item LRU (Least Recently Used) - this can be expensive to implement and is often only partially implemented
+            \item FIFO (First In, First Out)
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Block Replacement}
+    \note{
+        Explain the LRU (Least Recently Used) policy.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Write Strategy}
+    \textbf{Write Strategy:}
+    \begin{itemize}
+        \item \textbf{Write Through:} Write to both the cache and RAM (L1 and L2).
+        \item \textbf{Write Back:} Write to the cache and mark the block as dirty. Write to RAM only when the block is replaced (L3).
+    \end{itemize}
+    
+    \textbf{Allocation Policy:}
+    \begin{itemize}
+        \item \textbf{Write Allocate:} Load the block into the cache and write to it (used with Write Back).
+        \item \textbf{No Write Allocate:} Write directly to RAM only (used with Write Through).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Write Buffer}
+    \textbf{Write Buffer (Victim Buffer):}
+    \begin{itemize}
+        \item Stores write operations.
+        \item Has a fixed size (usually 8-16 entries). When full, the CPU must wait.
+        \item Helps avoid write stalls.
+        \item Must respond correctly when read-after-write operations access the same block.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Write Strategy}
+    \note{
+        Explain the write buffer.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exam Question}
+    Template: Calculate the number of bits for the tag, index, and block offset for a cache memory with the following characteristics: X cache size, Y block placement, and Z block size.
+
+    Example: Calculate the number of bits for the tag, index, and block offset for a cache memory with the following characteristics: 64KB size, 4-way set associative, 64B block size.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Types of Misses}
+    \begin{itemize}
+        \item Compulsory (cold start): The first access to a block.
+        \item Capacity: Occurs when the cache is too small.
+        \item Conflict: Happens when too many blocks map to the same set.
+        \item Coherence: Arises when another cache modifies the block.
+    \end{itemize}
+    \note{
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Types of Misses}
+    \note{
+        Explain the different types of cache misses.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cache Memory Benchmark}
+    \begin{itemize}
+        \item Average Memory Access Time (AMAT) = Hit Time + Miss Rate $\times$ Miss Penalty
+        \item Hit Time: The time taken to access the cache.
+        \item Miss Penalty: The time taken to access the main memory.
+        \item Miss Rate: The ratio of misses to the total number of accesses.
+        \item CPU Execution Time
+        \item Power Consumption
+    \end{itemize}
+\end{frame}

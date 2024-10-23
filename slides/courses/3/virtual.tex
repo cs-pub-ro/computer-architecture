@@ -1,0 +1,124 @@
+\begin{frame}
+    \frametitle{Virtual Memory}
+    Benefits of Virtual Memory:
+    \begin{itemize}
+        \item Efficient memory management
+        \item Enhanced protection
+        \item Shared memory capabilities
+        \item Process relocation
+        \item Faster process creation and startup time (without loading the entire process into memory)
+    \end{itemize}
+    
+    The process of obtaining the physical address from the virtual address is known as translation.
+    The operating system manages the virtual memory.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Allocation Policies}
+    \begin{itemize}
+        \item\textbf{Paged Virtual Memory}: In this approach, the virtual memory is divided into fixed-size pages.
+        \item \textbf{Segmented Virtual Memory}: Here, the virtual memory is divided into segments of varying sizes
+        based on logical divisions.
+        \item \textbf{Combined Virtual Memory}: This method divides the virtual memory into segments, with each segment's
+        size being a multiple of the page size.
+    \end{itemize}
+    The miss penalty refers to the time it takes to retrieve a page from the disk. Therefore, the operating system
+    aims to minimize the number of misses by adopting a fully associative design, allowing pages to be placed
+    anywhere in the main memory.
+\end{frame}
+
+\begin{frame}
+    \frametitle{TLB vs MMU}
+
+    \begin{itemize}
+        \item \textbf{Translation Lookaside Buffer (TLB)}
+        \begin{itemize}
+            \item A specialized cache designed to speed up the translation from virtual to physical addresses.
+            \item Stores recent translations for quick access.
+            \item Checked first during the address translation process.
+            \item Very fast, but limited in size.
+        \end{itemize}
+        \item \textbf{Memory Management Unit (MMU)}
+        \begin{itemize}
+            \item A hardware component responsible for managing memory and caching operations.
+            \item Translates virtual addresses to physical addresses using page tables.
+            \item Manages page faults and enforces memory protection.
+            \item More complex and integrated directly into the CPU.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{TLB vs MMU}
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{|p{2cm}|p{4cm}|p{4cm}|}
+            \hline
+            \textbf{Component} & \textbf{Function} & \textbf{Characteristics} \\
+            \hline
+            TLB & Caches recent address translations & Fast, limited size \\
+            \hline
+            MMU & Manages memory and performs address translations & Complex, integrated into the CPU \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exam Questions}
+    \begin{itemize}
+        \item What happens to CPU execution time if we increase the block size to reduce the miss rate?
+        \item What happens to CPU execution time if we increase the cache size to reduce the miss rate?
+        \item What happens to CPU execution time if we increase the associativity to reduce the miss rate?
+        \item What happens to CPU execution time if we add multiple levels of cache?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Block size increase}
+    We have a cache of size $n$ and a block size of $b_{0}$.
+    The miss rate is $m_{0}$ and the miss penalty is $p_{access}$ plus $p_{byte}$
+    for each byte in clock cycles. If we increase the block size to $b_{1}$,
+    the miss rate will be $m_{1}$. Compute Average memory access time (AMAT)
+    for both cases. The hit time is $h$.
+\end{frame}
+\begin{frame}
+    \frametitle{Block size increase}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Cache size increase}
+    We have a block size of $b_{0}$ and a miss rate of $m_{0}$.
+    The miss penalty is $p_{access}$ plus $p_{byte}$ for each byte in clock cycles.
+    If we increase the cache size to $n_{1}$, the miss rate will be $m_{1}$.
+    Compute Average memory access time (AMAT) for both cases.
+    The hit time is $h_{0}$ for the first cache and $h_{1}$ for the second one.
+\end{frame}
+\begin{frame}
+    \frametitle{Cache size increase}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Associativity increase}
+    We have a cache of size $n$ and a block size of $b_{0}$ with a $k_{0}$-way associativity.
+    The miss rate is $m_{0}$, and the miss penalty is $p_{access}$ plus $p_{byte}$ for
+    each byte in clock cycles. If we increase the associativity to $k_{1}$,
+    the miss rate will be $m_{1}$, and will increase the clock cycle time from $c_{0}$ to $c_{1}$.
+    Hit time is $h$ for both. Compute Average memory access time (AMAT) for both cases.
+\end{frame}
+\begin{frame}
+    \frametitle{Associativity increase}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Multiple levels of cache}
+    Suppose that in $m$ memory references, there are $m_{1}$ misses in the first cache and $m_{2}$ misses in the second cache.
+    The hit time for the first cache is $h_{1}$, and for the second cache is $h_{2}$.
+    The miss penalty for the second cache is $p_{2}$.
+    Compute the Average memory access time (AMAT).
+\end{frame}
+\begin{frame}
+    \frametitle{Multiple levels of cache}
+\end{frame}

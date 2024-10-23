@@ -5,7 +5,7 @@ Laboratorul curent va prezenta elementele Verilog folosite pentru descrierea com
 ## Assign
 
 
-Deși partiționarea circuitelor în cadrul unei arhitecturi duce la simplificarea implementării unui modul, implementarea acestuia la nivel de porți logice este rareori folosită, întrucât aceasta devine complicată și dificil de înțeles.
+Deși partiționarea circuitelor în cadrul unei arhitecturii duce la simplificarea implementării unui modul, implementarea acestuia la nivel de porți logice este rareori folosită, întrucât aceasta devine complicată și dificil de înțeles.
 
 Primul pas este reprezentat de ușurarea modalității de scriere a unei funcții logice. Pentru aceasta, Verilog oferă o instrucțiune numită **atribuire continuă**. Aceasta folosește cuvântul cheie ''assign'' și “atribuie” unei variabile de tip ''wire'', valoarea expresiei aflată în partea dreaptă a semnului egal. Atribuirea are loc la fiecare moment de timp, deci orice schimbare a valorii expresiei din partea dreaptă se va propaga imediat.
 În partea stângă a unei atribuiri continue se poate afla orice variabilă declarată de tip wire sau orice ieșire a modulului care nu are altă declarație (ex. reg). Expresiile din partea dreaptă pot fi formate din orice variabile sau porturi de intrare și de ieșire și orice operatori suportați de Verilog. 
@@ -60,7 +60,7 @@ Pentru specificarea valorilor întregi este folosită următoarea sintaxă:
   - pentru a ușura citirea, se poate folosi caracterul '_' ca delimitator 
   - caracterul '?' specifică impedanță mare (z) 
   - caracterul 'x' specifică valoare necunoscută 
-  - se poate specifica dimensiunea numărului în biți, dar și baza acestuia (b,B,d,D,h,H,o,O - binar, zecimal, hexa, octal) 
+  - se poate specifica dimensiunea numărului în biți dar și baza acestuia (b,B,d,D,h,H,o,O - binar, zecimal, hexa, octal) 
 
 ```verilog
 8'b1;         //binar, pe 8 biti, echivalent cu 1 sau 8'b00000001
@@ -76,7 +76,7 @@ Pentru specificarea valorilor întregi este folosită următoarea sintaxă:
 
 Descrierea comportamentală la nivelul fluxului de date, descrisă anterior, presupune în continuare cunoașterea schemei hardware la nivelul porților logice sau, măcar, expresia logică. Deși reprezintă o variantă mai simplă decât utilizarea primitivelor, nu este cea mai facilă. 
 
-Pentru a ușura implementarea, Verilog pune la dispoziție mai multe tipuri de operatori. Unii dintre aceștia sunt cunoscuți din limbajele de programare precum C, C++, Java și au aceeași funcționalitate. Alții sunt specifici limbajului Verilog și sunt folosiți în special pentru a descrie ușor circuite logice. Cu ajutorul acestora putem simplifica implementarea, apelând la construcții folosind limbajul de nivel înalt.
+Pentru a ușura implementarea, Verilog pune la dispoziție mai multe tipuri de operatori. Unii dintre aceștia sunt cunoscuți din limbajele de programare precum C, C++, Java, și au aceeași funcționalitate. Alții sunt specifici limbajului Verilog și sunt folosiți în special pentru a descrie ușor circuite logice. Cu ajutorul acestora putem simplifica implementarea, apelând la construcții folosind limbajul de nivel înalt.
 
 Tabelul de mai jos conține operatorii suportați de Verilog, împreună cu nivelul lor de precedență.
 
@@ -88,8 +88,9 @@ Tabelul de mai jos conține operatorii suportați de Verilog, împreună cu nive
 | `+ -` (binari)                      | Adunare, Scădere               | 4          |
 | `<< >> <<< >>>`                     | Shiftare                       | 5          |
 | `< <= > >= == !=`                   | Relaționali                    | 6          |
-| `& ~& ^ ~^ ^~ | ~|`                 | Reducere                       | 7          |
-| `&& ||`                             | Logici                         | 8          |
+| `& ~& ^ ~^ ^~` \| ~\|               | Reducere                       | 7          |
+| `&&`                                | Logici                         | 8.1        |
+| \|\|                                | Logici                         | 8.2        |
 | `?:`                                | Condițional                    | 9          |
 | `{,}`                               | Concatenare                    |            |
 
@@ -98,9 +99,9 @@ Tabelul de mai jos conține operatorii suportați de Verilog, împreună cu nive
   - Operatorii de shiftare aritmetică; realizează shiftarea cu păstrarea bitului de semn, pentru variabilele declarate ca fiind cu semn.
     ```verilog
     wire signed[7:0] a, x, y;
-    assign x = a >>> 1;  // dacă bitul de semn al lui a este 0, bitul nou
+    assign x = a >>> 1;  // dacă bitul de semn al lui a este 0 bitul nou
                          //introdus este 0 
-                         // dacă bitul de semn al lui a este 1, bitul nou
+                         // dacă bitul de semn al lui a este 1 bitul nou
                          // introdus este 1
     assign y = a <<< 1;  // bitul nou introdus este tot timpul 0,
                          //asemănător cu operatorul << 
