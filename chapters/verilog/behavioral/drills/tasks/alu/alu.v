@@ -1,4 +1,4 @@
-module task2 #(
+module alu #(
     parameter p_width = 4
 ) (
     output wire [((2*p_width)-1):0] o_w_out,
