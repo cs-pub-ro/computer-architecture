@@ -1,4 +1,4 @@
-module task21 #(
+module adder #(
     parameter p_width = 1
 ) (
     output wire [(p_width+1):0] o_w_s,
