@@ -53,6 +53,7 @@ docusaurus:
                   - Windows/: windows/
                   - Linux/: linux/
                   - MacOS/: macos/
+            - VPL/: vpl/ 
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
