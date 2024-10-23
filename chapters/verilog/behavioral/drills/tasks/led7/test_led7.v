@@ -1,18 +1,22 @@
 `timescale 1ns / 1ps
-module test_task1;
+module test_led7;
     //Inputs
     reg [3:0] l_r_in;
+    reg [7:0] l_r_an;
 
     //Outputs
     wire [6:0] l_w_7seg;
+    wire [7:0] l_w_an;
     
     //local variables for loop
     integer i,j;
 
     //Module initialization
-    task1 l_m_task1(
+    led7 l_m_led7(
         .o_w_7seg(l_w_7seg),
-        .i_w_in(l_r_in)
+        .o_w_an(l_w_an),
+        .i_w_in(l_r_in),
+        .i_w_an(l_r_an)
         );
     
     //Simulation tests
