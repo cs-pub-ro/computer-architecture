@@ -1,0 +1,2 @@
+Implmentați modulul verilog pentru un ALU (arithmetic logic unit) cu 2 operanzi i_w_op1 și i_w_op2 pe 4 biți fiecare, cu rezultatul pe 4 biți o_w_out și o linie de selecție pe 2 biți a operație i_w_sel.
+Apăsați butonul run din VPL pentru a afla operațile pe care trebuie sa le implementați pentru fiecare selecție.

@@ -17,7 +17,7 @@
  - Când: la începutul laboratorului 4
  - Strcutură: 3 exerciții practice de implementat în verilog 
  - Locație: sala de laborator
- - Platformă: Calculator Laborator - Safe Exam Browser - Moodle - VPL
+ - Platformă: Calculator Laborator - Moodle - VPL
 
 ### Test circuite secvențiale
  - Materia necesară: laboratoarele 4,5 și 6
@@ -25,7 +25,7 @@
  - Când: la începutul laboratorului 7
  - Strcutură: 3 exerciții practice de implementat în verilog
  - Locație: sala de laborator
- - Platformă: Calculator Laborator - Safe Exam Browser - Moodle - VPL
+ - Platformă: Calculator Laborator - Moodle - VPL
 
 ### Colocviu final calculator didactic
  - Materia necesară: toate laboratoarele
@@ -35,7 +35,7 @@
     - 3 exerciții practice de implementat în verilog
     - 20 întrebări teoretice
  - Locație: sala de laborator
- - Platformă: Calculator Laborator - Safe Exam Browser - Moodle - VPL/Quiz
+ - Platformă: Calculator Laborator - Moodle - VPL/Quiz
 
 ### Tema
  - Durată: Întreg semestrul cu termen limită începutul ultimii săptămâni de laborator
