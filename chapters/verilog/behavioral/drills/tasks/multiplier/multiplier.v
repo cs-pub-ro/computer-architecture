@@ -1,14 +1,14 @@
-module task0 #(
-    parameter p_width = 1
+module multiplier #(
+    parameter p_width = 4
 ) (
-    output wire [(p_width*2):0] o_w_p,
-    input wire [p_width:0] i_w_a,
-    input wire [p_width:0] i_w_b
+    output wire [((p_width*2)-1):0] o_w_p,
+    input wire [(p_width-1):0] i_w_a,
+    input wire [(p_width-1):0] i_w_b
 );
 
     //TODO 1: implement multiplier
     integer i;
-    reg [(p_width*2):0] l_r_prod;
+    reg [((p_width*2)-1):0] l_r_prod;
 
     always @(*) begin
         l_r_prod = 0;

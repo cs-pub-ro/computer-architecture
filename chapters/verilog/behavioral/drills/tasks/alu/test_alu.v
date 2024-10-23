@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module test_task2;
+module test_alu;
     localparam l_p_width = 6;
     //Inputs
     reg [l_p_width:0] l_r_a;
@@ -13,7 +13,7 @@ module test_task2;
     integer i,j,k;
 
     //Module initialization
-    task2 #(.p_width(l_p_width)) l_m_task2(
+    alu #(.p_width(l_p_width)) l_m_alu(
         .o_w_out(l_w_out),
         .i_w_a(l_r_a),
         .i_w_b(l_r_b),
