@@ -1,4 +1,4 @@
-module task2 #(
+module ram_reader #(
     parameter p_data_width = 8,
     parameter p_address_width = 20
 )(
