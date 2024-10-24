@@ -1,5 +1,5 @@
 module register#(
-    parameter p_data_width = 7
+    parameter p_data_width = 8
 )(
     output wire [(p_data_width - 1):0] o_w_out,
     output wire [(p_data_width - 1):0] o_w_disp_out,
