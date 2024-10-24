@@ -1,6 +1,10 @@
 {
-	"name": "Vivado Slim Dev",
-	"image": "gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0",
+	// "name": "Vivado Slim Dev",
+	// "image": "gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0",
+	"name": "Icarus Dev",
+	"build": {
+		"dockerfile": "open.Dockerfile"
+	},
 	"runArgs": [
 		"--rm",
 		"--privileged"
@@ -9,7 +13,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"mshr-h.veriloghdl"
+				"mshr-h.veriloghdl",
+				"ms-vscode.cpptools-extension-pack"
 			]
 		}
 	}

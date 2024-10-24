@@ -1,3 +1,4 @@
 *.vvp
 *.vcd
 vpl_execution
+fpu

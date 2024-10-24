@@ -187,6 +187,8 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
+      - Assigments:
+          - Tema: chapters/microprogramable_cpu/floating-point-unit/assigments/fpu/README.md
       - Curs:
           path: /build/embed_reveal
           subsections:
