@@ -1,5 +1,5 @@
 module sequential_multiplier #(
-    parameter p_data_width = 7
+    parameter p_data_width = 4
 )(
     output wire [(2*p_data_width-1):0] o_w_out,
     input wire [(p_data_width-1):0] i_w_a,
