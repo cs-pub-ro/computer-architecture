@@ -1,0 +1,123 @@
+\begin{frame}
+    \frametitle{Direct Addressing}
+    \begin{itemize}
+        \item Address is directly specified in the instruction (immediate)
+        \item Example: \texttt{MOV RA, M[0x1234]}
+        \item $MA = 0x1234$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Indirect Addressing from Memory}
+    \begin{itemize}
+        \item Address is stored in memory 
+        \item Example: \texttt{MOV RA, M[M[0x1234]]}
+        \item Step 1: $MA = 0x1234$
+        \item Step 2: $MA = M[0x1234]$ (indirect)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Indirect Addressing from Register}
+    \begin{itemize}
+        \item Address is stored in a register
+        \item Example: \texttt{MOV RA, M[BA]}
+        \item $MA = BA$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Indirect Addressing from base and index registers}
+    \begin{itemize}
+        \item Address is stored in the sum of two registers (base and index)
+        \item Example: \texttt{MOV RA, M[BA + XA]}
+        \item $MA = BA + XA$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Indirect Addressing from base and index registers with increment after for index}
+    \begin{itemize}
+        \item Address is stored in the sum of two registers (base and index)
+        \item Index register is incremented after the operation
+        \item Example: \texttt{MOV RA, M[BA + XA++]}
+        \item $MA = BA + XA$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Indirect Addressing from base and index registers with decrement before for index}
+    \begin{itemize}
+        \item Address is stored in the sum of two registers (base and index)
+        \item Index register is decremented before the operation
+        \item Only with $XA$ register
+        \item Example: \texttt{MOV RA, M[BA + XA--]}
+        \item $MA = BA + XA - 1$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Indirect Addressing from base and immediate}
+    \begin{itemize}
+        \item Address is stored in the sum of a base register and an immediate value
+        \item Example: \texttt{MOV RA, M[BA + 0x1234]}
+        \item $MA = BA + 0x1234$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Indirect Addressing from index and immediate}
+    \begin{itemize}
+        \item Address is stored in the sum of a index register and an immediate value
+        \item Example: \texttt{MOV RA, M[XA + 0x1234]}
+        \item $MA = XA + 0x1234$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Indirect Addressing from base and index with immediate}
+    \begin{itemize}
+        \item Address is stored in the sum of a base register, an index register and an immediate value
+        \item Example: \texttt{MOV RA, M[BA + XA + 0x1234]}
+        \item $MA = BA + XA + 0x1234$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Immediate Addressing}
+    \begin{itemize}
+        \item Address is directly specified in the instruction (immediate)
+        \item Example: \texttt{MOV RA, 7}
+        \item $MA = PC + 1$ or $MA = PC + 2$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Direct Register Addressing}
+    \begin{itemize}
+        \item Data is in a register specified in the instruction (RM)
+        \item Example: \texttt{MOV RA, RB}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Address Table for IR}
+    \begin{table}[]
+        \resizebox{0.9\textwidth}{!}{%
+            \begin{tabular}{|l||l|l|l|l|}
+                \hline
+                \multirow{2}{*}{$RM=IR_{13:15}$} &  \multicolumn{4}{|l|}{$MOD=IR_{8:9}$} \\ \cline{2-5}
+                                                  & $00$ & $01$ & $10$ & $11$ \\ \hline  \hline
+                $000$ & $[BA+XA]$ & $[BA+XA+]$ & $[BA+XA+\text{Imm}]$ & $RA$ \\ \hline
+                $001$ & $[BA+XB]$ & $[BA+XB+]$ & $[BA+XB+\text{Imm}]$ & $RB$ \\ \hline
+                $010$ & $[BB+XA]$ & $[BB+XA+]$ & $[BB+XA+\text{Imm}]$ & $RC$ \\ \hline
+                $011$ & $[BB+XB]$ & $[BB+XB+]$ & $[BB+XB+\text{Imm}]$ & $SP$ \\ \hline
+                $100$ & $[XA]$ & $[BA+(--XA)]$ & $[XA+\text{Imm}]$ & $XA$ \\ \hline
+                $101$ & $[XB]$ & $[BB+(--XA)]$ & $[XB+\text{Imm}]$ & $XB$ \\ \hline
+                $110$ & $[BA]$ & $[\text{Imm}]$ & $[BA+\text{Imm}]$ & $BA$ \\ \hline
+                $111$ & $[BB]$ & $[[\text{Imm}]]$ & $[BB+\text{Imm}]$ & $BB$ \\ \hline \hline
+
+            \end{tabular}
+        }
+    \end{table}
+\end{frame}

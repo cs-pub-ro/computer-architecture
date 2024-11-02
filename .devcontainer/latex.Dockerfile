@@ -2,9 +2,9 @@
 FROM ubuntu:22.04
 
 # LABEL about the custom image
-LABEL maintainer="dancioc@nus.edu.sg"
+LABEL maintainer="stefan_dan.ciocirlan@upb.ro"
 LABEL version="0.1"
-LABEL description="Latex environment for SBIP"
+LABEL description="Latex environment for AC course"
 
 # Disable Prompt During Packages Installation
 ARG DEBIAN_FRONTEND=noninteractive
