@@ -26,3 +26,5 @@ RUN apt-get update && \
 #RUN wget http://beta.plantuml.net/batikAndFop.zip -P ./plantuml && wget http://beta.plantuml.net/plantuml-jlatexmath.zip -P ./plantuml
 # RUN unzip -o ./plantuml/batikAndFop.zip -d ./plantuml && unzip -o ./plantuml/plantuml-jlatexmath.zip -d ./plantuml
 # RUN java -Djava.awt.headless=true -jar ./plantuml/plantuml-1.2023.11.jar ./diagrams/architecturev2.uml -o ./plantuml -tpdf
+# for latex coding with minted
+RUN pip3 install Pygments
