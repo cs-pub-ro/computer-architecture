@@ -36,7 +36,7 @@ localparam SAR  = 4'd9;
 
 ## Operațiile
 
-Partea combinationala a modulului descrie comportamentul fiecărei operații în funcție de codul operațional ``` i_w_opcode ``` prin intermediul unei structuri `case`.
+Partea combinațională a modulului descrie comportamentul fiecărei operații în funcție de codul operațional ``` i_w_opcode ``` prin intermediul unei structuri `case`.
 
 ### Adunarea cu carry (ADC)
 
