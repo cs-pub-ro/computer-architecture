@@ -6,9 +6,11 @@ Unitatea aritmetică-logică este responsabilă de efectuarea operațiilor aritm
 
 ![Unitatea aritmetică-logică](../media/fig_ual.png)
 
-</div>
+
 
 _Figure: Unitatea aritmetică-logică_
+
+</div>
 
 Operanzii pe 16 biți sunt *op1* și *op2*, iar cei 4 biți *S* selectează operația ce va fi efectuată. Rezultatul este pus pe magistrală prin activarea semnalului *Enable*. Acesta este dezactivat de instrucțiunile care nu au nevoie de fapt de rezultatul operației, ci doar de indicatori (ex: *cmp*, *test*). Operațiile de adunare și scădere folosesc și un bit de carry/borrow reprezentat prin semnalul *Carry*. Acesta este activat selectiv de instrucțiunile ADD/ADC (*add with carry*) și SUB/SBB (*subtract with borrow*), precum și alte instrucțiuni, pentru a obține rezultatul dictat de semantica instrucțiunii.
 
