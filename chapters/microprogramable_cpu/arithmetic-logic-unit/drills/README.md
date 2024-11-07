@@ -40,7 +40,7 @@ Partea combinațională a modulului descrie comportamentul fiecărei operații �
 
 ### Adunarea cu carry (ADC)
 
-Se execută adunarea, iar în cazul în care rezultatul depășește că mărime parametrul `p_data_width`, bitul în plus activează flag-ul _carry_.
+Se execută adunarea celor 2 operanzi și carry, iar în cazul în care rezultatul depășește ca mărime parametrul `p_data_width`, bitul în plus activează flag-ul _carry_.
 
 Flag-ul de _overflow_ este activat cu 2 condiții:
 
