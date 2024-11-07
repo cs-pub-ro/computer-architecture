@@ -1,118 +1,210 @@
 \begin{frame}
-    \frametitle{Lab CPU}
+    \frametitle{Implementation for Lab CPU}
+    \textbf{Type of interrupts:}
     \begin{itemize}
-        \item Port-Mapped I/O
-        \item First 256 addresses are reserved for I/O
-        \item Special instructions for I/O (IN, OUT)
-        \item I/O devices are connected to the CPU through the bus
-        \item CPU is pooling the I/O devices
-        \item Status and Command registers for each device are mapped to the same I/O addresses
-        \item Data registers are mapped to the next I/O addresses
-        \item Can be changed to memory-mapped I/O or DMA
+        \item Internal interrupts (non-maskable):
+        \begin{itemize}
+            \item ALU overflow
+            \item Software interrupt through the \texttt{INT} instruction
+        \end{itemize}
+        \item External non-maskable interrupts:
+        \begin{itemize}
+            \item Lack of Voltage (Power Off)
+            \item Special hardware line \texttt{cinm}
+        \end{itemize}
+        \item External maskable interrupts:
+        \begin{itemize}
+            \item 8 IO deivce interrupts
+            \item Special hardware line \texttt{cintr} for all.
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Lab I/O}
-    \begin{figure}
-        \centering
-        %\includegraphics[width=0.8\textwidth]{media/io.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Lab I/O DMA}
-    \begin{itemize}
-        \item 8 registers for DMA into the I/O space (let's start from 0x08)
-    \end{itemize}
+    \frametitle{Implementation of IVT}
     \begin{table}[]
-        \resizebox{\textwidth}{!}{%
+        \resizebox{0.9\textwidth}{!}{%
             \begin{tabular}{|c|c|c|}
                 \hline
-                \textbf{Address} & \textbf{Name} & \textbf{Function} \\ \hline
-                0x08 & SCIO0 & Status/Command Register for IO device 0 \\ \hline
-                0x09 & SCIO1 & Status/Command Register for IO device 1 \\ \hline
-                0x0a & SCIO2 & Status/Command Register for IO device 2 \\ \hline
-                0x0b & SCIO3 & Status/Command Register for IO device 3 \\ \hline
-                0x0c & SCDMA & Status/Command Register for DMA \\ \hline
-                0x0d & MADMA & Memory Address Register for DMA \\ \hline
-                0x0e & CNTDMA & Count Register for DMA \\ \hline
-                0x0f & INITDMA & Initialize DMA Register \\ \hline
+                \textbf{Address} & \textbf{Name} & \textbf{Type} \\ \hline
+                0x0 & Reserved  & \multirow{3}{*}{Internal Interrupt} \\ \cline{1-2}
+                0x1 & Software Interrupt (INT) & \\ \cline{1-2}
+                0x2 & ALU Overflow & \\ \hline
+                0x3 & Lack of Voltage (Power Off) & External Non-Maskable Interrupt \\ \hline
+                0x4 & Level 0 & \multirow{8}{*}{External Maskable Interrupt} \\ \cline{1-2}
+                0x5 & Level 1 & \\ \cline{1-2}
+                0x6 & Level 2 & \\ \cline{1-2}
+                0x7 & Level 3 & \\ \cline{1-2}
+                0x8 & Level 4 & \\ \cline{1-2}
+                0x9 & Level 5 & \\ \cline{1-2}
+                0xA & Level 6 & \\ \cline{1-2}
+                0xB & Level 7 & \\ \hline
             \end{tabular}
         }
     \end{table}
+    \note{
+    }
+
 \end{frame}
 
 \begin{frame}
-    \frametitle{Architecture with DMA}
+    \frametitle{Interupt Instructions}
+    The FR (Flag Register) will have a new bit \texttt{I} which will be used to enable or disable interrupts.
+    The following instructions will be added:
+    \begin{itemize}
+        \item \texttt{EI} - Enable interrupts (sei)
+        \item \texttt{DI} - Disable interrupts (cli)
+        \item \texttt{INT} - Genrate software interrupt
+        \item \texttt{RETI} - Return from interrupt
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Architecture}
     \begin{figure}
         \centering
-        %\includegraphics[width=0.9\textwidth]{media/dma.png}
+        \includegraphics[width=0.8\textwidth]{media/isarchitecture.png}
     \end{figure}
 \end{frame}
 
 \begin{frame}
-    \frametitle{SCDMA Register}
-    \begin{table}[]
-        \resizebox{\textwidth}{!}{%
-            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-                \hline
-                \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} & \textbf{14} & \textbf{15} \\ \hline
-                $SIO_{0}$ & $SIO_{1}$ & $SIO_{2}$ & $SIO_{3}$ & X & X & SDMA & EOBT & EXTIRQ & X & PIRQ & ENIRQ & X & MT & DT & ENT \\ \hline
-            \end{tabular}
-        }
-    \end{table}
+    \frametitle{Architecture Signals}
     \begin{itemize}
-        \item $SIO_{0-3}$ - Status of the I/O devices 0 - functional 1 - not functional
-        \item SDMA - DMA is active for 0 - inactive for 1
-        \item EOBT - End of block transfer for 0 - not for 1
-        \item EXTIRQ - There is an external interrupt from IO device for 0 - not for 1
-        \item PIRQ - There is a programable interrupt from CPU for 0 - not for 1 (testing)
-        \item ENIRQ - Enable interrupt for 0 - disable for 1
-        \item MT - Mode of transfer 0 - block for 1 - cycle stealing
-        \item DT - Direction of transfer 0 - from IO to memory to IO for 1 - from memory to IO
-        \item ENT - Enable transfer for 0 - disable for 1
+        \item $ip$ - Software Interrupt
+        \item $id$ - ALU Overflow Interrupt
+        \item $inm$ - external non-maskable interrupt (comes from $cinm$)
+        \item $cintr_{i}$ - external maskable interrupt from device $i$
+        \item $ai$ - external maskable interrupt active
+        \item $intr$ - external maskable interrupt request to CPU
+        \item $sie$/$cie$ - enable/disable external maskable interrupts
     \end{itemize}
-    \note{
-    }
 \end{frame}
 
 \begin{frame}
-    \frametitle{Exam Question}
-    Template: Having the following IO registers value, main memory address and data, what can you find on the data bus?
+    \frametitle{Architecture Components}
+    \begin{itemize}
+        \item \texttt{REQINT} - Request external maskable interrupt register ($REQINT_{i} = 1$ means that the interrupt $i$ is requested)
+        \item \texttt{MEXTINT} - Maskable external interrupt register ($MEXTINT_{i} = 1$ means that the interrupt $i$ is masked)
+        \item \texttt{RUNINT} - Current running interrupts register ($RUNINT_{i} = 1$ means that the interrupt on level $i$ is running)
+        \item \texttt{Priorrity INT} - Compute if the current interrupt has higher priority than the current running interrupt
+        \item \texttt{INTADDR} - Compute the address of the ISR
+        \item \texttt{INTPC} - The address for the current ISR
+    \end{itemize}
+\end{frame}
 
-    Example: Having the following IO registers value, main memory address and data, what can you find on the data bus?
-    \begin{columns}
-        \column{0.5\textwidth}
+\begin{frame}
+    \frametitle{External maskable interrupts Handling}
+    \begin{enumerate}
+        \item Verify for external maskable interrupt requests in the \texttt{REQINT} register.
+        \item If there is one, verify if external maskable interrupts are enabled. (flag \texttt{I} in FR)
+        \item If yes, filter the interrupts that are masked in the \texttt{MEXTINT} register.
+        \item Find the highest priority interrupt that is not masked.
+        \item Verify ff it has higher priority than the current running interrupts in the \texttt{RUNINT} register:
+        \item Send the interrupt to the CPU through the $intr$ signal.
+        \item Wait for the CPU to acknowledge the interrupt. ($ai$ signal)
+        \item Set the bit in the \texttt{RUNINT} register.
+        \item Clear the bit in the \texttt{REQINT} register.
+        \item Compute the address of the ISR and set the \texttt{INTPC} register.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{External non-maskable interrupts Handling}
+    \begin{enumerate}
+        \item Verify for external non-maskable interrupt requests in the \texttt{inm} signal.
+        \item Verify if there is no higher priority interrupt running.
+        \item Compute the address of the ISR and set the \texttt{INTPC} register.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{ALU Overflow Handling}
+    \begin{enumerate}
+        \item Verify for ALU overflow interrupt requests in the \texttt{id} signal.
+        \item Verify if there is no higher priority interrupt running.
+        \item Compute the address of the ISR and set the \texttt{INTPC} register.
+        \item Inside the ISR, the CPU must clear the  overflow flag in the FR.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Software interrupts Handling}
+    \begin{enumerate}
+        \item Verify for software interrupt requests in the \texttt{ip} signal.
+        \item There is no higher priority interrupt running.
+        \item Compute the address of the ISR and set the \texttt{INTPC} register.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{CPU acknowledge interrupts}
+    \begin{enumerate}
+        \item Save FR on the stack.
+        \item Disable external maskable interrupts. (\texttt{EI} can be used to enable them back inside ISR)
+        \item Save the current PC on the stack.
+        \item Run the jump instruction from the \texttt{INTPC} register address.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exam Questions}
+    Template: Having the following values in the registers at time 0,
+    interrupts requested with the time of the request and the type of the interrupt,
+    and how much time the CPU will take to handle every type of interrupt,
+    which is the order of the interrupts that will be handled by the CPU?
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Exam Questions}
     \begin{table}[]
-        \begin{tabular}{|l|l|}
+        \begin{tabular}{|c|c|c|c|}
             \hline
-            \textbf{Register} & \textbf{Value} \\ \hline
-            SCDMA & 0x1234 \\ \hline
-            MADMA & 0x5678 \\ \hline
-            CNTDMA & 0x0001 \\ \hline
-            INITDMA & 0x0002 \\ \hline
-            SCIO0 & 0x0000 \\ \hline
-            SCIO1 & 0x0000 \\ \hline
-            SCIO2 & 0x0000 \\ \hline
-            SCIO3 & 0x0000 \\ \hline
+            \texttt{REQINT} & \texttt{MEXTINT} & \texttt{RUNINT} & \texttt{FR} \\ \hline
+            0x00 & 0x00 & 0x00 & 0x00 \\ \hline
         \end{tabular}
     \end{table}
-    \column{0.5\textwidth}
+
     \begin{table}[]
-        \begin{tabular}{|l|l|}
+        \begin{tabular}{|c|c|c|c|}
             \hline
-            \textbf{Memory Address} & \textbf{Data} \\ \hline
-            0x5678 & 0x0000 \\ \hline
-            0x5679 & 0x0001 \\ \hline
-            0x567a & 0x0002 \\ \hline
-            0x567b & 0x0003 \\ \hline
-            0x567c & 0x0004 \\ \hline
-            0x567d & 0x0005 \\ \hline
-            0x567e & 0x0006 \\ \hline
-            0x567f & 0x0007 \\ \hline
+            Cycles from time 0 & Type of Request & Name \\ \hline
+            10 & External Maskable Interupt Level 5 & A \\ \hline
+            30 & External Maskable Interupt Level 3 & B \\ \hline
+            50 & External Maskable Interupt Level 7 & C \\ \hline
+            60 & External Maskable Interupt Level 1 & D \\ \hline
+            100 & External Non-Maskable Interupt & E \\ \hline
+            140 & ALU Overflow & F \\ \hline
+            150 & Software Interupt & G \\ \hline
         \end{tabular}
     \end{table}
-    \end{columns}
+\end{frame}
 
+
+
+\begin{frame}
+    \frametitle{Exam Questions}
+    \begin{table}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            Type of Request & Cycle to handle \\ \hline
+            External Maskable Interupt Level 0 & 30 \\ \hline
+            External Maskable Interupt Level 1 & 20 \\ \hline
+            External Maskable Interupt Level 2 & 10 \\ \hline
+            External Maskable Interupt Level 3 & 40 \\ \hline
+            External Maskable Interupt Level 4 & 20 \\ \hline
+            External Maskable Interupt Level 5 & 30 \\ \hline
+            External Maskable Interupt Level 6 & 10 \\ \hline
+            External Maskable Interupt Level 7 & 20 \\ \hline
+            External Non-Maskable Interupt & 5 \\ \hline
+            ALU Overflow & 10 \\ \hline
+            Software Interupt & 10 \\ \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Exam Questions}
 \end{frame}

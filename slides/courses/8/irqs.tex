@@ -21,7 +21,7 @@
         \item \textbf{How it Works:} When a device needs service, it sends an interrupt signal. The CPU suspends its current task, processes the interrupt via an Interrupt Service Routine (ISR), and then resumes its previous work.
         \item \textbf{Advantages:}
         \begin{itemize}
-            \item \textbf{Efficiency:} The CPU only handles the device when it’s needed, freeing it up for other tasks.
+            \item \textbf{Efficiency:} The CPU only handles the device when it is needed, freeing it up for other tasks.
             \item \textbf{Responsive System:} The system can quickly respond to time-sensitive events.
             \item \textbf{Better Multitasking:} Interrupts enable systems to handle multiple tasks effectively without wasting CPU cycles.
         \end{itemize}
@@ -56,8 +56,6 @@
 % Slide 1: Overview of Interrupt Handling Mechanism
 \begin{frame}
     \frametitle{Interrupt Handling Mechanism: Overview}
-
-    The interrupt handling mechanism is a process by which the CPU temporarily halts its current task to respond to an external or internal event. Key elements include:
     \begin{itemize}
         \item Interrupt Request (IRQ) Lines
         \item Interrupt Vector Table (IVT)
@@ -65,9 +63,6 @@
         \item Prioritization and Nesting
         \item Context Switching
     \end{itemize}
-
-    \bigskip
-    This mechanism allows systems to handle external events efficiently and maintain responsiveness.
 \end{frame}
 
 % Slide 2: Interrupt Request (IRQ) Lines
@@ -79,9 +74,6 @@
         \item \textbf{Functionality}: When a device needs attention, it sends an IRQ signal, alerting the CPU.
         \item \textbf{CPU Response}: The CPU identifies the source of the interrupt and initiates the appropriate Interrupt Service Routine (ISR).
     \end{itemize}
-
-    \bigskip
-    IRQ lines enable external devices to communicate their status to the CPU effectively.
 \end{frame}
 
 % Slide 3: Interrupt Vector Table (IVT)
@@ -89,13 +81,10 @@
     \frametitle{Interrupt Vector Table (IVT)}
 
     \begin{itemize}
-        \item \textbf{Definition}: The IVT is a table in memory that holds addresses of Interrupt Service Routines (ISRs).
+        \item \textbf{Definition}: The IVT is a table in memory that holds jumps instruction to addresses of Interrupt Service Routines (ISRs).
         \item \textbf{Purpose}: Provides a quick way to look up and execute the correct ISR based on the interrupt.
-        \item \textbf{Mechanism}: When an interrupt occurs, the CPU retrieves the ISR address from the IVT and jumps to that address to execute the ISR.
+        \item \textbf{Mechanism}: When an interrupt occurs, the CPU retrieves the ISR address from the IVT and jumps to that address to execute the instruction which starts the ISR.
     \end{itemize}
-
-    \bigskip
-    The IVT simplifies and speeds up the process of interrupt handling by storing ISR addresses.
 \end{frame}
 
 % Slide 4: Interrupt Service Routine (ISR)
@@ -107,14 +96,11 @@
         \item \textbf{Purpose}: Handles the specific task associated with the interrupt (e.g., data transfer, status update).
         \item \textbf{Execution Flow}:
             \begin{itemize}
-                \item Save current CPU state (context).
-                \item Execute ISR.
-                \item Restore previous CPU state and resume the interrupted task.
+                \item usually disable interrupts at the beginning of the ISR. (cli)
+                \item Execute the ISR code.
+                \item last instruction of the ISR is a return from interrupt instruction. (reti) (enable interrupts)
             \end{itemize}
     \end{itemize}
-
-    \bigskip
-    ISRs are critical for responsive system behavior, allowing quick responses to external events.
 \end{frame}
 
 % Slide 5: Prioritization and Nesting
@@ -126,9 +112,6 @@
         \item \textbf{Nesting}: Allows multiple interrupts to be handled simultaneously, where an interrupt may trigger another.
         \item \textbf{Benefits}: Enhances system responsiveness and ensures critical events are handled first.
     \end{itemize}
-
-    \bigskip
-    Prioritization and nesting are essential for managing complex interrupt scenarios in multitasking systems.
 \end{frame}
 
 % Slide 6: Context Switching
@@ -145,7 +128,4 @@
             \end{enumerate}
         \item \textbf{Importance}: Ensures that the CPU resumes its previous task exactly where it left off.
     \end{itemize}
-
-    \bigskip
-    Context switching is vital for seamless task continuation after an interrupt.
 \end{frame}
