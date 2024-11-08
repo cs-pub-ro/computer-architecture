@@ -1,0 +1,1 @@
+find "$(pwd -P)" | grep \\.bit
