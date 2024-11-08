@@ -1,7 +1,9 @@
-module task1 #(
-    parameter p_data_width = 7
+module sequential_multiplier #(
+    parameter p_data_width = 4
 )(
     output wire [(2*p_data_width-1):0] o_w_out,
+    output wire [(p_data_width-1):0] o_w_disp_a,
+    output wire [(p_data_width-1):0] o_w_disp_b,
     input wire [(p_data_width-1):0] i_w_a,
     input wire [(p_data_width-1):0] i_w_b,
     input wire i_w_clk,
@@ -14,8 +16,9 @@ module task1 #(
     wire l_w_a_we;
     wire l_w_a_oe;
     wire [(p_data_width-1):0] l_w_a_out;
-    task0 #(.p_data_width(p_data_width)) l_m_task0_0 (
+    register #(.p_data_width(p_data_width)) l_m_register_0 (
         .o_w_out(l_w_a_out),
+        .o_w_disp_out(o_w_disp_a),
         .i_w_clk(i_w_clk),
         .i_w_reset(i_w_reset),
         .i_w_in(i_w_a),
@@ -26,8 +29,9 @@ module task1 #(
     wire l_w_b_we;
     wire l_w_b_oe;
     wire [(p_data_width-1):0] l_w_b_out;
-    task0 #(.p_data_width(p_data_width)) l_m_task0_1 (
+    register #(.p_data_width(p_data_width)) l_m_register_1 (
         .o_w_out(l_w_b_out),
+        .o_w_disp_out(o_w_disp_b),
         .i_w_clk(i_w_clk),
         .i_w_reset(i_w_reset),
         .i_w_in(i_w_b),
@@ -41,7 +45,7 @@ module task1 #(
     wire [(2*p_data_width-1):0] l_w_c_out;
     wire [(2*p_data_width-1):0] l_w_c_in;
     assign l_w_c_in = (l_w_a_out * l_w_b_out);
-    task0 #(.p_data_width(2*p_data_width)) l_m_task0_2 (
+    register #(.p_data_width(2*p_data_width)) l_m_register_2 (
         .o_w_out(l_w_c_out),
         .i_w_clk(i_w_clk),
         .i_w_reset(i_w_reset),
