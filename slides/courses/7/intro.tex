@@ -1,0 +1,43 @@
+\begin{frame}
+    \frametitle{Components}
+    \begin{itemize}
+        \item Input/Output Devices (makes the conversion between the external world and the computer)
+        \item Input/Output Interfaces (connects the devices to the computer)
+        \item Input/Output Middleware (manages the data transfer between the devices and the computer) can be CPU
+        \item Input/Output Device Drivers (software that allows the computer to communicate with the devices)
+        \item Input/Output Memory
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Types of data in I/O}
+    \begin{itemize}
+        \item Fixed Block
+        \item Variable Block
+        \item Character
+        \item Hybrid
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{I/O Registers}
+    \begin{itemize}
+        \item Control
+        \item Status
+        \item Data
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Communication with I/O}
+    \begin{itemize}
+        \item Through status registers (polling)
+        \item Through hardware interrupts
+        \begin{itemize}
+            \item Save the context
+            \item Jump to the interrupt handler
+            \item Restore the context
+            \item Return from the interrupt
+        \end{itemize}
+    \end{itemize}
+\end{frame}

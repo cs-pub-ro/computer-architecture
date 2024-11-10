@@ -2,9 +2,9 @@
 FROM ubuntu:22.04
 
 # LABEL about the custom image
-LABEL maintainer="dancioc@nus.edu.sg"
+LABEL maintainer="stefan_dan.ciocirlan@upb.ro"
 LABEL version="0.1"
-LABEL description="Latex environment for SBIP"
+LABEL description="Latex environment for AC course"
 
 # Disable Prompt During Packages Installation
 ARG DEBIAN_FRONTEND=noninteractive
@@ -26,3 +26,5 @@ RUN apt-get update && \
 #RUN wget http://beta.plantuml.net/batikAndFop.zip -P ./plantuml && wget http://beta.plantuml.net/plantuml-jlatexmath.zip -P ./plantuml
 # RUN unzip -o ./plantuml/batikAndFop.zip -d ./plantuml && unzip -o ./plantuml/plantuml-jlatexmath.zip -d ./plantuml
 # RUN java -Djava.awt.headless=true -jar ./plantuml/plantuml-1.2023.11.jar ./diagrams/architecturev2.uml -o ./plantuml -tpdf
+# for latex coding with minted
+RUN pip3 install Pygments

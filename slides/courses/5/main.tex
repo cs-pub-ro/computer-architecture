@@ -1,0 +1,117 @@
+%\documentclass[notes,usenames,dvipsnames]{beamer}
+%\documentclass[notes]{beamer}       % print frame + notes
+%\documentclass[notes=only]{beamer}   % only notes
+\documentclass[usenames,dvipsnames]{beamer}             % only frames
+\usepackage{pgfpages}
+%\setbeameroption{show notes on second screen}
+%\setbeameroption{show notes}
+%subfigures
+\usepackage{caption}
+\usepackage{subcaption}
+
+%tables packages
+\usepackage{multirow}
+
+% math
+\usepackage{amsmath}
+
+% bash command
+\usepackage{graphicx}
+\usepackage{listings}
+% varbatim for ascii figures
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{verbatim}
+\usepackage{lipsum} % for context
+\usepackage{fancyvrb}
+\usepackage{varwidth}
+\usepackage{circuitikz}
+\ctikzset{logic ports=ieee}
+
+
+\newsavebox{\asciigcn}
+
+% notes prefixed in pympress
+\addtobeamertemplate{note page}{}{\thispdfpagelabel{notes:\insertframenumber}}
+%theme used
+\usetheme{Madrid}
+%Information to be included in the title page:
+\title[Computer Architecture] %optional
+{Computer Architecture}
+
+\subtitle{Course no. 5 - CPU Architecture}
+
+\author[Ștefan-Dan Ciocîrlan] % (optional, for multiple authors)
+{}
+
+\institute[NUSTPB] % (optional)
+{
+  \inst{}%
+  National University of Science and Technology\\
+  POLITEHNICA Bucharest
+}
+
+\date[NUSTPB 2024] % (optional)
+{Computer Architecture}
+
+\logo{
+\includegraphics[height=0.9cm]{../../media/LOGO_UNSTPB_en.png}
+\includegraphics[height=0.9cm]{../../media/logoACSQ.jpeg}
+}
+
+
+% Roman numerals
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+%split
+\usepackage{amsmath}
+%colors
+%\usepackage[usenames,dvipsnames]{color} %loaded by the dcoument class
+%subfigure
+\usepackage{subcaption}
+% block over block uncover
+\setbeamercovered{invisible}
+%\setbeamercovered{transparent}
+
+%extra slide content
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Content}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+%notes or not
+%\setbeamertemplate{note page}[plain]
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{CPU components}
+\input{components.tex}
+
+\section{Architecture} 
+\input{architecture.tex}
+
+\section{Instruction Set Architecture (ISA)}
+\input{isa.tex}
+
+\section{Instruction Coding}
+\input{format.tex}
+
+\section{Memory addressing}
+\input{memory.tex}
+
+
+
+\section{Q\&A}
+\begin{frame}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Table of Contents}
+%\tableofcontents
+%\end{frame}
+
+
+\end{document}

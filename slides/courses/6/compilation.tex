@@ -1,0 +1,203 @@
+\begin{frame}
+    \frametitle{Compilation Steps}
+    \begin{itemize}
+        \item Preprocess
+        \item Compile
+        \item Assemble
+        \item Link
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Code example C}
+    \inputminted{c}{add.c}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Preprocess}
+    
+    \begin{columns}
+        \column{0.5\textwidth}
+\begin{itemize}
+        \item Remove comments
+        \item Include files
+        \item Macros
+        \item \mint{bash}|clang -O0 -E add.c -o add.i|
+    \end{itemize}
+    \column{0.5\textwidth}
+    \inputminted[firstline=8]{c}{add.i}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Compile}
+    \begin{columns}
+        \column{0.5\textwidth}
+\begin{itemize}
+        \item Translate to assembly
+        \item \mint{bash}|clang -O0 -S add.i -o add.s|
+    \end{itemize}
+    \column{0.5\textwidth}
+    \begin{minted}[fontsize=\footnotesize]{gas}
+main:
+    ...
+    movl	$0, -4(%rbp)
+    movl	$0, -8(%rbp)
+.LBB0_1:
+    cmpl	$10, -8(%rbp)
+    jge	.LBB0_4
+    movl	-8(%rbp), %edx
+    movslq	-8(%rbp), %rcx
+    leaq	n(%rip), %rax
+    movl	%edx, (%rax,%rcx,4)
+    movl	-8(%rbp), %eax
+    addl	$1, %eax
+    movl	%eax, -8(%rbp)
+    jmp	.LBB0_1
+.LBB0_4:
+    \end{minted}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Compile}
+    \begin{columns}
+        \column{0.5\textwidth}
+    \begin{minted}[fontsize=\footnotesize]{gas}
+    movl	$0, sum(%rip)
+    movl	$0, -8(%rbp)
+.LBB0_5:
+    cmpl	$10, -8(%rbp)
+    jge	.LBB0_8
+    movslq	-8(%rbp), %rcx
+    leaq	n(%rip), %rax
+    movl	(%rax,%rcx,4), %eax
+    addl	sum(%rip), %eax
+    movl	%eax, sum(%rip)
+    movl	-8(%rbp), %eax
+    addl	$1, %eax
+    movl	%eax, -8(%rbp)
+    jmp	.LBB0_5
+.LBB0_8:
+    movl	sum(%rip), %eax
+    popq	%rbp
+    retq
+    \end{minted}
+    \column{0.5\textwidth}
+    \begin{minted}[fontsize=\footnotesize]{gas}
+    .bss
+    .globl	n
+    .p2align	4
+n:
+    .zero	40
+    .size	n, 40
+
+    .globl	sum
+    .p2align	2
+sum:
+    .long	0
+    .size	sum, 4
+    \end{minted}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Assemble}
+    \begin{itemize}
+        \item Translate to machine code
+        \item \mint{bash}|clang -O0 -c add.s -o add.o|
+        \item Disassemble the object file to inspect the assembly code
+        \item \mint{bash}|objdump -S add.o| 
+        \item Reverse engineering
+        \item \mint{bash}|xxd add.o|
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Assemble}
+    \begin{minted}[fontsize=\footnotesize]{c-objdump}
+0000000000000000 <main>:
+00:   55                      push   %rbp
+01:   48 89 e5                mov    %rsp,%rbp
+04:   c7 45 fc 00 00 00 00    movl   $0x0,-0x4(%rbp)
+0b:   c7 45 f8 00 00 00 00    movl   $0x0,-0x8(%rbp)
+12:   c7 45 f8 00 00 00 00    movl   $0x0,-0x8(%rbp)
+19:   83 7d f8 0a             cmpl   $0xa,-0x8(%rbp)
+1d:   7d 1c                   jge    3b <main+0x3b>
+1f:   8b 55 f8                mov    -0x8(%rbp),%edx
+22:   48 63 4d f8             movslq -0x8(%rbp),%rcx
+26:   48 8d 05 00 00 00 00    lea    0x0(%rip),%rax # 2d <main+0x2d>
+2d:   89 14 88                mov    %edx,(%rax,%rcx,4)
+30:   8b 45 f8                mov    -0x8(%rbp),%eax
+33:   83 c0 01                add    $0x1,%eax
+36:   89 45 f8                mov    %eax,-0x8(%rbp)
+39:   eb de                   jmp    19 <main+0x19>
+    \end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Assemble}
+    \begin{minted}[fontsize=\footnotesize]{c-objdump}
+3b:   c7 05 00 00 00 00 00    movl   $0x0,0x0(%rip) # 45 <main+0x45>
+42:   00 00 00 
+45:   c7 45 f8 00 00 00 00    movl   $0x0,-0x8(%rbp)
+4c:   83 7d f8 0a             cmpl   $0xa,-0x8(%rbp)
+50:   7d 25                   jge    77 <main+0x77>
+52:   48 63 4d f8             movslq -0x8(%rbp),%rcx
+56:   48 8d 05 00 00 00 00    lea    0x0(%rip),%rax # 5d <main+0x5d>
+5d:   8b 04 88                mov    (%rax,%rcx,4),%eax
+60:   03 05 00 00 00 00       add    0x0(%rip),%eax # 66 <main+0x66>
+66:   89 05 00 00 00 00       mov    %eax,0x0(%rip) # 6c <main+0x6c>
+6c:   8b 45 f8                mov    -0x8(%rbp),%eax
+6f:   83 c0 01                add    $0x1,%eax
+72:   89 45 f8                mov    %eax,-0x8(%rbp)
+75:   eb d5                   jmp    4c <main+0x4c>
+77:   8b 05 00 00 00 00       mov    0x0(%rip),%eax # 7d <main+0x7d>
+7d:   5d                      pop    %rbp
+7e:   c3                      ret    
+    \end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Assemble}
+    \begin{minted}[fontsize=\footnotesize]{hexdump}
+00000040: 5548 89e5 c745 fc00 0000 00c7 45f8 0000  UH...E......E...
+00000050: 0000 c745 f800 0000 0083 7df8 0a7d 1c8b  ...E......}..}..
+00000060: 55f8 4863 4df8 488d 0500 0000 0089 1488  U.HcM.H.........
+00000070: 8b45 f883 c001 8945 f8eb dec7 0500 0000  .E.....E........
+00000080: 0000 0000 00c7 45f8 0000 0000 837d f80a  ......E......}..
+00000090: 7d25 4863 4df8 488d 0500 0000 008b 0488  }%HcM.H.........
+000000a0: 0305 0000 0000 8905 0000 0000 8b45 f883  .............E..
+000000b0: c001 8945 f8eb d58b 0500 0000 005d c300  ...E.........]..
+    \end{minted}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Link}
+    \begin{itemize}
+        \item Combine object files
+        \item Resolve external references
+        \item \mint{bash}|ld|
+        \item \mint{bash}|clang -v -O0 add.o -o add|
+        \item \mint{bash}|./add|
+        \item \mint{bash}|objdump -S add|
+        \item \mint{bash}|xxd add|
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Practice}
+    \begin{itemize}
+        \item try with different optimization levels
+        \item try with "-g" flag
+        \item try with different compilers
+    \end{itemize}
+\end{frame}
