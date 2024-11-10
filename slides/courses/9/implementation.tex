@@ -1,0 +1,115 @@
+
+
+% Slide: Dependency on Main Memory
+\begin{frame}
+    \frametitle{Dependency on Main Memory}
+    \begin{itemize}
+        \item \textbf{Independent Control Memory}: Separate memory specifically for microinstructions, allowing fast access.
+        \item \textbf{Shared Control Memory}: Microinstructions share space with main memory, creating possible contention.
+        \item \textbf{Cached Control Memory}: Microinstructions are cached from main memory, improving access speed with fewer memory calls.
+    \end{itemize}
+    \note{
+        This slide discusses the organizational impact of where control memory is stored.
+        Each structure offers trade-offs between speed and design complexity.
+        For example, independent memory provides high-speed access,
+        whereas shared memory may lead to access delays.
+    }
+\end{frame}
+
+% Slide: Control Memory Organization
+\begin{frame}
+    \frametitle{Control Memory Organization}
+    \begin{itemize}
+        \item \textbf{Word-Addressed}: Each address points to a single microinstruction.
+        \item \textbf{Page-Addressed}: Each address points to a set of microinstructions in different pages (e.g., branching or subroutine instructions).
+        \item \textbf{Block-Addressed}: Each address points to a block of related microinstructions, reducing fetches for grouped operations.
+        \item \textbf{Divided Memory}: Unique microinstructions stored separately; control memory holds references.
+        \item \textbf{Two-Level Memory}: Microinstructions point to nano-instructions, which further specify control signals.
+    \end{itemize}
+    \note{
+        Different control memory organizations allow trade-offs in memory usage and control complexity.
+        Page and block organization allow faster execution for sequences of instructions,
+        while divided and two-level organizations reduce redundancy and can handle complex microoperations.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Micro-instruction Format}
+    \textbf{Constraints:}
+    \begin{itemize}
+        \item Parallelism between micro-operations.
+        \item Control signals for the data flow.
+        \item Felixibility for future expansion.
+        \item Micro-instruction size.
+    \end{itemize}
+\end{frame}
+
+% Slide: Micro-instruction Format
+\begin{frame}
+    \frametitle{Micro-instruction Format}
+    \textbf{Key Considerations:}
+    \begin{itemize}
+        \item \textbf{Parallelism}: Allow simultaneous execution of multiple micro-operations.
+        \item \textbf{Control Signal Flexibility}: Supports data flow, branch control, and additional operations for the underlying hardware.
+        \item \textbf{Future Expansion}: Design accommodates new instructions or signals.
+        \item \textbf{Micro-instruction Size}: Optimizes between memory usage and instruction capability.
+    \end{itemize}
+    \note{
+        Micro-instruction format impacts CPU performance and expandability.
+        Parallelism and control signal flexibility are critical for efficient data flow,
+        while expandability ensures the design remains adaptable for future updates.
+    }
+\end{frame}
+
+% Slide: Types of Micro-instruction Coding
+\begin{frame}
+    \frametitle{Types of Micro-instruction Coding}
+    \begin{itemize}
+        \item \textbf{Horizontal Coding}: Each bit represents a micro-operation, enabling high parallelism.
+        \item \textbf{Vertical Coding}: Each micro-instruction represents a single micro-operation.
+        \item \textbf{Minimal Coding}: Fields group compatible micro-operations (horizontal and vertical coding combined).
+        \item \textbf{Residual Coding}: Micro-operations are in control registers, modified by microinstructions.
+        \item \textbf{Address Coding}: Each micro-instruction is an refference for a unique micro-operation in a separate memory.
+        \item \textbf{Mixed Coding}: Combines field-based micro-operations with address-based sequential steps.
+    \end{itemize}
+    \note{
+        Each coding type offers different levels of flexibility and memory efficiency.
+        For example, horizontal coding is suited for CPUs needing high parallelism,
+        while address and residual coding enable efficient memory use by referencing existing control registers or memory locations.
+        Mixed coding - First part of the micro-instruction
+        is form of fields which contains coded micro-operations. The second
+        part is an address to the next microinstruction.
+    }
+\end{frame}
+
+% Slide: Execution of Micro-instructions
+\begin{frame}
+    \frametitle{Execution of Micro-instructions}
+    Each micro-instruction is executed in two stages: fetch and execute.
+    \begin{itemize}
+        \item \textbf{Sequential Execution}: Microinstructions execute in a fixed order, ideal for simple instruction flow.
+        \item \textbf{Parallel Execution}: The next microinstruction is fetched while the current one executes, improving throughput.
+        \item \textbf{Sequential-Parallel Execution}: Instructions run in parallel except for branches, balancing speed with control complexity.
+    \end{itemize}
+    \note{
+        This slide introduces students to different execution models for micro-instructions.
+        Sequential-parallel execution is a common optimization,
+        allowing multiple instructions to run simultaneously while handling branches independently.
+    }
+\end{frame}
+
+% Slide: Phases of Micro-instruction Execution
+\begin{frame}
+    \frametitle{Phases of Micro-instruction Execution}
+    \begin{itemize}
+        \item \textbf{Mono-phase Execution}: All micro-operations run in a single phase.
+        \item \textbf{Poly-phase Execution}: Micro-operations execute across different phases, allowing complex singals sequencing.
+    \end{itemize}
+    \textbf{Cycle Time}: Execution can have fixed or variable cycle times depending on the micro-instruction complexity.
+    \note{
+        Mono-phase and poly-phase executions highlight flexibility in instruction handling.
+        Mono-phase is simpler but less versatile than poly-phase,
+        which can handle more intricate operations at the cost of increased cycle time variability.
+    }
+\end{frame}
+

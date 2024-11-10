@@ -1,0 +1,332 @@
+\begin{frame} 
+    \frametitle{Engineering Minimal Micro-instruction Coding}
+    \begin{itemize} 
+        \item The problem is NP-complete.
+        \item Goal: Minimize the word size of micro-instructions while
+        considering ROM memory constraints ($2^n$ sizes).
+        \item Using mono-phase micro-instructions.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Problem Definition}
+    \begin{itemize}
+        \item Define micro-operation: $\mu O_{i}$.
+        \item Define microinstruction: $\mu I_{i} = \{ \mu O_{0}, \mu O_{1}, \ldots, \mu O_{|I_{i}|} \}$.
+        \item Set of unique micro-instructions in a program: $\mu P(\mu I) = \{\mu I_{0}, \mu I_{1}, \ldots, \mu I_{|\mu P(\mu I)|}\}$.
+        \item Set of micro-operations in a program: $\mu P(\mu O) = \{\mu O_{0}, \mu O_{1}, \ldots, \mu O_{|\mu P(\mu O)|}\}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Compatible Class of Micro-operations}
+    \begin{itemize}
+        \item Micro-operations $\mu O_{i}$ and $\mu O_{j}$ are compatible if $\forall \mu I_{k} \in \mu P(\mu I),
+        \text{ if } \mu O_{i} \in \mu I_{k} \text{ than } \mu O_{j} \notin \mu I_{k}$.
+        (do not execute in parallel).
+        \item Compatible class: $CC(\mu O_{i}) = \{\mu O_{j} \in \mu P(\mu O)
+         \ | \ \mu O_{i} \text{ and } \mu O_{j} \text{ are compatible}\}$.
+        \item Maximum compatible class: $MCC(\mu O_{i}) = \{ CC(\mu O_{i})
+         \ | \forall  \mu O_{j} \notin CC(\mu O_{i}) \text{ than }
+         \exists \mu O_{k} \in CC(\mu O_{i}) \text{ and }
+         \exists \mu I_{p} \in \mu P(\mu I) \text{, so }
+         \mu O_{j} \in \mu I_{p} \text{ and } \mu O_{k} \in  \mu I_{p} \}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cost of Compatible Class}
+    \begin{itemize}
+        \item Cost of a compatible class: $C(CC(\mu O_{i})) = [\log_{2}(|CC(\mu O_{i})| + 1)]$.
+        \item Total cost of a microinstruction: $C(\mu I) = \sum_{i=0}^{k} C(CC_{i})$,
+        where $k$ is the number of compatible classes.
+        \item Each compatible class corresponds to a field in the microinstruction.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Approximate Minimal Coding Algorithm}
+    \begin{itemize}
+        \item Identify all Maximum Compatible Classes $MCC(\mu O_{i})$.
+        \item Select a set of $MCC(\mu O_{i})$ to minimize $C(\mu I)$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Incompatible Classes}
+    \begin{itemize}
+        \item Incompatible class: $IC(\mu O_{i}) = \{ \mu O_{j} \in \mu P(\mu O) \ | \ \mu O_{i} \text{ and } \mu O_{j} \text{ are incompatible}\}$.
+        \item Maximum incompatible class: $MIC(\mu O_{i}) = \{ IC(\mu O_{i}) \ | \forall  \mu O_{j} \notin IC(\mu O_{i}) \text{ than } \exists \mu O_{k} \in IC(\mu O_{i}) \text{ and } \exists \mu I_{p} \in \mu P(\mu I) \text{, so } \mu O_{j} \in \mu I_{p} \text{ and } \mu O_{k} \in  \mu I_{p} \}$.
+        \item Associated maximum compatible class $AMCC(\mu O_{j}) = \{ MCC(\mu O_{j}) \ | \ \mu O_{j} \in IC(\mu O_{i})\}$.
+    \end{itemize}
+    \note{
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algorithm Properties}
+    \begin{itemize}
+        \item $\forall MIC(\mu O_{i}) \text{ than } \bigcup_{\mu O_{j} \in MIC(\mu O_{i})} AMCC(\mu O_{j}) = \mu P(\mu O)$.
+        \item $\forall MIC(\mu O_{i}) \text{ and } k < |MIC(\mu O_{i}) | \text{ than } \bigcap_{0 < i < k} MCC_{i} \neq \mu P(\mu O)$.
+    \end{itemize}
+    \note{
+        The first condition proof is: $\exists \mu O_{k} \in \mu P(\mu O) \text{ so } \mu O_{k} \notin MIC(\mu O_{i}) \text{ and } \mu O_{k} \notin  \bigcup_{\mu O_{j} \in MIC(\mu O_{i})} AMCC(\mu O_{j})$,
+        than $\mu O_{k}$ is incompatible with every micro-operation in $ MIC(\mu O_{i})$, false, because is the maximum incompatible class.
+
+        Second condition proof is: a compatible class can contain only one micro-operation from a maximum incompatible class.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cost Properties}
+    \begin{itemize}
+        \item If $\mu P(\mu O)$ is partitioned in $q$ fields, the minimum cost is when $q-1$ fileds represents each one micro-operation and the last field represents the rest of the micro-operations.
+        \item There is not solution of $q+h$ fields whith lower cost than a solution with $q$ fields.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algorithm Steps}
+    \begin{enumerate}
+        \item Find all the maximum incompatible classes $MIC(\mu O_{i})$.
+        \item Select the largest $MIC(\mu O_{i})$ by cardinality.
+        \item Find the associated maximum compatible classes $AMCC(\mu O_{j})$.
+        \item Create a table of micro-operations (columns) and maximum compatible classes (rows).
+        \item Identify essential compatible classes (containing unique micro-operations).
+        \item Remove essential compatible classes and reduce the table. (add them to the solution)
+        \item Select a set of remaining classes to cover all operations at minimal cost.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exam Questions}
+    Template: Given the following set of micro-instruction $\mu P(\mu I)$, with every micro-instruction table of micro-operations $\mu P(\mu O)$ executed in the table. Compute the minimal microinstruction coding.
+
+    Example:
+
+    $\mu P(\mu I) = \{ \mu I_{0}, \mu I_{1}, \mu I_{2}, \mu I_{3}, \mu I_{4}, \mu I_{5}, \mu I_{6}\}$
+    $\mu P(\mu O) = \{ \mu O_{0}, \mu O_{1}, \mu O_{2}, \mu O_{3}, \mu O_{4}, \mu O_{5}, \mu O_{6}, \mu O_{7}, \mu O_{8}, \mu O_{9}\}$.
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            $\mu I$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ \\
+            \hline
+            \hline
+            $\mu I_{0}$ & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            $\mu I_{1}$ & 1 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            $\mu I_{2}$ & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 0 \\ \hline
+            $\mu I_{3}$ & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\ \hline
+            $\mu I_{4}$ & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\ \hline
+            $\mu I_{5}$ & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 \\ \hline
+            $\mu I_{6}$ & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 \\ \hline
+        \end{tabular}%
+        }
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution - Table of incompatible operations}
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                $\mu O$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ \\ \hline
+                $\mu O_{0}$ & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 \\ \hline
+                $\mu O_{1}$ & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 0 \\ \hline
+                $\mu O_{2}$ & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\ \hline
+                $\mu O_{3}$ & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\ \hline
+                $\mu O_{4}$ & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\ \hline
+                $\mu O_{5}$ & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ \hline
+                $\mu O_{6}$ & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 \\ \hline
+                $\mu O_{7}$ & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 0 \\ \hline
+                $\mu O_{8}$ & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 \\ \hline
+                $\mu O_{9}$ & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 1 \\ \hline
+            \end{tabular}%
+        }
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution - Maximum incompatible classes}
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                $MIC$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ \\ \hline
+                $MIC(\mu O_{0})$ & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+                $MIC(\mu O_{1})$ & 1 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 \\ \hline
+                $MIC(\mu O_{2})$ & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 0 \\ \hline
+                $MIC(\mu O_{3})$ & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 0 \\ \hline
+                $MIC(\mu O_{4})$ & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\ \hline
+                $MIC(\mu O_{5})$ & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\ \hline
+                $MIC(\mu O_{6})$ & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 \\ \hline
+                $MIC(\mu O_{7})$ & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 \\ \hline
+            \end{tabular}%
+        }
+    \end{table}
+    \note{
+        To make incompatible classes we choose micro-operation from the table of incompatible operations and AND their rows.
+        If there is a 1 in the result that micro-operation is incompatible with the other micro-operations and is can be
+        added to the incompatible class. If there are only 0s in the result than the current set of micro-operations is a maximum incompatible class.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution - Maximum compatible classes}
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                $MCC$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ \\ \hline
+                $MCC_{0}$ & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ \hline
+                $MCC_{1}$ & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 \\ \hline
+                $MCC_{2}$ & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\ \hline
+                $MCC_{3}$ & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ \hline
+                $MCC_{4}$ & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\ \hline
+                $MCC_{5}$ & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ \hline
+                $MCC_{6}$ & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\ \hline
+                $MCC_{7}$ & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ \hline
+                $MCC_{8}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\ \hline
+                $MCC_{9}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\ \hline
+                $MCC_{10}$ & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\ \hline
+            \end{tabular}%
+        }
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution - Associated maximum compatible classes}
+    Select the maximum incompatible class with the biggest cardinality. In this case is $MIC(\mu O_{4})$ or $MIC(\mu O_{5})$.
+    Let's choose $MIC(\mu O_{5})$.
+    $AMCC(\mu O_{i} \in MIC(\mu O_{5})) = \{ MCC_{0}, MCC_{1}, MCC_{2}, MCC_{4}, MCC_{5}, MCC_{6}, MCC_{8}, MCC_{9}, MCC_{10}\}$
+    
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                $MCC$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ \\ \hline
+                $MCC_{0}$ & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ \hline
+                $MCC_{1}$ & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 \\ \hline
+                $MCC_{2}$ & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\ \hline
+                $MCC_{4}$ & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\ \hline
+                $MCC_{5}$ & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ \hline
+                $MCC_{6}$ & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\ \hline
+                $MCC_{8}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\ \hline
+                $MCC_{9}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\ \hline
+                $MCC_{10}$ & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\ \hline
+            \end{tabular}%
+        }
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution - Essential compatible classes}
+    Select the essential compatible classes. In this case $MCC_{0}$ and $MCC_{6}$.
+    $S = \{MCC_{0}, MCC_{6}\}$.
+    % \begin{table}
+    %     \resizebox{0.8\textwidth}{!}{%
+    %         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    %             \hline
+    %             $MCC$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ \\ \hline
+    %             $MCC_{1}$ & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 \\ \hline
+    %             $MCC_{2}$ & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\ \hline
+    %             $MCC_{4}$ & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\ \hline
+    %             $MCC_{5}$ & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ \hline
+    %             $MCC_{8}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\ \hline
+    %             $MCC_{9}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\ \hline
+    %             $MCC_{10}$ & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\ \hline
+    %         \end{tabular}%
+    %     }
+    % \end{table}
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                $MCC$ & $\mu O_{1}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{6}$ & $\mu O_{8}$ \\ \hline
+                $MCC_{1}$ & 0 & 0 & 0 & 1 & 1 \\ \hline
+                $MCC_{2}$ & 0 & 0 & 0 & 0 & 0 \\ \hline
+                $MCC_{4}$ & 1 & 0 & 1 & 0 & 0 \\ \hline
+                $MCC_{5}$ & 1 & 0 & 0 & 1 & 0 \\ \hline
+                $MCC_{8}$ & 0 & 1 & 0 & 0 & 1 \\ \hline
+                $MCC_{9}$ & 0 & 1 & 0 & 0 & 0 \\ \hline
+                $MCC_{10}$ & 0 & 0 & 1 & 0 & 1 \\ \hline
+            \end{tabular}%
+        }
+    \end{table}
+    \note{
+        The essential compatible classes are the ones that contain a micro-operation that is not in any other compatible class.
+        Remove the essential compatible classes from the table and add them to the solution set.
+     }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution - Remaining compatible classes}
+    $MCC_{2}$ and $MCC_{9}$ does not contain any micro-operation that is not in any other compatible class. So we can remove them from the table.   
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                $MCC$ & $\mu O_{1}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{6}$ & $\mu O_{8}$ \\ \hline
+                $MCC_{1}$ & 0 & 0 & 0 & 1 & 1 \\ \hline
+                $MCC_{4}$ & 1 & 0 & 1 & 0 & 0 \\ \hline
+                $MCC_{5}$ & 1 & 0 & 0 & 1 & 0 \\ \hline
+                $MCC_{8}$ & 0 & 1 & 0 & 0 & 1 \\ \hline
+                $MCC_{10}$ & 0 & 0 & 1 & 0 & 1 \\ \hline
+            \end{tabular}%
+        }
+    \end{table}
+    This makes $MCC_{8}$ an essential compatible class. Remove it from the table and add it to the solution set.
+    $S = \{MCC_{0}, MCC_{6}, MCC_{8}\}$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution - Remaining compatible classes}
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                $MCC$ & $\mu O_{1}$ & $\mu O_{4}$ & $\mu O_{6}$ \\ \hline
+                $MCC_{1}$ & 0 & 0 & 1 \\ \hline
+                $MCC_{4}$ & 1 & 1 & 0 \\ \hline
+                $MCC_{5}$ & 1 & 0 & 1 \\ \hline
+                $MCC_{10}$ & 0 & 1 & 0 \\ \hline
+            \end{tabular}%
+        }
+    \end{table}
+    The possible additions solution sets are: $\{MCC_{1}, MCC_{4}\}$, $\{MCC_{4}, MCC_{5}\}$, $\{MCC_{5}, MCC_{10}\}$.
+    The possible sollution sets are: $\{MCC_{0}, MCC_{6}, MCC_{8}, MCC_{1}, MCC_{4}\}$, $\{MCC_{0}, MCC_{6}, MCC_{8}, MCC_{4}, MCC_{5}\}$, $\{MCC_{0}, MCC_{6}, MCC_{8}, MCC_{5}, MCC_{10}\}$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution - Minimal microinstruction coding}
+    The table with all micro operations and the selected compatible classes.
+    \begin{table}
+        \resizebox{0.8\textwidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                $MCC$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ & $|MCC|$ \\ \hline
+                $MCC_{0}$ & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 2\\ \hline
+                $MCC_{1}$ & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 3\\ \hline
+                $MCC_{4}$ & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 3\\ \hline
+                $MCC_{5}$ & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 2\\ \hline
+                $MCC_{6}$ & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 3\\ \hline
+                $MCC_{8}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 2\\ \hline
+                $MCC_{10}$ & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 2\\ \hline
+            \end{tabular}%
+        }
+    \end{table}
+    Order the maximum compatible classes in the solution set by their cardinality.
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Solution - Minimal microinstruction coding}
+    The cost for the solutions are:
+    \begin{itemize}
+        \item $C(S_{0}) = \{ (\mu O_{2}, \mu O_{7}, \mu O_{9}), (\mu O_{0}, \mu O_{6}, \mu O_{8}), (\mu O_{1}, \mu O_{4}), (\mu O_{3}), (\mu O_{5}) \} = 8$
+        \item $C(S_{1}) = \{ (\mu O_{2}, \mu O_{7}, \mu O_{9}), (\mu O_{0}, \mu O_{5}), (\mu O_{1}, \mu O_{6}), (\mu O_{8}, \mu O_{3}), (\mu O_{4})  \} = 9$
+        \item $C(S_{2}) = \{ (\mu O_{2}, \mu O_{7}, \mu O_{9}), (\mu O_{1}, \mu O_{6}), (\mu O_{0}, \mu O_{5}), (\mu O_{3}, \mu O_{8}), (\mu O_{4}) \} = 9$
+    \end{itemize}
+    The minimal microinstruction coding is $S_{0} = \{MCC_{0}, MCC_{6}, MCC_{8}, MCC_{1}, MCC_{4}\}$.
+\end{frame}
