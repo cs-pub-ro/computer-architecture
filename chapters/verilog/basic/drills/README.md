@@ -16,20 +16,3 @@
 
 ## 4. **Comparator** pe un bit.
   Acesta are două intrări și trei ieșiri (pentru mai mic, egal și mai mare). Soluția se află în repo-ul materiei [GitHub](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/verilog/basic/drills/tasks/comparator). Simulați și încărcați pe FPGA.
-
-
-## Test
-  Aveți următorul tabel de adevăr:
-
-  | a | b | c | f |
-  | - | - | - | - |
-  | 0 | 0 | 0 | 1 |
-  | 0 | 0 | 1 | 0 |
-  | 0 | 1 | 0 | 0 |
-  | 0 | 1 | 1 | 0 |
-  | 1 | 0 | 0 | 1 |
-  | 1 | 0 | 1 | 1 |
-  | 1 | 1 | 0 | 1 |
-  | 1 | 1 | 1 | 0 |
-
-  Intrările sunt: `a`, `b`, `c`, iar ieșirea este `f`. Implementați modulul Verilog definit de acest tabel de adevăr.

@@ -1,2 +1,0 @@
-Implmentați modulul verilog pentru afisarea 7-led-segment dat prin iesirile o_w_ca, o_w_cb, o_w_cc, o_w_cd, o_w_ce, o_w_cf, o_w_cg pentru 4 cifre ce vor fi selectate in functie de i_w_in. Linile cx sunt active pe valoarea 0.
-Pentru numarul XYZT, pentru i_w_in=0 se va afisa cifra T, pentru i_w_in=1 cifra Z, pentru i_w_in=2 cifra Y, pentru i_w_in=3 cifra X. apasati run din VPL pentru a afla numarul vostru.
