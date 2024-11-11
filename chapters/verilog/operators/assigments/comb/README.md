@@ -1,1 +1,0 @@
-Implmentați modulul verilog pentru tabelul de adevăr dat. Apăsați butonul run din VPL pentru a afla tabelul de adevăr pe care trebuie să îl implementați.

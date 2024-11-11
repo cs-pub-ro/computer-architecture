@@ -187,12 +187,41 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-      - Assigments:
-          - Tema: chapters/microprogramable_cpu/floating-point-unit/assigments/fpu/README.md
       - Curs:
           path: /build/embed_reveal
           subsections:
             - 0 Introducere: intro/intro.mdx
+      - Evaluare:
+          path: assignments
+          subsections:
+            - Test Circuite Combinaționale:
+                path: combinational
+                extra:
+                  - led7/media/
+                subsections:
+                  - True Table/: comb/
+                  - 7 LED Segment/: led7/
+                  - ALU/: alu/
+            - Test Circuite Secvențiale:
+                path: sequential
+                subsections:
+                  - FSM/: fsm/
+                  - Operation Register/: opregister/
+                  - Flag RAM/: flagram/
+            # - Test Calculator Didactic:
+            #     path: cpu
+            #     subsections:
+            #       - 1/: 1/
+            #       - 2/: 2/
+            #       - 3/: 3/
+            - Teme:
+                path: projects
+                subsections:
+                  - FPU/: fpu/
+            # - Examen AB:
+            #     path: exam
+            #     subsections:
+            #       - 1/: 1/
       
     static_assets:
       - slides/intro: /build/make_assets/chapters/intro/soc/slides/_site
