@@ -1,0 +1,231 @@
+% Slide 1: Introduction
+\begin{frame}
+    \frametitle{Introduction}
+    \begin{itemize}
+        \item In I/O systems, different data transfer methods allow efficient data movement between the CPU, memory, and I/O devices.
+        \item Choosing the right method can optimize system performance and resource usage.
+    \end{itemize}
+\end{frame}
+
+% Slide 2: Programmed I/O (Polling)
+\begin{frame}
+    \frametitle{Programmed I/O (Polling)}
+    \begin{itemize}
+        \item \textbf{How it Works}: The CPU actively checks the I/O device's status register.
+        \item \textbf{Characteristics}:
+            \begin{itemize}
+                \item CPU performs data transfers directly.
+                \item CPU waits, consuming time, which may be inefficient.
+            \end{itemize}
+        \item \textbf{Best Used For}: Simple or low-throughput devices (e.g., keyboard).
+        \item \textbf{Drawbacks}: Inefficient for high-speed devices or systems needing high CPU availability.
+    \end{itemize}
+    \note{
+        Every word transfer is done by the CPU.
+        The CPU is reading the status register cyclically.
+
+    }
+\end{frame}
+
+% Slide 3: Interrupt-Driven I/O
+\begin{frame}
+    \frametitle{Interrupt-Driven I/O}
+    \begin{itemize}
+        \item \textbf{How it Works}: The I/O device sends an interrupt signal to the CPU when it’s ready to transfer data.
+        \item \textbf{Characteristics}:
+            \begin{itemize}
+                \item Reduces CPU waiting time.
+                \item I/O requests are handled via prioritized interrupts.
+            \end{itemize}
+        \item \textbf{Best Used For}: Situations requiring timely data handling, such as network interfaces.
+        \item \textbf{Drawbacks}: High interrupt rates can overwhelm the CPU.
+    \end{itemize}
+\end{frame}
+
+% Slide 4.1: Direct Memory Access (DMA)
+\begin{frame}
+    \frametitle{Direct Memory Access (DMA)}
+    \begin{itemize}
+        \item \textbf{How it Works}: A DMA controller handles data transfer between the I/O device and memory, bypassing the CPU.
+        \item \textbf{Characteristics}:
+            \begin{itemize}
+                \item Reduces CPU involvement in large data transfers.
+                \item Allows high-speed data transfers.
+            \end{itemize}
+        \item \textbf{Best Used For}: High-throughput devices needing large data block transfers (e.g., disk drives).
+        \item \textbf{Drawbacks}: Requires additional hardware (DMA controller).
+    \end{itemize}
+    \note{
+        The CPU initiates the transfer, but the DMA controller handles the data transfer.
+        The CPU verify if the transfer is done.
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{CPU Tasks in DMA Transfer}
+
+    \begin{enumerate}
+        \item \textbf{Configuring the DMA Controller}
+            \begin{itemize}
+                \item Set source and destination addresses in DMA registers.
+                \item Specify transfer length and define transfer mode:
+                \begin{itemize}
+                    \item \textit{Burst Mode}: Transfers data in large chunks. CPU is blocked during transfer.
+                    \item \textit{Cycle Stealing Mode}: Transfers in small chunks, shares bus with CPU. DMA has higher priority.
+                    \item \textit{Transparent Mode}: Transfers data when CPU is not using the bus.
+                \end{itemize}
+                \item Set up DMA interrupt on transfer completion.
+            \end{itemize}
+        
+        \item \textbf{Initiating the DMA Transfer}
+            \begin{itemize}
+                \item Issue command to start the transfer, allowing DMA to handle data movement directly.
+            \end{itemize}
+        
+        \item \textbf{Handling DMA Interrupts}
+            \begin{itemize}
+                \item Process interrupt after transfer completes, update status, and prepare for further operations.
+            \end{itemize}
+        
+        \item \textbf{Error Handling and Recovery}
+            \begin{itemize}
+                \item If it gets an error interrupt, diagnose and initiate corrective actions.
+            \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+% Slide 5: Memory-Mapped I/O
+\begin{frame}
+    \frametitle{Memory-Mapped I/O}
+    \begin{itemize}
+        \item \textbf{How it Works}: I/O devices are mapped into the same address space as the main memory.
+        \item \textbf{Characteristics}:
+            \begin{itemize}
+                \item Devices are accessed like memory addresses.
+                \item Simplifies the programming model.
+            \end{itemize}
+        \item \textbf{Best Used For}: Systems where unified memory and I/O accesses are beneficial, such as embedded systems.
+        \item \textbf{Drawbacks}: Potential for memory address conflicts.
+    \end{itemize}
+\end{frame}
+
+% Slide 6: Channel I/O
+\begin{frame}
+    \frametitle{Channel I/O}
+    \begin{itemize}
+        \item \textbf{How it Works}: Dedicated I/O processors, or "channels," handle complex I/O tasks independently.
+        \item \textbf{Characteristics}:
+            \begin{itemize}
+                \item Channels have their own instructions, allowing complex I/O without CPU involvement.
+                \item Common in mainframes.
+            \end{itemize}
+        \item \textbf{Best Used For}: High-performance systems handling many I/O requests, like mainframes.
+        \item \textbf{Drawbacks}: Additional hardware and complexity.
+    \end{itemize}
+\end{frame}
+% Slide 6.1: Channel I/O
+\begin{frame}
+    \frametitle{Channel I/O Operation}
+    \begin{enumerate}
+        \item \textbf{Channel Program Setup}
+            \begin{itemize}
+                \item CPU prepares a channel program, specifying I/O operations and data transfer details.
+                \item Channel program is loaded into the channel's control memory.
+            \end{itemize}
+        
+        \item \textbf{Channel Program Execution}
+            \begin{itemize}
+                \item CPU initiates the channel program execution.
+                \item Channel processor executes the program, handling I/O operations independently.
+            \end{itemize}
+        
+        \item \textbf{Channel Program Completion}
+            \begin{itemize}
+                \item Channel processor signals the CPU when the program completes.
+                \item CPU processes the completion status and prepares for further operations.
+            \end{itemize}
+    \end{enumerate}
+\end{frame}
+% Slide 6.2: Channel I/O
+\begin{frame}
+    \frametitle{Channel I/O vs. DMA}
+        \begin{itemize}
+            \item Can handle interupts and errors. (except fatal errors)
+            \item Can handle multiple I/O devices and multiple I/O operations at the same time.
+            \item Bus sharing is the same as DMA.
+        \end{itemize}
+\end{frame}
+
+% Slide 7: Isolated I/O
+\begin{frame}
+    \frametitle{Isolated I/O or Port-Mapped I/O}
+    \begin{itemize}
+        \item \textbf{How it Works}: Separate address space for I/O operations, accessed via specific I/O instructions.
+        \item \textbf{Characteristics}:
+            \begin{itemize}
+                \item Prevents conflicts between memory and I/O addresses.
+                \item Uses dedicated I/O instructions (e.g., IN and OUT in x86).
+            \end{itemize}
+        \item \textbf{Best Used For}: Systems with separate I/O instruction sets, such as x86 PCs.
+        \item \textbf{Drawbacks}: Adds complexity in CPU design.
+    \end{itemize}
+\end{frame}
+
+% Slide 8: Co-Processor I/O
+\begin{frame}
+    \frametitle{Co-Processor I/O}
+    \begin{enumerate}
+        \item \textbf{Dedicated I/O Processor}
+            \begin{itemize}
+                \item A co-processor (specialized processor) manages I/O operations independently.
+                \item Reduces the main CPU’s workload by handling data transfers and processing tasks.
+            \end{itemize}
+        
+        \item \textbf{Functionality and Complexity}
+            \begin{itemize}
+                \item The co-processor can handle complex I/O tasks, similar to Channel I/O.
+                \item It can perform operations such as data formatting, error checking, and signal processing.
+            \end{itemize}
+        
+        \item \textbf{CPU Involvement}
+            \begin{itemize}
+                \item The CPU is involved only in setup and initialization.
+                \item Once configured, the co-processor operates autonomously, reporting back on completion or errors.
+            \end{itemize}
+        
+        \item \textbf{Use Cases}
+            \begin{itemize}
+                \item Found in systems with high-performance needs, such as graphics processing units (GPUs) and digital signal processors (DSPs).
+                \item Common in tasks requiring substantial data processing, like multimedia, AI, and scientific computation.
+            \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+% Slide 9: Summary Table
+\begin{frame}[fragile]
+    \frametitle{Summary of Data Transfer Methods}
+    \begin{table}[]
+        \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \textbf{Method} & \textbf{CPU Involvement} & \textbf{Best For} & \textbf{Examples} \\
+            \hline
+            Programmed I/O & High & Simple devices & Keyboards, mice \\
+            \hline
+            Interrupt-Driven & Moderate & Timely data handling & Network cards \\
+            \hline
+            DMA & Low & High-throughput & Disk drives, GPUs \\
+            \hline
+            Memory-Mapped I/O & Moderate & Unified memory-I/O & Embedded systems \\
+            \hline
+            Channel I/O & Low & Complex I/O needs & Mainframes \\
+            \hline
+            Port-Mapped & Moderate & Separate I/O instructions & x86 PCs \\
+            \hline
+            Co-Processor & Very-Low & High-performance tasks & GPUs, DSPs \\
+            \hline
+        \end{tabular}%
+        }
+    \end{table}
+\end{frame}

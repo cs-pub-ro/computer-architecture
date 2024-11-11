@@ -1,0 +1,166 @@
+\begin{frame}
+    \frametitle{Register}
+    \begin{circuitikz}
+        \draw
+        (0,0) node[draw, minimum width=2cm, minimum height=3cm] (chip) {Register}
+        (chip.west) ++(-0.5,1) node[left] {Data Input (DI)} -- (chip.west |- 0,1)
+        (chip.west) ++(-0.5,0) node[left] {Write Enable (WE)} -- (chip.west |- 0,0)
+        (chip.west) ++(-0.5,-1) node[left] {Output Enable (OE)} -- (chip.west |- 0,-1)
+        (chip.east) ++(0.5,0) node[right] {Data Output (DO)} -- (chip.east |- 0,0);
+    \end{circuitikz}
+    
+    \note{
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{General Purpose Registers (GR)}
+    \begin{table}[]
+        \begin{tabular}{|l|l|l|}
+            \hline
+            \textbf{Register} & \textbf{Acronym} & \textbf{Size} \\ \hline
+            Register A & RA & 16-bit \\ \hline
+            Register B & RB & 16-bit \\ \hline
+            Register C & RC & 16-bit \\ \hline
+            Stack Pointer Register & SP & 16-bit \\ \hline
+            Index Register A & XA & 16-bit \\ \hline
+            Index Register B & XB & 16-bit \\ \hline
+            Base Address A & BA & 16-bit \\ \hline
+            Base Address B & BB & 16-bit \\ \hline
+        \end{tabular}
+    \end{table}
+    \note{
+    }
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Registers File (RF)}
+    
+    \begin{circuitikz}
+        % Demux
+        \draw
+        (0,0) node[muxdemux, muxdemux def={Lh=4, Rh=8, NL=3, NR=8, NT=0, NB=3, w=2,
+        square pins=1}] (C) at (0,0) {I};
+        % Inputs
+    \node[left, font=\tiny] at (C.lpin 1) {DI};
+    \node[left, font=\tiny] at (C.lpin 2) {WE};
+    \node[left, font=\tiny] at (C.lpin 3) {OE};
+    
+    % Outputs
+    \node[above, font=\tiny] at (C.rpin 1) {RA};
+    \node[right, font=\tiny] at (C.rpin 2) {RB};
+    \node[right, font=\tiny] at (C.rpin 3) {RC};
+    \node[right, font=\tiny] at (C.rpin 4) {SP};
+    \node[right, font=\tiny] at (C.rpin 5) {XA};
+    \node[right, font=\tiny] at (C.rpin 6) {XB};
+    \node[right, font=\tiny] at (C.rpin 7) {BA};
+    \node[right, font=\tiny] at (C.rpin 8) {BB};
+    \node[below, font=\tiny] at (C.bpin 1) {Register Address (REG)};
+    
+    % Split RA output into 3 connections
+    \draw (C.rpin 1) -- ++(1.0,0) coordinate (split) 
+    (split) |- ++(1,1.0) node[right, font=\tiny] {DI}
+    (split) |- ++(1,-1.0) node[right, font=\tiny] {WE}
+    (split) -- ++(1,0) node[right, font=\tiny] {OE};
+    
+    % Connect to another component
+    \draw (split) -- ++(1,0) node[draw, minimum width=2cm, minimum height=3cm, anchor=west] (chip) {RA}
+    (chip.east) node[left, font=\tiny] {DO}
+    (chip.east) |- ++(1,0.0) node[muxdemux, muxdemux def={Lh=8, Rh=1, NL=8, NR=1, NT=0, NB=3, w=2,
+    square pins=1}] (D) at (6.5,0) {O};
+    % Inputs
+    \node[above, font=\tiny] at (D.lpin 1) {RA};
+    \node[left, font=\tiny] at (D.lpin 2) {RB};
+    \node[left, font=\tiny] at (D.lpin 3) {RC};
+    \node[left, font=\tiny] at (D.lpin 4) {SP};
+    \node[left, font=\tiny] at (D.lpin 5) {XA};
+    \node[left, font=\tiny] at (D.lpin 6) {XB};
+    \node[left, font=\tiny] at (D.lpin 7) {BA};
+    \node[left, font=\tiny] at (D.lpin 8) {BB};
+    \node[below, font=\tiny] at (D.bpin 1) {Register Address (REG)};
+
+    % Outputs
+    \node[above, font=\tiny] at (D.rpin 1) {DO};
+
+    \end{circuitikz}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Special Purpose Registers}
+    \begin{table}[]
+        \begin{tabular}{|l|l|l|}
+            \hline
+            \textbf{Register} & \textbf{Acronym} & \textbf{Size} \\ \hline
+            Program Counter & PC & 16-bit \\ \hline
+            Instruction Register & IR & 16-bit \\ \hline
+            Memory Address Register & MA & 16-bit \\ \hline
+            Flags Register & FR & 16-bit \\ \hline
+            Operand Register 1 & T1 & 16-bit \\ \hline
+            Operand Register 2 & T2 & 16-bit \\ \hline
+            Input/Output Addressing Register & IOA & 16-bit \\ \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Memory (M)}
+    \begin{itemize}
+        \item Address width: 16-bit
+        \item Data width: 16-bit
+    \end{itemize}
+    \begin{circuitikz}
+        \draw
+        (0,0) node[draw, minimum width=2cm, minimum height=4cm] (chip) {Memory}
+        (chip.west) ++(-0.5,1) node[left] {Address (MA)} -- (chip.west |- 0,1)
+        (chip.west) ++(-0.5,0.5) node[left] {Memory Input (MI)} -- (chip.west |- 0,0.5)
+        (chip.west) ++(-0.5,-0.5) node[left] {Write Enable (WE)} -- (chip.west |- 0,-0.5)
+        (chip.west) ++(-0.5,-1) node[left] {Output Enable (OE)} -- (chip.west |- 0,-1)
+        (chip.east) ++(0.5,0) node[right] {Memory Output (MO)} -- (chip.east |- 0,0);
+    \end{circuitikz}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Arithmetic Logic Unit (ALU)}
+    \begin{circuitikz}
+        \draw
+        (0,0) node[muxdemux, muxdemux def={Lh=7, NL=2, Rh=4, NR=2, NB=1, NT=2, w=4,
+        inset w=1, inset Lh=2, inset Rh=0, square pins=1}] (chip) {ALU}
+        % Inputs
+        (chip.lpin 1) node[left] {Operand 1 (T1)}
+        (chip.lpin 2) node[left] {Operand 2 (T2)}
+        (chip.bpin 1) node[below] {Operation (OP)}
+        (chip.tpin 1) node[left] {Carry In (CI)}
+        (chip.tpin 2) node[right] {Output Enable (OE)}
+
+        % Outputs
+        (chip.rpin 1) node[right] {Result (R)}
+        (chip.rpin 2) node[right] {Flags (FR)};
+
+    \end{circuitikz}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Internal Bus}
+    \begin{table}[]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+            \hline
+            \textbf{Source} & \textbf{GR} & \textbf{M} & \textbf{T1} & \textbf{T2} & \textbf{IR} & \textbf{PC} & \textbf{IO} & \textbf{IOA} & \textbf{ALU} & \textbf{MA} & \textbf{FR} \\ \hline
+            \textbf{GR} & X & X & X & X & - & X & X & - & - & X & - \\ \hline
+            \textbf{M} & X & X & X & X & X & X & X & - & - & X & X \\ \hline
+            \textbf{T1} & - & - & - & - & - & - & - & - & X & - & - \\ \hline
+            \textbf{T2} & - & - & - & - & - & - & - & - & X & - & - \\ \hline
+            \textbf{IR} & - & - & - & - & - & - & - & X & - & - & - \\ \hline
+            \textbf{PC} & X & X & - & - & - & X & - & - & - & X & - \\ \hline
+            \textbf{IO} & X & X & - & - & - & - & - & - & - & - & - \\ \hline
+            \textbf{IOA} & - & - & - & - & - & - & X & - & - & - & - \\ \hline
+            \textbf{ALU} & X & X & X & X & - & X & - & - & - & X & X \\ \hline
+            \textbf{MA} & - & - & - & - & - & - & - & - & - & - & - \\ \hline
+            \textbf{FR} & - & X & - & - & - & - & - & - & - & - & - \\ \hline
+        \end{tabular}
+        }
+    \end{table}
+    
+\end{frame}

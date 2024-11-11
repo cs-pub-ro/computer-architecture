@@ -1,0 +1,104 @@
+\begin{frame}
+    \frametitle{Instruction Set Architecture (ISA)}
+    \textbf{Types of instructions:}
+    \begin{itemize}
+        \item \textbf{Data transfer}
+        \item \textbf{Arithmetic}
+        \item \textbf{Logical and bit manipulation}
+        \item \textbf{Flow Control}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data transfer}
+    \begin{table}[]
+        \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|l|}
+                \hline
+                \textbf{Goal} & \textbf{Acronym} & \textbf{Description} \\ \hline
+                \multirow{3}{*}{General} & MOV & Move data from source to destination \\ \cline{2-3}
+                                                & PUSH & Push data onto the stack \\ \cline{2-3}
+                                                & POP & Pop data from the stack \\ \hline
+                \multirow{2}{*}{IO} & IN & Input data from an I/O port \\ \cline{2-3}
+                                    & OUT & Output data to an I/O port \\ \hline
+                \multirow{2}{*}{Flags} & PUSHF & Push flags onto the stack \\ \cline{2-3}
+                                       & POPF & Pop flags from the stack \\ \hline
+            \end{tabular}
+        }
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Arithmetic}
+    \begin{table}[]
+        \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|l|}
+                \hline
+                \textbf{Goal} & \textbf{Acronym} & \textbf{Description} \\ \hline
+                \multirow{3}{*}{Addition} & ADD & Add two operands \\ \cline{2-3}
+                                                & ADC & Add two operands with carry \\ \cline{2-3}
+                                                & INC & Increment one operand\\ \hline
+                \multirow{5}{*}{Subtraction} & SUB & Subtract destination with source \\ \cline{2-3}
+                                       & SBB & Subtract with borrow \\ \cline{2-3}
+                                       & DEC & Decrement one operand \\ \cline{2-3}
+                                        & NEG & Negate one operand (two's complement) \\ \cline{2-3}
+                                        & CMP & Compare two operands \\ \hline
+            \end{tabular}
+        }
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Logical and bit manipulation}
+    \begin{table}[]
+        \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|l|}
+                \hline
+                \textbf{Goal} & \textbf{Acronym} & \textbf{Description} \\ \hline
+                \multirow{3}{*}{Logic} & AND & Bitwise AND operation \\ \cline{2-3}
+                                                & OR & Bitwise OR operation \\ \cline{2-3}
+                                                & XOR & Bitwise XOR operation \\ \cline{2-3}
+                                                & NOT & Not one operand (one's complement) \\ \cline{2-3}
+                                                & TEST & Bitwise AND without result \\ \hline
+                \multirow{3}{*}{Shift} & SHL/SAL & Shift left \\ \cline{2-3}
+                                    & SHR & Shift right \\ \cline{2-3}
+                                    & SAR & Arithmetic shift right \\ \hline
+            \end{tabular}
+        }
+    \end{table}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Flow Control}
+    \begin{table}[]
+        \resizebox{0.6\textwidth}{!}{%
+            \begin{tabular}{|l|l|l|}
+                \hline
+                \textbf{Goal} & \textbf{Acronym} & \textbf{Description} \\ \hline
+                \multirow{3}{*}{Jump} & JMP & Jump to an address \\ \cline{2-3}
+                                                & CALL & Call a subroutine \\ \cline{2-3}
+                                                & RET & Return from a subroutine \\ \cline{2-3}
+                                                & IRET & Return from a interuption subroutine \\ \cline{2-3}
+                                                & HLT & Halt the processor \\ \hline
+                \multirow{3}{*}{Conditional}    & JA & Jump above (C or Z = 0) \\ \cline{2-3}
+                                                & JAE & Jump above or equal (C = 0) \\ \cline{2-3}
+                                                & JB & Jump below (C) \\ \cline{2-3}
+                                                & JBE & Jump below or equal (C or Z) \\ \cline{2-3}
+                                                & JC & Jump if carry (C) \\ \cline{2-3}
+                                                & JE & Jump if equal (Z) \\ \cline{2-3}
+                                                & JG & Jump if greater ($(S \oplus O) | Z = 0$) \\ \cline{2-3}
+                                                & JGE & Jump if greater or equal ($(S \oplus O) = 0$) \\ \cline{2-3}
+                                                & JL & Jump if less ($(S \oplus O) = 1$) \\ \cline{2-3}
+                                                & JLE & Jump if less or equal ($(S \oplus O) | Z = 1$) \\ \cline{2-3}
+                                                & JNC & Jump if not carry \\ \cline{2-3}
+                                                & JNE & Jump if not equal \\ \cline{2-3}
+                                                & JNO & Jump if not overflow \\ \cline{2-3}
+                                                & JPO & Jump if parity odd \\ \cline{2-3}
+                                                & JNS & Jump if sign \\ \cline{2-3}
+                                                & JO & Jump if overflow \\ \cline{2-3}
+                                                & JPE & Jump if parity even \\ \cline{2-3}
+                                                & JS & Jump if sign \\ \hline
+            \end{tabular}
+        }
+    \end{table}
+\end{frame}

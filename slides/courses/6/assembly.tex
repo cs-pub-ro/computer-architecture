@@ -1,0 +1,151 @@
+\begin{frame}
+    \frametitle{Assembly Language}
+    \begin{itemize}
+        \item Low-level programming language
+        \item Directly related to machine code
+        \item Most cases: each instruction corresponds to a machine code instruction
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Advantages}
+    \begin{itemize}
+        \item Direct access to hardware
+        \item High performance
+        \item Small code size
+        \item Full control over the system
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Disadvantages}
+    \begin{itemize}
+        \item Difficult to write
+        \item Difficult to read
+        \item Difficult to maintain
+        \item Difficult to debug
+        \item Difficult to port
+        \item Time consuming
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Position of Code}
+    \begin{itemize}
+        \item Independent (absolute/PIC)
+        \item Relative to the current instruction (PC-relative)
+        \item External to the code (libaries)
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Mnemonics}
+    \begin{itemize}
+        \item Instruction:
+        
+        [Label:] \texttt{Operation} [List of Operands] [; Comment]
+
+        \item Variables:
+        
+        \texttt{name type size} [value/expresion] [; Comment]
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data Types}
+    \begin{itemize}
+        \item DB Byte: 8 bits
+        \item DW Word: 16 bits
+        \item DD Double Word: 32 bits
+        \item DQ Quad Word: 64 bits
+        \item DT Ten Bytes: 80 bits
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Constants}
+    \begin{itemize}
+        \item binary 10101B
+        \item octal 1234Q
+        \item decimal 1234D
+        \item hexadecimal 1234H (first digit must be 0-9)
+        \item character 'A'
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Operator DUP}
+    \begin{itemize}
+        \item \texttt{var DB 10 DUP(?)}
+        \item \texttt{var DB 10 DUP(0)}
+        \item \texttt{var DB 5 DUP(5 DUP(5 DUP(0)))}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sections}
+    \begin{itemize}
+        \item \texttt{.data}
+        \item \texttt{.text}
+        \item \texttt{.rodata}
+        \item \texttt{.section}
+        \item \texttt{.global}
+        \item \texttt{.extern}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Directives}
+    \begin{itemize}
+        \item \texttt{.equ}
+        \item \texttt{=}
+        \item \texttt{.asci}
+        \item \texttt{.include}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Code Example}
+    \begin{minted}{gas}
+    VEC DW 10 DUP(0); 10 words initialized with 0
+    SUM DW 0; 1 word initialized with 0
+    SIZE EQU 10; SIZE = 10
+
+    MAIN:
+        MOV BA, VEC; BA = VEC
+        XOR XA, XA; XA = 0
+
+        INIT_LOOP:
+            MOV [BA + XA+], XA; VEC[XA++] = XA
+            CMP XA, 10; Compare XA with 10
+            JL INIT_LOOP; If XA < 10, jump to INIT_LOOP
+        
+    \end{minted}
+    
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Code Example}
+    \begin{minted}{gas}
+    
+        MOV BA, VEC; BA = VEC
+        XOR XA, XA; XA = 0
+        MOV RA, XA; RA = XA
+
+        SUM_LOOP:
+            ADD RA, [BA + XA+]; RA += VEC[XA++]
+            CMP XA, 10; Compare XA with 10
+            JL SUM_LOOP; If XA < 10, jump to SUM_LOOP
+
+        MOV SUM, RA; SUM = RA
+        HALT:
+            HLT; Stop the program
+        
+    \end{minted}
+    
+\end{frame}
