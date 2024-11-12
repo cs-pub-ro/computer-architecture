@@ -6,7 +6,7 @@ Vom completa conținutul **modulului alu**, folosind intrările și ieșirile pr
 
 ```verilog
 module alu #(
-    parameter p_data_width = 6, // 6 for FPGA testing, 16 for Simulation and inside the CPU
+    parameter p_data_width = 5, // 5 for FPGA testing, 16 for Simulation and inside the CPU
     parameter p_flags_width = 5
 )(
     output wire [(p_data_width-1):0] o_w_out,
