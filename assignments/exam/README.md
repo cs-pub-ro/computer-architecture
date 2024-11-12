@@ -33,8 +33,8 @@ cache?
 8. Given the x-bit adder of type y, calculate the number of gates
 for the carry-out.
 
-9. Given the x-bit Booth’s algorithm, how many additions are for
-M × R?
+9. Given the x-bit Booth's algorithm, how many additions are for
+M x R?
 
 10. What are the status flags for the following operation X ?
 
