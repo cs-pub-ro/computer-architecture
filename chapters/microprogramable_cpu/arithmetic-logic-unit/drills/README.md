@@ -69,6 +69,18 @@ Se observă că operațiile logice nu activează semnalele _carry_ și _overflow
 
 De asemenea operația `SAL` lipsește întrucât e identică cu `SHL`.
 
+Operatiile de shift la stanga verifica **MSB**-ul operandului pentru activarea flag-ului _carry_, iar operatiile de shift la dreapta verifica **LSB**-ul.
+
+```verilog
+// SHL/SAL
+l_r_carry = i_w_op1[p_data_width-1] | i_w_op2[p_data_width - 1];
+
+// SHR/SAR
+l_r_carry = i_w_op1[0] | i_w_op2[0];
+```
+
+Pentru activarea flagului _overflow_ operatiile de shift verifica schimbarea **MSB**-ului deoarece acesta este _bitul de semn_.
+
 ### Zero (Z), Sign (S), Parity (P)
 
 Aceste semnale au aceleași condiții de activare indiferent de operația efectuată. De asemenea paritatea este verificată prin operatorul de reducere _XNOR_.
