@@ -6,7 +6,7 @@ Vom completa conținutul **modulului alu**, folosind intrările și ieșirile pr
 
 ```verilog
 module alu #(
-    parameter p_data_width = 6, // 6 for FPGA testing, 16 for Simulation and inside the CPU
+    parameter p_data_width = 5, // 5 for FPGA testing, 16 for Simulation and inside the CPU
     parameter p_flags_width = 5
 )(
     output wire [(p_data_width-1):0] o_w_out,
@@ -68,6 +68,18 @@ i_w_op2[p_data_width-1] != i_w_op1[p_data_width-1]
 Se observă că operațiile logice nu activează semnalele _carry_ și _overflow_, iar în cazul operațiilor cu un singur operand (NOT/SHL/SHR/SAR), datorită operatorului `|`, acesta se poate afla pe oricare din intrări `i_w_op1` sau `i_w_op2` cu condiția ca cealaltă să aibă valoarea **0**.
 
 De asemenea operația `SAL` lipsește întrucât e identică cu `SHL`.
+
+Operatiile de shift la stanga verifica **MSB**-ul operandului pentru activarea flag-ului _carry_, iar operatiile de shift la dreapta verifica **LSB**-ul.
+
+```verilog
+// SHL/SAL
+l_r_carry = i_w_op1[p_data_width-1] | i_w_op2[p_data_width - 1];
+
+// SHR/SAR
+l_r_carry = i_w_op1[0] | i_w_op2[0];
+```
+
+Pentru activarea flagului _overflow_ operatiile de shift verifica schimbarea **MSB**-ului deoarece acesta este _bitul de semn_.
 
 ### Zero (Z), Sign (S), Parity (P)
 
