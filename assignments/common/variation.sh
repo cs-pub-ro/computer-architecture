@@ -78,10 +78,11 @@ generate_unique_random_numbers() {
     local op_sel=()
     local op_value=0
     local i=0
+    local first_seed=$seed
     while [ $i -lt $k ];
     do
         op_value=$(generate_integer_value $start_value $end_value $seed)
-        seed=$(expr $seed + 1)
+        seed=$(expr $seed + 10000)
         local sem=0
         for j in "${op_sel[@]}"
         do

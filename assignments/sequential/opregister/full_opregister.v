@@ -20,8 +20,8 @@ module full_opregister(
                 4'd0: l_r_data <= l_r_data >> 1;
                 4'd1: l_r_data <= l_r_data << 1;
                 4'd2: l_r_data <= l_r_data >>> 1;
-                4'd3: l_r_data <= {1'b0, l_r_data[3:1]};
-                4'd4: l_r_data <= {l_r_data[2:0], 1'b0};
+                4'd3: l_r_data <= {l_r_data[0], l_r_data[3:1]};
+                4'd4: l_r_data <= {l_r_data[2:0], l_r_data[3]};
                 4'd5: l_r_data <= {3'b000, |l_r_data};
                 4'd6: l_r_data <= {3'b000, ^l_r_data};
                 4'd7: l_r_data <= {3'b000, &l_r_data};
