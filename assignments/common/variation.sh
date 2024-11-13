@@ -76,11 +76,12 @@ generate_unique_random_numbers() {
     local start_value=0
     local end_value=$(expr $number - 1)
     local op_sel=()
-    local op_value=$seed
+    local op_value=0
     local i=0
     while [ $i -lt $k ];
     do
-        op_value=$(generate_integer_value $start_value $end_value $op_value)
+        op_value=$(generate_integer_value $start_value $end_value $seed)
+        seed=$(expr $seed + 1)
         local sem=0
         for j in "${op_sel[@]}"
         do

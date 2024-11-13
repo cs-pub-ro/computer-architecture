@@ -61,7 +61,7 @@ module evaluate_opregister;
             #10;
             if (l_w_out_student !== l_w_out_solution) begin
                 $display(
-                    "Error: (hex_values) l_w_out_student = %0h correct %0h, i_w_data = %0h, i_w_opsel = %0h, i_w_we = %0h, i_w_oe = %0h",
+                    "Error: (hex_values) o_w_out = %0h correct %0h, i_w_data = %0h, i_w_opsel = %0h, i_w_we = %0h, i_w_oe = %0h",
                     l_w_out_student, l_w_out_solution, l_r_data, l_r_opsel, l_r_we, l_r_oe);
             end else begin
                 $display("OK");
@@ -75,7 +75,7 @@ module evaluate_opregister;
                 #10;
                 if (l_w_out_student !== l_w_out_solution) begin
                     $display(
-                        "Error: (hex_values) l_w_out_student = %0h correct %0h, i_w_data = %0h, i_w_opsel = %0h, i_w_we = %0h, i_w_oe = %0h",
+                        "Error: (hex_values) o_w_out = %0h correct %0h, i_w_data = %0h, i_w_opsel = %0h, i_w_we = %0h, i_w_oe = %0h",
                         l_w_out_student, l_w_out_solution, l_r_data, l_r_opsel, l_r_we, l_r_oe);
                 end else begin
                     $display("OK");
