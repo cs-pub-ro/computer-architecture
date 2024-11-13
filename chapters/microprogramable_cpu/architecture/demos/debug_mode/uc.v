@@ -27,6 +27,7 @@ module uc#(
     output reg                      o_r_t2_we,
     output reg                      o_r_ri_oe,          // controls RI register output which generates the offset for Jcond instructions
     output reg                      o_r_ri_we,
+    output wire [(p_data_width - 1) : 0]       o_w_state_disp_out,
     input wire                                 i_w_clk,
     input wire                                 i_w_reset,
     input wire [(p_data_width - 1) : 0]        i_w_ri,
@@ -496,5 +497,6 @@ always @(*) begin
     endcase
 end
 
+assign o_w_state_disp_out = l_r_state;
 
 endmodule

@@ -4,8 +4,10 @@ module registers#(
     parameter p_address_width = 3
 )(
     output wire [(p_data_width-1) : 0] o_w_out,
+    output wire [(p_data_width-1) : 0] o_w_disp_out,
     input wire [(p_data_width-1) : 0] i_w_in,
     input wire [(p_address_width-1) : 0] i_w_address,
+    input wire [(p_address_width-1) : 0] i_w_disp_address,
     input wire i_w_we,
     input wire i_w_oe,
     input wire i_w_clk
@@ -20,5 +22,7 @@ module registers#(
     end
 
     assign o_w_out = ( (i_w_oe == 1'b1) && (i_w_we == 1'b0) ) ? l_r_data[i_w_address] : {p_data_width{1'b0}};
+
+    assign o_w_disp_out = l_r_data[i_w_disp_address];
 
 endmodule
