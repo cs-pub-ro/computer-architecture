@@ -1,5 +1,5 @@
 module opregister(
-    output reg [3:0] o_w_out,
+    output wire [3:0] o_w_out,
     input wire i_w_clk,
     input wire i_w_reset,
     input wire [3:0] i_w_data,

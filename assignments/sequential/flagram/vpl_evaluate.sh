@@ -15,7 +15,9 @@ MAKEFILE=${HELPER_SCRIPTS_DIR}/Makefile
 
 # --- Set the variables for the assignment ---
 TOP_MODULE=flagram
-OTHER_SOURCES=full_flagram.v
+OTHER_SOURCES=('full_flagram.v' 'sol_ram.v' 'sol_register.v' 'ram.v' 'register.v')
+# transform array into space separated string
+OTHER_SOURCES=$(generate_other_sources ${OTHER_SOURCES[@]})
 maxGrade=100
 EVALUATE_FILE=evaluate.out
 
@@ -45,8 +47,8 @@ solution_flags=$(generate_solution_flags ${op_sel[@]})
 
 #--- compile and run the code ---
 MAKE_CMD="make -f ${MAKEFILE} run_evaluate TOP_MODULE=${TOP_MODULE} OTHER_SOURCES=${OTHER_SOURCES} EVALUATION_FILE=${EVALUATION_FILE} SOLUTION_FLAGS=${solution_flags}"
-eval $MAKE_CMD &> error.log
-# eval $MAKE_CMD
+# eval $MAKE_CMD &> error.log
+eval $MAKE_CMD
 # make -f Makefile run_evaluate TOP_MODULE=${TOP_MODULE} OTHER_SOURCES=${OTHER_SOURCES} SOLUTION_FLAGS=${solution_flags}
 
 #--- generate the vpl_execution file to set the grade ---

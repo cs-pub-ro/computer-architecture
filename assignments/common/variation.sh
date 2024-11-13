@@ -113,3 +113,16 @@ generate_solution_flags() {
     echo $solution_flags
     return 0
 }
+
+# generate other sources from the array
+# generate_other_sources other_sources
+generate_other_sources() {
+    local other_sources=("$@")
+    local other_sources_str=""
+    for i in "${other_sources[@]}"
+    do
+        other_sources_str+="\ $i"
+    done
+    echo $other_sources_str
+    return 0
+}

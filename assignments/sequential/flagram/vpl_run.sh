@@ -7,12 +7,16 @@ HELPER_SCRIPTS_DIR=../../common
 # vpl
 # HELPER_SCRIPTS_DIR=.
 
+source ${HELPER_SCRIPTS_DIR}/variation.sh
+
 # source helper functions (for VPL add the Makefile in the files keep during running)
 MAKEFILE=${HELPER_SCRIPTS_DIR}/Makefile
 
 # --- Set the variables for the assignment ---
 TOP_MODULE=flagram
-OTHER_SOURCES=
+OTHER_SOURCES=('ram.v' 'register.v')
+# transform array into space separated string
+OTHER_SOURCES=$(generate_other_sources ${OTHER_SOURCES[@]})
 
 cat > vpl_execution <<EEOOFF
 #!/bin/bash
