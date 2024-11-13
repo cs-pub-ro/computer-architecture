@@ -2,80 +2,73 @@
 #
 # vpl_evaluate.sh script 
 
-source common_script.sh
+# github repository
+HELPER_SCRIPTS_DIR=../../common
+# vpl
+# HELPER_SCRIPTS_DIR=.
+# source common_script.sh
 
-#./vpl_run.sh
+
+# source helper functions
+source ${HELPER_SCRIPTS_DIR}/variation.sh
+source ${HELPER_SCRIPTS_DIR}/grade.sh
+MAKEFILE=Makefile
+
+# --- Set the variables for the assignment ---
 TOP_MODULE=fsm
-TOP_SIM_MODULE=
-TOP_EVALUATE_MODULE=evaluate_${TOP_MODULE}
-SOLUTION_MODULE=
 OTHER_SOURCES=
 maxGrade=100
+EVALUATE_FILE=evaluate.out
+SEQUENCE_FILE=sequence.txt
 
-variation=$(date +"%d%H")
-if [ $((variation % 2)) == 0 ]; then
-    variation=$variation
-else
-    variation=$(expr $variation - 1)
+variation=$(generate_variation)
+
+
+# Sequence Generator for a, b, c, groups, and special characters
+generate_sequences() {
+    # Define the inputs, special characters, and groupings
+    inputs=("a" "b" "c")
+    special_chars=("+" "*")
+    groupings=("ab" "bc" "ca" "ac" "cb")
+
+    # Loop over combinations to generate valid sequences
+    for i in "${inputs[@]}"; do
+        for j in "${inputs[@]}"; do
+            for k in "${inputs[@]}"; do
+                for group in "${groupings[@]}"; do
+                    for char in "${special_chars[@]}"; do
+                        # Ensure sequence doesn't start with special character
+                        echo "$i($group)$char"
+                        echo "$i$char($group)"
+                        echo "($group)$char$i"
+                        echo "$i$char$group"
+                        echo "($group)$i$char"
+                        echo "$char$i($group)"
+                    done
+                done
+            done
+        done
+    done
+}
+
+# Generate the sequence
+sequences=($(generate_sequences))
+
+# Select a random sequence
+sequence_index=$(generate_integer_value 0 $(expr ${#sequences[@]} - 1) $variation)
+selected_sequences=${sequences[${sequence_index}]}
+
+echo "SECVENTA=$selected_sequences"
+echo $selected_sequences > $SEQUENCE_FILE
+
+#--- compile and run the code ---
+MAKE_CMD="make -f ${MAKEFILE} run_evaluate TOP_MODULE=${TOP_MODULE} EVALUATION_FILE=${EVALUATION_FILE} SEQUENCE_FILE=${SEQUENCE_FILE}"
+eval $MAKE_CMD &> error.log
+# eval $MAKE_CMD
+#--- generate the vpl_execution file to set the grade ---
+text=$(generate_evaluate_vpl_execution $EVALUATE_FILE $maxGrade)
+if [ $? -ne 0 ]; then
+    echo "Error: generate_evaluate_vpl_execution failed" >&2
+    exit 1
 fi
-
-start_value=0
-end_value=255
-input_value=$(awk -v seed="$variation" -v start_number="$start_value" -v end_number="$end_value" 'BEGIN {
-   # seed
-   srand(seed)
-   print start_number + int((end_number - start_number) * rand())
-}')
-
-python3 generate_inputs.py sequence
-
-sequence=$(cat sequence.txt)
-
-seperator="------------------------------"
-printf "%s\n" "Se dorește proiectarea unui automat finit capabil să recunoască secvența de"
-printf "%s\n" "caractere SECVENTA. Automatul va primi la intrare caractere codificate printr-un semnal de 2 biti, unde:
-0 reprezintă caracterul „a”
-1 reprezintă caracterul „b”
-2 reprezinta caracterul „c” "
-printf "%s\n"
-printf "%s\n" "Ieșirea automatului va consta dintr-un semnal care va fi activat (valoarea 1)"
-printf "%s\n" "atunci când la intrare ultimele X input-uri se potrivesc cu secventa mai sus"
-printf "%s\n" "mentionata. X - oricate astfel incat secventa sa poata fi indeplinita.
-
-Mentiuni: 
-În cazul în care secvența curentă nu mai poate duce la identificarea secvenței"
-printf "%s\n" "țintă (deadlock), automatul va reveni la starea inițială."
-
-printf "%s\n" "\$seperator"
-echo "SECVENTA - \$sequence"
-
-# BUILD the code
-iverilog ${TOP_MODULE}.v ${TOP_EVALUATE_MODULE}.v ${OTHER_SOURCES} -DVARIATION=$input_value -o ${TOP_MODULE}.vvp
-# RUN the code
-vvp ${TOP_MODULE}.vvp  &> user.out
-
-
-#--- remove multiple spaces --- 
-cat user.out | sed 's/  */ /g' > dummy.out
-mv dummy.out user.out
-
-#--- remove blank lines ---
-cat user.out | sed '/^\s*$/d' > dummy.out
-mv dummy.out user.out
-
-# Calculate number of correct test versus wrong test
-correct_test_no=$(awk '$1=="OK" { print $0 }' user.out | wc -l | awk '{ print $1 }')
-test_no=$(wc -l user.out | awk '{ print $1 }')
-grade=$( expr $correct_test_no \* 100 / $test_no)
-
-echo "#!/bin/bash" > vpl_execution
-
-# if not max grade print the first error line
-if (( $grade < $maxGrade )) ; then
-text=$(awk '$1!="OK" { print $0 }' user.out | awk 'NR==1 { print $0 }')
-echo "echo '$text' " >> vpl_execution
-fi
-
-echo "echo 'Grade :=>> $grade' " >> vpl_execution
- 
-chmod +x vpl_execution
+echo $text
