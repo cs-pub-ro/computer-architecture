@@ -35,3 +35,4 @@ Pentru a vă ajuta în rezolvare avem următoarele materiale video:
  - [Operații Relaționale IEEE754](https://ctipub-my.sharepoint.com/:v:/g/personal/stefan_dan_ciocirlan_upb_ro/EeCqdJoCAaxBq0f0fjSPbTMBbRsiFfuubVkHrR7qb4Aa4A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=eXKb4E)
  - [Rounding 1 IEEE754](https://youtu.be/wbxSTxhTmrs?t=529)
  - [Rounding 2 IEEE754](https://www.youtube.com/watch?v=8EYBJhQoDNc)
+
