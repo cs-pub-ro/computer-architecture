@@ -45,8 +45,8 @@ solution_flags=$(generate_solution_flags ${op_sel[@]})
 
 #--- compile and run the code ---
 MAKE_CMD="make -f ${MAKEFILE} run_evaluate TOP_MODULE=${TOP_MODULE} OTHER_SOURCES=${OTHER_SOURCES} EVALUATION_FILE=${EVALUATION_FILE} SOLUTION_FLAGS=${solution_flags}"
-# eval $MAKE_CMD &> error.log
-eval $MAKE_CMD
+eval $MAKE_CMD &> error.log
+# eval $MAKE_CMD
 # make -f Makefile run_evaluate TOP_MODULE=${TOP_MODULE} OTHER_SOURCES=${OTHER_SOURCES} SOLUTION_FLAGS=${solution_flags}
 
 #--- generate the vpl_execution file to set the grade ---
