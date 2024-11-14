@@ -1,4 +1,4 @@
-module sol(
+module sol_comb(
     output wire o_w_out,
     input wire i_w_a,
     input wire i_w_b,
@@ -8,7 +8,7 @@ module sol(
     reg [7:0] l_r_in;
 
     initial begin
-        l_r_in = 8'd`VARIATION;
+        l_r_in = 8'd`OP0;
     end
 
     mux l_m_mux(

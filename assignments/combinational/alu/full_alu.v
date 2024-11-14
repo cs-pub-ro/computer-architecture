@@ -1,14 +1,14 @@
-module bigalu(
+module full_alu(
     output wire [3:0] o_w_out,
     input wire [3:0] i_w_op1,
     input wire [3:0] i_w_op2,
-    input wire [3:0 ] i_w_sel 
+    input wire [3:0 ] i_w_opsel 
 );
 
     reg [3:0] l_r_out;
 
     always @(*) begin
-        case(i_w_sel)
+        case(i_w_opsel)
             4'b0000: l_r_out = i_w_op1 + i_w_op2; // add
             4'b0001: l_r_out = i_w_op1 - i_w_op2; // sub
             4'b0010: l_r_out = i_w_op1 & i_w_op2; // and

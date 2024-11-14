@@ -20,7 +20,8 @@
 				"GitHub.copilot",
 				"mshr-h.veriloghdl",
 				"ms-azuretools.vscode-docker",
-				"GitHub.copilot-chat"
+				"GitHub.copilot-chat",
+				"ms-vscode.makefile-tools"
 			]
 		}
 	},

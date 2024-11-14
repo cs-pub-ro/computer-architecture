@@ -2,68 +2,56 @@
 #
 # vpl_evaluate.sh script 
 
-source common_script.sh
+# github repository
+HELPER_SCRIPTS_DIR=../../common
+# vpl
+# HELPER_SCRIPTS_DIR=.
+# source common_script.sh
 
-#./vpl_run.sh
+# source helper functions
+source ${HELPER_SCRIPTS_DIR}/variation.sh
+source ${HELPER_SCRIPTS_DIR}/grade.sh
+MAKEFILE=${HELPER_SCRIPTS_DIR}/Makefile
+
+# --- Set the variables for the assignment ---
 TOP_MODULE=led7
-TOP_SIM_MODULE=test_${TOP_MODULE}
-TOP_EVALUATE_MODULE=evaluate_${TOP_MODULE}
-SOLUTION_MODULE=sol
-OTHER_SOURCES=led7conv.v
+OTHER_SOURCES=('led7conv.v')
+# transform array into space separated string
+OTHER_SOURCES=$(generate_other_sources ${OTHER_SOURCES[@]})
 maxGrade=100
+EVALUATE_FILE=evaluate.out
 
-variation=$(date +"%d%H")
-if [ $((variation % 2)) == 0 ]; then
-    variation=variation
-else
-    variation=$(expr $variation - 1)
+variation=$(generate_variation)
+
+# generate 4 unique random numbers between 0 and 9
+digit_vector=(
+    '0' '1' '2' '3'
+    '4' '5' '6' '7'
+    '8' '9'
+)
+no_digits=$(expr ${#digit_vector[@]} - 1)
+# -- Set the number of unique digits--
+unique_digits=4
+digit_sel=($(generate_unique_random_numbers $unique_digits $no_digits $variation))
+
+# -- Print the digits to be implemented --
+printf "Pentru i_w_digit = 0, aveti de implementat cifra %s\n" ${digit_vector[${digit_sel[0]}]}
+printf "Pentru i_w_digit = 1, aveti de implementat cifra %s\n" ${digit_vector[${digit_sel[1]}]}
+printf "Pentru i_w_digit = 2, aveti de implementat cifra %s\n" ${digit_vector[${digit_sel[2]}]}
+printf "Pentru i_w_digit = 3, aveti de implementat cifra %s\n" ${digit_vector[${digit_sel[3]}]}
+# -- Generate the solution flags --
+solution_flags=$(generate_solution_flags ${digit_sel[@]})
+
+#--- compile and run the code ---
+MAKE_CMD="make -f ${MAKEFILE} run_evaluate TOP_MODULE=${TOP_MODULE} OTHER_SOURCES=${OTHER_SOURCES} EVALUATION_FILE=${EVALUATION_FILE} SOLUTION_FLAGS=${solution_flags}"
+# eval $MAKE_CMD &> error.log
+eval $MAKE_CMD
+
+
+#--- generate the vpl_execution file to set the grade ---
+text=$(generate_evaluate_vpl_execution $EVALUATE_FILE $maxGrade)
+if [ $? -ne 0 ]; then
+    echo "Error: generate_evaluate_vpl_execution failed" >&2
+    exit 1
 fi
-
-start_value=1000
-end_value=9999
-input_value=$(awk -v seed="$variation" -v start_number="$start_value" -v end_number="$end_value" 'BEGIN {
-   # seed
-   srand(seed)
-   print start_number + int((end_number - start_number) * rand())
-}')
-
-printf "%s\n" "XYZT este: $input_value"
-tmp_value=$input_value
-digit1=$((tmp_value % 10))
-tmp_value=$((tmp_value / 10))
-digit2=$((tmp_value % 10))
-tmp_value=$((tmp_value / 10))
-digit3=$((tmp_value % 10))
-tmp_value=$((tmp_value / 10))
-digit4=$((tmp_value % 10))
-
-# BUILD the code
-iverilog ${TOP_MODULE}.v ${SOLUTION_MODULE}.v ${TOP_EVALUATE_MODULE}.v ${OTHER_SOURCES} -DDIGIT1=$digit1 -DDIGIT2=$digit2 -DDIGIT3=$digit3 -DDIGIT4=$digit4  -o ${TOP_MODULE}.vvp
-# RUN the code
-vvp ${TOP_MODULE}.vvp  &> user.out
-
-
-#--- remove multiple spaces --- 
-cat user.out | sed 's/  */ /g' > dummy.out
-mv dummy.out user.out
-
-#--- remove blank lines ---
-cat user.out | sed '/^\s*$/d' > dummy.out
-mv dummy.out user.out
-
-# Calculate number of correct test versus wrong test
-correct_test_no=$(awk '$1=="OK" { print $0 }' user.out | wc -l | awk '{ print $1 }')
-test_no=$(wc -l user.out | awk '{ print $1 }')
-grade=$( expr $correct_test_no \* 100 / $test_no)
-
-echo "#!/bin/bash" > vpl_execution
-
-# if not max grade print the first error line
-if (( $grade < $maxGrade )) ; then
-text=$(awk '$1!="OK" { print $0 }' user.out | awk 'NR==1 { print $0 }')
-echo "echo '$text' " >> vpl_execution
-fi
-
-echo "echo 'Grade :=>> $grade' " >> vpl_execution
- 
-chmod +x vpl_execution
+echo $text

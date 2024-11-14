@@ -6,9 +6,7 @@ module led7(
     output wire o_w_ce,
     output wire o_w_cf,
     output wire o_w_cg,
-    input wire [1:0] i_w_in
+    input wire [1:0] i_w_digit
 );
-    
-    //TODO: Implement the digital logic for the 7-segment display
 
 endmodule

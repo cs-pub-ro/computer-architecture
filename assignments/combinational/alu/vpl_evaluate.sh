@@ -2,85 +2,59 @@
 #
 # vpl_evaluate.sh script 
 
-source common_script.sh
+# github repository
+HELPER_SCRIPTS_DIR=../../common
+# vpl
+# HELPER_SCRIPTS_DIR=.
+# source common_script.sh
 
-#./vpl_run.sh
+# source helper functions
+source ${HELPER_SCRIPTS_DIR}/variation.sh
+source ${HELPER_SCRIPTS_DIR}/grade.sh
+MAKEFILE=${HELPER_SCRIPTS_DIR}/Makefile
+
+# --- Set the variables for the assignment ---
 TOP_MODULE=alu
-TOP_SIM_MODULE=test_${TOP_MODULE}
-TOP_EVALUATE_MODULE=evaluate_${TOP_MODULE}
-SOLUTION_MODULE=sol
-OTHER_SOURCES=bigalu.v
+OTHER_SOURCES=('full_alu.v')
+# transform array into space separated string
+OTHER_SOURCES=$(generate_other_sources ${OTHER_SOURCES[@]})
 maxGrade=100
+EVALUATE_FILE=evaluate.out
 
-variation=$(date +"%d%H")
-if [ $((variation % 2)) == 0 ]; then
-    variation=variation
-else
-    variation=$(expr $variation - 1)
+variation=$(generate_variation)
+
+op_vector=(
+    'ADDITION' 'SUBTRACTION' 'BITWISE_AND'
+    'BITWISE_OR' 'BITWISE_XOR' 'LEFT_SHIFT'
+    'RIGHT_SHIFT' 'ARITHMETIC_RIGHT_SHIFT'
+    'MULTIPLY' 'DIVIDE' 'MODULUS' 'COMPARE_EQUAL'
+    'COMPARE_LESS_THAN' 'COMPARE_GREATER_THAN'
+    'BITWISE_NAND' 'BITWISE_NOR'
+)
+
+no_ops=$(expr ${#op_vector[@]} - 1)
+# -- Set the number of operations to be implemented --
+sel_ops=4
+op_sel=($(generate_unique_random_numbers $sel_ops $no_ops $variation))
+
+printf "Pentru i_w_opsel = 0, aveti de implementat operatia de %s\n" ${op_vector[${op_sel[0]}]}
+printf "Pentru i_w_opsel = 1, aveti de implementat operatia de %s\n" ${op_vector[${op_sel[1]}]}
+printf "Pentru i_w_opsel = 2, aveti de implementat operatia de %s\n" ${op_vector[${op_sel[2]}]}
+printf "Pentru i_w_opsel = 3, aveti de implementat operatia de %s\n" ${op_vector[${op_sel[3]}]}
+
+# -- Generate the solution flags --
+solution_flags=$(generate_solution_flags ${op_sel[@]})
+
+#--- compile and run the code ---
+MAKE_CMD="make -f ${MAKEFILE} run_evaluate TOP_MODULE=${TOP_MODULE} OTHER_SOURCES=${OTHER_SOURCES} EVALUATION_FILE=${EVALUATION_FILE} SOLUTION_FLAGS=${solution_flags}"
+# eval $MAKE_CMD &> error.log
+eval $MAKE_CMD
+# make -f Makefile run_evaluate TOP_MODULE=${TOP_MODULE} OTHER_SOURCES=${OTHER_SOURCES} SOLUTION_FLAGS=${solution_flags}
+
+#--- generate the vpl_execution file to set the grade ---
+text=$(generate_evaluate_vpl_execution $EVALUATE_FILE $maxGrade)
+if [ $? -ne 0 ]; then
+    echo "Error: generate_evaluate_vpl_execution failed" >&2
+    exit 1
 fi
-
-op_vector=('ADDITION' 'SUBTRACTION' 'BITWISE_AND' 'BITWISE_OR' 'BITWISE_XOR' 'LEFT_SHIFT' 'RIGHT_SHIFT' 'ARITHMETIC_RIGHT_SHIFT' 'MULTIPLY' 'DIVIDE' 'MODULUS' 'COMPARE_EQUAL' 'COMPARE_LESS_THAN' 'COMPARE_GREATER_THAN' 'BITWISE_NAND' 'BITWISE_NOR')
-op_sel=()
-op_value=$variation
-i=0
-while [ $i -lt 4 ];
-do
-    start_value=0
-    end_value=15
-    op_value=$(awk -v seed="$op_value" -v start_number="$start_value" -v end_number="$end_value" 'BEGIN {
-        # seed
-        srand(seed)
-        print start_number + int((end_number - start_number) * rand())
-    }')
-    sem=0
-    for j in "${op_sel[@]}"
-    do
-        if [ $op_value -eq $j ]; then
-            sem=1
-            break;
-        fi
-    done
-    if [ $sem -eq 1 ]; then
-        continue;
-    fi
-    op_sel+=($op_value)
-    i=$((i + 1))
-done
-
-printf "Pentru i_w_in = 0, aveti de implementat operatia de %s\n" ${op_vector[${op_sel[0]}]}
-printf "Pentru i_w_in = 1, aveti de implementat operatia de %s\n" ${op_vector[${op_sel[1]}]}
-printf "Pentru i_w_in = 2, aveti de implementat operatia de %s\n" ${op_vector[${op_sel[2]}]}
-printf "Pentru i_w_in = 3, aveti de implementat operatia de %s\n" ${op_vector[${op_sel[3]}]}
-
-
-# BUILD the code
-iverilog ${TOP_MODULE}.v ${SOLUTION_MODULE}.v ${TOP_EVALUATE_MODULE}.v ${OTHER_SOURCES} -DOP0=${op_sel[0]} -DOP1=${op_sel[1]} -DOP2=${op_sel[2]} -DOP3=${op_sel[3]}  -o ${TOP_MODULE}.vvp
-# RUN the code
-vvp ${TOP_MODULE}.vvp  &> user.out
-
-
-#--- remove multiple spaces --- 
-cat user.out | sed 's/  */ /g' > dummy.out
-mv dummy.out user.out
-
-#--- remove blank lines ---
-cat user.out | sed '/^\s*$/d' > dummy.out
-mv dummy.out user.out
-
-# Calculate number of correct test versus wrong test
-correct_test_no=$(awk '$1=="OK" { print $0 }' user.out | wc -l | awk '{ print $1 }')
-test_no=$(wc -l user.out | awk '{ print $1 }')
-grade=$( expr $correct_test_no \* 100 / $test_no)
-
-echo "#!/bin/bash" > vpl_execution
-
-# if not max grade print the first error line
-if (( $grade < $maxGrade )) ; then
-text=$(awk '$1!="OK" { print $0 }' user.out | awk 'NR==1 { print $0 }')
-echo "echo '$text' " >> vpl_execution
 echo $text
-fi
-
-echo "echo 'Grade :=>> $grade' " >> vpl_execution
- 
-chmod +x vpl_execution
