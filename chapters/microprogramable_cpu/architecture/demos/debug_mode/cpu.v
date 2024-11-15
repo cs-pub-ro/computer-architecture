@@ -7,7 +7,7 @@ module cpu #(
   input wire i_w_clk,
   input wire i_w_reset,
   input wire [(p_data_width - 1) : 0] i_w_io_out,
-  input wire [(p_address_width - 1) : 0] i_w_state_display,
+  input wire [(p_data_width - 1) : 0] i_w_state_display,
   input wire [(p_address_width - 1) : 0] i_w_cram_addr_disp_out,
   output wire o_w_io_oe,
   output wire o_w_io_we,
@@ -167,7 +167,6 @@ wire                              l_w_ram_we;
 wire[(p_data_width - 1) : 0]      l_w_ram_in;
 wire[(p_data_width - 1) : 0]      l_w_ram_out;
 wire[(p_data_width - 1) : 0]      l_w_ram_disp_out;
-wire[(p_address_width - 1) : 0]   l_w_ram_disp_address;
 cram #(
   .p_data_width(p_data_width),
   .p_address_width(p_address_width)
@@ -176,7 +175,7 @@ cram #(
   .o_w_disp_out(l_w_ram_disp_out),
   .i_w_in(l_w_ram_in),
   .i_w_address(l_w_am_out[(p_address_width-1) : 0]),
-  .i_w_address(l_w_ram_disp_address),
+  .i_w_disp_address(i_w_cram_addr_disp_out),
   .i_w_we(l_w_ram_we),
   .i_w_oe(l_w_ram_oe),
   .i_w_clk(i_w_clk)

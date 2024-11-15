@@ -1,6 +1,7 @@
 module state_display(
     output wire [6:0] o_w_7seg,
     output wire [7:0] o_w_an,
+    output wire [15:0] o_w_state,
     input  wire [15:0] i_w_in,
     input wire i_w_next,
     input wire i_w_prev,
@@ -448,5 +449,7 @@ localparam FSM              = 16'h10;
     assign o_w_an = ~(1 << l_r_digit);
 
     assign o_w_7seg = l_r_digit_7seg[l_r_digit];
+
+    assign o_w_state = l_r_state;
 
 endmodule
