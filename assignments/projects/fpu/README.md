@@ -33,4 +33,6 @@ Pentru a vă ajuta în rezolvare avem următoarele materiale video:
  - [Împărțire 1 IEEE754](https://ctipub-my.sharepoint.com/:v:/g/personal/stefan_dan_ciocirlan_upb_ro/EVWvarvhvUZAlG80QO32SaQByTHOZLsjb5z6TDz1iio1gg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=pm3lPI)
  - [Împărțire 2 IEEE754](https://ctipub-my.sharepoint.com/:v:/g/personal/stefan_dan_ciocirlan_upb_ro/EaU-1JasofxGpIesR43Od7wBQI93emIt51zO4YVaFstI4Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=HNlxCk)
  - [Operații Relaționale IEEE754](https://ctipub-my.sharepoint.com/:v:/g/personal/stefan_dan_ciocirlan_upb_ro/EeCqdJoCAaxBq0f0fjSPbTMBbRsiFfuubVkHrR7qb4Aa4A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=eXKb4E)
- - [Rounding IEEE754](https://youtu.be/wbxSTxhTmrs?t=529)
+ - [Rounding 1 IEEE754](https://youtu.be/wbxSTxhTmrs?t=529)
+ - [Rounding 2 IEEE754](https://www.youtube.com/watch?v=8EYBJhQoDNc)
+

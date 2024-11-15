@@ -6,22 +6,22 @@ module evaluate_comb;
     reg l_r_c;
 
     //Outputs
-    wire l_w_out;
-    wire l_w_sout;
+    wire l_w_out_student;
+    wire l_w_out_solution;
     
     //local variables for loop
     integer i,j,k;
     
     //Module initialization
     comb l_m_comb (
-        .o_w_out(l_w_out),
+        .o_w_out(l_w_out_student),
         .i_w_a(l_r_a),
         .i_w_b(l_r_b),
         .i_w_c(l_r_c)
     );
 
-    sol l_m_solution_comb (
-        .o_w_out(l_w_sout),
+    sol_comb l_m_solution_comb (
+        .o_w_out(l_w_out_solution),
         .i_w_a(l_r_a),
         .i_w_b(l_r_b),
         .i_w_c(l_r_c)
@@ -36,8 +36,11 @@ module evaluate_comb;
                 for(k=0;k<2;k=k+1) begin
                     l_r_c = k;
                     #5;
-                    if (l_w_out !== l_w_sout) begin
-                        $display("Error: (hex_values) l_w_out = %0h correct %0h, a = %0h, b = %0h, c = %0h", l_w_out, l_w_sout, l_r_a, l_r_b, l_r_c);
+                    if (l_w_out_student !== l_w_out_solution) begin
+                        $display(
+                            "Error: (hex_values) o_w_out = %0h ", l_w_out_student,
+                            "Expected = %0h, i_w_a = %0h, i_w_b = %0h, i_w_c = %0h",
+                            l_w_out_solution, l_r_a, l_r_b, l_r_c);
                     end else begin
                         $display("OK");
                     end

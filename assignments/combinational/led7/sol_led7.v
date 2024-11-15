@@ -6,7 +6,7 @@ module sol(
     output wire o_w_ce,
     output wire o_w_cf,
     output wire o_w_cg,
-    input wire [1:0] i_w_in
+    input wire [1:0] i_w_digit
 );
 
     reg [3:0] l_r_digit1;
@@ -20,10 +20,10 @@ module sol(
     wire [6:0] l_w_digi4_out;
 
     initial begin
-        l_r_digit1 = 4'd`DIGIT1;
-        l_r_digit2 = 4'd`DIGIT2;
-        l_r_digit3 = 4'd`DIGIT3;
-        l_r_digit4 = 4'd`DIGIT4;
+        l_r_digit1 = 4'd`OP0;
+        l_r_digit2 = 4'd`OP1;
+        l_r_digit3 = 4'd`OP2;
+        l_r_digit4 = 4'd`OP3;
     end
 
     led7conv l_m_digit1(
@@ -46,9 +46,9 @@ module sol(
         .i_w_value(l_r_digit4)
     );
 
-    assign {o_w_cg, o_w_cf, o_w_ce, o_w_cd, o_w_cc, o_w_cb, o_w_ca} = (i_w_in == 2'b00) ? l_w_digi1_out :
-        (i_w_in == 2'b01) ? l_w_digi2_out :
-        (i_w_in == 2'b10) ? l_w_digi3_out :
+    assign {o_w_cg, o_w_cf, o_w_ce, o_w_cd, o_w_cc, o_w_cb, o_w_ca} = (i_w_digit == 2'b00) ? l_w_digi1_out :
+        (i_w_digit == 2'b01) ? l_w_digi2_out :
+        (i_w_digit == 2'b10) ? l_w_digi3_out :
         l_w_digi4_out;
 
 endmodule

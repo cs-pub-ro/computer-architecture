@@ -2,34 +2,35 @@
 #
 # vpl_evaluate.sh script 
 
-source common_script.sh
+# github repository
+HELPER_SCRIPTS_DIR=../../common
+# vpl
+# HELPER_SCRIPTS_DIR=.
+# source common_script.sh
 
-#./vpl_run.sh
+
+# source helper functions
+source ${HELPER_SCRIPTS_DIR}/variation.sh
+source ${HELPER_SCRIPTS_DIR}/grade.sh
+MAKEFILE=${HELPER_SCRIPTS_DIR}/Makefile
+
+# --- Set the variables for the assignment ---
 TOP_MODULE=comb
-TOP_SIM_MODULE=test_${TOP_MODULE}
-TOP_EVALUATE_MODULE=evaluate_${TOP_MODULE}
-SOLUTION_MODULE=sol
-OTHER_SOURCES=mux.v
+OTHER_SOURCES=('mux.v')
+# transform array into space separated string
+OTHER_SOURCES=$(generate_other_sources ${OTHER_SOURCES[@]})
 maxGrade=100
+EVALUATE_FILE=evaluate.out
 
-variation=$(date +"%d%H")
-if [ $((variation % 2)) == 0 ]; then
-    variation=variation
-else
-    variation=$(expr $variation - 1)
-fi
 
-start_value=0
-end_value=255
-input_value=$(awk -v seed="$variation" -v start_number="$start_value" -v end_number="$end_value" 'BEGIN {
-   # seed
-   srand(seed)
-   print start_number + int((end_number - start_number) * rand())
-}')
+variation=$(generate_variation)
 
+# generate a random number between 0 and 255
+input_value=$(generate_integer_value 0 255 $variation)
+
+# --- Print the true table ---
 seperator="------------------------------"
 rows="|%5s| %5s| %5s| %7s|\n"
-printf "%s\n" "Implmentați modulul verilog pentru tabelul de adevăr (i_w_a, i_w_b, i_w_c - intrări, i_w_out - ieșire):"
 printf "%s\n" "$seperator"
 printf "$rows" "i_w_a" "i_w_b" "i_w_c" "o_w_out"
 printf "%s\n" "$seperator"
@@ -48,34 +49,19 @@ do
 done
 printf "%s\n" "$seperator"
 
-# BUILD the code
-iverilog ${TOP_MODULE}.v ${SOLUTION_MODULE}.v ${TOP_EVALUATE_MODULE}.v ${OTHER_SOURCES} -DVARIATION=$input_value -o ${TOP_MODULE}.vvp
-# RUN the code
-vvp ${TOP_MODULE}.vvp  &> user.out
 
+# -- Generate the solution flags --
+solution_flags=$(generate_solution_flags $input_value)
 
-#--- remove multiple spaces --- 
-cat user.out | sed 's/  */ /g' > dummy.out
-mv dummy.out user.out
+#--- compile and run the code ---
+MAKE_CMD="make -f ${MAKEFILE} run_evaluate TOP_MODULE=${TOP_MODULE} OTHER_SOURCES=${OTHER_SOURCES} EVALUATION_FILE=${EVALUATION_FILE} SOLUTION_FLAGS=${solution_flags}"
+eval $MAKE_CMD &> error.log
+# eval $MAKE_CMD
 
-#--- remove blank lines ---
-cat user.out | sed '/^\s*$/d' > dummy.out
-mv dummy.out user.out
-
-# Calculate number of correct test versus wrong test
-correct_test_no=$(awk '$1=="OK" { print $0 }' user.out | wc -l | awk '{ print $1 }')
-test_no=$(wc -l user.out | awk '{ print $1 }')
-grade=$( expr $correct_test_no \* 100 / $test_no)
-
-echo "#!/bin/bash" > vpl_execution
-
-# if not max grade print the first error line
-if (( $grade < $maxGrade )) ; then
-text=$(awk '$1!="OK" { print $0 }' user.out | awk 'NR==1 { print $0 }')
-echo "echo '$text' " >> vpl_execution
-echo $text
+#--- generate the vpl_execution file to set the grade ---
+text=$(generate_evaluate_vpl_execution $EVALUATE_FILE $maxGrade)
+if [ $? -ne 0 ]; then
+    echo "Error: generate_evaluate_vpl_execution failed" >&2
+    exit 1
 fi
-
-echo "echo 'Grade :=>> $grade' " >> vpl_execution
- 
-chmod +x vpl_execution
+echo $text

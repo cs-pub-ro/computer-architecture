@@ -3,18 +3,18 @@ Sa se implementeze un registru multifunctional.
 
 Intrarile registrului sunt:
  - i_w_clk - ceas
- - i_w_reset - reset pe valoare pozitiva (1)
- - i_w_data -  date de intrare pe 4 biti
+ - i_w_reset - reset (activ pe 0)
+ - i_w_data - date de intrare (4 biți)
  - i_w_we - daca se scrie in registru
  - i_w_oe - daca se afiseaza in registru
- - i_w_sel - selectie asupra unui operatii pe registru
+ - i_w_opsel - selectie asupra unui operatii pe registru (2 biți)
 
 Iesirea registrului este:
  - o_w_out este activa doar cand i_w_oe este activ (1), altfel  o_w_out va avea valoarea 4'b0000. (4 biți)
 
-Prioritatea funcțiilor registrului sunt: i_w_we, i_w_sel, i_w_oe. (daca i_w_we si i_w_oe sunt active in acelasi timp se va face doar scrierea in registru a valorii i_w_data)
+Prioritatea funcțiilor registrului sunt: i_w_we, i_w_oe, i_w_opsel. (daca i_w_we si i_w_oe sunt active in acelasi timp se va face doar scrierea in registru a valorii i_w_data)
 
-Operatiile pe care va trebui sa le implementati in functie de valoarea i_w_sel le veti afla doar dupa apasarea butonului "evaluate" din VPL.
+Operatiile pe care va trebui sa le implementati in functie de valoarea i_w_opsel le veti afla doar dupa apasarea butonului "evaluate" din VPL.
 
 Operatiile posibile sunt: 
  - SHR1 - Shift right by one

@@ -23,7 +23,7 @@ module test_led7;
         .o_w_ce(l_w_ce),
         .o_w_cf(l_w_cf),
         .o_w_cg(l_w_cg),
-        .i_w_in(l_r_in)
+        .i_w_digit(l_r_in)
     );
 
     //Simulation tests

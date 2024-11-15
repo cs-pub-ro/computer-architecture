@@ -2,38 +2,27 @@
 #
 # vpl_run.sh script 
 
+# github repository
+HELPER_SCRIPTS_DIR=../../common
+# vpl
+# HELPER_SCRIPTS_DIR=.
+
+source ${HELPER_SCRIPTS_DIR}/variation.sh
+
+# source helper functions (for VPL add the Makefile in the files keep during running)
+MAKEFILE=${HELPER_SCRIPTS_DIR}/Makefile
+
+# --- Set the variables for the assignment ---
+TOP_MODULE=led7
+
 cat > vpl_execution <<EEOOFF
 #!/bin/bash
 
-# Variables
-TOP_MODULE=led7
-TOP_SIM_MODULE=test_\$TOP_MODULE
-OTHER_SOURCES=
-
-variation=\$(date +"%d%H")
-if [ \$((variation % 2)) == 0 ]; then
-    variation=variation
-else
-    variation=\$(expr \$variation - 1)
-fi
-
-start_value=1000
-end_value=9999
-input_value=\$(awk -v seed="\$variation" -v start_number="\$start_value" -v end_number="\$end_value" 'BEGIN {
-   # seed
-   srand(seed)
-   print start_number + int((end_number - start_number) * rand())
-}')
-
-
-printf "%s\n" "XYZT este: \$input_value"
-
-# Generate the testbench
-iverilog -o \${TOP_MODULE}.vvp \${TOP_MODULE}.v \${TOP_SIM_MODULE}.v \${OTHER_SOURCES}
-# Run the testbench
-vvp \${TOP_MODULE}.vvp &> user.out
-# SHOW the output
+#--- compile and run the code ---
+MAKE_CMD="make -f ${MAKEFILE} run TOP_MODULE=${TOP_MODULE}"
+eval \$MAKE_CMD &> user.out
 cat user.out
+rm user.out
 
 EEOOFF
 
