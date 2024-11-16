@@ -21,8 +21,8 @@ Flag-uri posibile:
  - S - if the sign bit is set (MSB)
  - E - if it has an even number of bits set
  - O - if it has an odd number of bits set
- - C2 - if the bit on the position 2 is clear
- - S2 - if the bit on the position 2 is set
+ - C2 - if the bit on the position 2 (counting starts from 0, from right to left) is clear (4'b0101 - 0, 4'b1010 - 1)
+ - S2 - if the bit on the position 2 (counting starts from 0, from right to left) is set (4'b0101 - 1, 4'b1010 - 0)
  - G4 - if the data value is greater than 4
  - L4 - if the data value is lower than 4
  - POW - if the data value is a power of 2 (1,2,4,8)

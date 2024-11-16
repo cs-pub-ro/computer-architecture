@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 module test_opregister;
     //Inputs
     reg l_r_clk;

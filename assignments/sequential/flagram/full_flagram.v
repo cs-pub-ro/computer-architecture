@@ -50,7 +50,7 @@ module full_flagram (
     assign S2_flag = l_w_ram_data[2];
     assign G4_flag = l_w_ram_data > 4'd4;
     assign L4_flag = l_w_ram_data < 4'd4;
-    assign POW_flag = (l_w_ram_data == 4'd0) || (l_w_ram_data == 4'd1) || (l_w_ram_data == 4'd2) || (l_w_ram_data == 4'd4) || (l_w_ram_data == 4'd8);
+    assign POW_flag = (l_w_ram_data == 4'd1) || (l_w_ram_data == 4'd2) || (l_w_ram_data == 4'd4) || (l_w_ram_data == 4'd8);
     assign SMAX_flag = l_w_ram_data == 4'd7;
     assign SMIN_flag = l_w_ram_data == 4'd8;
     assign MAX_flag = l_w_ram_data == 4'd15;

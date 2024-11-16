@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 module evaluate_fsm;
     //Inputs
     reg [1:0] l_r_in;
