@@ -12,6 +12,7 @@ module bus #(
     output wire [(p_data_width - 1) : 0] o_w_bus_to_t1,
     output wire [(p_data_width - 1) : 0] o_w_bus_to_t2,
     output wire [(p_data_width - 1) : 0] o_w_bus_to_ri,
+    output wire [(p_data_width - 1) : 0] o_w_disp_out,
     input wire [(p_data_width - 1) : 0] i_w_alu_to_bus,
     input wire [(p_data_width - 1) : 0] i_w_ram_to_bus,
     input wire [(p_data_width - 1) : 0] i_w_io_to_bus,
@@ -41,5 +42,7 @@ assign o_w_bus_to_aie = l_w_bus;
 assign o_w_bus_to_t1 = l_w_bus;
 assign o_w_bus_to_t2 = l_w_bus;
 assign o_w_bus_to_ri = l_w_bus;
+
+assign o_w_disp_out = l_w_bus;
 
 endmodule

@@ -7,10 +7,13 @@ module cpu #(
   input wire i_w_clk,
   input wire i_w_reset,
   input wire [(p_data_width - 1) : 0] i_w_io_out,
+  input wire [(p_data_width - 1) : 0] i_w_state_display,
+  input wire [(p_address_width - 1) : 0] i_w_cram_addr_disp_out,
   output wire o_w_io_oe,
   output wire o_w_io_we,
   output wire [(p_port_width - 1) : 0] o_w_io_port,
-  output wire [(p_data_width - 1) : 0] o_w_io_in
+  output wire [(p_data_width - 1) : 0] o_w_io_in,
+  output wire [(p_data_width - 1) : 0] o_w_disp_out,
 );
 
   // instantiate CP register and related connections
@@ -18,10 +21,12 @@ module cpu #(
   wire                              l_w_cp_we;
   wire[(p_data_width - 1) : 0]      l_w_cp_in;
   wire[(p_data_width - 1) : 0]      l_w_cp_out;
+  wire[(p_data_width - 1) : 0]      l_w_cp_disp_out;
   register #(
     .p_data_width(p_data_width)
   ) l_m_register_cp(
     .o_w_out(l_w_cp_out),
+    .o_w_disp_out(l_w_cp_disp_out)
     .i_w_clk(i_w_clk),
     .i_w_reset(i_w_reset),
     .i_w_in(l_w_cp_in),
@@ -52,10 +57,12 @@ wire                              l_w_am_oe;
 wire                              l_w_am_we;
 wire[(p_data_width - 1) : 0]      l_w_am_in;
 wire[(p_data_width - 1) : 0]      l_w_am_out;
+wire[(p_data_width - 1) : 0]      l_w_am_disp_out;
 register #(
   .p_data_width(p_data_width)
 ) l_m_register_am(
   .o_w_out(l_w_am_out),
+  .o_w_disp_out(l_w_am_disp_out),
   .i_w_clk(i_w_clk),
   .i_w_reset(i_w_reset),
   .i_w_in(l_w_am_in),
@@ -68,10 +75,12 @@ wire                              l_w_aie_oe;
 wire                              l_w_aie_we;
 wire[(p_data_width - 1) : 0]      l_w_aie_in;
 wire[(p_data_width - 1) : 0]      l_w_aie_out;
+wire[(p_data_width - 1) : 0]      l_w_aie_disp_out;
 register #(
   .p_data_width(p_data_width)
 ) l_m_register_aie(
   .o_w_out(l_w_aie_out),
+  .o_w_disp_out(l_w_aie_disp_out),
   .i_w_clk(i_w_clk),
   .i_w_reset(i_w_reset),
   .i_w_in(l_w_aie_in),
@@ -83,10 +92,12 @@ wire                              l_w_t1_oe;
 wire                              l_w_t1_we;
 wire[(p_data_width - 1) : 0]      l_w_t1_in;
 wire[(p_data_width - 1) : 0]      l_w_t1_out;
+wire[(p_data_width - 1) : 0]      l_w_t1_disp_out;
 register #(
   .p_data_width(p_data_width)
 ) l_m_register_t1(
   .o_w_out(l_w_t1_out),
+  .o_w_out(l_w_t1_disp_out),
   .i_w_clk(i_w_clk),
   .i_w_reset(i_w_reset),
   .i_w_in(l_w_t1_in),
@@ -99,10 +110,12 @@ wire                              l_w_t2_oe;
 wire                              l_w_t2_we;
 wire[(p_data_width - 1) : 0]      l_w_t2_in;
 wire[(p_data_width - 1) : 0]      l_w_t2_out;
+wire[(p_data_width - 1) : 0]      l_w_t2_disp_out;
 register #(
   .p_data_width(p_data_width)
 ) l_m_register_t2(
   .o_w_out(l_w_t2_out),
+  .o_w_out(l_w_t2_disp_out),
   .i_w_clk(i_w_clk),
   .i_w_reset(i_w_reset),
   .i_w_in(l_w_t2_in),
@@ -153,13 +166,16 @@ wire                              l_w_ram_oe;
 wire                              l_w_ram_we;
 wire[(p_data_width - 1) : 0]      l_w_ram_in;
 wire[(p_data_width - 1) : 0]      l_w_ram_out;
+wire[(p_data_width - 1) : 0]      l_w_ram_disp_out;
 cram #(
   .p_data_width(p_data_width),
   .p_address_width(p_address_width)
 ) l_m_ram (
   .o_w_out(l_w_ram_out),
+  .o_w_disp_out(l_w_ram_disp_out),
   .i_w_in(l_w_ram_in),
   .i_w_address(l_w_am_out[(p_address_width-1) : 0]),
+  .i_w_disp_address(i_w_cram_addr_disp_out),
   .i_w_we(l_w_ram_we),
   .i_w_oe(l_w_ram_oe),
   .i_w_clk(i_w_clk)
@@ -174,15 +190,19 @@ assign o_w_io_port = l_w_aie_out[(p_port_width - 1) : 0];
 wire                              l_w_regs_oe;
 wire                              l_w_regs_we;
 wire[2 : 0]                       l_w_regs_addr;
+wire[2 : 0]                       l_w_regs_disp_addr;
 wire[(p_data_width - 1) : 0]      l_w_regs_in;
 wire[(p_data_width - 1) : 0]      l_w_regs_out;
+wire[(p_data_width - 1) : 0]      l_w_regs_disp_out;
 registers #(
   .p_data_width(p_data_width),
   .p_address_width(3)
 ) l_m_registers (
   .o_w_out(l_w_regs_out),
+  .o_w_disp_out(l_w_regs_disp_out),
   .i_w_in(l_w_regs_in),
   .i_w_address(l_w_regs_addr),
+  .i_w_disp_address(l_w_regs_disp_addr),
   .i_w_we(l_w_regs_we),
   .i_w_oe(l_w_regs_oe),
   .i_w_clk(i_w_clk)
@@ -207,7 +227,9 @@ assign l_w_offset_out = {
   l_w_ri_out[15]
 };
 
+
 // instatiate the bus that connects everything toghether
+wire[(p_data_width - 1) : 0]      l_w_bus_disp_out;
 bus #(
   .p_data_width(p_data_width)
 ) l_m_bus (
@@ -227,7 +249,8 @@ bus #(
   .o_w_bus_to_aie(l_w_aie_in),
   .o_w_bus_to_t1(l_w_t1_in),
   .o_w_bus_to_t2(l_w_t2_in),
-  .o_w_bus_to_ri(l_w_ri_in)
+  .o_w_bus_to_ri(l_w_ri_in),
+  .o_w_disp_out(l_w_bus_disp_out)
 );
 
 // instantiate command unit
@@ -264,4 +287,7 @@ uc #(
   .i_w_ri(l_w_ri_disp_out),
   .i_w_ind(l_w_ind_disp_out)
 );
+
+// instantiate debugger
+
 endmodule
