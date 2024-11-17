@@ -106,9 +106,7 @@ fn print_bits(instr: &Instruction) {
 impl Display for FullInstruction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let x = self.i.0;
-        for i in 0..16 {
-            write!(f, "{}", (x >> i) & 1)?;
-        }
+        write!(f, "{:016b}", x)?;
         if let Some(x) = self.depls {
             write!(f, " {:016b}", x)?;
         }
