@@ -2,7 +2,7 @@ module cpu #(
   parameter p_data_width = 16,
   parameter p_address_width = 10,
   parameter p_port_width = 8,
-  parameter p_regs_address_width = 3,
+  parameter p_regs_address_width = 3
 ) (
   `ifdef DEBUG
   output wire [(p_data_width - 1) : 0] o_w_regs_disp_out,
@@ -21,7 +21,6 @@ module cpu #(
   output wire [(p_port_width - 1) : 0] o_w_io_port,
   output wire [(p_data_width - 1) : 0] o_w_io_in
 );
-
 
   // GENERAL PURPOSE REGISTERS
   // General purpose registers
@@ -195,7 +194,7 @@ module cpu #(
     .p_data_width(p_data_width)
   ) l_m_register_t1 (
     `ifdef DEBUG
-    .o_w_out(l_w_t1_disp_out),
+    .o_w_disp_out(l_w_t1_disp_out),
     `endif
     .o_w_out(l_w_t1_out),
     .i_w_clk(i_w_clk),
@@ -217,7 +216,7 @@ module cpu #(
     .p_data_width(p_data_width)
   ) l_m_register_t2 (
     `ifdef DEBUG
-    .o_w_out(l_w_t2_disp_out),
+    .o_w_disp_out(l_w_t2_disp_out),
     `endif
     .o_w_out(l_w_t2_out),
     .i_w_clk(i_w_clk),

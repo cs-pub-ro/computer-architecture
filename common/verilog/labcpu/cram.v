@@ -18,7 +18,7 @@ module cram #(
     //     $readmemh("cram.data", l_r_data, 0, 2**p_address_width-1);
     // end
 
-    wire l_w_out;
+    wire [(p_data_width-1) : 0] l_w_out;
     `ifdef DEBUG
     block_dpram #(
         .p_data_width(p_data_width),
@@ -47,6 +47,10 @@ module cram #(
         .i_w_clk(i_w_clk)
     );
     `endif
+
+    initial begin
+        $readmemh("cram.data", block_ram_inst.l_r_data, 0, 2**p_address_width-1);
+    end
     assign o_w_out = ( (i_w_oe == 1'b1) && (i_w_we == 1'b0) ) ? l_w_out : {p_data_width{1'b0}};
 
 endmodule

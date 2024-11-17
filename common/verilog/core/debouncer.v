@@ -9,9 +9,9 @@ module debouncer #(
 
     // Compute the size of the counter for the debouncing
     localparam l_p_counter_width = $clog2(p_no_cycles);
-    reg[(p_counter_width - 1):0] l_r_counter;
+    reg[(l_p_counter_width - 1):0] l_r_counter;
     
-    always @(posedge i_w_clk) begin
+    always @(posedge i_w_clk or negedge i_w_reset) begin
         if(!i_w_reset) begin
             l_r_counter <= 0;
             o_w_out <= 0;

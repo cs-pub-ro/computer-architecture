@@ -1,16 +1,7 @@
-module led7conv (
-    output wire o_w_ca,
-    output wire o_w_cb,
-    output wire o_w_cc,
-    output wire o_w_cd,
-    output wire o_w_ce,
-    output wire o_w_cf,
-    output wire o_w_cg,
-    output wire o_w_dp,
+module led7hex (
+    output reg [7:0] l_r_led7,
     input wire [3:0] i_w_value
 );
-    reg [7:0] l_r_led7;
-
     always @(*) begin
         case (i_w_value)
             4'h0: l_r_led7 = 8'b1100_0000;
@@ -32,7 +23,4 @@ module led7conv (
             default: l_r_led7 = 8'b1111_1111;
         endcase
     end
-
-    assign {o_w_dp, o_w_cg, o_w_cf, o_w_ce, o_w_cd, o_w_cc, o_w_cb, o_w_ca} = l_r_led7;
-
 endmodule

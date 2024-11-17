@@ -106,7 +106,7 @@ reg l_r_decoded_d, l_r_decoded_d_next;                              // stores de
 reg [0:2] l_r_decoded_rg, l_r_decoded_rg_next;                      // stores decoded REG operand
 
 // FSM - sequential part 
-always @(posedge i_w_clk) begin
+always @(posedge i_w_clk or negedge i_w_reset) begin
     if (!i_w_reset) begin
         l_r_state <= l_p_state_RESET;
     end else begin
@@ -414,7 +414,7 @@ always @(*) begin
                     o_r_alu_opcode = p_opcode_ADC;
                 end
                 3'b001: begin                               // ADC
-                    o_r_alu_carry = i_w_ind[0];
+                    o_r_alu_carry = i_w_flags[0];
                     o_r_alu_opcode = p_opcode_ADC;
                 end
                 3'b010: begin                               // SUB/CMP
@@ -422,7 +422,7 @@ always @(*) begin
                     o_r_alu_opcode = p_opcode_SBB1;
                 end
                 3'b011: begin                               // SBB
-                    o_r_alu_carry = i_w_ind[0];
+                    o_r_alu_carry = i_w_flags[0];
                     o_r_alu_opcode = p_opcode_SBB1;
                 end
                 3'b100: o_r_alu_opcode = p_opcode_AND;         // AND/TEST

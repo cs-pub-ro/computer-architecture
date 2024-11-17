@@ -14,7 +14,7 @@ module register #(
 
     reg [(p_data_width - 1):0] l_r_data;
 
-    always @(posedge i_w_clk) begin
+    always @(posedge i_w_clk or negedge i_w_reset) begin
         if(!i_w_reset) begin
             l_r_data <= 0;
         end else begin

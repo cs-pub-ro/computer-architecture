@@ -20,15 +20,13 @@ module regfile #(
     localparam l_p_depth = 2**p_address_width;
     // set the ram_style attribute to "block" to infer block RAM
     reg [(p_data_width-1) : 0] l_r_data [(l_p_depth-1):0];
-    genvar i;
+    reg[p_address_width:0] index;
 
-    always @(posedge i_w_clk) begin
+    always @(posedge i_w_clk or negedge i_w_reset) begin
         if (!i_w_reset) begin
-            generate
-                for (i = 0; i < l_p_depth; i = i + 1) begin
-                    l_r_data[i] <= 0;
-                end
-            endgenerate
+            for (index = 0; index < l_p_depth; index = index + 1) begin
+                l_r_data[index] <= 0;
+            end
         end else begin
             if (i_w_we) begin
                 l_r_data[i_w_reg] <= i_w_in;
