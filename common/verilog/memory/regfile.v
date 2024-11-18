@@ -1,4 +1,5 @@
 // Registers file
+`define DEBUG 1
 module regfile #(
     parameter p_data_width = 5,
     parameter p_address_width = 3

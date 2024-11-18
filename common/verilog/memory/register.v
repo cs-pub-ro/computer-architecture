@@ -1,3 +1,4 @@
+`define DEBUG 1
 module register #(
     parameter p_data_width = 8
 ) (

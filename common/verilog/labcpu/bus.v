@@ -1,3 +1,4 @@
+`define DEBUG 1
 module bus #(
     parameter p_data_width = 16
 ) (

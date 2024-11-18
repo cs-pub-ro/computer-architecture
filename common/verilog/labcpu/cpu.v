@@ -1,3 +1,4 @@
+`define DEBUG 1
 module cpu #(
   parameter p_data_width = 16,
   parameter p_address_width = 10,
@@ -13,6 +14,7 @@ module cpu #(
   output wire [(p_data_width - 1) : 0] o_w_bus_disp_out,
   `endif
   input wire i_w_clk,
+  input wire i_w_ram_clk,
   input wire i_w_reset,
   // IO port
   input wire [(p_data_width - 1) : 0] i_w_io_out,
@@ -265,7 +267,8 @@ module cpu #(
     .i_w_address(l_w_ma_out[(p_address_width-1) : 0]),
     .i_w_we(l_w_ram_we),
     .i_w_oe(l_w_ram_oe),
-    .i_w_clk(i_w_clk)
+    .i_w_clk(i_w_clk),
+    .i_w_clk_ram(i_w_ram_clk)
   );
 
 

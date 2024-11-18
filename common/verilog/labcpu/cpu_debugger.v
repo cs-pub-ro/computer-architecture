@@ -39,6 +39,7 @@ module cpu_debugger #(
         .i_w_regs_disp_addr(l_w_cpu_regs_addr),
         .i_w_ram_disp_addr(l_w_cpu_ram_addr),
         .i_w_clk(i_w_debug_clk),
+        .i_w_ram_clk(i_w_clk),
         .i_w_reset(i_w_reset),
         .i_w_io_out(16'h0)
     );
@@ -87,7 +88,6 @@ module cpu_debugger #(
         .o_w_7_led_seg(o_w_7_led_seg),
         .o_w_an(o_w_an),
         .i_w_regs_addr(l_w_cpu_regs_addr),
-        .i_w_ram_addr(l_w_cpu_ram_addr),
         .i_w_regs(l_w_cpu_regs_out),
         .i_w_ram(l_w_cpu_ram),
         .i_w_state(l_w_cpu_state),

@@ -6,7 +6,6 @@ module state_display #(
     output wire [7:0] o_w_7_led_seg,
     output wire [7:0] o_w_an,
     input wire [p_regs_address_width:0] i_w_regs_addr,
-    input wire [(p_address_width-1):0] i_w_ram_addr,
     input wire [(p_data_width-1):0] i_w_regs,
     input wire [(p_data_width-1):0] i_w_ram,
     input wire [(p_data_width-1):0] i_w_state,
