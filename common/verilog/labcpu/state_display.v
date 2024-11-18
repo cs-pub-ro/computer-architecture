@@ -162,8 +162,8 @@ module state_display #(
                     end
 
                     l_p_PC_address: begin
-                        l_r_digit_7seg[5] = 8'b1000_1100;    // P
-                        l_r_digit_7seg[6] = 8'b1100_0110;    // C
+                        l_r_digit_7seg[5] = 8'b1100_0110;    // C
+                        l_r_digit_7seg[6] = 8'b1000_1100;    // P
                     end
 
                     l_p_FR_address: begin
