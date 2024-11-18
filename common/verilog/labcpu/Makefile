@@ -9,7 +9,7 @@ TOP_MODULE=cpu_debugger
 OTHER_SOURCES=alu.v bus.v cpu.v control_unit.v cram.v state_display.v
 RAM_DATA_FILE=cram.data
 MEMORY_SOURCES=../memory/block_ram.v ../memory/block_dpram.v ../memory/register.v ../memory/regfile.v
-CORE_SOURCES=../core/clock_divider.v ../core/debouncer.v ../core/led7hex.v
+CORE_SOURCES=../core/clock_divider.v ../core/debouncer.v ../core/led7hex.v ../core/otp_button.v
 
 # compute the filenames
 TOP_MODULE_FILE=$(TOP_MODULE).v

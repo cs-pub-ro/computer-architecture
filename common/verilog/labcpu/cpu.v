@@ -268,7 +268,7 @@ module cpu #(
     .i_w_we(l_w_ram_we),
     .i_w_oe(l_w_ram_oe),
     .i_w_clk(i_w_clk),
-    .i_w_clk_ram(i_w_ram_clk)
+    .i_w_ram_clk(i_w_ram_clk)
   );
 
 

@@ -79,6 +79,21 @@ module cpu_debugger #(
         .i_w_reset(i_w_reset)
     );
 
+    // make to register just one button pressed per cycle
+    wire l_w_next_action;
+    wire l_w_prev_action;
+
+    otp_button l_m_opt_button_next (
+        .o_w_button_press(l_w_next_action),
+        .i_w_clk(l_w_480HZ_clk),
+        .i_w_button(l_w_next_debounced)
+    );
+    otp_button l_m_opt_button_prev (
+        .o_w_button_press(l_w_prev_action),
+        .i_w_clk(l_w_480HZ_clk),
+        .i_w_button(l_w_prev_debounced)
+    );
+
     // 7 seg display for state
     state_display #(
         .p_data_width(p_data_width),
@@ -92,8 +107,8 @@ module cpu_debugger #(
         .i_w_ram(l_w_cpu_ram),
         .i_w_state(l_w_cpu_state),
         .i_w_bus(l_w_cpu_bus),
-        .i_w_next(l_w_next_debounced),
-        .i_w_prev(l_w_prev_debounced),
+        .i_w_next(l_w_next_action),
+        .i_w_prev(l_w_prev_action),
         .i_w_clk(l_w_480HZ_clk),
         .i_w_reset(i_w_reset)
     );
