@@ -475,15 +475,15 @@ module state_display #(
 
                 inc_cp: begin
                     l_r_digit_7seg[0] = 8'b1111_1111;
-                    l_r_digit_7seg[1] = 8'b1000_1100;    // P
-                    l_r_digit_7seg[2] = 8'b1100_0110;    // C
+                    l_r_digit_7seg[1] = 8'b1100_0110;    // C
+                    l_r_digit_7seg[2] = 8'b1000_1100;    // P
                     l_r_digit_7seg[3] = 8'b1111_1001;    // I
                 end
 
                 inc_cp + 'd1: begin
                     l_r_digit_7seg[0] = 8'b1111_1001;    // 1
-                    l_r_digit_7seg[1] = 8'b1000_1100;    // P
-                    l_r_digit_7seg[2] = 8'b1100_0110;    // C
+                    l_r_digit_7seg[1] = 8'b1100_0110;    // C
+                    l_r_digit_7seg[2] = 8'b1000_1100;    // P
                     l_r_digit_7seg[3] = 8'b1111_1001;    // I
                 end
 
