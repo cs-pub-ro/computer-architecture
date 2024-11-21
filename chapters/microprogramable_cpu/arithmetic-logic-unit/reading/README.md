@@ -2,9 +2,15 @@
 
 Unitatea aritmetică-logică este responsabilă de efectuarea operațiilor aritmetice și logice în timpul execuției instrucțiunilor. Operațiile primesc unul sau doi operanzi, iar UAL-ul în afară de producerea rezultatului setează și o serie de indicatori de condiții (eng. *flags*) rezultați în urma operațiilor. Operațiile disponibile în UAL derivă din instrucțiunile prezente în setul de instrucțiuni al procesorului didactic, însă nu au neapărat o corespondență 1-la-1 cu acestea. Unele operații sunt folosite în mai multe instrucțiuni, iar unele instrucțiuni folosesc mai multe operații. UAL-ul trebuie însă proiectat în așa fel astfel încât să cuprindă toate operațiile necesare în execuția instrucțiunilor disponibile în procesorul didactic.
 
+<div align="center">
+
 ![Unitatea aritmetică-logică](../media/fig_ual.png)
 
+
+
 _Figure: Unitatea aritmetică-logică_
+
+</div>
 
 Operanzii pe 16 biți sunt *op1* și *op2*, iar cei 4 biți *S* selectează operația ce va fi efectuată. Rezultatul este pus pe magistrală prin activarea semnalului *Enable*. Acesta este dezactivat de instrucțiunile care nu au nevoie de fapt de rezultatul operației, ci doar de indicatori (ex: *cmp*, *test*). Operațiile de adunare și scădere folosesc și un bit de carry/borrow reprezentat prin semnalul *Carry*. Acesta este activat selectiv de instrucțiunile ADD/ADC (*add with carry*) și SUB/SBB (*subtract with borrow*), precum și alte instrucțiuni, pentru a obține rezultatul dictat de semantica instrucțiunii.
 
@@ -89,6 +95,8 @@ O shiftare logică nu ține cont de semnul operandului. În cazul shiftării log
 
 În imaginile de mai jos se poate observa modul de execuție a shiftărilor logice.
 
+<div align="center">
+
 ![Shiftare logică la stânga](../media/shl.png?200)
 
 _Figure: Shiftare logică la stânga_
@@ -97,7 +105,11 @@ _Figure: Shiftare logică la stânga_
 
 _Figure: Shiftare logică la dreapta_
 
+</div>
+
 Iar în figurile de mai jos găsiți un exemplu practic de efectuare a shiftărilor logice spre stânga (*SHL*) și spre dreapta (*SHR*).
+
+<div align="center">
 
 ![Exemplu de shiftare logică la stânga](../media/shl_sal_example.png?200)
 
@@ -107,11 +119,15 @@ _Figure: Exemplu de shiftare logică la stânga_
 
 _Figure: Exemplu de shiftare logică la dreapta_
 
+</div>
+
 În Verilog, operatorii de shiftare logică sunt `<<` și `>>`.
 
 ### Shiftare aritmetică
 
 Spre deosebire de shiftarea logică spre dreapta (*SHR*), shiftarea aritmetică spre dreapta (*SAR*) nu umple spațiile rămase libere cu zerouri. În cazul *SAR*, spațiile rămase libere se umplu cu valoarea bitului cel mai semnificativ, care se replică de câte ori este nevoie (vezi imaginea de mai jos).
+
+<div align="center">
 
 ![Exemplu de shiftare aritmetică la dreapta](../media/sar.png?200)
 
@@ -121,9 +137,11 @@ _Figure: Exemplu de shiftare aritmetică la dreapta_
 
 _Figure: Exemplu de shiftare aritmetică la dreapta_
 
+</div>
+
 În Verilog, operatorii de shiftare aritmetică sunt `<<<` și `>>>`.
 
-:!: Aceștia au efectul scontat doar dacă variabila a fost declarată `signed` (ex: `reg signed [15:0] a;`).
+Aceștia au efectul scontat doar dacă variabila a fost declarată `signed` (ex: `reg signed [15:0] a;`).
 
 > **Important**: Shiftarea logică spre stânga (*SHL*) și shiftarea aritmetică spre stânga (*SAL*) se efectuează în același mod. Se păstrează, însă, ambele mnemonici (*SHL* / *SAL*) pentru a se putea păstra contextul folosirii acestora, logic sau aritmetic.
 

@@ -7,6 +7,11 @@ module comparator(
 );
 
     //TODO 4.1: Implement 
+
+    // lt = less than
+    // gt = greater than
+    // eq =  equals
+
     wire l_w_nota, l_w_notb;
     not (l_w_nota, i_w_a);
 	not (l_w_notb, i_w_b);

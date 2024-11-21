@@ -1,0 +1,5 @@
+*.vvp
+*.vcd
+vpl_execution
+sequence.txt
+evaluate.out

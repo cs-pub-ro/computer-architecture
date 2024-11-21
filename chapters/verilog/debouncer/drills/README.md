@@ -1,5 +1,8 @@
 # Practice: Debouncer
 
+
+  Soluția se află în repo-ul materiei [GitHub](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/verilog/operators/drills/tasks). 
+  
   - Se dorește proiectarea unui automat finit capabil să recunoască secvențe de tip "ba". Automatul primește la intrare în mod continuu caractere codificate printr-un semnal de un bit (caracterele posibile sunt "a" și "b"). Ieșirea automatului va consta dintr-un semnal care va fi activat (valoarea 1) atunci când la intrare am avut prezent un șir care se potrivește cu tiparul de căutare.
     - Implementați automatul în Verilog.
       * _Hint_: Realizați pe hârtie schema automatului de stări, pentru a o folosi ulterior ca referință. 
