@@ -99,7 +99,7 @@
         \item If there is one, verify if external maskable interrupts are enabled. (flag \texttt{I} in FR)
         \item If yes, filter the interrupts that are masked in the \texttt{MEXTINT} register.
         \item Find the highest priority interrupt that is not masked.
-        \item Verify ff it has higher priority than the current running interrupts in the \texttt{RUNINT} register:
+        \item Verify if it has higher priority than the current running interrupts in the \texttt{RUNINT} register:
         \item Send the interrupt to the CPU through the $intr$ signal.
         \item Wait for the CPU to acknowledge the interrupt. ($ai$ signal)
         \item Set the bit in the \texttt{RUNINT} register.
