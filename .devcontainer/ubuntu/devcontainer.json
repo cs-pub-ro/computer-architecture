@@ -1,5 +1,5 @@
 {
-	"name": "Vivado Slim Dev",
+	"name": "Vivado Slim Dev ubuntu/linux",
 	"image": "gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0",
 	"runArgs": [
 		"--rm",
@@ -9,6 +9,7 @@
 	"containerEnv": {
 		"DISPLAY" : ":0.0" 
 	},
+	"postStartCommand": "echo 'export PATH=$PATH:/workspaces/computer-architecture/didasm/target/debug' >> ~/.bashrc",
 	// run the command on host xhost +local:docker
 	"customizations": {
 		"vscode": {

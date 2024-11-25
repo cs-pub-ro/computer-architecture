@@ -8,11 +8,9 @@
 	// 	"dockerfile": "open.Dockerfile",
 	// },
 	// Latex container for course materials
-
 	"name": "Computer Architecture Open Source Toolchain Dev",
 	"build": {
 		"dockerfile": "open.Dockerfile",
-
 	},
 	"customizations": {
 		"vscode": {
@@ -31,9 +29,7 @@
 		"--rm",
 		"--privileged"
 	],
-
-	"mounts": ["type=bind,source=/dev,target=/dev"]
-
+	"mounts": ["type=bind,source=/dev,target=/dev"],
 	// "customizations": {
 	// 	"vscode": {
 	// 		"extensions": [
