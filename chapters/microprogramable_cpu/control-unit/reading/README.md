@@ -2,7 +2,7 @@
 
 Ne vom familiariza cu **formatul instrucțiunilor** calculatorului didactic și cu **modul de funcționare al unității de comandă**. În acest scop se vor implementa în Verilog **interpretarea** și **comandarea execuției** pentru instrucțiunile specificate în arhitectura calculatorului didactic studiat la curs.
 
-Componentele calculatorului didactic implementate anterrio registre, UAL formează unitatea de execuție a procesorului. Pentru ca acestea să rețină date și să execute instrucțiunile procesorului, avem nevoie de o logică hardware de comandă a acestora, logică implementată în unitatea de comandă.
+Componentele calculatorului didactic implementate anterior registre, UAL formează unitatea de execuție a procesorului. Pentru ca acestea să rețină date și să execute instrucțiunile procesorului, avem nevoie de o logică hardware de comandă a acestora, logică implementată în unitatea de comandă.
 
 În interiorul unui procesor, instrucțiunile trec prin mai multe etape. Pentru calculatorul didactic avem următoarele etape:
   * **Fetch** - aducerea instrucțiunii din memorie în registrul instrucțiune (RI)
@@ -68,7 +68,7 @@ _Figure: Formatul instrucțiunilor calculatorului didactic_
     * 1 - REG = REG op RM
   * **MOD** - modul de calcul al adresei efective (4 moduri - 2 biți)
   * **REG** - indexul registrului care conține unul dintre operanzi
-  * **RM** - indexul registrului care conține unul dintre operanzi
+  * **RM** - indexul registrului sau a adresei de memorie care conține unul dintre operanzi
 
 | Instrucțiune | Funcție | Cod RI[0:6] |
 |--------------|---------|-------------|
@@ -80,15 +80,15 @@ _Figure: Formatul instrucțiunilor calculatorului didactic_
 | SHR | op = op >> 1 | 0001 101 |
 | SAR | op = op >>> 1 | 0001 110 |
 
-_Table: _Instrucțiuni aritmetice-logice cu un operand_
+_Table: Instrucțiuni aritmetice-logice cu un operand_
 
 De exemplu, pentru instrucțiunea `INC RA` grupul este cel al operațiilor cu calcul de adresă efectivă (RI[0] = 0), cu un singur operand (RI[1] = 0), fără operand imediat (RI[2] = 0) și cu salvarea rezultatului (RI[3] = 1).
 
 Pentru orice procesor, fiecare instrucțiune definită în arhitectura setului său de instrucțiuni, are un anumit **cod unic după care este identificată**. Atunci când se stochează o instrucțiune care lucrează cu cel puțin un operand, nu este suficient să avem doar codul său (care indică ce acțiune trebuie efectuată), ci trebuie să avem și niște biți care să ne indice de unde luăm operanzii, așa cum este ilustrat și în imaginea de mai jos.
 
-Dacă MOD = 3 (adresare directă la registru) și instrucțiunea are un singur operand, acesta este pus în RM.
+Dacă MOD = 2'b11 (adresare directă la registru) și instrucțiunea are un singur operand, acesta este pus în RM.
 
-Se poate observa că în cadrul unora din grupurile de operații au rămas codificări nefolosite pe biții 4:6. Dacă se extinde setul de instrucțiuni cu noi operații (vedeți în curs :!:), atunci codul acestora poate fi unul din cele nefolosite (atâta timp cât se încadrează în acel grup).
+Se poate observa că în cadrul unora din grupurile de operații au rămas codificări nefolosite pe biții 4:6. Dacă se extinde setul de instrucțiuni cu noi operații (**vedeți în curs!**), atunci codul acestora poate fi unul din cele nefolosite (atâta timp cât se încadrează în acel grup).
 
 Exemplu de calcul cod operație pentru instrucțiune `DEC RB`:
   * [0] = 0 - cu calcul de adresă efectivă
@@ -119,9 +119,9 @@ Instrucțiunile care vor fi implementate în acest laborator se regăsesc în ta
 | CMP | op<sub>dst</sub> - op<sub>src</sub>, fără stocare rezultat, doar setare indicatori | 0100010 |
 | TEST | op<sub>dst</sub> & op<sub>src</sub>, fără stocare rezultat, doar setare indicatori | 0100100 |
 
-_Table: _Instrucțiuni aritmetice-logice cu doi operanzi_
+_Table: Instrucțiuni aritmetico-logice cu doi operanzi_
 
-Pentru **decodificarea** instrucțiunilor din acest laborator trebuie sa identificăm atât grupul instrucțiunilor aritmetice-logice cu doi operanzi, fără operand imediat și care stochează rezultatul (**RI<sub>0..3</sub> = 0101**) cât și cele care nu stochează rezultatul (**RI<sub>0..3</sub> = 0100**).
+Pentru **decodificarea** instrucțiunilor din acest laborator trebuie sa identificăm atât grupul instrucțiunilor aritmetic0-logice cu doi operanzi, fără operand imediat și care stochează rezultatul (**RI<sub>0..3</sub> = 0101**) cât și cele care nu stochează rezultatul (**RI<sub>0..3</sub> = 0100**).
 
 ## Adresarea directă la registru
 
@@ -137,7 +137,7 @@ Instrucțiunea `AND RA, RB` efectuează `ȘI` logic între cei doi operanzi și 
   * [2] = 0 - fără operand imediat
   * [3] = 1 - operație aritmetică cu salvarea rezultatului
   * [4,5,6] = [1,0,0] - codul dat operației (stabilit de arhitectură)
-  * [7] - selectează operandul destinație. Pentru exemplul acesta vom considera că acest bit ia valoarea 1 (destinația va fi registrul `RA`):
+  * [7] - selectează operandul destinație. Pentru exemplul acesta vom considera că acest bit ia valoarea 1 (ținem cont că destinația va fi registrul `RA`):
     * 1: REG = REG `AND` RM
   * [8,9] = [1,1] - modul de adresare (folosim adresarea directă la registru)
   * [10,11,12] = [0,0,0] - indexul registrului `RA` în bancul de registre
@@ -146,3 +146,13 @@ Instrucțiunea `AND RA, RB` efectuează `ȘI` logic între cei doi operanzi și 
 | 15 | 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
 |----|----|----|----|----|----|---|---|---|---|---|---|---|---|---|---|
 | 1  | 0  | 0  | 0  | 0  | 0  | 1 | 1 | 1 | 0 | 0 | 1 | 1 | 0 | 1 | 0 |
+
+O altă variantă pentru codificarea acestei operații apare în urma modificarii bitului [7] astfel:
+  * [7] - selectează operandul destinație. Pentru exemplul acesta vom considera că acest bit ia valoarea 0 (ținem cont că destinația va fi registrul `RA`):
+    * 0: RM = REG `AND` RM
+  * [10,11,12] = [0,0,1] - indexul registrului `RB` în bancul de registre
+  * [13,14,15] = [0,0,0] - indexul registrului `RA` în bancul de registre
+
+| 15 | 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+|----|----|----|----|----|----|---|---|---|---|---|---|---|---|---|---|
+| 0  | 0  | 0  | 1  | 0  | 0  | 1 | 1 | 0 | 0 | 0 | 1 | 1 | 0 | 1 | 0 |
