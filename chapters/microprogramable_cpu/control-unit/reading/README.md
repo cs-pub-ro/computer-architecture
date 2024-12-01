@@ -80,7 +80,7 @@ _Figure: Formatul instrucțiunilor calculatorului didactic_
 | SHR | op = op >> 1 | 0001 101 |
 | SAR | op = op >>> 1 | 0001 110 |
 
-_Table: Instrucțiuni aritmetice-logice cu un operand_
+_Table: Instrucțiuni aritmetico-logice cu un operand_
 
 De exemplu, pentru instrucțiunea `INC RA` grupul este cel al operațiilor cu calcul de adresă efectivă (RI[0] = 0), cu un singur operand (RI[1] = 0), fără operand imediat (RI[2] = 0) și cu salvarea rezultatului (RI[3] = 1).
 
