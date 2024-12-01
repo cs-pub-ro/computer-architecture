@@ -159,3 +159,5 @@ O altă variantă pentru codificarea acestei operații apare în urma modificari
 
 
 Fișierul care conține cheat-sheet-ul cu ajutorul căruia puteți decodifica orice instrucțiune poate fi găsit [aici](cheat-sheet.pdf)
+
+Fișierul care descrie intreaga arhitectură este aici: [Biblia.pdf](Biblia.pdf)
