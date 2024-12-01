@@ -41,7 +41,7 @@ Automatul trebuie să ofere stări pentru:
   * interpretarea fiecărei instrucțiuni. Aceasta se traduce printr-o serie de stări care setează semnalele de output ale modulului pentru a comanda execuția instrucțiunii.
   * incrementarea registrului **CP**
 
-În implementarea unității de comandă vom considera că **UAL-ul va pune rezultatul în T1**, și de acolo va fi transferat în registre sau în memorie. Această convenție face mai simple și mai clare stările care comandă execuția operațiilor aritmetice-logice.
+În implementarea unității de comandă vom considera că **UAL-ul va pune rezultatul în T1**, și de acolo va fi transferat în registre sau în memorie. Această convenție face mai simple și mai clare stările care comandă execuția operațiilor aritmetico-logice.
 
 ## Codificarea instrucțiunilor
 
@@ -121,7 +121,7 @@ Instrucțiunile care vor fi implementate în acest laborator se regăsesc în ta
 
 _Table: Instrucțiuni aritmetico-logice cu doi operanzi_
 
-Pentru **decodificarea** instrucțiunilor din acest laborator trebuie sa identificăm atât grupul instrucțiunilor aritmetic0-logice cu doi operanzi, fără operand imediat și care stochează rezultatul (**RI<sub>0..3</sub> = 0101**) cât și cele care nu stochează rezultatul (**RI<sub>0..3</sub> = 0100**).
+Pentru **decodificarea** instrucțiunilor din acest laborator trebuie sa identificăm atât grupul instrucțiunilor aritmetico-logice cu doi operanzi, fără operand imediat și care stochează rezultatul (**RI<sub>0..3</sub> = 0101**) cât și cele care nu stochează rezultatul (**RI<sub>0..3</sub> = 0100**).
 
 ## Adresarea directă la registru
 
