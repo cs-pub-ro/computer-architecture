@@ -41,6 +41,10 @@ RUN apt-get install -y iverilog yosys verilator gtkwave
 RUN apt-get install -y python3 python3-pip && \
     pip3 install Pygments
 
+# install rust for didactic assembler
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
 # install java and graphviz
 # RUN apt-get install -y openjdk-19-jre graphviz
 
