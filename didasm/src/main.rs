@@ -320,11 +320,19 @@ impl ParsedStatement {
 
 fn main() {
     let _labels = HashMap::<String, usize>::new();
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() >= 3 {
+        eprintln!("Usage: {} <input-filename> <output-filename>", args[0]);
+        std::process::exit(1);
+    }
     let line_parser = Regex::new(r#"^(?:\s*([a-zA-Z_0-9]+)\s*:)?\s*(?:(.*?);.*|(.*))$"#).unwrap();
     let stmt_parser = Regex::new(r#"^([a-z]+)(?:\s+([^,]+)(?:\s*,\s*([^,]+))?)?$"#).unwrap();
     let equ_parser = Regex::new(r#"^([a-z_][a-z_0-9]*)\s+equ\s+(.*)$"#).unwrap();
     let mut defines = HashMap::<String, String>::new();
-    let file = std::fs::read_to_string("hello.asm").unwrap();
+    let Ok(file) = std::fs::read_to_string(args[1].clone()) else {
+        eprintln!("No such file or directory");
+        std::process::exit(2);
+    };
     let mut _label_queue = Vec::<String>::new();
     let mut any_error1 = false;
     let mut any_error2 = false;
@@ -394,7 +402,7 @@ fn main() {
     .map(|(line, x)| format!("// {line}\n{x}"))
     .collect::<Vec<_>>();
     if any_error1 || any_error2 || any_error3 {std::process::exit(1)};
-    println!("{}", statements.join("\n"));
+    std::fs::write(args[2].clone(), &statements.join("\n"));
     
 }
 
