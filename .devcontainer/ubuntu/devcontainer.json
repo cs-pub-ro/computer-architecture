@@ -1,5 +1,5 @@
 {
-	"name": "Vivado Slim Dev",
+	"name": "Vivado Slim Dev ubuntu/linux",
 	"image": "gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0",
 	"runArgs": [
 		"--rm",
