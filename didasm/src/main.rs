@@ -321,7 +321,7 @@ impl ParsedStatement {
 fn main() {
     let _labels = HashMap::<String, usize>::new();
     let args: Vec<String> = std::env::args().collect();
-    if args.len() >= 3 {
+    if args.len() < 3 {
         eprintln!("Usage: {} <input-filename> <output-filename>", args[0]);
         std::process::exit(1);
     }
