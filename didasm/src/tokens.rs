@@ -92,10 +92,7 @@ pub enum Mnemonic {
 
 impl Mnemonic {
     pub fn is_jump(&self) -> bool {
-        match self {
-            Jbe|Jb|Jc|Jle|Jl|Je|Jz|Jo|Js|Jpe|Ja|Jae|Jnc|Jg|Jge|Jne|Jnz|Jno|Jns|Jpo => true,
-            _ => false
-        }
+        matches!(self, Jbe|Jb|Jc|Jle|Jl|Je|Jz|Jo|Js|Jpe|Ja|Jae|Jnc|Jg|Jge|Jne|Jnz|Jno|Jns|Jpo)
     }
 }
 
