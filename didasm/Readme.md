@@ -4,10 +4,11 @@ To install, just do ```make install``` while inside the dockerfile.
 ## Usage
 ```didasm <input-file> <output-file>```
 
-This will output binary representation of the instructions, and shall be read using $readmemb instead of $readmemh
+This will output hex representation of the instructions
 The representation is reversed, because when parsing the ram has the word order ```[15:0]``` instead of ```[0:15]``` like it is usually done in the classroom while decoding.
 For a clearer view of the instruction grouping in the right order, pass ```--beautiful``` as an optional command line argument (it has to be the 3rd argument specifically).
-If by contrast the 3rd argument is ```--quiet```, the only 
+If by contrast the 3rd argument is ```--quiet```, the only thing that will be outputed is the binary.
+By default if no option is passed, only the original code is commented above the hex value it represents
 
 Supports all instructions from the [ISA description document](../chapters/microprogramable_cpu/control-unit/reading/Biblia.pdf), but does not fully support all the different syntaxes for memory addressing.
 Currently the differences consist in small tweaks such as the impossibility of distinguishing between an immediate value and a displacement in memory (depls), so the direct addressing is done using the cheatsheet syntax (```[depls]```), and indirect is done using (```[[depls]]```).
