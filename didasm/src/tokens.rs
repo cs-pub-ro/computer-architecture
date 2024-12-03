@@ -90,6 +90,15 @@ pub enum Mnemonic {
     Jpo
 }
 
+impl Mnemonic {
+    pub fn is_jump(&self) -> bool {
+        match self {
+            Jbe|Jb|Jc|Jle|Jl|Je|Jz|Jo|Js|Jpe|Ja|Jae|Jnc|Jg|Jge|Jne|Jnz|Jno|Jns|Jpo => true,
+            _ => false
+        }
+    }
+}
+
 impl From<Register> for usize {
     fn from(value: Register) -> Self {
         match value {
@@ -137,21 +146,25 @@ impl FromStr for Expr {
         static CHECK_IF_ID: Lazy<Regex> = Lazy::new(|| {
             Regex::new("^[a-z_][a-z0-9_]*$").unwrap()
         });
-
+        let (sgn, s) = if s.starts_with("-") {
+            (-1, &s[1..])
+        } else {
+            (1, s)
+        };
         if s.starts_with("0b") {
             match isize::from_str_radix(&s[2..], 2) {
-                Ok(x) => Ok(Expr::Int(x)),
+                Ok(x) => Ok(Expr::Int(sgn * x)),
                 Err(e) => Err(format!("Invalid binary number '{s}', {e}"))
             }
         } else if s.starts_with("0x") {
             match isize::from_str_radix(&s[2..], 16) {
-                Ok(x) => Ok(Expr::Int(x)),
+                Ok(x) => Ok(Expr::Int(sgn * x)),
                 Err(e) => Err(format!("Invalid hex number '{s}', {e}"))
             }
         } else {
             match s.chars().nth(0) {
                 Some('0'..'9') => match s.parse::<isize>() {
-                    Ok(x) => Ok(Expr::Int(x)),
+                    Ok(x) => Ok(Expr::Int(sgn * x)),
                     Err(e) => Err(format!("Invalid number '{s}', {e}"))
                 },
                 None => panic!("We should never have an empty string here"),
@@ -193,7 +206,7 @@ pub enum Operand {
     /// [<REG>+<REG>-]
     RegSumAutodecrement {
         b: Register,
-        x: Register
+        // x: Register
     },
     /// [<REG>]+<EXPR>
     /// <EXPR>[<REG>]
@@ -295,7 +308,7 @@ impl FromStr for Operand {
                         => Ok(Operand::RegSumAutoincrement { b, x }),
                     (Reg( b @ (Ba|Bb) ), Reg( Xa ), None, Some("-")) |
                     (Reg( Xa ), Reg( b @ (Ba|Bb) ), None, Some("-"))
-                        => Ok(Operand::RegSumAutodecrement { b, x: Xa }),
+                        => Ok(Operand::RegSumAutodecrement { b }),
                     (Reg(_), Reg( Xb ), None, Some("-")) |
                     (Reg( Xb ), Reg(_), None, Some("-"))
                         => Err(format!("xb is not supported in autodecrement instructions")),
