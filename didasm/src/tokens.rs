@@ -1,39 +1,33 @@
 use regex::Regex;
 use strum_macros::EnumString;
-use std::str::FromStr;
+use std::{fmt::Display, str::FromStr};
 use once_cell::sync::Lazy;
 use strum_macros::Display;
 
 use Register::*;
 use Mnemonic::*;
-
+use GeneralMnemonic::*;
+use ArithmeticMnemonic::*;
+use LogicMnemonic::*;
+use ShiftMnemonic::*;
+use ControlFlowMnemonic::*;
+use ConditionalJumpMnemonic::*;
 impl From<&Mnemonic> for u16 {
     fn from(value: &Mnemonic) -> Self {
         match value {
-            In|Mov|Inc|Add|Jbe => 0,
-            Out|Dec|Jb|Jc|Adc => 1,
-            Pushf|Push|Neg|Jle|Cmp|Sub => 2,
-            Popf|Pop|Not|Jl|Sbb => 3,
-            Ret|Call|Shl|Sal|Je|Jz|Test|And => 4,
-            Iret|Jmp|Shr|Jo|Or => 5,
-            Hlt|Sar|Js|Xor => 6,
-            Jpe => 7,
-            Ja => 8,
-            Jae|Jnc => 9,
-            Jg => 10,
-            Jge => 11,
-            Jne|Jnz => 12,
-            Jno => 13,
-            Jns => 14,
-            Jpo => 15
+            General(m) => u16::from(*m),
+            Arithmetic(m) => u16::from(*m),
+            Logic(m) => u16::from(*m),
+            Shift(m) => u16::from(*m),
+            ControlFlow(m) => u16::from(*m),
+            ConditionalJump(m) => u16::from(*m)
         }
     }
 }
-#[derive(Debug, EnumString, Display)]
-#[strum(serialize_all = "snake_case")]
 
-pub enum Mnemonic {
-    // General instructions
+#[derive(Debug, EnumString, Display, Clone, Copy)]
+#[strum(serialize_all = "snake_case")]
+pub enum GeneralMnemonic {
     Mov,
     Push,
     Pop,
@@ -41,7 +35,22 @@ pub enum Mnemonic {
     Popf,
     In,
     Out,
-    // Arithmetic instructions
+}
+
+impl From<GeneralMnemonic> for u16 {
+    fn from(value: GeneralMnemonic) -> Self {
+        match value {
+            Mov | In => 0b000,
+            Out => 0b001,
+            Push | Pushf => 0b010,
+            Pop | Popf => 0b011,
+        }
+    }
+}
+
+#[derive(Debug, EnumString, Display, Clone, Copy)]
+#[strum(serialize_all = "snake_case")]
+pub enum ArithmeticMnemonic {
     Add,
     Adc,
     Inc,
@@ -50,24 +59,83 @@ pub enum Mnemonic {
     Dec,
     Neg,
     Cmp,
-    // Logic instructions
-    Not,
+}
+
+impl From<ArithmeticMnemonic> for u16 {
+    fn from(value: ArithmeticMnemonic) -> Self {
+        match value {
+            Add | Inc => 0b000,
+            Adc | Dec => 0b001,
+            Sub | Neg | Cmp => 0b010,
+            Sbb => 0b011,
+        }
+    }
+}
+
+#[derive(Debug, EnumString, Display, Clone, Copy)]
+#[strum(serialize_all = "snake_case")]
+pub enum LogicMnemonic {
     And,
     Or,
     Xor,
+    Not,
     Test,
-    // Shift instructions
+}
+
+impl From<LogicMnemonic> for u16 {
+    fn from(value: LogicMnemonic) -> Self {
+        match value {
+            And | Test => 0b100,
+            Or => 0b101,
+            Xor => 0b110,
+            Not => 0b011
+        }
+    }
+    
+}
+
+#[derive(Debug, EnumString, Display, Clone, Copy)]
+#[strum(serialize_all = "snake_case")]
+pub enum ShiftMnemonic {
     Shl,
     Sal,
     Shr,
     Sar,
-    // Control flow instructions
+}
+
+impl From<ShiftMnemonic> for u16 {
+    fn from(value: ShiftMnemonic) -> Self {
+        match value {
+            Shl | Sal => 0b100,
+            Shr => 0b101,
+            Sar => 0b110,
+        }
+    }
+}
+
+#[derive(Debug, EnumString, Display, Clone, Copy)]
+#[strum(serialize_all = "snake_case")]
+pub enum ControlFlowMnemonic {
     Call,
     Ret,
     Iret,
     Jmp,
     Hlt,
-    // Conditional jump instructions
+}
+
+impl From<ControlFlowMnemonic> for u16 {
+    fn from(value: ControlFlowMnemonic) -> Self {
+        match value {
+            Call | Ret => 0b100,
+            Iret | Jmp => 0b010,
+            Hlt => 0b110,
+        }
+    }
+}
+
+#[derive(Debug, EnumString, Display, Clone, Copy)]
+#[strum(serialize_all = "snake_case")]
+pub enum ConditionalJumpMnemonic {
     Jbe,
     Jb,
     Jc,
@@ -90,9 +158,76 @@ pub enum Mnemonic {
     Jpo
 }
 
-impl Mnemonic {
-    pub fn is_jump(&self) -> bool {
-        matches!(self, Jbe|Jb|Jc|Jle|Jl|Je|Jz|Jo|Js|Jpe|Ja|Jae|Jnc|Jg|Jge|Jne|Jnz|Jno|Jns|Jpo)
+impl From<ConditionalJumpMnemonic> for u16 {
+    fn from(cj: ConditionalJumpMnemonic) -> u16 {
+        match cj {
+            Jbe => 0b0000,
+            Jb | Jc => 0b0001,
+            Jle => 0b0010,
+            Jl => 0b0011,
+            Je | Jz => 0b0100,
+            Jo => 0b0101,
+            Js => 0b0110,
+            Jpe => 0b0111,
+            Ja => 0b1000,
+            Jae | Jnc => 0b1001,
+            Jg => 0b1010,
+            Jge => 0b1011,
+            Jne | Jnz => 0b1100,
+            Jno => 0b1101,
+            Jns => 0b1110,
+            Jpo => 0b1111,
+        }
+    }
+
+}
+
+#[derive(Debug)]
+pub enum Mnemonic {
+    General(GeneralMnemonic),
+    // Arithmetic instructions
+    Arithmetic(ArithmeticMnemonic),
+    // Logic instructions
+    Logic(LogicMnemonic),
+    // Shift instructions
+    Shift(ShiftMnemonic),
+    // Control flow instructions
+    ControlFlow(ControlFlowMnemonic),
+    // Conditional jump instructions
+    ConditionalJump(ConditionalJumpMnemonic),
+}
+
+impl FromStr for Mnemonic {
+    type Err = String;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if let Ok(general) = GeneralMnemonic::from_str(s) {
+            Ok(Mnemonic::General(general))
+        } else if let Ok(arithmetic) = ArithmeticMnemonic::from_str(s) {
+            Ok(Mnemonic::Arithmetic(arithmetic))
+        } else if let Ok(logic) = LogicMnemonic::from_str(s) {
+            Ok(Mnemonic::Logic(logic))
+        } else if let Ok(shift) = ShiftMnemonic::from_str(s) {
+            Ok(Mnemonic::Shift(shift))
+        } else if let Ok(control_flow) = ControlFlowMnemonic::from_str(s) {
+            Ok(Mnemonic::ControlFlow(control_flow))
+        } else if let Ok(conditional_jump) = ConditionalJumpMnemonic::from_str(s) {
+            Ok(Mnemonic::ConditionalJump(conditional_jump))
+        } else {
+            Err(format!("Invalid mnemonic '{s}'"))
+        }
+    }
+}
+
+impl Display for Mnemonic {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", match self {
+            General(m) => m.to_string(),
+            Arithmetic(m) => m.to_string(),
+            Logic(m) => m.to_string(),
+            Shift(m) => m.to_string(),
+            ControlFlow(m) => m.to_string(),
+            ConditionalJump(m) => m.to_string()
+        })
     }
 }
 
@@ -141,7 +276,7 @@ impl FromStr for Expr {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         static CHECK_IF_ID: Lazy<Regex> = Lazy::new(|| {
-            Regex::new("^[a-z_][a-z0-9_]*$").unwrap()
+            Regex::new("^[a-z_][a-z0-9_]*$").expect("ID regex has a syntax error.")
         });
         let (sgn, s) = if s.starts_with("-") {
             (-1, &s[1..])
@@ -253,13 +388,13 @@ impl FromStr for Operand {
     type Err = String;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         static CHECK_IF_DOUBLE_INDIRECT: Lazy<Regex> = Lazy::new(|| {
-            Regex::new(r"^\[\s*\[\s*(.+?)\s*\]\s*\]$").unwrap()
+            Regex::new(r"^\[\s*\[\s*(.+?)\s*\]\s*\]$").expect("Double indirect regex has a syntax error.")
         });
         static CHECK_OUTER_BRACKETS: Lazy<Regex> = Lazy::new(|| {
-            Regex::new(r"^\[\s*(.+)\s*\]$").unwrap()
+            Regex::new(r"^\[\s*(.+)\s*\]$").expect("Outer brackets regex has a syntax error.")
         });
         static CHECK_INSIDE_BRACKETS: Lazy<Regex> = Lazy::new(|| {
-            Regex::new(r"^([a-z0-9_]+)\s*\+\s*([a-z0-9_]+)\s*(?:\+\s*([a-z0-9_]+)|([+\-]))?$").unwrap()
+            Regex::new(r"^([a-z0-9_]+)\s*\+\s*([a-z0-9_]+)\s*(?:\+\s*([a-z0-9_]+)|([+\-]))?$").expect("Inside brackets regex has a syntax error.")
         });
 
 
@@ -285,8 +420,10 @@ impl FromStr for Operand {
             } else if let Ok(expr) = Expr::from_str(op) {
                 Ok(Operand::Direct(expr))
             } else if let Some(cap) = CHECK_INSIDE_BRACKETS.captures(op) {
-                let op1 = RegOrExpr::from_str(cap.get(1).unwrap().as_str())?;
-                let op2 = RegOrExpr::from_str(cap.get(2).unwrap().as_str())?;
+                let op1 = RegOrExpr::from_str(cap.get(1)
+                    .expect("The check inside brackets regex should always yield an expression.").as_str())?;
+                let op2 = RegOrExpr::from_str(cap.get(2)
+                    .expect("The check inside brackets regex should always yield an expression.").as_str())?;
                 let op3 = cap.get(3).map(|x| RegOrExpr::from_str(x.as_str())).transpose()?;
                 let sign = cap.get(4).map(|x| x.as_str());
                 match (op1, op2, op3, sign) {
