@@ -278,24 +278,24 @@ impl FromStr for Expr {
         static CHECK_IF_ID: Lazy<Regex> = Lazy::new(|| {
             Regex::new("^[a-z_][a-z0-9_]*$").expect("ID regex has a syntax error.")
         });
-        let (sgn, s) = if s.starts_with("-") {
-            (-1, &s[1..])
+        let (sgn, s) = if let Some(stripped) = s.strip_prefix("-") {
+            (-1, stripped)
         } else {
             (1, s)
         };
-        if s.starts_with("0b") {
-            match isize::from_str_radix(&s[2..], 2) {
+        if let Some(stripped) = s.strip_prefix("0b") {
+            match isize::from_str_radix(stripped, 2) {
                 Ok(x) => Ok(Expr::Int(sgn * x)),
                 Err(e) => Err(format!("Invalid binary number '{s}', {e}"))
             }
-        } else if s.starts_with("0x") {
-            match isize::from_str_radix(&s[2..], 16) {
+        } else if let Some(stripped) = s.strip_prefix("0x") {
+            match isize::from_str_radix(stripped, 16) {
                 Ok(x) => Ok(Expr::Int(sgn * x)),
                 Err(e) => Err(format!("Invalid hex number '{s}', {e}"))
             }
         } else {
             match s.chars().nth(0) {
-                Some('0'..'9') => match s.parse::<isize>() {
+                Some('0'..='9') => match s.parse::<isize>() {
                     Ok(x) => Ok(Expr::Int(sgn * x)),
                     Err(e) => Err(format!("Invalid number '{s}', {e}"))
                 },
@@ -401,7 +401,7 @@ impl FromStr for Operand {
 
         if let Some(cap) = CHECK_IF_DOUBLE_INDIRECT.captures(s) {
             let (_, [op]) = cap.extract();
-            if let Ok(_) = Register::from_str(op) {
+            if Register::from_str(op).is_ok() {
                 Err(format!("This indirect addressing syntax cannot be done on registers! ({op})"))
             } else {
                 match Expr::from_str(op) {
@@ -445,7 +445,7 @@ impl FromStr for Operand {
                         => Ok(Operand::RegSumAutodecrement { b }),
                     (Reg(_), Reg( Xb ), None, Some("-")) |
                     (Reg( Xb ), Reg(_), None, Some("-"))
-                        => Err(format!("xb is not supported in autodecrement instructions")),
+                        => Err("xb is not supported in autodecrement instructions".to_string()),
                     (Reg( b @ (Ba|Bb) ), Expression(e), None, None) |
                     (Expression(e), Reg( b @ (Ba|Bb) ), None, None) 
                         => Ok(Operand::Based { b, depls: e }),
@@ -457,20 +457,20 @@ impl FromStr for Operand {
 
 
                     (Reg(_), Reg(_), Some(Reg(_)), _)
-                        => Err(format!("Sum between 3 registers is not supported by the ISA")),
+                        => Err("Sum between 3 registers is not supported by the ISA".to_string()),
                     (Reg(Ba|Bb), Reg(Ba|Bb), _, _) | (Reg(Xa|Xb), Reg(Xa|Xb), _, _) |
                     (_, Reg(Ba|Bb), Some(Reg(Ba|Bb)), _) | (_, Reg(Xa|Xb), Some(Reg(Xa|Xb)), _) |
                     (Reg(Ba|Bb), _, Some(Reg(Ba|Bb)), _) | (Reg(Xa|Xb), _, Some(Reg(Xa|Xb)), _)
-                        => Err(format!("Using the same register group (B/X) between 2 registers is not allowed in an operand")),
+                        => Err("Using the same register group (B/X) between 2 registers is not allowed in an operand".to_string()),
                     (Expression(_), Expression(_), _, _) |
                     (Expression(_),_,Some(Expression(_)), _) |
                     (_, Expression(_), Some(Expression(_)), _)
-                        => Err(format!("Sum between 2 or more expressions is not supported by the ISA")),
+                        => Err("Sum between 2 or more expressions is not supported by the ISA".to_string()),
                     (Reg(x @ (Ra|Rb|Rc|Is)), _, _, _) |
                     (_, Reg(x @ (Ra|Rb|Rc|Is)), _, _) |
                     (_, _, Some(Reg(x @ (Ra|Rb|Rc|Is))), _)
                         => Err(format!("Register sum syntax does not support register {x}")),
-                    _ => Err(format!("Something went wrong! Report the given instruction to the developer for more specific error messages!"))
+                    _ => Err("Something went wrong! Report the given instruction to the developer for more specific error messages!".to_string())
                 }
                 // Err("".to_string())
             } else {

@@ -65,7 +65,7 @@ impl BitRange<u16> for Instruction {
         let mx = if msb > lsb {msb} else {lsb};
         let mask = (1 << w) - 1;
         let value = if msb > lsb {self.0} else {self.0.reverse_bits() >> (16 - mx - 1)};
-        (value & mask) as u16
+        value & mask
     }
 }
 impl BitRangeMut<u16> for Instruction {
@@ -77,14 +77,14 @@ impl BitRangeMut<u16> for Instruction {
         let mask = ((1 << w) - 1) << mn;
         let mask = !mask;
         // println!("Bitmask: {mask:016b}, {value:0width$b}", width=w);
-        self.0 = self.0 & mask;
-        self.0 += (value as u16) << mn;
+        self.0 &= mask;
+        self.0 += value << mn;
     }
 }
 
-impl ToString for Instruction {
-    fn to_string(&self) -> String {
-        format!("{:04b}_{:03b}_{:01b}_{:02b}_{:03b}_{:03b}",
+impl Display for Instruction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:04b}_{:03b}_{:01b}_{:02b}_{:03b}_{:03b}",
             self.in_type(),
             self.opcode(),
             self.d(),
@@ -159,17 +159,17 @@ impl Ir {
         let (m, rm, depls) = match (op1, op2) {
             (Some(Reg(_)), Some(Reg(ri)))
                 => (0b11, Some(ri.into()), None),
-            (Some(Imm(_)), Some(Imm(_))) => {return Err(format!("Operations between 2 immediate values is not allowed!"));},
+            (Some(Imm(_)), Some(Imm(_))) => {return Err("Operations between 2 immediate values is not allowed!".to_string());},
             (Some(Imm(_)), Some(_)) => {
                 if matches!(mnemonic, Mnemonic::ConditionalJump(_) | Mnemonic::General(In|Out)) {
                     (0b00, None, None)
                 } else {
-                    return Err(format!("Immediate values are not allowed to be the source operand! Consider swapping the operands"));
+                    return Err("Immediate values are not allowed to be the source operand! Consider swapping the operands".to_string());
                 }
             },
             (Some(RegIndirect(_)|RegSum{..}|RegSumAutodecrement{..}|RegSumAutoincrement{..}|Based{..}|Indexed{..}|BasedIndexed{..}|Direct(_)|Indirect(_)),
             Some(RegIndirect(_)|RegSum{..}|RegSumAutodecrement{..}|RegSumAutoincrement{..}|Based{..}|Indexed{..}|BasedIndexed{..}|Direct(_)|Indirect(_)))
-                => {return Err(format!("You are not allowed to have an operation between 2 operands that use memory!"));}
+                => {return Err("You are not allowed to have an operation between 2 operands that use memory!".to_string());}
             (Some(RegIndirect(ri)), _) |
             (_, Some(RegIndirect(ri)))
                 => (0b00, Some(ri.into()), None),
@@ -287,7 +287,7 @@ impl Ir {
         let depls = depls.map(|e| match e {
             Expr::Id(i) => symbol_table.get(&i).ok_or_else(
                 || format!("Identifier '{i}' not found in symbol table")
-            ).map(|&x| x),
+            ).copied(),
             Expr::Int(i) => Ok(i)
         }).transpose()?;
 
@@ -387,7 +387,7 @@ impl Ir {
             General(Pop|Push)|
             ControlFlow(Call|Jmp)
             ,_,None,Some(_),_)
-                => Err(format!("We should never reach this point. Contact the developer!")),
+                => Err("We should never reach this point. Contact the developer!".to_string()),
             (General(Mov)|
             Arithmetic(Cmp|Add|Adc|Sub|Sbb)|
             Logic(Test|And|Or|Xor), Some(reg), Some(rm), x, y) => {
@@ -442,7 +442,7 @@ impl Ir {
             (General(Mov)|
             Arithmetic(Cmp|Add|Adc|Sub|Sbb)|
             Logic(Test|And|Or|Xor),_,None,Some(_),_)
-                => Err(format!("We should never reach this point. Contact the developer!"))
+                => Err("We should never reach this point. Contact the developer!".to_string())
         }
 
     }

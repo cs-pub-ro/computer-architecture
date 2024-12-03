@@ -59,8 +59,8 @@ fn main() {
         let stmt = com.or(nocom).map(|s| if s.is_empty() {None} else {Some(s.to_lowercase())})
             .expect("Somehow at line {lineno}, code does not detect the statement properly\n{line}\nContact the developer.");
         let mut v: Vec<Action> = Vec::new();
-        match lbl {
-            Some(l) => match Expr::from_str(l) {
+        if let Some(l) = lbl {
+            match Expr::from_str(l) {
                 Ok(Expr::Id(id)) => {
                     v.push(Action::PushLabel(id.to_owned()));
                 },
@@ -73,8 +73,7 @@ fn main() {
                     }
                 }
                 Err(_) => {}
-            },
-            None => {}
+            }
         }
         if let Some(stmt) = stmt {
             if let Some(c) = equ_parser.captures(&stmt) {
@@ -109,7 +108,7 @@ fn main() {
                 any_error1 = true;
             }
         };
-        (!v.is_empty()).then(|| v)
+        (!v.is_empty()).then_some(v)
     })
     .flat_map(|x| x.into_iter())
     .filter_map(|stmt| {
@@ -183,7 +182,7 @@ fn main() {
                     Ok(instr) => {
                         mem_instr[cursor] = Some(format!("{}// {line}{}\n", prev_labels,
                         if let Some("--beautiful") = args.get(3).map(|x| x.as_str()) { // a tribute to cioc's description of my code
-                            format!(" (type_opcode_d_mod_reg_rm:{})", Instruction(instr.get_i()).to_string())
+                            format!(" (type_opcode_d_mod_reg_rm:{})", Instruction(instr.get_i()))
                         } else {"".to_string()}));
                         prev_labels.clear();
                         mem[cursor] = instr.get_i();
@@ -232,7 +231,7 @@ fn main() {
             let comment = comment.as_ref().map(|x| x.as_str()).unwrap_or("");
             format!("{}{}", if let Some("--quiet") = args.get(3).map(|x| x.as_str()) {""} else {comment}, word)
         }).collect::<Vec<_>>().join("\n");
-    if let Err(_) = std::fs::write(args[2].clone(), &statements) {
+    if std::fs::write(args[2].clone(), &statements).is_err() {
         eprintln!("Error writing to {}", args[2].clone());
     }
     
