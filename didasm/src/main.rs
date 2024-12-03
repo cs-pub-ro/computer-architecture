@@ -2,13 +2,11 @@ use regex::Regex;
 #[allow(unused_imports)]
 use std::collections::{HashMap, HashSet};
 
-mod tokens;
 mod codegen;
-use tokens::*;
+mod tokens;
+use codegen::{Instruction, Ir, ParsedStatement, Statement};
 use std::str::FromStr;
-use codegen::{Ir, Instruction, ParsedStatement, Statement};
-
-
+use tokens::*;
 
 #[derive(Debug)]
 enum Action {
@@ -136,7 +134,9 @@ fn main() {
         }
     })
     .collect::<Vec<_>>();
-    if any_error1 || any_error2 || any_error3 {std::process::exit(1)};
+    if any_error1 || any_error2 || any_error3 {
+        std::process::exit(1)
+    };
     for action in statements.iter() {
         match action {
             Action::PushIr(_, _, ir) => {
@@ -146,14 +146,14 @@ fn main() {
                 label_queue.clear();
                 let words = ir.peek_word_count();
                 cursor += words;
-            },
+            }
             Action::SetCursor(x) => {
                 for i in label_queue.iter() {
                     symtable.insert(i.to_owned(), cursor as isize);
                 }
                 label_queue.clear();
                 cursor = *x;
-            },
+            }
             Action::PushWord(_) => {
                 for i in label_queue.iter() {
                     symtable.insert(i.to_owned(), cursor as isize);
@@ -161,10 +161,10 @@ fn main() {
                 label_queue.clear();
 
                 cursor += 1;
-            },
+            }
             Action::PushLabel(x) => {
                 label_queue.push(x.to_owned());
-            },
+            }
             _ => {}
         }
     }
@@ -174,16 +174,25 @@ fn main() {
     for action in statements {
         match action {
             Action::PushIr(lineno, line, ir) => {
-                match ir.convert_to_instruction(&symtable, cursor){
+                match ir.convert_to_instruction(&symtable, cursor) {
                     Err(e) => {
                         any_error = true;
                         eprintln!("Semantic error at line {}: {}\n{}", lineno, e, line)
-                    },
+                    }
                     Ok(instr) => {
-                        mem_instr[cursor] = Some(format!("{}// {line}{}\n", prev_labels,
-                        if let Some("--beautiful") = args.get(3).map(|x| x.as_str()) { // a tribute to cioc's description of my code
-                            format!(" (type_opcode_d_mod_reg_rm:{})", Instruction(instr.get_i()))
-                        } else {"".to_string()}));
+                        mem_instr[cursor] = Some(format!(
+                            "{}// {line}{}\n",
+                            prev_labels,
+                            if let Some("--beautiful") = args.get(3).map(|x| x.as_str()) {
+                                // a tribute to cioc's description of my code
+                                format!(
+                                    " (type_opcode_d_mod_reg_rm:{})",
+                                    Instruction(instr.get_i())
+                                )
+                            } else {
+                                "".to_string()
+                            }
+                        ));
                         prev_labels.clear();
                         mem[cursor] = instr.get_i();
                         cursor += 1;
@@ -196,14 +205,11 @@ fn main() {
                             cursor += 1;
                         }
                     }
-
                 }
-                
-                
-            },
+            }
             Action::PushLabel(x) => {
                 prev_labels.push_str(format!("// {x}:\n").as_str());
-            },
+            }
             Action::PushWord(x) => {
                 mem[cursor] = x;
                 mem_instr[cursor] = (!prev_labels.is_empty()).then(|| {
@@ -212,7 +218,7 @@ fn main() {
                     res
                 });
                 cursor += 1;
-            },
+            }
             Action::SetCursor(x) => {
                 mem_instr[cursor] = (!prev_labels.is_empty()).then(|| {
                     let res = prev_labels.clone();
@@ -220,20 +226,32 @@ fn main() {
                     res
                 });
                 cursor = x;
-            },
+            }
             _ => {}
         }
     }
-    if any_error {std::process::exit(1)};
-    let statements = mem.iter().zip(mem_instr.iter())
+    if any_error {
+        std::process::exit(1)
+    };
+    let statements = mem
+        .iter()
+        .zip(mem_instr.iter())
         .map(|(word, comment)| {
             let word = format!("{:04X}", word);
             let comment = comment.as_ref().map(|x| x.as_str()).unwrap_or("");
-            format!("{}{}", if let Some("--quiet") = args.get(3).map(|x| x.as_str()) {""} else {comment}, word)
-        }).collect::<Vec<_>>().join("\n");
+            format!(
+                "{}{}",
+                if let Some("--quiet") = args.get(3).map(|x| x.as_str()) {
+                    ""
+                } else {
+                    comment
+                },
+                word
+            )
+        })
+        .collect::<Vec<_>>()
+        .join("\n");
     if std::fs::write(args[2].clone(), &statements).is_err() {
         eprintln!("Error writing to {}", args[2].clone());
     }
-    
 }
-

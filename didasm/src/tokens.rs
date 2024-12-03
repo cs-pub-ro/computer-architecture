@@ -1,17 +1,17 @@
-use regex::Regex;
-use strum_macros::EnumString;
-use std::{fmt::Display, str::FromStr};
 use once_cell::sync::Lazy;
+use regex::Regex;
+use std::{fmt::Display, str::FromStr};
 use strum_macros::Display;
+use strum_macros::EnumString;
 
-use Register::*;
-use Mnemonic::*;
-use GeneralMnemonic::*;
 use ArithmeticMnemonic::*;
-use LogicMnemonic::*;
-use ShiftMnemonic::*;
-use ControlFlowMnemonic::*;
 use ConditionalJumpMnemonic::*;
+use ControlFlowMnemonic::*;
+use GeneralMnemonic::*;
+use LogicMnemonic::*;
+use Mnemonic::*;
+use Register::*;
+use ShiftMnemonic::*;
 impl From<&Mnemonic> for u16 {
     fn from(value: &Mnemonic) -> Self {
         match value {
@@ -20,7 +20,7 @@ impl From<&Mnemonic> for u16 {
             Logic(m) => u16::from(*m),
             Shift(m) => u16::from(*m),
             ControlFlow(m) => u16::from(*m),
-            ConditionalJump(m) => u16::from(*m)
+            ConditionalJump(m) => u16::from(*m),
         }
     }
 }
@@ -88,10 +88,9 @@ impl From<LogicMnemonic> for u16 {
             And | Test => 0b100,
             Or => 0b101,
             Xor => 0b110,
-            Not => 0b011
+            Not => 0b011,
         }
     }
-    
 }
 
 #[derive(Debug, EnumString, Display, Clone, Copy)]
@@ -155,7 +154,7 @@ pub enum ConditionalJumpMnemonic {
     Jnz,
     Jno,
     Jns,
-    Jpo
+    Jpo,
 }
 
 impl From<ConditionalJumpMnemonic> for u16 {
@@ -179,7 +178,6 @@ impl From<ConditionalJumpMnemonic> for u16 {
             Jpo => 0b1111,
         }
     }
-
 }
 
 #[derive(Debug)]
@@ -220,14 +218,18 @@ impl FromStr for Mnemonic {
 
 impl Display for Mnemonic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", match self {
-            General(m) => m.to_string(),
-            Arithmetic(m) => m.to_string(),
-            Logic(m) => m.to_string(),
-            Shift(m) => m.to_string(),
-            ControlFlow(m) => m.to_string(),
-            ConditionalJump(m) => m.to_string()
-        })
+        write!(
+            f,
+            "{}",
+            match self {
+                General(m) => m.to_string(),
+                Arithmetic(m) => m.to_string(),
+                Logic(m) => m.to_string(),
+                Shift(m) => m.to_string(),
+                ControlFlow(m) => m.to_string(),
+                ConditionalJump(m) => m.to_string(),
+            }
+        )
     }
 }
 
@@ -241,7 +243,7 @@ impl From<Register> for usize {
             Xa => 4,
             Xb => 5,
             Ba => 6,
-            Bb => 7
+            Bb => 7,
         }
     }
 }
@@ -268,16 +270,15 @@ pub enum Expr {
     // Identifier
     Id(String),
     // Numeric value
-    Int(isize)
+    Int(isize),
 }
 
 impl FromStr for Expr {
     type Err = String;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        static CHECK_IF_ID: Lazy<Regex> = Lazy::new(|| {
-            Regex::new("^[a-z_][a-z0-9_]*$").expect("ID regex has a syntax error.")
-        });
+        static CHECK_IF_ID: Lazy<Regex> =
+            Lazy::new(|| Regex::new("^[a-z_][a-z0-9_]*$").expect("ID regex has a syntax error."));
         let (sgn, s) = if let Some(stripped) = s.strip_prefix("-") {
             (-1, stripped)
         } else {
@@ -286,24 +287,26 @@ impl FromStr for Expr {
         if let Some(stripped) = s.strip_prefix("0b") {
             match isize::from_str_radix(stripped, 2) {
                 Ok(x) => Ok(Expr::Int(sgn * x)),
-                Err(e) => Err(format!("Invalid binary number '{s}', {e}"))
+                Err(e) => Err(format!("Invalid binary number '{s}', {e}")),
             }
         } else if let Some(stripped) = s.strip_prefix("0x") {
             match isize::from_str_radix(stripped, 16) {
                 Ok(x) => Ok(Expr::Int(sgn * x)),
-                Err(e) => Err(format!("Invalid hex number '{s}', {e}"))
+                Err(e) => Err(format!("Invalid hex number '{s}', {e}")),
             }
         } else {
             match s.chars().nth(0) {
                 Some('0'..='9') => match s.parse::<isize>() {
                     Ok(x) => Ok(Expr::Int(sgn * x)),
-                    Err(e) => Err(format!("Invalid number '{s}', {e}"))
+                    Err(e) => Err(format!("Invalid number '{s}', {e}")),
                 },
                 None => panic!("We should never have an empty string here"),
-                _ => if CHECK_IF_ID.is_match(s) {
-                    Ok(Expr::Id(s.to_owned()))
-                } else {
-                    Err(format!("Invalid identifier '{s}'"))
+                _ => {
+                    if CHECK_IF_ID.is_match(s) {
+                        Ok(Expr::Id(s.to_owned()))
+                    } else {
+                        Err(format!("Invalid identifier '{s}'"))
+                    }
                 }
             }
         }
@@ -324,16 +327,10 @@ pub enum Operand {
     RegIndirect(Register),
     /// [<REG>+<REG>]
     /// [<REG>][<REG]
-    RegSum {
-        b: Register,
-        x: Register
-    },
+    RegSum { b: Register, x: Register },
     /// [<REG>][<REG>+]
     /// [<REG>+<REG>+]
-    RegSumAutoincrement {
-        b: Register,
-        x: Register
-    },
+    RegSumAutoincrement { b: Register, x: Register },
     /// [<REG>][<REG>-]
     /// [<REG>+<REG>-]
     RegSumAutodecrement {
@@ -344,18 +341,12 @@ pub enum Operand {
     /// <EXPR>[<REG>]
     /// [<REG>+<EXPR>]
     /// [<REG>].<EXPR>
-    Based {
-        b: Register,
-        depls: Expr
-    },
+    Based { b: Register, depls: Expr },
     /// [<REG>]+<EXPR>
     /// <EXPR>[<REG>]
     /// [<REG>+<EXPR>]
     /// [<REG>].<EXPR>
-    Indexed {
-        x: Register,
-        depls: Expr
-    },
+    Indexed { x: Register, depls: Expr },
     /// [<REG>][<REG>]+<EXPR>
     /// <EXPR>[<REG>][<REG>]
     /// [<REG>+<REG>+<EXPR>]
@@ -363,14 +354,14 @@ pub enum Operand {
     BasedIndexed {
         b: Register,
         x: Register,
-        depls: Expr
-    }
+        depls: Expr,
+    },
 }
 
 use RegOrExpr::*;
 enum RegOrExpr {
     Reg(Register),
-    Expression(Expr)
+    Expression(Expr),
 }
 
 impl FromStr for RegOrExpr {
@@ -388,43 +379,60 @@ impl FromStr for Operand {
     type Err = String;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         static CHECK_IF_DOUBLE_INDIRECT: Lazy<Regex> = Lazy::new(|| {
-            Regex::new(r"^\[\s*\[\s*(.+?)\s*\]\s*\]$").expect("Double indirect regex has a syntax error.")
+            Regex::new(r"^\[\s*\[\s*(.+?)\s*\]\s*\]$")
+                .expect("Double indirect regex has a syntax error.")
         });
         static CHECK_OUTER_BRACKETS: Lazy<Regex> = Lazy::new(|| {
             Regex::new(r"^\[\s*(.+)\s*\]$").expect("Outer brackets regex has a syntax error.")
         });
         static CHECK_INSIDE_BRACKETS: Lazy<Regex> = Lazy::new(|| {
-            Regex::new(r"^([a-z0-9_]+)\s*\+\s*([a-z0-9_]+)\s*(?:\+\s*([a-z0-9_]+)|([+\-]))?$").expect("Inside brackets regex has a syntax error.")
+            Regex::new(r"^([a-z0-9_]+)\s*\+\s*([a-z0-9_]+)\s*(?:\+\s*([a-z0-9_]+)|([+\-]))?$")
+                .expect("Inside brackets regex has a syntax error.")
         });
-
-
 
         if let Some(cap) = CHECK_IF_DOUBLE_INDIRECT.captures(s) {
             let (_, [op]) = cap.extract();
             if Register::from_str(op).is_ok() {
-                Err(format!("This indirect addressing syntax cannot be done on registers! ({op})"))
+                Err(format!(
+                    "This indirect addressing syntax cannot be done on registers! ({op})"
+                ))
             } else {
                 match Expr::from_str(op) {
                     Ok(s) => Ok(Operand::Indirect(s)),
-                    Err(e) => Err(format!("Syntax error on indirect addressing '{op}': {e}"))
+                    Err(e) => Err(format!("Syntax error on indirect addressing '{op}': {e}")),
                 }
             }
         } else if let Some(cap) = CHECK_OUTER_BRACKETS.captures(s) {
             let (_, [op]) = cap.extract();
             if let Ok(reg) = Register::from_str(op) {
-                if matches!(reg, Ra|Rb|Rc|Is) {
-                    Err(format!("{reg} is not supported in indirect register addresing!"))
+                if matches!(reg, Ra | Rb | Rc | Is) {
+                    Err(format!(
+                        "{reg} is not supported in indirect register addresing!"
+                    ))
                 } else {
                     Ok(Operand::RegIndirect(reg))
                 }
             } else if let Ok(expr) = Expr::from_str(op) {
                 Ok(Operand::Direct(expr))
             } else if let Some(cap) = CHECK_INSIDE_BRACKETS.captures(op) {
-                let op1 = RegOrExpr::from_str(cap.get(1)
-                    .expect("The check inside brackets regex should always yield an expression.").as_str())?;
-                let op2 = RegOrExpr::from_str(cap.get(2)
-                    .expect("The check inside brackets regex should always yield an expression.").as_str())?;
-                let op3 = cap.get(3).map(|x| RegOrExpr::from_str(x.as_str())).transpose()?;
+                let op1 = RegOrExpr::from_str(
+                    cap.get(1)
+                        .expect(
+                            "The check inside brackets regex should always yield an expression.",
+                        )
+                        .as_str(),
+                )?;
+                let op2 = RegOrExpr::from_str(
+                    cap.get(2)
+                        .expect(
+                            "The check inside brackets regex should always yield an expression.",
+                        )
+                        .as_str(),
+                )?;
+                let op3 = cap
+                    .get(3)
+                    .map(|x| RegOrExpr::from_str(x.as_str()))
+                    .transpose()?;
                 let sign = cap.get(4).map(|x| x.as_str());
                 match (op1, op2, op3, sign) {
                     (Reg( b @ (Ba|Bb) ), Reg( x @ (Xa|Xb) ), None, None) |
@@ -447,14 +455,11 @@ impl FromStr for Operand {
                     (Reg( Xb ), Reg(_), None, Some("-"))
                         => Err("xb is not supported in autodecrement instructions".to_string()),
                     (Reg( b @ (Ba|Bb) ), Expression(e), None, None) |
-                    (Expression(e), Reg( b @ (Ba|Bb) ), None, None) 
+                    (Expression(e), Reg( b @ (Ba|Bb) ), None, None)
                         => Ok(Operand::Based { b, depls: e }),
                     (Reg( x @ (Xa|Xb) ), Expression(e), None, None) |
-                    (Expression(e), Reg( x @ (Xa|Xb) ), None, None) 
+                    (Expression(e), Reg( x @ (Xa|Xb) ), None, None)
                         => Ok(Operand::Indexed { x, depls: e }),
-                    
-    
-
 
                     (Reg(_), Reg(_), Some(Reg(_)), _)
                         => Err("Sum between 3 registers is not supported by the ISA".to_string()),
@@ -479,7 +484,7 @@ impl FromStr for Operand {
         } else {
             match RegOrExpr::from_str(s)? {
                 Reg(r) => Ok(Operand::Reg(r)),
-                Expression(e) => Ok(Operand::Imm(e))
+                Expression(e) => Ok(Operand::Imm(e)),
             }
         }
     }
