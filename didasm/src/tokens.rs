@@ -4,6 +4,7 @@ use std::{fmt::Display, str::FromStr};
 use strum_macros::Display;
 use strum_macros::EnumString;
 
+use RegOrExpr::*;
 use ArithmeticMnemonic::*;
 use ConditionalJumpMnemonic::*;
 use ControlFlowMnemonic::*;
@@ -12,18 +13,6 @@ use LogicMnemonic::*;
 use Mnemonic::*;
 use Register::*;
 use ShiftMnemonic::*;
-impl From<&Mnemonic> for u16 {
-    fn from(value: &Mnemonic) -> Self {
-        match value {
-            General(m) => u16::from(*m),
-            Arithmetic(m) => u16::from(*m),
-            Logic(m) => u16::from(*m),
-            Shift(m) => u16::from(*m),
-            ControlFlow(m) => u16::from(*m),
-            ConditionalJump(m) => u16::from(*m),
-        }
-    }
-}
 
 #[derive(Debug, EnumString, Display, Clone, Copy)]
 #[strum(serialize_all = "snake_case")]
@@ -35,17 +24,6 @@ pub enum GeneralMnemonic {
     Popf,
     In,
     Out,
-}
-
-impl From<GeneralMnemonic> for u16 {
-    fn from(value: GeneralMnemonic) -> Self {
-        match value {
-            Mov | In => 0b000,
-            Out => 0b001,
-            Push | Pushf => 0b010,
-            Pop | Popf => 0b011,
-        }
-    }
 }
 
 #[derive(Debug, EnumString, Display, Clone, Copy)]
@@ -61,17 +39,6 @@ pub enum ArithmeticMnemonic {
     Cmp,
 }
 
-impl From<ArithmeticMnemonic> for u16 {
-    fn from(value: ArithmeticMnemonic) -> Self {
-        match value {
-            Add | Inc => 0b000,
-            Adc | Dec => 0b001,
-            Sub | Neg | Cmp => 0b010,
-            Sbb => 0b011,
-        }
-    }
-}
-
 #[derive(Debug, EnumString, Display, Clone, Copy)]
 #[strum(serialize_all = "snake_case")]
 pub enum LogicMnemonic {
@@ -80,17 +47,6 @@ pub enum LogicMnemonic {
     Xor,
     Not,
     Test,
-}
-
-impl From<LogicMnemonic> for u16 {
-    fn from(value: LogicMnemonic) -> Self {
-        match value {
-            And | Test => 0b100,
-            Or => 0b101,
-            Xor => 0b110,
-            Not => 0b011,
-        }
-    }
 }
 
 #[derive(Debug, EnumString, Display, Clone, Copy)]
@@ -102,16 +58,6 @@ pub enum ShiftMnemonic {
     Sar,
 }
 
-impl From<ShiftMnemonic> for u16 {
-    fn from(value: ShiftMnemonic) -> Self {
-        match value {
-            Shl | Sal => 0b100,
-            Shr => 0b101,
-            Sar => 0b110,
-        }
-    }
-}
-
 #[derive(Debug, EnumString, Display, Clone, Copy)]
 #[strum(serialize_all = "snake_case")]
 pub enum ControlFlowMnemonic {
@@ -120,16 +66,6 @@ pub enum ControlFlowMnemonic {
     Iret,
     Jmp,
     Hlt,
-}
-
-impl From<ControlFlowMnemonic> for u16 {
-    fn from(value: ControlFlowMnemonic) -> Self {
-        match value {
-            Call | Ret => 0b100,
-            Iret | Jmp => 0b010,
-            Hlt => 0b110,
-        }
-    }
 }
 
 #[derive(Debug, EnumString, Display, Clone, Copy)]
@@ -157,6 +93,59 @@ pub enum ConditionalJumpMnemonic {
     Jpo,
 }
 
+impl From<GeneralMnemonic> for u16 {
+    fn from(value: GeneralMnemonic) -> Self {
+        match value {
+            Mov | In => 0b000,
+            Out => 0b001,
+            Push | Pushf => 0b010,
+            Pop | Popf => 0b011,
+        }
+    }
+}
+
+impl From<ArithmeticMnemonic> for u16 {
+    fn from(value: ArithmeticMnemonic) -> Self {
+        match value {
+            Add | Inc => 0b000,
+            Adc | Dec => 0b001,
+            Sub | Neg | Cmp => 0b010,
+            Sbb => 0b011,
+        }
+    }
+}
+
+impl From<LogicMnemonic> for u16 {
+    fn from(value: LogicMnemonic) -> Self {
+        match value {
+            And | Test => 0b100,
+            Or => 0b101,
+            Xor => 0b110,
+            Not => 0b011,
+        }
+    }
+}
+
+impl From<ShiftMnemonic> for u16 {
+    fn from(value: ShiftMnemonic) -> Self {
+        match value {
+            Shl | Sal => 0b100,
+            Shr => 0b101,
+            Sar => 0b110,
+        }
+    }
+}
+
+impl From<ControlFlowMnemonic> for u16 {
+    fn from(value: ControlFlowMnemonic) -> Self {
+        match value {
+            Call | Ret => 0b100,
+            Iret | Jmp => 0b010,
+            Hlt => 0b110,
+        }
+    }
+}
+
 impl From<ConditionalJumpMnemonic> for u16 {
     fn from(cj: ConditionalJumpMnemonic) -> u16 {
         match cj {
@@ -180,18 +169,29 @@ impl From<ConditionalJumpMnemonic> for u16 {
     }
 }
 
+impl From<&Mnemonic> for u16 {
+    /// Converts a mnemonic to its corresponding opcode
+    /// Conditional jumps have 4 bits, the rest have 3
+    fn from(value: &Mnemonic) -> Self {
+        match value {
+            General(m) => u16::from(*m),
+            Arithmetic(m) => u16::from(*m),
+            Logic(m) => u16::from(*m),
+            Shift(m) => u16::from(*m),
+            ControlFlow(m) => u16::from(*m),
+            ConditionalJump(m) => u16::from(*m),
+        }
+    }
+}
+
+/// Mnemonics grouped on the type of operation they perform
 #[derive(Debug)]
 pub enum Mnemonic {
     General(GeneralMnemonic),
-    // Arithmetic instructions
     Arithmetic(ArithmeticMnemonic),
-    // Logic instructions
     Logic(LogicMnemonic),
-    // Shift instructions
     Shift(ShiftMnemonic),
-    // Control flow instructions
     ControlFlow(ControlFlowMnemonic),
-    // Conditional jump instructions
     ConditionalJump(ConditionalJumpMnemonic),
 }
 
@@ -248,6 +248,7 @@ impl From<Register> for usize {
     }
 }
 
+/// All possible registers that can appear in an instruction
 #[derive(Debug, EnumString, Display, Clone, Copy)]
 #[strum(serialize_all = "snake_case")]
 pub enum Register {
@@ -265,6 +266,7 @@ pub enum Register {
     Bb,
 }
 
+/// In our case expression is not a full fledged expression, but rather a simple identifier or a number
 #[derive(Debug, Clone)]
 pub enum Expr {
     // Identifier
@@ -276,6 +278,7 @@ pub enum Expr {
 impl FromStr for Expr {
     type Err = String;
 
+    /// Supports hexadecimal, binary, decimal numbers and identifiers
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         static CHECK_IF_ID: Lazy<Regex> =
             Lazy::new(|| Regex::new("^[a-z_][a-z0-9_]*$").expect("ID regex has a syntax error."));
@@ -313,6 +316,8 @@ impl FromStr for Expr {
     }
 }
 
+
+/// All possible values an operand can take, anything else is a syntax error according to the ISA
 #[derive(Debug, Clone)]
 pub enum Operand {
     /// <REG>
@@ -333,6 +338,7 @@ pub enum Operand {
     RegSumAutoincrement { b: Register, x: Register },
     /// [<REG>][<REG>-]
     /// [<REG>+<REG>-]
+    /// XA is implicit
     RegSumAutodecrement {
         b: Register,
         // x: Register
@@ -341,12 +347,12 @@ pub enum Operand {
     /// <EXPR>[<REG>]
     /// [<REG>+<EXPR>]
     /// [<REG>].<EXPR>
-    Based { b: Register, depls: Expr },
+    Based { b: Register, displacement: Expr },
     /// [<REG>]+<EXPR>
     /// <EXPR>[<REG>]
     /// [<REG>+<EXPR>]
     /// [<REG>].<EXPR>
-    Indexed { x: Register, depls: Expr },
+    Indexed { x: Register, displacement: Expr },
     /// [<REG>][<REG>]+<EXPR>
     /// <EXPR>[<REG>][<REG>]
     /// [<REG>+<REG>+<EXPR>]
@@ -354,16 +360,16 @@ pub enum Operand {
     BasedIndexed {
         b: Register,
         x: Register,
-        depls: Expr,
+        displacement: Expr,
     },
 }
 
-use RegOrExpr::*;
 enum RegOrExpr {
     Reg(Register),
     Expression(Expr),
 }
 
+/// Used in operand parsing, sometimes it is good to distinguish between a register and an identifier
 impl FromStr for RegOrExpr {
     type Err = String;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -389,7 +395,7 @@ impl FromStr for Operand {
             Regex::new(r"^([a-z0-9_]+)\s*\+\s*([a-z0-9_]+)\s*(?:\+\s*([a-z0-9_]+)|([+\-]))?$")
                 .expect("Inside brackets regex has a syntax error.")
         });
-
+        // Easiest case to detect
         if let Some(cap) = CHECK_IF_DOUBLE_INDIRECT.captures(s) {
             let (_, [op]) = cap.extract();
             if Register::from_str(op).is_ok() {
@@ -402,6 +408,8 @@ impl FromStr for Operand {
                     Err(e) => Err(format!("Syntax error on indirect addressing '{op}': {e}")),
                 }
             }
+        // If we detected brackets, we may have displacement, register, sum of registers or sum of register and displacement
+        // Postincrements or postdecrements. All of these are detected by the regex and will be separated in further steps
         } else if let Some(cap) = CHECK_OUTER_BRACKETS.captures(s) {
             let (_, [op]) = cap.extract();
             if let Ok(reg) = Register::from_str(op) {
@@ -434,6 +442,8 @@ impl FromStr for Operand {
                     .map(|x| RegOrExpr::from_str(x.as_str()))
                     .transpose()?;
                 let sign = cap.get(4).map(|x| x.as_str());
+                // All the possible cases of operations that are possible within a bracket
+                // Operands may be in any order, they should still be properly detected
                 match (op1, op2, op3, sign) {
                     (Reg( b @ (Ba|Bb) ), Reg( x @ (Xa|Xb) ), None, None) |
                     (Reg( x @ (Xa|Xb) ), Reg( b @ (Ba|Bb) ), None, None)
@@ -444,7 +454,7 @@ impl FromStr for Operand {
                     (Reg( x @ (Xa|Xb) ), Expression(e), Some(Reg( b @ (Ba|Bb) )), None) |
                     (Expression(e), Reg( b @ (Ba|Bb) ), Some(Reg( x @ (Xa|Xb) )), None) |
                     (Expression(e), Reg( x @ (Xa|Xb) ), Some(Reg( b @ (Ba|Bb) )), None)
-                        => Ok(Operand::BasedIndexed { b, x, depls: e }),
+                        => Ok(Operand::BasedIndexed { b, x, displacement: e }),
                     (Reg( b @ (Ba|Bb) ), Reg( x @ (Xa|Xb) ), None, Some("+")) |
                     (Reg( x @ (Xa|Xb) ), Reg( b @ (Ba|Bb) ), None, Some("+"))
                         => Ok(Operand::RegSumAutoincrement { b, x }),
@@ -456,10 +466,10 @@ impl FromStr for Operand {
                         => Err("xb is not supported in autodecrement instructions".to_string()),
                     (Reg( b @ (Ba|Bb) ), Expression(e), None, None) |
                     (Expression(e), Reg( b @ (Ba|Bb) ), None, None)
-                        => Ok(Operand::Based { b, depls: e }),
+                        => Ok(Operand::Based { b, displacement: e }),
                     (Reg( x @ (Xa|Xb) ), Expression(e), None, None) |
                     (Expression(e), Reg( x @ (Xa|Xb) ), None, None)
-                        => Ok(Operand::Indexed { x, depls: e }),
+                        => Ok(Operand::Indexed { x, displacement: e }),
 
                     (Reg(_), Reg(_), Some(Reg(_)), _)
                         => Err("Sum between 3 registers is not supported by the ISA".to_string()),

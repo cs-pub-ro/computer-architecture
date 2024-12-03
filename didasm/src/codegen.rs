@@ -55,7 +55,7 @@ bitfield! {
     reg, set_reg: 10,12;
     rm, set_rm: 13,15;
     port, set_port: 8,15;
-    pc_depls, set_pc_depls: 8,15;
+    pc_displacement, set_pc_displacement: 8,15;
 }
 
 impl BitRange<u16> for Instruction {
@@ -91,6 +91,7 @@ impl BitRangeMut<u16> for Instruction {
 }
 
 impl Display for Instruction {
+    /// Beautiful representation is default because otherwise we would just print the u16 inside it
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
@@ -108,7 +109,7 @@ impl Display for Instruction {
 #[derive(Debug)]
 pub struct FullInstruction {
     i: Instruction,
-    pub depls: Option<u16>,
+    pub displacement: Option<u16>,
     pub imm: Option<u16>,
 }
 
@@ -116,7 +117,7 @@ impl Display for FullInstruction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let x = self.i.0;
         write!(f, "{:04X}", x)?;
-        if let Some(x) = self.depls {
+        if let Some(x) = self.displacement {
             write!(f, " {:04X}", x)?;
         }
         if let Some(x) = self.imm {
@@ -140,11 +141,12 @@ pub struct Ir {
     m: u16,
     reg: Option<usize>,
     rm: Option<usize>,
-    depls: Option<Expr>,
+    displacement: Option<Expr>,
     imm: Option<Expr>,
 }
 
 impl Ir {
+    // Intermediate check step. It takes the operands and sees what mod, d, imm, displacement should look like
     pub fn from_parsed_statement(ps: ParsedStatement) -> Result<Self, String> {
         let ParsedStatement { mnemonic, op1, op2 } = ps;
         let mut opcode: Instruction = Instruction(0);
@@ -163,7 +165,7 @@ impl Ir {
             _ => (false, None),
         };
 
-        let (m, rm, depls) = match (op1, op2) {
+        let (m, rm, displacement) = match (op1, op2) {
             (Some(Reg(_)), Some(Reg(ri))) => (0b11, Some(ri.into()), None),
             (Some(Imm(_)), Some(Imm(_))) => {
                 return Err("Operations between 2 immediate values is not allowed!".to_string());
@@ -215,14 +217,14 @@ impl Ir {
                 Some(((x as usize) & 0b1) + ((b as usize) & 0b10)),
                 None,
             ),
-            (Some(Indexed { x: ri, depls } | Based { b: ri, depls }), _)
-            | (_, Some(Indexed { x: ri, depls } | Based { b: ri, depls })) => {
-                (0b10, Some(ri.into()), Some(depls))
+            (Some(Indexed { x: ri, displacement } | Based { b: ri, displacement }), _)
+            | (_, Some(Indexed { x: ri, displacement } | Based { b: ri, displacement })) => {
+                (0b10, Some(ri.into()), Some(displacement))
             }
-            (Some(BasedIndexed { b, x, depls }), _) | (_, Some(BasedIndexed { b, x, depls })) => (
+            (Some(BasedIndexed { b, x, displacement }), _) | (_, Some(BasedIndexed { b, x, displacement })) => (
                 0b10,
                 Some(((x as usize) & 0b1) + ((b as usize) & 0b10)),
-                Some(depls),
+                Some(displacement),
             ),
             (Some(RegSumAutoincrement { b, x }), _) | (_, Some(RegSumAutoincrement { b, x })) => (
                 0b01,
@@ -232,9 +234,9 @@ impl Ir {
             (Some(RegSumAutodecrement { b }), _) | (_, Some(RegSumAutodecrement { b })) => {
                 (0b01, Some(0b100 + ((b as usize >> 1) & 1)), None)
             }
-            (Some(Direct(depls)), _) | (_, Some(Direct(depls))) => (0b01, Some(0b110), Some(depls)),
-            (Some(Indirect(depls)), _) | (_, Some(Indirect(depls))) => {
-                (0b01, Some(0b111), Some(depls))
+            (Some(Direct(displacement)), _) | (_, Some(Direct(displacement))) => (0b01, Some(0b110), Some(displacement)),
+            (Some(Indirect(displacement)), _) | (_, Some(Indirect(displacement))) => {
+                (0b01, Some(0b111), Some(displacement))
             }
             // Cases that should have been placed in _ but explicitly stated
             // to utilize the pattern matching mechanism of rust for
@@ -247,20 +249,22 @@ impl Ir {
             m,
             reg,
             rm,
-            depls,
+            displacement,
             imm,
         })
     }
 
     // This does not keep track of errors since they will be detected in the last stage
+    // It may also have erroneous results however it does not matter since the errors will be detected later
+    // and the program will halt
     pub fn peek_word_count(&self) -> usize {
         let Ir {
             mnemonic,
-            depls,
+            displacement,
             imm,
             ..
         } = self;
-        match (mnemonic, depls, imm) {
+        match (mnemonic, displacement, imm) {
             (General(In | Out | Pushf | Popf) | ControlFlow(Ret | Iret | Hlt), _, _) => 1,
             (ConditionalJump(_), _, _) => 1,
             (
@@ -323,12 +327,13 @@ impl Ir {
             m,
             reg,
             rm,
-            depls,
+            displacement,
             imm,
         } = self;
         let mut opcode: Instruction = Instruction(0);
         opcode.set_op((&mnemonic).into());
 
+        // Set generic opcode fields
         match &mnemonic {
             General(In | Out | Pushf | Popf) | ControlFlow(Ret | Iret | Hlt) => {
                 opcode.set_in_type(0b1000);
@@ -359,7 +364,8 @@ impl Ir {
             }
         }
 
-        let depls = depls
+        // Parse the possible identifiers
+        let displacement = displacement
             .map(|e| match e {
                 Expr::Id(i) => symbol_table
                     .get(&i)
@@ -385,7 +391,9 @@ impl Ir {
             })
             .transpose()?;
 
-        match (mnemonic, reg, rm, depls, imm) {
+        // Final check of every combination an instruction may take
+        // Even if technically all building blocks are available, extras will raise a semantic error
+        match (mnemonic, reg, rm, displacement, imm) {
             (General(In | Out), None, None, None, Some(x)) => {
                 let x: u8 = x
                     .try_into()
@@ -393,7 +401,7 @@ impl Ir {
                 opcode.set_port(x.into());
                 Ok(FullInstruction {
                     i: opcode,
-                    depls: None,
+                    displacement: None,
                     imm: None,
                 })
             }
@@ -403,7 +411,7 @@ impl Ir {
             (General(Pushf | Popf) | ControlFlow(Ret | Iret | Hlt), None, None, None, None) => {
                 Ok(FullInstruction {
                     i: opcode,
-                    depls: None,
+                    displacement: None,
                     imm: None,
                 })
             }
@@ -417,7 +425,7 @@ impl Ir {
                 opcode.set_port((x as u8) as u16);
                 Ok(FullInstruction {
                     i: opcode,
-                    depls: None,
+                    displacement: None,
                     imm: None,
                 })
             }
@@ -441,7 +449,7 @@ impl Ir {
                 opcode.set_dir(d as u16);
                 Ok(FullInstruction {
                     i: opcode,
-                    depls: None,
+                    displacement: None,
                     imm: None,
                 })
             }
@@ -469,7 +477,7 @@ impl Ir {
                     .transpose()?;
                 Ok(FullInstruction {
                     i: opcode,
-                    depls: x,
+                    displacement: x,
                     imm: None,
                 })
             }
@@ -549,7 +557,7 @@ impl Ir {
 
                 Ok(FullInstruction {
                     i: opcode,
-                    depls: x,
+                    displacement: x,
                     imm: y,
                 })
             }
@@ -578,7 +586,7 @@ impl Ir {
                     .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
                 Ok(FullInstruction {
                     i: opcode,
-                    depls: x,
+                    displacement: x,
                     imm: Some(imm),
                 })
             }
@@ -602,7 +610,7 @@ impl Ir {
                     .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
                 Ok(FullInstruction {
                     i: opcode,
-                    depls: None,
+                    displacement: None,
                     imm: Some(imm),
                 })
             }
