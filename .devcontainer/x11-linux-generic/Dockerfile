@@ -34,6 +34,10 @@ COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 RUN echo "cd /workspaces/computer-architecture" >> /root/.bashrc
 
+# install rust for didactic assembler
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
 WORKDIR /workspaces/computer-architecture
 # uncomment if vivado shows blank screen
 # RUN echo "export _JAVA_AWT_WM_NONREPARENTING=1" >> /root/.bashrc

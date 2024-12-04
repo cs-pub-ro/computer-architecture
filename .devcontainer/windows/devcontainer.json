@@ -1,6 +1,9 @@
 {
 	"name": "Vivado Slim Dev Windows",
-	"image": "gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0",
+	// "image": "gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0",
+	"build": {
+		"dockerfile": "../rust.vivado.Dockerfile",
+	},
 	"runArgs": [
 		"--rm",
 		"--privileged"
