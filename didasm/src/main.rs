@@ -73,7 +73,7 @@ fn main() {
             .collect::<Vec<_>>().try_into().unwrap_or([None; 3]);
         // We combine both the comment and no comment branches. It is impossible for neither to exist, therefore we panic if it happens
         // This is done because if the regex was modified accidentally, it might not detect the statement properly
-        let stmt = com.or(nocom).filter(|s| s.is_empty());
+        let stmt = com.or(nocom).filter(|s| !s.is_empty());
 
         let mut v: Vec<Action> = Vec::new();
         if let Some(l) = lbl {
