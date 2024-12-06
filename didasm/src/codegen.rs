@@ -160,6 +160,7 @@ impl Ir {
         };
 
         let (d, reg) = match (op1.clone(), op2.clone()) {
+            (Some(Reg(_)), Some(Imm(_))|None) => (false, None),
             (Some(Reg(r)), _) => (true, Some(r as usize)),
             (_, Some(Reg(r))) => (false, Some(r as usize)),
             _ => (false, None),
@@ -169,7 +170,8 @@ impl Ir {
             (Some(Reg(_)), Some(Reg(ri))) => (0b11, Some(ri.into()), None),
             (Some(Imm(_)), Some(Imm(_))) => {
                 return Err("Operations between 2 immediate values is not allowed!".to_string());
-            }
+            },
+            (Some(Reg(ri)), Some(Imm(_))|None) => (0b11, Some(ri.into()), None),
             (Some(Imm(_)), Some(_)) => {
                 if matches!(
                     mnemonic,
@@ -241,7 +243,7 @@ impl Ir {
             // Cases that should have been placed in _ but explicitly stated
             // to utilize the pattern matching mechanism of rust for
             // proving completeness on this match
-            (None | Some(Reg(_) | Imm(_)), None | Some(Reg(_) | Imm(_))) => (0, None, None),
+            (None | Some(Imm(_)), None | Some(Reg(_) | Imm(_))) => (0, None, None),
         };
         Ok(Ir {
             mnemonic,
