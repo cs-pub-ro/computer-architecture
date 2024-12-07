@@ -239,7 +239,7 @@ impl From<Register> for usize {
             Ra => 0,
             Rb => 1,
             Rc => 2,
-            Is => 3,
+            Sp => 3,
             Xa => 4,
             Xb => 5,
             Ba => 6,
@@ -257,7 +257,7 @@ pub enum Register {
     Rb,
     Rc,
     // Stack pointer
-    Is,
+    Sp,
     // Index register
     Xa,
     Xb,
@@ -392,7 +392,7 @@ impl FromStr for Operand {
             Regex::new(r"^\[\s*(.+)\s*\]$").expect("Outer brackets regex has a syntax error.")
         });
         static CHECK_INSIDE_BRACKETS: Lazy<Regex> = Lazy::new(|| {
-            Regex::new(r"^([a-z0-9_]+)\s*\+\s*([a-z0-9_]+)\s*(?:\+\s*([a-z0-9_]+)|([+\-]))?$")
+            Regex::new(r"^([a-z0-9_]+)\s*\+\s*(-?[a-z0-9_]+)\s*(?:\+\s*(-?[a-z0-9_]+)|([+\-]))?$")
                 .expect("Inside brackets regex has a syntax error.")
         });
         // Easiest case to detect
@@ -413,7 +413,7 @@ impl FromStr for Operand {
         } else if let Some(cap) = CHECK_OUTER_BRACKETS.captures(s) {
             let (_, [op]) = cap.extract();
             if let Ok(reg) = Register::from_str(op) {
-                if matches!(reg, Ra | Rb | Rc | Is) {
+                if matches!(reg, Ra | Rb | Rc | Sp) {
                     Err(format!(
                         "{reg} is not supported in indirect register addresing!"
                     ))
@@ -481,9 +481,9 @@ impl FromStr for Operand {
                     (Expression(_),_,Some(Expression(_)), _) |
                     (_, Expression(_), Some(Expression(_)), _)
                         => Err("Sum between 2 or more expressions is not supported by the ISA".to_string()),
-                    (Reg(x @ (Ra|Rb|Rc|Is)), _, _, _) |
-                    (_, Reg(x @ (Ra|Rb|Rc|Is)), _, _) |
-                    (_, _, Some(Reg(x @ (Ra|Rb|Rc|Is))), _)
+                    (Reg(x @ (Ra|Rb|Rc|Sp)), _, _, _) |
+                    (_, Reg(x @ (Ra|Rb|Rc|Sp)), _, _) |
+                    (_, _, Some(Reg(x @ (Ra|Rb|Rc|Sp))), _)
                         => Err(format!("Register sum syntax does not support register {x}")),
                     _ => Err("Something went wrong! Report the given instruction to the developer for more specific error messages!".to_string())
                 }

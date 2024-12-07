@@ -43,7 +43,7 @@ fn main() {
         .expect("Equ parser regex was tampered with and has syntax errors");
 
     // The memory we will be writing to. It might also contain comments in mem_instr that are related to the given memory addresses
-    let mut mem: Vec<u16> = (0..1024).map(|_| 0).collect();
+    let mut mem: Vec<u16> = (0..1024).map(|i| 0).collect();
     // May also represent separators between each word
     let mut mem_instr: Vec<String> = (0..1024).map(|_| "\n".to_string()).collect();
     // All code implicitly starts at memory address 0

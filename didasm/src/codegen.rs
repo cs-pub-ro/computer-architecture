@@ -216,7 +216,7 @@ impl Ir {
             }
             (Some(RegSum { b, x }), _) | (_, Some(RegSum { b, x })) => (
                 0b00,
-                Some(((x as usize) & 0b1) + ((b as usize) & 0b10)),
+                Some(((x as usize) & 0b1) + (((b as usize) & 0b1) << 1)),
                 None,
             ),
             (Some(Indexed { x: ri, displacement } | Based { b: ri, displacement }), _)
@@ -225,12 +225,12 @@ impl Ir {
             }
             (Some(BasedIndexed { b, x, displacement }), _) | (_, Some(BasedIndexed { b, x, displacement })) => (
                 0b10,
-                Some(((x as usize) & 0b1) + ((b as usize) & 0b10)),
+                Some(((x as usize) & 0b1) + (((b as usize) & 0b1) << 1)),
                 Some(displacement),
             ),
             (Some(RegSumAutoincrement { b, x }), _) | (_, Some(RegSumAutoincrement { b, x })) => (
                 0b01,
-                Some(((x as usize) & 0b1) + ((b as usize) & 0b10)),
+                Some(((x as usize) & 0b1) + (((b as usize) & 0b1) << 1)),
                 None,
             ),
             (Some(RegSumAutodecrement { b }), _) | (_, Some(RegSumAutodecrement { b })) => {
@@ -473,10 +473,11 @@ impl Ir {
                 opcode.set_mod(m);
                 let x: Option<u16> = x
                     .map(|x| {
-                        x.try_into()
-                            .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
-                    })
-                    .transpose()?;
+                        x as u16
+                        // x.try_into()
+                        //     .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
+                    });
+                    // .transpose()?;
                 Ok(FullInstruction {
                     i: opcode,
                     displacement: x,
@@ -546,16 +547,18 @@ impl Ir {
                 })?);
                 let x: Option<u16> = x
                     .map(|x| {
-                        x.try_into()
-                            .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
-                    })
-                    .transpose()?;
+                        x as u16
+                        // x.try_into()
+                        //     .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
+                    });
+                    // .transpose()?;
                 let y: Option<u16> = y
                     .map(|x| {
-                        x.try_into()
-                            .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
-                    })
-                    .transpose()?;
+                        x as u16
+                        // x.try_into()
+                        //     .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
+                    });
+                    // .transpose()?;
 
                 Ok(FullInstruction {
                     i: opcode,
@@ -579,13 +582,14 @@ impl Ir {
                 })?);
                 let x: Option<u16> = x
                     .map(|x| {
-                        x.try_into()
-                            .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
-                    })
-                    .transpose()?;
-                let imm = imm
-                    .try_into()
-                    .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
+                        x as u16
+                        // x.try_into()
+                        //     .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
+                    });
+                    // .transpose()?;
+                let imm = imm as u16;
+                    // .try_into()
+                    // .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
                 Ok(FullInstruction {
                     i: opcode,
                     displacement: x,
@@ -607,9 +611,9 @@ impl Ir {
                 opcode.set_reg(reg.try_into().map_err(|_| {
                     "Register enum should always be convertible to u16".to_string()
                 })?);
-                let imm = imm
-                    .try_into()
-                    .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
+                let imm = imm as u16;
+                    // .try_into()
+                    // .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
                 Ok(FullInstruction {
                     i: opcode,
                     displacement: None,
