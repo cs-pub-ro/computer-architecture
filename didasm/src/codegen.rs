@@ -234,7 +234,7 @@ impl Ir {
                 None,
             ),
             (Some(RegSumAutodecrement { b }), _) | (_, Some(RegSumAutodecrement { b })) => {
-                (0b01, Some(0b100 + ((b as usize >> 1) & 1)), None)
+                (0b01, Some(0b100 + ((b as usize) & 1)), None)
             }
             (Some(Direct(displacement)), _) | (_, Some(Direct(displacement))) => (0b01, Some(0b110), Some(displacement)),
             (Some(Indirect(displacement)), _) | (_, Some(Indirect(displacement))) => {
