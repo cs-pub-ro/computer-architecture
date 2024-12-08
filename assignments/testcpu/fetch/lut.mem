@@ -1,0 +1,2048 @@
+// inc rc (type_opcode_d_mod_reg_rm:0001_000_0_11_000_010)
+4308
+// test [bb+xa-], bb (type_opcode_d_mod_reg_rm:0100_100_0_01_111_101)
+BE12
+// push ra (type_opcode_d_mod_reg_rm:0000_010_0_11_000_000)
+0320
+// shl [bb+xa+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_010)
+4218
+// call [bb+xb] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_011)
+C010
+// xor rb, ba (type_opcode_d_mod_reg_rm:0101_110_1_11_001_110)
+73BA
+// test [ba+xa-], xa (type_opcode_d_mod_reg_rm:0100_100_0_01_100_100)
+2612
+// and ba, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_100_1_01_110_010)
+4E9A
+// sub [ba+xb+], ba (type_opcode_d_mod_reg_rm:0101_010_0_01_110_001)
+8E2A
+// mov sp, sp (type_opcode_d_mod_reg_rm:0000_000_1_11_011_011)
+DB80
+// mov [ba+xb+], bb (type_opcode_d_mod_reg_rm:0000_000_0_01_111_001)
+9E00
+// mov ra, xb (type_opcode_d_mod_reg_rm:0000_000_1_11_000_101)
+A380
+// dec ra (type_opcode_d_mod_reg_rm:0001_001_0_11_000_000)
+0348
+// adc sp, sp (type_opcode_d_mod_reg_rm:0101_001_1_11_011_011)
+DBCA
+// cmp sp, [ba+xa+] (type_opcode_d_mod_reg_rm:0100_010_1_01_011_000)
+1AA2
+// inc [ba+xb+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_001)
+8208
+// dec ra (type_opcode_d_mod_reg_rm:0001_001_0_11_000_000)
+0348
+// adc bb, xb (type_opcode_d_mod_reg_rm:0101_001_1_11_111_101)
+BFCA
+// shl [bb+xb+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_011)
+C218
+// inc [bb+xb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_011)
+C008
+// shr xb (type_opcode_d_mod_reg_rm:0001_101_0_11_000_101)
+A358
+// jmp bb (type_opcode_d_mod_reg_rm:0000_101_0_11_000_111)
+E350
+// call ra (type_opcode_d_mod_reg_rm:0000_100_0_11_000_000)
+0310
+// push [bb+xa+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_010)
+4220
+// neg [bb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_111)
+E028
+// add ba, ba (type_opcode_d_mod_reg_rm:0101_000_1_11_110_110)
+6F8A
+// inc [ba] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_110)
+6008
+// test xb, [ba+xa+] (type_opcode_d_mod_reg_rm:0100_100_1_01_101_000)
+1692
+// sub [bb+xa+], bb (type_opcode_d_mod_reg_rm:0101_010_0_01_111_010)
+5E2A
+// test ba, rc (type_opcode_d_mod_reg_rm:0100_100_1_11_110_010)
+4F92
+// test [xb], ba (type_opcode_d_mod_reg_rm:0100_100_0_00_110_101)
+AC12
+// cmp bb, ra (type_opcode_d_mod_reg_rm:0100_010_1_11_111_000)
+1FA2
+// cmp bb, rc (type_opcode_d_mod_reg_rm:0100_010_1_11_111_010)
+5FA2
+// test [ba+xa+], ba (type_opcode_d_mod_reg_rm:0100_100_0_01_110_000)
+0E12
+// shl [bb+xb+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_011)
+C218
+// call [bb+xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_010)
+4010
+// xor [ba+xb], ba (type_opcode_d_mod_reg_rm:0101_110_0_00_110_001)
+8C3A
+// shl [ba+xa] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_000)
+0018
+// inc [xb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_101)
+A008
+// or rc, xa (type_opcode_d_mod_reg_rm:0101_101_1_11_010_100)
+2BDA
+// or rb, [ba+xa-] (type_opcode_d_mod_reg_rm:0101_101_1_01_001_100)
+32DA
+// test ra, [ba+xa+] (type_opcode_d_mod_reg_rm:0100_100_1_01_000_000)
+0292
+// test [ba+xa], xa (type_opcode_d_mod_reg_rm:0100_100_0_00_100_000)
+0412
+// sar [xb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_101)
+A038
+// neg [ba+xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_001)
+8028
+// test [ba+xb], sp (type_opcode_d_mod_reg_rm:0100_100_0_00_011_001)
+9812
+// or [bb+xa], rc (type_opcode_d_mod_reg_rm:0101_101_0_00_010_010)
+485A
+// jmp ba (type_opcode_d_mod_reg_rm:0000_101_0_11_000_110)
+6350
+// shr [bb+xa+] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_010)
+4258
+// push [ba+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_100)
+2220
+// push [bb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_111)
+E020
+// push [ba+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_100)
+2220
+// jmp ba (type_opcode_d_mod_reg_rm:0000_101_0_11_000_110)
+6350
+// xor sp, [bb] (type_opcode_d_mod_reg_rm:0101_110_1_00_011_111)
+F8BA
+// sar [bb+xa-] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_101)
+A238
+// neg [ba+xa] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_000)
+0028
+// sar bb (type_opcode_d_mod_reg_rm:0001_110_0_11_000_111)
+E338
+// mov [ba+xa], ra (type_opcode_d_mod_reg_rm:0000_000_0_00_000_000)
+0000
+// sub [bb+xb], xa (type_opcode_d_mod_reg_rm:0101_010_0_00_100_011)
+C42A
+// neg [xa] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_100)
+2028
+// call [ba] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_110)
+6010
+// jmp xa (type_opcode_d_mod_reg_rm:0000_101_0_11_000_100)
+2350
+// neg [ba+xa+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_000)
+0228
+// sar rb (type_opcode_d_mod_reg_rm:0001_110_0_11_000_001)
+8338
+// sbb rc, [ba+xb] (type_opcode_d_mod_reg_rm:0101_011_1_00_010_001)
+88EA
+// jmp [xa] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_100)
+2050
+// inc [bb+xb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_011)
+C008
+// sbb bb, xa (type_opcode_d_mod_reg_rm:0101_011_1_11_111_100)
+3FEA
+// cmp ra, xb (type_opcode_d_mod_reg_rm:0100_010_1_11_000_101)
+A3A2
+// sbb xb, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_011_1_01_101_010)
+56EA
+// call [xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_100)
+2010
+// sub xa, [xb] (type_opcode_d_mod_reg_rm:0101_010_1_00_100_101)
+A4AA
+// xor bb, rb (type_opcode_d_mod_reg_rm:0101_110_1_11_111_001)
+9FBA
+// not [ba+xb] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_001)
+8068
+// jmp rc (type_opcode_d_mod_reg_rm:0000_101_0_11_000_010)
+4350
+// add xb, [ba] (type_opcode_d_mod_reg_rm:0101_000_1_00_101_110)
+748A
+// adc sp, bb (type_opcode_d_mod_reg_rm:0101_001_1_11_011_111)
+FBCA
+// dec ba (type_opcode_d_mod_reg_rm:0001_001_0_11_000_110)
+6348
+// and rc, [xa] (type_opcode_d_mod_reg_rm:0101_100_1_00_010_100)
+289A
+// and ra, bb (type_opcode_d_mod_reg_rm:0101_100_1_11_000_111)
+E39A
+// mov xb, [ba+xa] (type_opcode_d_mod_reg_rm:0000_000_1_00_101_000)
+1480
+// xor ba, ba (type_opcode_d_mod_reg_rm:0101_110_1_11_110_110)
+6FBA
+// shr [xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_101)
+A058
+// and [bb], rb (type_opcode_d_mod_reg_rm:0101_100_0_00_001_111)
+F01A
+// shl rb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_001)
+8318
+// test sp, xb (type_opcode_d_mod_reg_rm:0100_100_1_11_011_101)
+BB92
+// and [ba+xa-], sp (type_opcode_d_mod_reg_rm:0101_100_0_01_011_100)
+3A1A
+// shl xb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_101)
+A318
+// neg [ba+xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_001)
+8028
+// call sp (type_opcode_d_mod_reg_rm:0000_100_0_11_000_011)
+C310
+// xor xb, [ba+xb+] (type_opcode_d_mod_reg_rm:0101_110_1_01_101_001)
+96BA
+// adc [ba+xb+], ba (type_opcode_d_mod_reg_rm:0101_001_0_01_110_001)
+8E4A
+// push [bb+xa] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_010)
+4020
+// shl [bb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_111)
+E018
+// dec [bb] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_111)
+E048
+// cmp xb, [ba+xa-] (type_opcode_d_mod_reg_rm:0100_010_1_01_101_100)
+36A2
+// push xa (type_opcode_d_mod_reg_rm:0000_010_0_11_000_100)
+2320
+// not rc (type_opcode_d_mod_reg_rm:0001_011_0_11_000_010)
+4368
+// shl [ba+xa] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_000)
+0018
+// adc [bb+xa], ra (type_opcode_d_mod_reg_rm:0101_001_0_00_000_010)
+404A
+// xor rb, [bb+xb+] (type_opcode_d_mod_reg_rm:0101_110_1_01_001_011)
+D2BA
+// jmp [bb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_111)
+E050
+// push [ba] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_110)
+6020
+// not ba (type_opcode_d_mod_reg_rm:0001_011_0_11_000_110)
+6368
+// add [ba+xb], xa (type_opcode_d_mod_reg_rm:0101_000_0_00_100_001)
+840A
+// or [bb+xa-], bb (type_opcode_d_mod_reg_rm:0101_101_0_01_111_101)
+BE5A
+// dec [bb+xa+] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_010)
+4248
+// sar bb (type_opcode_d_mod_reg_rm:0001_110_0_11_000_111)
+E338
+// mov [ba+xa-], sp (type_opcode_d_mod_reg_rm:0000_000_0_01_011_100)
+3A00
+// adc [ba+xa], rc (type_opcode_d_mod_reg_rm:0101_001_0_00_010_000)
+084A
+// push rb (type_opcode_d_mod_reg_rm:0000_010_0_11_000_001)
+8320
+// shr xa (type_opcode_d_mod_reg_rm:0001_101_0_11_000_100)
+2358
+// sub rb, [ba+xb+] (type_opcode_d_mod_reg_rm:0101_010_1_01_001_001)
+92AA
+// mov ra, sp (type_opcode_d_mod_reg_rm:0000_000_1_11_000_011)
+C380
+// jmp ba (type_opcode_d_mod_reg_rm:0000_101_0_11_000_110)
+6350
+// sbb xa, rb (type_opcode_d_mod_reg_rm:0101_011_1_11_100_001)
+87EA
+// shr [ba+xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_001)
+8058
+// sub [bb+xb], sp (type_opcode_d_mod_reg_rm:0101_010_0_00_011_011)
+D82A
+// mov rc, [ba+xb] (type_opcode_d_mod_reg_rm:0000_000_1_00_010_001)
+8880
+// sar bb (type_opcode_d_mod_reg_rm:0001_110_0_11_000_111)
+E338
+// cmp xa, xb (type_opcode_d_mod_reg_rm:0100_010_1_11_100_101)
+A7A2
+// not [bb+xa+] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_010)
+4268
+// sub [bb], rc (type_opcode_d_mod_reg_rm:0101_010_0_00_010_111)
+E82A
+// sbb rb, bb (type_opcode_d_mod_reg_rm:0101_011_1_11_001_111)
+F3EA
+// inc [ba+xa+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_000)
+0208
+// sbb rb, [ba+xa] (type_opcode_d_mod_reg_rm:0101_011_1_00_001_000)
+10EA
+// test xb, [ba+xa] (type_opcode_d_mod_reg_rm:0100_100_1_00_101_000)
+1492
+// shl [ba+xa+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_000)
+0218
+// and [bb+xb], xb (type_opcode_d_mod_reg_rm:0101_100_0_00_101_011)
+D41A
+// neg [ba+xb+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_001)
+8228
+// test sp, ba (type_opcode_d_mod_reg_rm:0100_100_1_11_011_110)
+7B92
+// add ba, xb (type_opcode_d_mod_reg_rm:0101_000_1_11_110_101)
+AF8A
+// dec [xa] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_100)
+2048
+// shl rc (type_opcode_d_mod_reg_rm:0001_100_0_11_000_010)
+4318
+// push [xa] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_100)
+2020
+// shr [ba+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_100)
+2258
+// shr [ba+xb+] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_001)
+8258
+// adc xb, ra (type_opcode_d_mod_reg_rm:0101_001_1_11_101_000)
+17CA
+// cmp [xb], xb (type_opcode_d_mod_reg_rm:0100_010_0_00_101_101)
+B422
+// sub xb, ra (type_opcode_d_mod_reg_rm:0101_010_1_11_101_000)
+17AA
+// shr bb (type_opcode_d_mod_reg_rm:0001_101_0_11_000_111)
+E358
+// cmp rc, [ba+xa] (type_opcode_d_mod_reg_rm:0100_010_1_00_010_000)
+08A2
+// cmp rb, [bb+xa] (type_opcode_d_mod_reg_rm:0100_010_1_00_001_010)
+50A2
+// jmp ba (type_opcode_d_mod_reg_rm:0000_101_0_11_000_110)
+6350
+// sbb [ba+xa-], xb (type_opcode_d_mod_reg_rm:0101_011_0_01_101_100)
+366A
+// jmp [ba+xa] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_000)
+0050
+// jmp [ba+xa] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_000)
+0050
+// sbb rb, [bb+xb+] (type_opcode_d_mod_reg_rm:0101_011_1_01_001_011)
+D2EA
+// shr [bb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_111)
+E058
+// adc ba, [bb+xa-] (type_opcode_d_mod_reg_rm:0101_001_1_01_110_101)
+AECA
+// call [ba+xb+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_001)
+8210
+// dec rc (type_opcode_d_mod_reg_rm:0001_001_0_11_000_010)
+4348
+// and rb, [ba+xb] (type_opcode_d_mod_reg_rm:0101_100_1_00_001_001)
+909A
+// not [bb+xb] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_011)
+C068
+// test [ba+xa], ra (type_opcode_d_mod_reg_rm:0100_100_0_00_000_000)
+0012
+// shr [ba+xa] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_000)
+0058
+// cmp [ba+xb+], rc (type_opcode_d_mod_reg_rm:0100_010_0_01_010_001)
+8A22
+// shl [bb+xb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_011)
+C018
+// add ra, sp (type_opcode_d_mod_reg_rm:0101_000_1_11_000_011)
+C38A
+// sar ra (type_opcode_d_mod_reg_rm:0001_110_0_11_000_000)
+0338
+// and sp, ba (type_opcode_d_mod_reg_rm:0101_100_1_11_011_110)
+7B9A
+// mov rb, [ba+xb] (type_opcode_d_mod_reg_rm:0000_000_1_00_001_001)
+9080
+// shr [ba+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_100)
+2258
+// add sp, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_000_1_01_011_010)
+5A8A
+// neg [bb+xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_011)
+C028
+// neg ba (type_opcode_d_mod_reg_rm:0001_010_0_11_000_110)
+6328
+// mov rc, [ba+xa+] (type_opcode_d_mod_reg_rm:0000_000_1_01_010_000)
+0A80
+// call sp (type_opcode_d_mod_reg_rm:0000_100_0_11_000_011)
+C310
+// test xb, [bb+xb] (type_opcode_d_mod_reg_rm:0100_100_1_00_101_011)
+D492
+// test ba, xa (type_opcode_d_mod_reg_rm:0100_100_1_11_110_100)
+2F92
+// jmp [bb+xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_011)
+C050
+// sbb rc, rb (type_opcode_d_mod_reg_rm:0101_011_1_11_010_001)
+8BEA
+// dec rc (type_opcode_d_mod_reg_rm:0001_001_0_11_000_010)
+4348
+// sar rb (type_opcode_d_mod_reg_rm:0001_110_0_11_000_001)
+8338
+// or [ba+xa-], bb (type_opcode_d_mod_reg_rm:0101_101_0_01_111_100)
+3E5A
+// jmp bb (type_opcode_d_mod_reg_rm:0000_101_0_11_000_111)
+E350
+// neg [bb+xa-] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_101)
+A228
+// not [ba] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_110)
+6068
+// sbb ba, sp (type_opcode_d_mod_reg_rm:0101_011_1_11_110_011)
+CFEA
+// jmp [ba+xa-] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_100)
+2250
+// xor [bb+xa+], ba (type_opcode_d_mod_reg_rm:0101_110_0_01_110_010)
+4E3A
+// adc [ba+xb], bb (type_opcode_d_mod_reg_rm:0101_001_0_00_111_001)
+9C4A
+// not [ba+xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_000)
+0068
+// adc [ba+xa+], ra (type_opcode_d_mod_reg_rm:0101_001_0_01_000_000)
+024A
+// shl [xa] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_100)
+2018
+// neg [bb+xa] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_010)
+4028
+// add bb, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_000_1_01_111_010)
+5E8A
+// and sp, rb (type_opcode_d_mod_reg_rm:0101_100_1_11_011_001)
+9B9A
+// and [xa], xa (type_opcode_d_mod_reg_rm:0101_100_0_00_100_100)
+241A
+// shr [ba+xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_001)
+8058
+// not ba (type_opcode_d_mod_reg_rm:0001_011_0_11_000_110)
+6368
+// test [ba+xb], bb (type_opcode_d_mod_reg_rm:0100_100_0_00_111_001)
+9C12
+// jmp [ba+xa-] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_100)
+2250
+// call [bb+xa+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_010)
+4210
+// dec [ba+xa+] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_000)
+0248
+// not [ba+xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_000)
+0068
+// neg [xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_101)
+A028
+// sub [bb+xb+], ra (type_opcode_d_mod_reg_rm:0101_010_0_01_000_011)
+C22A
+// call bb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_111)
+E310
+// cmp rb, ra (type_opcode_d_mod_reg_rm:0100_010_1_11_001_000)
+13A2
+// shl [ba+xa-] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_100)
+2218
+// or [bb+xb+], sp (type_opcode_d_mod_reg_rm:0101_101_0_01_011_011)
+DA5A
+// dec rb (type_opcode_d_mod_reg_rm:0001_001_0_11_000_001)
+8348
+// add ra, [ba+xa] (type_opcode_d_mod_reg_rm:0101_000_1_00_000_000)
+008A
+// inc [ba+xa+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_000)
+0208
+// sar [ba+xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_000)
+0038
+// call [bb+xb] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_011)
+C010
+// sub ra, [ba] (type_opcode_d_mod_reg_rm:0101_010_1_00_000_110)
+60AA
+// adc ba, sp (type_opcode_d_mod_reg_rm:0101_001_1_11_110_011)
+CFCA
+// sub ra, xa (type_opcode_d_mod_reg_rm:0101_010_1_11_000_100)
+23AA
+// not [bb+xa+] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_010)
+4268
+// adc rc, [ba+xa-] (type_opcode_d_mod_reg_rm:0101_001_1_01_010_100)
+2ACA
+// not sp (type_opcode_d_mod_reg_rm:0001_011_0_11_000_011)
+C368
+// push [bb+xa+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_010)
+4220
+// add [bb+xa+], rb (type_opcode_d_mod_reg_rm:0101_000_0_01_001_010)
+520A
+// shl [ba+xa+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_000)
+0218
+// sbb [ba+xa-], xa (type_opcode_d_mod_reg_rm:0101_011_0_01_100_100)
+266A
+// sar ba (type_opcode_d_mod_reg_rm:0001_110_0_11_000_110)
+6338
+// add xa, [bb+xb] (type_opcode_d_mod_reg_rm:0101_000_1_00_100_011)
+C48A
+// push [xb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_101)
+A020
+// mov sp, ra (type_opcode_d_mod_reg_rm:0000_000_1_11_011_000)
+1B80
+// dec sp (type_opcode_d_mod_reg_rm:0001_001_0_11_000_011)
+C348
+// inc ra (type_opcode_d_mod_reg_rm:0001_000_0_11_000_000)
+0308
+// test bb, [bb+xb] (type_opcode_d_mod_reg_rm:0100_100_1_00_111_011)
+DC92
+// shr ra (type_opcode_d_mod_reg_rm:0001_101_0_11_000_000)
+0358
+// call xb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_101)
+A310
+// call [ba+xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_000)
+0010
+// call [bb+xa+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_010)
+4210
+// dec [ba+xb+] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_001)
+8248
+// push [ba+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_100)
+2220
+// add [bb+xb], xb (type_opcode_d_mod_reg_rm:0101_000_0_00_101_011)
+D40A
+// inc [ba+xb+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_001)
+8208
+// call sp (type_opcode_d_mod_reg_rm:0000_100_0_11_000_011)
+C310
+// sbb xb, [xa] (type_opcode_d_mod_reg_rm:0101_011_1_00_101_100)
+34EA
+// add bb, ba (type_opcode_d_mod_reg_rm:0101_000_1_11_111_110)
+7F8A
+// mov xa, [bb+xa] (type_opcode_d_mod_reg_rm:0000_000_1_00_100_010)
+4480
+// xor [bb+xa-], rc (type_opcode_d_mod_reg_rm:0101_110_0_01_010_101)
+AA3A
+// add xa, rb (type_opcode_d_mod_reg_rm:0101_000_1_11_100_001)
+878A
+// shr xa (type_opcode_d_mod_reg_rm:0001_101_0_11_000_100)
+2358
+// shr xa (type_opcode_d_mod_reg_rm:0001_101_0_11_000_100)
+2358
+// shl [ba+xb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_001)
+8018
+// dec [ba+xb+] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_001)
+8248
+// inc [bb+xa] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_010)
+4008
+// sar [bb+xa-] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_101)
+A238
+// or bb, sp (type_opcode_d_mod_reg_rm:0101_101_1_11_111_011)
+DFDA
+// jmp [ba] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_110)
+6050
+// adc sp, ra (type_opcode_d_mod_reg_rm:0101_001_1_11_011_000)
+1BCA
+// sbb ra, [ba+xa+] (type_opcode_d_mod_reg_rm:0101_011_1_01_000_000)
+02EA
+// xor [bb+xa+], ra (type_opcode_d_mod_reg_rm:0101_110_0_01_000_010)
+423A
+// or [ba+xa+], sp (type_opcode_d_mod_reg_rm:0101_101_0_01_011_000)
+1A5A
+// shr [ba+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_100)
+2258
+// inc [ba+xa] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_000)
+0008
+// mov ba, rc (type_opcode_d_mod_reg_rm:0000_000_1_11_110_010)
+4F80
+// shr xb (type_opcode_d_mod_reg_rm:0001_101_0_11_000_101)
+A358
+// or [bb+xb], ba (type_opcode_d_mod_reg_rm:0101_101_0_00_110_011)
+CC5A
+// sar ra (type_opcode_d_mod_reg_rm:0001_110_0_11_000_000)
+0338
+// inc [ba+xa+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_000)
+0208
+// inc ra (type_opcode_d_mod_reg_rm:0001_000_0_11_000_000)
+0308
+// adc rb, [bb+xa] (type_opcode_d_mod_reg_rm:0101_001_1_00_001_010)
+50CA
+// push [bb+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_101)
+A220
+// not [bb+xa-] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_101)
+A268
+// xor [ba+xb+], rb (type_opcode_d_mod_reg_rm:0101_110_0_01_001_001)
+923A
+// shl [xb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_101)
+A018
+// push ra (type_opcode_d_mod_reg_rm:0000_010_0_11_000_000)
+0320
+// sbb [ba+xa], ra (type_opcode_d_mod_reg_rm:0101_011_0_00_000_000)
+006A
+// test bb, [bb+xb+] (type_opcode_d_mod_reg_rm:0100_100_1_01_111_011)
+DE92
+// push [bb+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_101)
+A220
+// sbb rc, [xa] (type_opcode_d_mod_reg_rm:0101_011_1_00_010_100)
+28EA
+// or rc, [ba+xa] (type_opcode_d_mod_reg_rm:0101_101_1_00_010_000)
+08DA
+// push [ba+xa+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_000)
+0220
+// sbb xb, rb (type_opcode_d_mod_reg_rm:0101_011_1_11_101_001)
+97EA
+// inc [ba+xa+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_000)
+0208
+// mov ba, [ba+xa] (type_opcode_d_mod_reg_rm:0000_000_1_00_110_000)
+0C80
+// dec ra (type_opcode_d_mod_reg_rm:0001_001_0_11_000_000)
+0348
+// sub rb, xa (type_opcode_d_mod_reg_rm:0101_010_1_11_001_100)
+33AA
+// dec [ba] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_110)
+6048
+// push [ba+xa+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_000)
+0220
+// cmp [bb], bb (type_opcode_d_mod_reg_rm:0100_010_0_00_111_111)
+FC22
+// cmp sp, [xa] (type_opcode_d_mod_reg_rm:0100_010_1_00_011_100)
+38A2
+// shl [bb+xb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_011)
+C018
+// call [bb+xa-] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_101)
+A210
+// mov ra, bb (type_opcode_d_mod_reg_rm:0000_000_1_11_000_111)
+E380
+// and ba, bb (type_opcode_d_mod_reg_rm:0101_100_1_11_110_111)
+EF9A
+// add xb, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_000_1_01_101_010)
+568A
+// shl sp (type_opcode_d_mod_reg_rm:0001_100_0_11_000_011)
+C318
+// shl bb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_111)
+E318
+// and xb, [bb+xa] (type_opcode_d_mod_reg_rm:0101_100_1_00_101_010)
+549A
+// push [bb+xb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_011)
+C020
+// xor [bb+xa+], sp (type_opcode_d_mod_reg_rm:0101_110_0_01_011_010)
+5A3A
+// shl [bb+xa-] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_101)
+A218
+// push [ba+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_100)
+2220
+// sub rc, xa (type_opcode_d_mod_reg_rm:0101_010_1_11_010_100)
+2BAA
+// sar [ba+xb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_001)
+8038
+// shl [ba+xa] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_000)
+0018
+// sub ra, [ba+xa-] (type_opcode_d_mod_reg_rm:0101_010_1_01_000_100)
+22AA
+// shr [bb+xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_011)
+C058
+// or ba, [xa] (type_opcode_d_mod_reg_rm:0101_101_1_00_110_100)
+2CDA
+// jmp ba (type_opcode_d_mod_reg_rm:0000_101_0_11_000_110)
+6350
+// dec [bb+xa-] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_101)
+A248
+// neg [bb+xb+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_011)
+C228
+// dec xa (type_opcode_d_mod_reg_rm:0001_001_0_11_000_100)
+2348
+// sbb ba, rb (type_opcode_d_mod_reg_rm:0101_011_1_11_110_001)
+8FEA
+// not [ba+xa-] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_100)
+2268
+// test [ba+xa], ba (type_opcode_d_mod_reg_rm:0100_100_0_00_110_000)
+0C12
+// sar [ba+xa-] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_100)
+2238
+// cmp ba, [bb] (type_opcode_d_mod_reg_rm:0100_010_1_00_110_111)
+ECA2
+// cmp rb, [bb+xb] (type_opcode_d_mod_reg_rm:0100_010_1_00_001_011)
+D0A2
+// and xb, ba (type_opcode_d_mod_reg_rm:0101_100_1_11_101_110)
+779A
+// neg [xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_101)
+A028
+// neg [bb+xb+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_011)
+C228
+// test rc, xa (type_opcode_d_mod_reg_rm:0100_100_1_11_010_100)
+2B92
+// sar [ba] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_110)
+6038
+// adc [xa], ba (type_opcode_d_mod_reg_rm:0101_001_0_00_110_100)
+2C4A
+// jmp sp (type_opcode_d_mod_reg_rm:0000_101_0_11_000_011)
+C350
+// sub ra, xb (type_opcode_d_mod_reg_rm:0101_010_1_11_000_101)
+A3AA
+// xor [bb], rb (type_opcode_d_mod_reg_rm:0101_110_0_00_001_111)
+F03A
+// mov rb, xb (type_opcode_d_mod_reg_rm:0000_000_1_11_001_101)
+B380
+// cmp ba, [xa] (type_opcode_d_mod_reg_rm:0100_010_1_00_110_100)
+2CA2
+// jmp [xa] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_100)
+2050
+// push rc (type_opcode_d_mod_reg_rm:0000_010_0_11_000_010)
+4320
+// xor [ba+xa], rb (type_opcode_d_mod_reg_rm:0101_110_0_00_001_000)
+103A
+// shr bb (type_opcode_d_mod_reg_rm:0001_101_0_11_000_111)
+E358
+// inc [xb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_101)
+A008
+// sar [ba+xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_000)
+0038
+// neg [xa] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_100)
+2028
+// adc xb, xb (type_opcode_d_mod_reg_rm:0101_001_1_11_101_101)
+B7CA
+// dec [ba+xa-] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_100)
+2248
+// sbb rb, rc (type_opcode_d_mod_reg_rm:0101_011_1_11_001_010)
+53EA
+// adc bb, [ba] (type_opcode_d_mod_reg_rm:0101_001_1_00_111_110)
+7CCA
+// and ba, [ba+xa] (type_opcode_d_mod_reg_rm:0101_100_1_00_110_000)
+0C9A
+// neg [ba+xa] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_000)
+0028
+// cmp sp, [bb+xb] (type_opcode_d_mod_reg_rm:0100_010_1_00_011_011)
+D8A2
+// sar [bb+xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_010)
+4038
+// call bb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_111)
+E310
+// test ba, bb (type_opcode_d_mod_reg_rm:0100_100_1_11_110_111)
+EF92
+// dec [ba+xb] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_001)
+8048
+// cmp rb, [ba+xb+] (type_opcode_d_mod_reg_rm:0100_010_1_01_001_001)
+92A2
+// sbb [ba+xa+], ba (type_opcode_d_mod_reg_rm:0101_011_0_01_110_000)
+0E6A
+// sbb [bb], xa (type_opcode_d_mod_reg_rm:0101_011_0_00_100_111)
+E46A
+// shl ra (type_opcode_d_mod_reg_rm:0001_100_0_11_000_000)
+0318
+// push rc (type_opcode_d_mod_reg_rm:0000_010_0_11_000_010)
+4320
+// cmp [xb], ra (type_opcode_d_mod_reg_rm:0100_010_0_00_000_101)
+A022
+// push [bb+xb+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_011)
+C220
+// shl xb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_101)
+A318
+// push [ba+xb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_001)
+8020
+// or rc, rc (type_opcode_d_mod_reg_rm:0101_101_1_11_010_010)
+4BDA
+// neg [bb+xa-] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_101)
+A228
+// not [ba+xb] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_001)
+8068
+// adc xa, [ba] (type_opcode_d_mod_reg_rm:0101_001_1_00_100_110)
+64CA
+// sub bb, rc (type_opcode_d_mod_reg_rm:0101_010_1_11_111_010)
+5FAA
+// sub xa, [ba+xa] (type_opcode_d_mod_reg_rm:0101_010_1_00_100_000)
+04AA
+// not [ba+xa+] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_000)
+0268
+// xor ra, [ba] (type_opcode_d_mod_reg_rm:0101_110_1_00_000_110)
+60BA
+// mov ba, [ba+xa-] (type_opcode_d_mod_reg_rm:0000_000_1_01_110_100)
+2E80
+// shl ra (type_opcode_d_mod_reg_rm:0001_100_0_11_000_000)
+0318
+// and bb, [bb+xa-] (type_opcode_d_mod_reg_rm:0101_100_1_01_111_101)
+BE9A
+// sub ra, rb (type_opcode_d_mod_reg_rm:0101_010_1_11_000_001)
+83AA
+// cmp rb, [ba+xa+] (type_opcode_d_mod_reg_rm:0100_010_1_01_001_000)
+12A2
+// xor rc, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_110_1_01_010_010)
+4ABA
+// mov xb, xb (type_opcode_d_mod_reg_rm:0000_000_1_11_101_101)
+B780
+// cmp sp, [ba+xa-] (type_opcode_d_mod_reg_rm:0100_010_1_01_011_100)
+3AA2
+// not [ba+xb] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_001)
+8068
+// sar [bb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_111)
+E038
+// sub [ba+xa], xb (type_opcode_d_mod_reg_rm:0101_010_0_00_101_000)
+142A
+// test bb, [ba] (type_opcode_d_mod_reg_rm:0100_100_1_00_111_110)
+7C92
+// adc rb, bb (type_opcode_d_mod_reg_rm:0101_001_1_11_001_111)
+F3CA
+// jmp [ba+xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_001)
+8050
+// jmp ra (type_opcode_d_mod_reg_rm:0000_101_0_11_000_000)
+0350
+// push [xb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_101)
+A020
+// sbb xa, [bb+xa] (type_opcode_d_mod_reg_rm:0101_011_1_00_100_010)
+44EA
+// sub ra, [bb+xa] (type_opcode_d_mod_reg_rm:0101_010_1_00_000_010)
+40AA
+// not [xb] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_101)
+A068
+// sub rc, sp (type_opcode_d_mod_reg_rm:0101_010_1_11_010_011)
+CBAA
+// dec xb (type_opcode_d_mod_reg_rm:0001_001_0_11_000_101)
+A348
+// neg [ba+xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_001)
+8028
+// xor rc, [ba] (type_opcode_d_mod_reg_rm:0101_110_1_00_010_110)
+68BA
+// adc xa, [ba+xa-] (type_opcode_d_mod_reg_rm:0101_001_1_01_100_100)
+26CA
+// dec bb (type_opcode_d_mod_reg_rm:0001_001_0_11_000_111)
+E348
+// sub ba, [xa] (type_opcode_d_mod_reg_rm:0101_010_1_00_110_100)
+2CAA
+// inc bb (type_opcode_d_mod_reg_rm:0001_000_0_11_000_111)
+E308
+// shl sp (type_opcode_d_mod_reg_rm:0001_100_0_11_000_011)
+C318
+// add rb, ra (type_opcode_d_mod_reg_rm:0101_000_1_11_001_000)
+138A
+// sub sp, ba (type_opcode_d_mod_reg_rm:0101_010_1_11_011_110)
+7BAA
+// add bb, [bb] (type_opcode_d_mod_reg_rm:0101_000_1_00_111_111)
+FC8A
+// xor bb, [ba+xa+] (type_opcode_d_mod_reg_rm:0101_110_1_01_111_000)
+1EBA
+// push [ba+xb+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_001)
+8220
+// add rb, rc (type_opcode_d_mod_reg_rm:0101_000_1_11_001_010)
+538A
+// not [bb+xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_010)
+4068
+// test [ba+xb+], xb (type_opcode_d_mod_reg_rm:0100_100_0_01_101_001)
+9612
+// test [xb], bb (type_opcode_d_mod_reg_rm:0100_100_0_00_111_101)
+BC12
+// shr [xa] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_100)
+2058
+// add rc, [bb+xb] (type_opcode_d_mod_reg_rm:0101_000_1_00_010_011)
+C88A
+// shr rb (type_opcode_d_mod_reg_rm:0001_101_0_11_000_001)
+8358
+// adc xb, [ba+xb+] (type_opcode_d_mod_reg_rm:0101_001_1_01_101_001)
+96CA
+// sar ba (type_opcode_d_mod_reg_rm:0001_110_0_11_000_110)
+6338
+// and xa, xa (type_opcode_d_mod_reg_rm:0101_100_1_11_100_100)
+279A
+// test rc, bb (type_opcode_d_mod_reg_rm:0100_100_1_11_010_111)
+EB92
+// xor ra, sp (type_opcode_d_mod_reg_rm:0101_110_1_11_000_011)
+C3BA
+// and rb, xb (type_opcode_d_mod_reg_rm:0101_100_1_11_001_101)
+B39A
+// sub xb, xb (type_opcode_d_mod_reg_rm:0101_010_1_11_101_101)
+B7AA
+// adc xb, sp (type_opcode_d_mod_reg_rm:0101_001_1_11_101_011)
+D7CA
+// xor xa, rb (type_opcode_d_mod_reg_rm:0101_110_1_11_100_001)
+87BA
+// sbb bb, ra (type_opcode_d_mod_reg_rm:0101_011_1_11_111_000)
+1FEA
+// or rc, sp (type_opcode_d_mod_reg_rm:0101_101_1_11_010_011)
+CBDA
+// not [ba+xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_000)
+0068
+// push [xb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_101)
+A020
+// sbb rb, [bb+xb] (type_opcode_d_mod_reg_rm:0101_011_1_00_001_011)
+D0EA
+// mov ba, [bb+xa-] (type_opcode_d_mod_reg_rm:0000_000_1_01_110_101)
+AE80
+// and rc, [ba+xa] (type_opcode_d_mod_reg_rm:0101_100_1_00_010_000)
+089A
+// neg [bb+xa+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_010)
+4228
+// sub xb, [ba+xb] (type_opcode_d_mod_reg_rm:0101_010_1_00_101_001)
+94AA
+// mov rb, xb (type_opcode_d_mod_reg_rm:0000_000_1_11_001_101)
+B380
+// shl [bb+xa-] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_101)
+A218
+// sbb sp, [bb+xa-] (type_opcode_d_mod_reg_rm:0101_011_1_01_011_101)
+BAEA
+// mov ra, xb (type_opcode_d_mod_reg_rm:0000_000_1_11_000_101)
+A380
+// adc [bb+xa], sp (type_opcode_d_mod_reg_rm:0101_001_0_00_011_010)
+584A
+// test ba, [bb+xb] (type_opcode_d_mod_reg_rm:0100_100_1_00_110_011)
+CC92
+// sbb [bb], ra (type_opcode_d_mod_reg_rm:0101_011_0_00_000_111)
+E06A
+// adc rb, [ba+xa] (type_opcode_d_mod_reg_rm:0101_001_1_00_001_000)
+10CA
+// inc [ba+xb+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_001)
+8208
+// sub ba, [ba] (type_opcode_d_mod_reg_rm:0101_010_1_00_110_110)
+6CAA
+// jmp [bb+xa-] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_101)
+A250
+// sar [xb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_101)
+A038
+// sbb xb, [bb] (type_opcode_d_mod_reg_rm:0101_011_1_00_101_111)
+F4EA
+// dec [ba+xa-] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_100)
+2248
+// or ra, [ba+xa-] (type_opcode_d_mod_reg_rm:0101_101_1_01_000_100)
+22DA
+// sar [bb+xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_010)
+4038
+// adc [ba], rc (type_opcode_d_mod_reg_rm:0101_001_0_00_010_110)
+684A
+// sar rc (type_opcode_d_mod_reg_rm:0001_110_0_11_000_010)
+4338
+// sub bb, ra (type_opcode_d_mod_reg_rm:0101_010_1_11_111_000)
+1FAA
+// mov xa, [ba+xb+] (type_opcode_d_mod_reg_rm:0000_000_1_01_100_001)
+8680
+// sub [ba+xa-], xb (type_opcode_d_mod_reg_rm:0101_010_0_01_101_100)
+362A
+// push xa (type_opcode_d_mod_reg_rm:0000_010_0_11_000_100)
+2320
+// test bb, sp (type_opcode_d_mod_reg_rm:0100_100_1_11_111_011)
+DF92
+// adc [ba], ba (type_opcode_d_mod_reg_rm:0101_001_0_00_110_110)
+6C4A
+// jmp bb (type_opcode_d_mod_reg_rm:0000_101_0_11_000_111)
+E350
+// shl [bb+xa] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_010)
+4018
+// sar [ba+xb+] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_001)
+8238
+// shl [bb+xa-] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_101)
+A218
+// sar [bb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_111)
+E038
+// neg [bb+xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_011)
+C028
+// add xa, rc (type_opcode_d_mod_reg_rm:0101_000_1_11_100_010)
+478A
+// shr [bb+xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_011)
+C058
+// and rc, [bb+xb] (type_opcode_d_mod_reg_rm:0101_100_1_00_010_011)
+C89A
+// dec [bb+xa+] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_010)
+4248
+// sbb ba, ba (type_opcode_d_mod_reg_rm:0101_011_1_11_110_110)
+6FEA
+// test [ba+xb], xa (type_opcode_d_mod_reg_rm:0100_100_0_00_100_001)
+8412
+// push rb (type_opcode_d_mod_reg_rm:0000_010_0_11_000_001)
+8320
+// or [bb+xa], ra (type_opcode_d_mod_reg_rm:0101_101_0_00_000_010)
+405A
+// add [bb], rb (type_opcode_d_mod_reg_rm:0101_000_0_00_001_111)
+F00A
+// neg rb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_001)
+8328
+// jmp sp (type_opcode_d_mod_reg_rm:0000_101_0_11_000_011)
+C350
+// and [ba+xa], ra (type_opcode_d_mod_reg_rm:0101_100_0_00_000_000)
+001A
+// call [ba+xb] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_001)
+8010
+// add ba, sp (type_opcode_d_mod_reg_rm:0101_000_1_11_110_011)
+CF8A
+// add sp, [ba+xb] (type_opcode_d_mod_reg_rm:0101_000_1_00_011_001)
+988A
+// not rc (type_opcode_d_mod_reg_rm:0001_011_0_11_000_010)
+4368
+// neg [xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_101)
+A028
+// neg ba (type_opcode_d_mod_reg_rm:0001_010_0_11_000_110)
+6328
+// test [bb], xb (type_opcode_d_mod_reg_rm:0100_100_0_00_101_111)
+F412
+// dec [bb+xa] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_010)
+4048
+// and sp, [ba+xa+] (type_opcode_d_mod_reg_rm:0101_100_1_01_011_000)
+1A9A
+// neg rb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_001)
+8328
+// and ra, bb (type_opcode_d_mod_reg_rm:0101_100_1_11_000_111)
+E39A
+// mov rb, bb (type_opcode_d_mod_reg_rm:0000_000_1_11_001_111)
+F380
+// xor sp, [ba+xb+] (type_opcode_d_mod_reg_rm:0101_110_1_01_011_001)
+9ABA
+// inc rb (type_opcode_d_mod_reg_rm:0001_000_0_11_000_001)
+8308
+// sar [bb+xa+] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_010)
+4238
+// xor ra, [bb+xa-] (type_opcode_d_mod_reg_rm:0101_110_1_01_000_101)
+A2BA
+// shl sp (type_opcode_d_mod_reg_rm:0001_100_0_11_000_011)
+C318
+// dec [bb+xa-] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_101)
+A248
+// not bb (type_opcode_d_mod_reg_rm:0001_011_0_11_000_111)
+E368
+// sbb ba, xa (type_opcode_d_mod_reg_rm:0101_011_1_11_110_100)
+2FEA
+// test xa, [bb+xa] (type_opcode_d_mod_reg_rm:0100_100_1_00_100_010)
+4492
+// cmp [xb], xa (type_opcode_d_mod_reg_rm:0100_010_0_00_100_101)
+A422
+// push ra (type_opcode_d_mod_reg_rm:0000_010_0_11_000_000)
+0320
+// neg [bb+xa-] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_101)
+A228
+// dec [ba+xa-] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_100)
+2248
+// not [xb] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_101)
+A068
+// and [ba], xb (type_opcode_d_mod_reg_rm:0101_100_0_00_101_110)
+741A
+// xor sp, [ba+xb] (type_opcode_d_mod_reg_rm:0101_110_1_00_011_001)
+98BA
+// sbb rc, ra (type_opcode_d_mod_reg_rm:0101_011_1_11_010_000)
+0BEA
+// and [bb+xa-], xb (type_opcode_d_mod_reg_rm:0101_100_0_01_101_101)
+B61A
+// shr [xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_101)
+A058
+// not bb (type_opcode_d_mod_reg_rm:0001_011_0_11_000_111)
+E368
+// and [bb+xa+], xb (type_opcode_d_mod_reg_rm:0101_100_0_01_101_010)
+561A
+// not [bb+xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_010)
+4068
+// sar [bb+xa+] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_010)
+4238
+// jmp [bb+xa] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_010)
+4050
+// mov sp, [bb+xa+] (type_opcode_d_mod_reg_rm:0000_000_1_01_011_010)
+5A80
+// mov [bb+xb+], bb (type_opcode_d_mod_reg_rm:0000_000_0_01_111_011)
+DE00
+// shl sp (type_opcode_d_mod_reg_rm:0001_100_0_11_000_011)
+C318
+// inc xa (type_opcode_d_mod_reg_rm:0001_000_0_11_000_100)
+2308
+// sar [ba] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_110)
+6038
+// dec [bb+xb] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_011)
+C048
+// and ra, [xa] (type_opcode_d_mod_reg_rm:0101_100_1_00_000_100)
+209A
+// shr [xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_101)
+A058
+// inc [bb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_111)
+E008
+// jmp [ba+xb+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_001)
+8250
+// test xa, [ba] (type_opcode_d_mod_reg_rm:0100_100_1_00_100_110)
+6492
+// shr [bb+xa+] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_010)
+4258
+// sub xb, [xb] (type_opcode_d_mod_reg_rm:0101_010_1_00_101_101)
+B4AA
+// or sp, [xa] (type_opcode_d_mod_reg_rm:0101_101_1_00_011_100)
+38DA
+// add [ba+xb+], rb (type_opcode_d_mod_reg_rm:0101_000_0_01_001_001)
+920A
+// mov bb, ba (type_opcode_d_mod_reg_rm:0000_000_1_11_111_110)
+7F80
+// sub [bb+xa], sp (type_opcode_d_mod_reg_rm:0101_010_0_00_011_010)
+582A
+// cmp xb, [ba] (type_opcode_d_mod_reg_rm:0100_010_1_00_101_110)
+74A2
+// add [bb+xb+], xa (type_opcode_d_mod_reg_rm:0101_000_0_01_100_011)
+C60A
+// cmp [bb+xb+], ba (type_opcode_d_mod_reg_rm:0100_010_0_01_110_011)
+CE22
+// cmp ba, [xb] (type_opcode_d_mod_reg_rm:0100_010_1_00_110_101)
+ACA2
+// inc [ba+xb+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_001)
+8208
+// mov [bb+xa-], ra (type_opcode_d_mod_reg_rm:0000_000_0_01_000_101)
+A200
+// shl sp (type_opcode_d_mod_reg_rm:0001_100_0_11_000_011)
+C318
+// not rb (type_opcode_d_mod_reg_rm:0001_011_0_11_000_001)
+8368
+// inc [bb+xb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_011)
+C008
+// shl [ba+xa+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_000)
+0218
+// sub rc, xa (type_opcode_d_mod_reg_rm:0101_010_1_11_010_100)
+2BAA
+// and rb, [bb+xa-] (type_opcode_d_mod_reg_rm:0101_100_1_01_001_101)
+B29A
+// adc [bb], bb (type_opcode_d_mod_reg_rm:0101_001_0_00_111_111)
+FC4A
+// mov [bb+xa-], rb (type_opcode_d_mod_reg_rm:0000_000_0_01_001_101)
+B200
+// sub bb, [bb+xa-] (type_opcode_d_mod_reg_rm:0101_010_1_01_111_101)
+BEAA
+// jmp [xa] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_100)
+2050
+// call [ba+xa-] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_100)
+2210
+// shr [bb+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_101)
+A258
+// push ba (type_opcode_d_mod_reg_rm:0000_010_0_11_000_110)
+6320
+// neg sp (type_opcode_d_mod_reg_rm:0001_010_0_11_000_011)
+C328
+// sub rc, sp (type_opcode_d_mod_reg_rm:0101_010_1_11_010_011)
+CBAA
+// neg sp (type_opcode_d_mod_reg_rm:0001_010_0_11_000_011)
+C328
+// cmp xa, [bb+xa-] (type_opcode_d_mod_reg_rm:0100_010_1_01_100_101)
+A6A2
+// sbb [bb+xa-], ba (type_opcode_d_mod_reg_rm:0101_011_0_01_110_101)
+AE6A
+// shr [ba+xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_001)
+8058
+// sar xa (type_opcode_d_mod_reg_rm:0001_110_0_11_000_100)
+2338
+// test [ba+xa-], ra (type_opcode_d_mod_reg_rm:0100_100_0_01_000_100)
+2212
+// mov [bb+xb+], rb (type_opcode_d_mod_reg_rm:0000_000_0_01_001_011)
+D200
+// sub rb, xa (type_opcode_d_mod_reg_rm:0101_010_1_11_001_100)
+33AA
+// mov xb, ba (type_opcode_d_mod_reg_rm:0000_000_1_11_101_110)
+7780
+// or rb, ba (type_opcode_d_mod_reg_rm:0101_101_1_11_001_110)
+73DA
+// mov [xa], sp (type_opcode_d_mod_reg_rm:0000_000_0_00_011_100)
+3800
+// adc [bb+xa], bb (type_opcode_d_mod_reg_rm:0101_001_0_00_111_010)
+5C4A
+// cmp [ba+xa+], ba (type_opcode_d_mod_reg_rm:0100_010_0_01_110_000)
+0E22
+// neg xb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_101)
+A328
+// not [bb+xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_010)
+4068
+// sar [ba+xa+] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_000)
+0238
+// shr [xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_101)
+A058
+// and ba, ba (type_opcode_d_mod_reg_rm:0101_100_1_11_110_110)
+6F9A
+// sar [ba+xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_000)
+0038
+// sub [bb+xb+], xb (type_opcode_d_mod_reg_rm:0101_010_0_01_101_011)
+D62A
+// or ra, [bb] (type_opcode_d_mod_reg_rm:0101_101_1_00_000_111)
+E0DA
+// shr ba (type_opcode_d_mod_reg_rm:0001_101_0_11_000_110)
+6358
+// sbb bb, [ba] (type_opcode_d_mod_reg_rm:0101_011_1_00_111_110)
+7CEA
+// sub bb, sp (type_opcode_d_mod_reg_rm:0101_010_1_11_111_011)
+DFAA
+// shl [xb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_101)
+A018
+// shl [ba+xb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_001)
+8018
+// cmp sp, ba (type_opcode_d_mod_reg_rm:0100_010_1_11_011_110)
+7BA2
+// jmp [ba+xa+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_000)
+0250
+// adc [ba+xa], xa (type_opcode_d_mod_reg_rm:0101_001_0_00_100_000)
+044A
+// jmp [xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_101)
+A050
+// sub [xb], bb (type_opcode_d_mod_reg_rm:0101_010_0_00_111_101)
+BC2A
+// jmp xb (type_opcode_d_mod_reg_rm:0000_101_0_11_000_101)
+A350
+// dec [bb+xa-] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_101)
+A248
+// call [ba+xb+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_001)
+8210
+// shl [xa] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_100)
+2018
+// sbb rb, [ba+xb] (type_opcode_d_mod_reg_rm:0101_011_1_00_001_001)
+90EA
+// dec ba (type_opcode_d_mod_reg_rm:0001_001_0_11_000_110)
+6348
+// shr [bb+xa] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_010)
+4058
+// shl [bb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_111)
+E018
+// dec [xa] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_100)
+2048
+// inc rb (type_opcode_d_mod_reg_rm:0001_000_0_11_000_001)
+8308
+// dec sp (type_opcode_d_mod_reg_rm:0001_001_0_11_000_011)
+C348
+// shl rb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_001)
+8318
+// inc [ba+xa-] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_100)
+2208
+// sar rc (type_opcode_d_mod_reg_rm:0001_110_0_11_000_010)
+4338
+// xor rb, sp (type_opcode_d_mod_reg_rm:0101_110_1_11_001_011)
+D3BA
+// or [bb], rc (type_opcode_d_mod_reg_rm:0101_101_0_00_010_111)
+E85A
+// add ra, xa (type_opcode_d_mod_reg_rm:0101_000_1_11_000_100)
+238A
+// adc ba, [ba+xa] (type_opcode_d_mod_reg_rm:0101_001_1_00_110_000)
+0CCA
+// neg [ba] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_110)
+6028
+// and xa, [ba+xb] (type_opcode_d_mod_reg_rm:0101_100_1_00_100_001)
+849A
+// sbb rb, bb (type_opcode_d_mod_reg_rm:0101_011_1_11_001_111)
+F3EA
+// mov [ba+xb], ra (type_opcode_d_mod_reg_rm:0000_000_0_00_000_001)
+8000
+// add ra, [ba+xa-] (type_opcode_d_mod_reg_rm:0101_000_1_01_000_100)
+228A
+// or bb, ra (type_opcode_d_mod_reg_rm:0101_101_1_11_111_000)
+1FDA
+// not bb (type_opcode_d_mod_reg_rm:0001_011_0_11_000_111)
+E368
+// jmp [bb+xa+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_010)
+4250
+// sar [bb+xa-] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_101)
+A238
+// mov xb, [bb+xb] (type_opcode_d_mod_reg_rm:0000_000_1_00_101_011)
+D480
+// test [bb+xa+], ra (type_opcode_d_mod_reg_rm:0100_100_0_01_000_010)
+4212
+// sub [xb], ba (type_opcode_d_mod_reg_rm:0101_010_0_00_110_101)
+AC2A
+// push [bb+xb+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_011)
+C220
+// shl rb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_001)
+8318
+// or xb, rb (type_opcode_d_mod_reg_rm:0101_101_1_11_101_001)
+97DA
+// call [ba+xb] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_001)
+8010
+// or [bb+xb+], ra (type_opcode_d_mod_reg_rm:0101_101_0_01_000_011)
+C25A
+// adc [bb+xb], xa (type_opcode_d_mod_reg_rm:0101_001_0_00_100_011)
+C44A
+// push [ba] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_110)
+6020
+// call [ba] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_110)
+6010
+// neg [bb+xa] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_010)
+4028
+// and sp, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_100_1_01_011_010)
+5A9A
+// jmp [bb+xb+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_011)
+C250
+// jmp [bb+xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_011)
+C050
+// mov rc, rb (type_opcode_d_mod_reg_rm:0000_000_1_11_010_001)
+8B80
+// adc rb, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_001_1_01_001_010)
+52CA
+// cmp xa, [ba+xb] (type_opcode_d_mod_reg_rm:0100_010_1_00_100_001)
+84A2
+// mov rc, [bb+xa-] (type_opcode_d_mod_reg_rm:0000_000_1_01_010_101)
+AA80
+// not ra (type_opcode_d_mod_reg_rm:0001_011_0_11_000_000)
+0368
+// and xb, xa (type_opcode_d_mod_reg_rm:0101_100_1_11_101_100)
+379A
+// xor ba, xa (type_opcode_d_mod_reg_rm:0101_110_1_11_110_100)
+2FBA
+// call xa (type_opcode_d_mod_reg_rm:0000_100_0_11_000_100)
+2310
+// neg xb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_101)
+A328
+// sbb bb, xb (type_opcode_d_mod_reg_rm:0101_011_1_11_111_101)
+BFEA
+// call [ba+xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_000)
+0010
+// dec ra (type_opcode_d_mod_reg_rm:0001_001_0_11_000_000)
+0348
+// jmp sp (type_opcode_d_mod_reg_rm:0000_101_0_11_000_011)
+C350
+// shr [bb+xa+] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_010)
+4258
+// not rb (type_opcode_d_mod_reg_rm:0001_011_0_11_000_001)
+8368
+// call [bb] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_111)
+E010
+// and sp, [bb+xb] (type_opcode_d_mod_reg_rm:0101_100_1_00_011_011)
+D89A
+// not [ba+xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_000)
+0068
+// mov [bb+xa], bb (type_opcode_d_mod_reg_rm:0000_000_0_00_111_010)
+5C00
+// sub rc, [bb+xb+] (type_opcode_d_mod_reg_rm:0101_010_1_01_010_011)
+CAAA
+// add [ba+xb+], sp (type_opcode_d_mod_reg_rm:0101_000_0_01_011_001)
+9A0A
+// or ra, ra (type_opcode_d_mod_reg_rm:0101_101_1_11_000_000)
+03DA
+// adc xb, xa (type_opcode_d_mod_reg_rm:0101_001_1_11_101_100)
+37CA
+// or [bb+xa+], xa (type_opcode_d_mod_reg_rm:0101_101_0_01_100_010)
+465A
+// neg xb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_101)
+A328
+// sbb sp, [ba+xa] (type_opcode_d_mod_reg_rm:0101_011_1_00_011_000)
+18EA
+// add [ba+xa], xb (type_opcode_d_mod_reg_rm:0101_000_0_00_101_000)
+140A
+// call [xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_100)
+2010
+// add sp, [ba+xa-] (type_opcode_d_mod_reg_rm:0101_000_1_01_011_100)
+3A8A
+// cmp bb, [bb+xa+] (type_opcode_d_mod_reg_rm:0100_010_1_01_111_010)
+5EA2
+// inc [bb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_111)
+E008
+// and [ba+xa-], xb (type_opcode_d_mod_reg_rm:0101_100_0_01_101_100)
+361A
+// shr [bb+xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_011)
+C058
+// xor [bb+xa-], xb (type_opcode_d_mod_reg_rm:0101_110_0_01_101_101)
+B63A
+// push bb (type_opcode_d_mod_reg_rm:0000_010_0_11_000_111)
+E320
+// dec ba (type_opcode_d_mod_reg_rm:0001_001_0_11_000_110)
+6348
+// xor bb, ba (type_opcode_d_mod_reg_rm:0101_110_1_11_111_110)
+7FBA
+// inc [ba+xb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_001)
+8008
+// neg [bb+xa+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_010)
+4228
+// and ra, ra (type_opcode_d_mod_reg_rm:0101_100_1_11_000_000)
+039A
+// neg sp (type_opcode_d_mod_reg_rm:0001_010_0_11_000_011)
+C328
+// dec [ba] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_110)
+6048
+// neg rb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_001)
+8328
+// shr [xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_101)
+A058
+// shr [bb+xa] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_010)
+4058
+// neg [ba+xb+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_001)
+8228
+// call [ba+xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_000)
+0010
+// xor [ba+xa], xa (type_opcode_d_mod_reg_rm:0101_110_0_00_100_000)
+043A
+// sar [xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_100)
+2038
+// shr [ba] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_110)
+6058
+// and ra, [ba+xb+] (type_opcode_d_mod_reg_rm:0101_100_1_01_000_001)
+829A
+// neg [ba+xa-] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_100)
+2228
+// push [bb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_111)
+E020
+// and [ba+xb+], rb (type_opcode_d_mod_reg_rm:0101_100_0_01_001_001)
+921A
+// inc [bb+xa+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_010)
+4208
+// inc bb (type_opcode_d_mod_reg_rm:0001_000_0_11_000_111)
+E308
+// or [ba+xa], rb (type_opcode_d_mod_reg_rm:0101_101_0_00_001_000)
+105A
+// not [xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_100)
+2068
+// neg bb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_111)
+E328
+// call [bb+xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_010)
+4010
+// dec xb (type_opcode_d_mod_reg_rm:0001_001_0_11_000_101)
+A348
+// neg rc (type_opcode_d_mod_reg_rm:0001_010_0_11_000_010)
+4328
+// xor xa, [bb+xa] (type_opcode_d_mod_reg_rm:0101_110_1_00_100_010)
+44BA
+// not [bb+xa-] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_101)
+A268
+// jmp [bb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_111)
+E050
+// sub [bb+xb+], rb (type_opcode_d_mod_reg_rm:0101_010_0_01_001_011)
+D22A
+// call [bb+xb+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_011)
+C210
+// jmp [bb+xb+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_011)
+C250
+// push [xa] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_100)
+2020
+// and xa, rc (type_opcode_d_mod_reg_rm:0101_100_1_11_100_010)
+479A
+// dec [ba+xa] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_000)
+0048
+// and xb, rc (type_opcode_d_mod_reg_rm:0101_100_1_11_101_010)
+579A
+// jmp [bb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_111)
+E050
+// and sp, xa (type_opcode_d_mod_reg_rm:0101_100_1_11_011_100)
+3B9A
+// dec [bb+xb+] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_011)
+C248
+// call ba (type_opcode_d_mod_reg_rm:0000_100_0_11_000_110)
+6310
+// add rc, rc (type_opcode_d_mod_reg_rm:0101_000_1_11_010_010)
+4B8A
+// add ba, rc (type_opcode_d_mod_reg_rm:0101_000_1_11_110_010)
+4F8A
+// cmp [bb+xb+], sp (type_opcode_d_mod_reg_rm:0100_010_0_01_011_011)
+DA22
+// sub rb, bb (type_opcode_d_mod_reg_rm:0101_010_1_11_001_111)
+F3AA
+// cmp rc, ra (type_opcode_d_mod_reg_rm:0100_010_1_11_010_000)
+0BA2
+// shr [bb+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_101)
+A258
+// sbb sp, [ba] (type_opcode_d_mod_reg_rm:0101_011_1_00_011_110)
+78EA
+// jmp rc (type_opcode_d_mod_reg_rm:0000_101_0_11_000_010)
+4350
+// shl xb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_101)
+A318
+// push sp (type_opcode_d_mod_reg_rm:0000_010_0_11_000_011)
+C320
+// shr [ba] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_110)
+6058
+// cmp bb, [bb+xa-] (type_opcode_d_mod_reg_rm:0100_010_1_01_111_101)
+BEA2
+// shr [bb+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_101)
+A258
+// test sp, [bb+xb+] (type_opcode_d_mod_reg_rm:0100_100_1_01_011_011)
+DA92
+// sar [bb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_111)
+E038
+// shr [ba+xa+] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_000)
+0258
+// push [ba+xa] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_000)
+0020
+// inc [bb+xa+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_010)
+4208
+// push [ba+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_100)
+2220
+// test rb, [bb+xb] (type_opcode_d_mod_reg_rm:0100_100_1_00_001_011)
+D092
+// mov xa, [ba] (type_opcode_d_mod_reg_rm:0000_000_1_00_100_110)
+6480
+// add bb, [bb+xb+] (type_opcode_d_mod_reg_rm:0101_000_1_01_111_011)
+DE8A
+// call bb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_111)
+E310
+// xor rb, rc (type_opcode_d_mod_reg_rm:0101_110_1_11_001_010)
+53BA
+// sar [bb+xb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_011)
+C038
+// sar rc (type_opcode_d_mod_reg_rm:0001_110_0_11_000_010)
+4338
+// xor sp, xb (type_opcode_d_mod_reg_rm:0101_110_1_11_011_101)
+BBBA
+// test rc, sp (type_opcode_d_mod_reg_rm:0100_100_1_11_010_011)
+CB92
+// jmp [bb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_111)
+E050
+// dec ra (type_opcode_d_mod_reg_rm:0001_001_0_11_000_000)
+0348
+// inc rb (type_opcode_d_mod_reg_rm:0001_000_0_11_000_001)
+8308
+// add [bb+xb], ra (type_opcode_d_mod_reg_rm:0101_000_0_00_000_011)
+C00A
+// add bb, [bb+xa-] (type_opcode_d_mod_reg_rm:0101_000_1_01_111_101)
+BE8A
+// add ba, [xb] (type_opcode_d_mod_reg_rm:0101_000_1_00_110_101)
+AC8A
+// sub ra, [bb] (type_opcode_d_mod_reg_rm:0101_010_1_00_000_111)
+E0AA
+// jmp xa (type_opcode_d_mod_reg_rm:0000_101_0_11_000_100)
+2350
+// xor rc, sp (type_opcode_d_mod_reg_rm:0101_110_1_11_010_011)
+CBBA
+// neg [bb+xa+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_010)
+4228
+// dec [bb+xa] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_010)
+4048
+// or rb, [bb+xb] (type_opcode_d_mod_reg_rm:0101_101_1_00_001_011)
+D0DA
+// shl xa (type_opcode_d_mod_reg_rm:0001_100_0_11_000_100)
+2318
+// push xb (type_opcode_d_mod_reg_rm:0000_010_0_11_000_101)
+A320
+// shl [bb+xb+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_011)
+C218
+// jmp [bb+xa-] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_101)
+A250
+// xor [ba+xa-], rc (type_opcode_d_mod_reg_rm:0101_110_0_01_010_100)
+2A3A
+// xor [bb], ra (type_opcode_d_mod_reg_rm:0101_110_0_00_000_111)
+E03A
+// mov ra, [bb] (type_opcode_d_mod_reg_rm:0000_000_1_00_000_111)
+E080
+// cmp bb, [bb+xb] (type_opcode_d_mod_reg_rm:0100_010_1_00_111_011)
+DCA2
+// test xb, rc (type_opcode_d_mod_reg_rm:0100_100_1_11_101_010)
+5792
+// sub rb, rc (type_opcode_d_mod_reg_rm:0101_010_1_11_001_010)
+53AA
+// add sp, ra (type_opcode_d_mod_reg_rm:0101_000_1_11_011_000)
+1B8A
+// add [bb+xa], bb (type_opcode_d_mod_reg_rm:0101_000_0_00_111_010)
+5C0A
+// or rc, [bb+xb] (type_opcode_d_mod_reg_rm:0101_101_1_00_010_011)
+C8DA
+// test bb, bb (type_opcode_d_mod_reg_rm:0100_100_1_11_111_111)
+FF92
+// sar [ba+xb+] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_001)
+8238
+// not sp (type_opcode_d_mod_reg_rm:0001_011_0_11_000_011)
+C368
+// call rc (type_opcode_d_mod_reg_rm:0000_100_0_11_000_010)
+4310
+// sar [bb+xb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_011)
+C038
+// mov [bb+xb+], sp (type_opcode_d_mod_reg_rm:0000_000_0_01_011_011)
+DA00
+// adc rb, rb (type_opcode_d_mod_reg_rm:0101_001_1_11_001_001)
+93CA
+// not [xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_100)
+2068
+// jmp [ba+xa] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_000)
+0050
+// or xb, [bb+xa] (type_opcode_d_mod_reg_rm:0101_101_1_00_101_010)
+54DA
+// push [ba+xa+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_000)
+0220
+// sar [xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_100)
+2038
+// or sp, [ba+xb] (type_opcode_d_mod_reg_rm:0101_101_1_00_011_001)
+98DA
+// jmp sp (type_opcode_d_mod_reg_rm:0000_101_0_11_000_011)
+C350
+// xor bb, xa (type_opcode_d_mod_reg_rm:0101_110_1_11_111_100)
+3FBA
+// jmp [bb+xa+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_010)
+4250
+// test sp, [ba+xa-] (type_opcode_d_mod_reg_rm:0100_100_1_01_011_100)
+3A92
+// push xb (type_opcode_d_mod_reg_rm:0000_010_0_11_000_101)
+A320
+// adc sp, [ba+xb] (type_opcode_d_mod_reg_rm:0101_001_1_00_011_001)
+98CA
+// xor ra, [ba+xa] (type_opcode_d_mod_reg_rm:0101_110_1_00_000_000)
+00BA
+// sbb ba, [xa] (type_opcode_d_mod_reg_rm:0101_011_1_00_110_100)
+2CEA
+// shr xa (type_opcode_d_mod_reg_rm:0001_101_0_11_000_100)
+2358
+// adc rc, xa (type_opcode_d_mod_reg_rm:0101_001_1_11_010_100)
+2BCA
+// adc xa, ba (type_opcode_d_mod_reg_rm:0101_001_1_11_100_110)
+67CA
+// shl bb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_111)
+E318
+// push [bb+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_101)
+A220
+// sar [bb+xb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_011)
+C038
+// add [ba+xa+], rc (type_opcode_d_mod_reg_rm:0101_000_0_01_010_000)
+0A0A
+// push [xa] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_100)
+2020
+// jmp sp (type_opcode_d_mod_reg_rm:0000_101_0_11_000_011)
+C350
+// inc [bb+xb+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_011)
+C208
+// jmp xb (type_opcode_d_mod_reg_rm:0000_101_0_11_000_101)
+A350
+// sar ba (type_opcode_d_mod_reg_rm:0001_110_0_11_000_110)
+6338
+// inc [bb+xb+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_011)
+C208
+// inc [xa] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_100)
+2008
+// mov rb, [bb] (type_opcode_d_mod_reg_rm:0000_000_1_00_001_111)
+F080
+// inc [ba+xb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_001)
+8008
+// sub [bb+xa], xb (type_opcode_d_mod_reg_rm:0101_010_0_00_101_010)
+542A
+// call [ba] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_110)
+6010
+// adc rb, xb (type_opcode_d_mod_reg_rm:0101_001_1_11_001_101)
+B3CA
+// sbb ba, xa (type_opcode_d_mod_reg_rm:0101_011_1_11_110_100)
+2FEA
+// shr [bb+xa] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_010)
+4058
+// adc [bb+xa-], xb (type_opcode_d_mod_reg_rm:0101_001_0_01_101_101)
+B64A
+// add [bb+xa+], ra (type_opcode_d_mod_reg_rm:0101_000_0_01_000_010)
+420A
+// dec sp (type_opcode_d_mod_reg_rm:0001_001_0_11_000_011)
+C348
+// mov [bb], ba (type_opcode_d_mod_reg_rm:0000_000_0_00_110_111)
+EC00
+// inc [ba+xa-] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_100)
+2208
+// inc [ba+xa] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_000)
+0008
+// jmp [ba] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_110)
+6050
+// or [bb+xb+], rb (type_opcode_d_mod_reg_rm:0101_101_0_01_001_011)
+D25A
+// or rc, xa (type_opcode_d_mod_reg_rm:0101_101_1_11_010_100)
+2BDA
+// sbb ba, [bb] (type_opcode_d_mod_reg_rm:0101_011_1_00_110_111)
+ECEA
+// push [bb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_111)
+E020
+// test [bb+xb+], xb (type_opcode_d_mod_reg_rm:0100_100_0_01_101_011)
+D612
+// and [bb], bb (type_opcode_d_mod_reg_rm:0101_100_0_00_111_111)
+FC1A
+// neg [bb+xa-] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_101)
+A228
+// not ra (type_opcode_d_mod_reg_rm:0001_011_0_11_000_000)
+0368
+// adc xb, [bb+xb] (type_opcode_d_mod_reg_rm:0101_001_1_00_101_011)
+D4CA
+// sub sp, bb (type_opcode_d_mod_reg_rm:0101_010_1_11_011_111)
+FBAA
+// sar [xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_100)
+2038
+// inc [bb+xb+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_011)
+C208
+// call rb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_001)
+8310
+// dec [xa] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_100)
+2048
+// mov rb, [ba+xa+] (type_opcode_d_mod_reg_rm:0000_000_1_01_001_000)
+1280
+// jmp [ba+xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_001)
+8050
+// inc [xa] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_100)
+2008
+// or [ba+xa+], ba (type_opcode_d_mod_reg_rm:0101_101_0_01_110_000)
+0E5A
+// xor rc, [xa] (type_opcode_d_mod_reg_rm:0101_110_1_00_010_100)
+28BA
+// cmp xa, rb (type_opcode_d_mod_reg_rm:0100_010_1_11_100_001)
+87A2
+// jmp [bb+xb+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_011)
+C250
+// mov rb, rb (type_opcode_d_mod_reg_rm:0000_000_1_11_001_001)
+9380
+// mov bb, [bb+xa-] (type_opcode_d_mod_reg_rm:0000_000_1_01_111_101)
+BE80
+// jmp [bb+xa+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_010)
+4250
+// add sp, [bb+xa-] (type_opcode_d_mod_reg_rm:0101_000_1_01_011_101)
+BA8A
+// dec rc (type_opcode_d_mod_reg_rm:0001_001_0_11_000_010)
+4348
+// test rc, [xb] (type_opcode_d_mod_reg_rm:0100_100_1_00_010_101)
+A892
+// sbb ba, bb (type_opcode_d_mod_reg_rm:0101_011_1_11_110_111)
+EFEA
+// test rc, [ba+xa] (type_opcode_d_mod_reg_rm:0100_100_1_00_010_000)
+0892
+// or ra, [ba+xb+] (type_opcode_d_mod_reg_rm:0101_101_1_01_000_001)
+82DA
+// test [xb], xb (type_opcode_d_mod_reg_rm:0100_100_0_00_101_101)
+B412
+// call [bb+xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_010)
+4010
+// push [bb+xb+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_011)
+C220
+// jmp [ba+xa-] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_100)
+2250
+// sar [bb] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_111)
+E038
+// call rb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_001)
+8310
+// cmp [ba+xa-], rc (type_opcode_d_mod_reg_rm:0100_010_0_01_010_100)
+2A22
+// sar sp (type_opcode_d_mod_reg_rm:0001_110_0_11_000_011)
+C338
+// test rb, [ba+xb] (type_opcode_d_mod_reg_rm:0100_100_1_00_001_001)
+9092
+// adc xa, sp (type_opcode_d_mod_reg_rm:0101_001_1_11_100_011)
+C7CA
+// call [ba+xa+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_000)
+0210
+// shr [xa] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_100)
+2058
+// adc [bb+xb+], rc (type_opcode_d_mod_reg_rm:0101_001_0_01_010_011)
+CA4A
+// cmp [bb+xa-], rc (type_opcode_d_mod_reg_rm:0100_010_0_01_010_101)
+AA22
+// call rb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_001)
+8310
+// not [ba+xb+] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_001)
+8268
+// or [xb], ba (type_opcode_d_mod_reg_rm:0101_101_0_00_110_101)
+AC5A
+// shl [bb+xa+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_010)
+4218
+// test sp, xa (type_opcode_d_mod_reg_rm:0100_100_1_11_011_100)
+3B92
+// shl xa (type_opcode_d_mod_reg_rm:0001_100_0_11_000_100)
+2318
+// add bb, rb (type_opcode_d_mod_reg_rm:0101_000_1_11_111_001)
+9F8A
+// sbb [bb+xb], sp (type_opcode_d_mod_reg_rm:0101_011_0_00_011_011)
+D86A
+// neg [ba] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_110)
+6028
+// inc [ba+xa-] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_100)
+2208
+// test sp, [ba+xa] (type_opcode_d_mod_reg_rm:0100_100_1_00_011_000)
+1892
+// mov rc, [ba+xa] (type_opcode_d_mod_reg_rm:0000_000_1_00_010_000)
+0880
+// adc [xb], ra (type_opcode_d_mod_reg_rm:0101_001_0_00_000_101)
+A04A
+// shr [bb+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_101)
+A258
+// shr [bb+xa+] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_010)
+4258
+// add [ba+xa+], sp (type_opcode_d_mod_reg_rm:0101_000_0_01_011_000)
+1A0A
+// adc rb, [ba+xb] (type_opcode_d_mod_reg_rm:0101_001_1_00_001_001)
+90CA
+// shl [xb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_101)
+A018
+// or ra, xb (type_opcode_d_mod_reg_rm:0101_101_1_11_000_101)
+A3DA
+// sbb ba, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_011_1_01_110_010)
+4EEA
+// cmp ra, sp (type_opcode_d_mod_reg_rm:0100_010_1_11_000_011)
+C3A2
+// not [ba+xa-] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_100)
+2268
+// jmp [bb+xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_011)
+C050
+// jmp rb (type_opcode_d_mod_reg_rm:0000_101_0_11_000_001)
+8350
+// adc bb, rc (type_opcode_d_mod_reg_rm:0101_001_1_11_111_010)
+5FCA
+// shr [bb+xb] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_011)
+C058
+// sbb [ba], rb (type_opcode_d_mod_reg_rm:0101_011_0_00_001_110)
+706A
+// neg ra (type_opcode_d_mod_reg_rm:0001_010_0_11_000_000)
+0328
+// push [ba+xb] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_001)
+8020
+// sar bb (type_opcode_d_mod_reg_rm:0001_110_0_11_000_111)
+E338
+// xor rc, ba (type_opcode_d_mod_reg_rm:0101_110_1_11_010_110)
+6BBA
+// test xb, rb (type_opcode_d_mod_reg_rm:0100_100_1_11_101_001)
+9792
+// sar [bb+xb+] (type_opcode_d_mod_reg_rm:0001_110_0_01_000_011)
+C238
+// not ba (type_opcode_d_mod_reg_rm:0001_011_0_11_000_110)
+6368
+// cmp ba, bb (type_opcode_d_mod_reg_rm:0100_010_1_11_110_111)
+EFA2
+// and sp, rc (type_opcode_d_mod_reg_rm:0101_100_1_11_011_010)
+5B9A
+// cmp [ba+xb+], sp (type_opcode_d_mod_reg_rm:0100_010_0_01_011_001)
+9A22
+// sbb rc, sp (type_opcode_d_mod_reg_rm:0101_011_1_11_010_011)
+CBEA
+// sar [bb+xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_010)
+4038
+// mov ba, [ba+xb+] (type_opcode_d_mod_reg_rm:0000_000_1_01_110_001)
+8E80
+// inc [bb+xb+] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_011)
+C208
+// not [ba+xb+] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_001)
+8268
+// not [bb] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_111)
+E068
+// dec [xb] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_101)
+A048
+// adc [ba+xb], ba (type_opcode_d_mod_reg_rm:0101_001_0_00_110_001)
+8C4A
+// and ba, [xb] (type_opcode_d_mod_reg_rm:0101_100_1_00_110_101)
+AC9A
+// xor ba, xa (type_opcode_d_mod_reg_rm:0101_110_1_11_110_100)
+2FBA
+// and xb, sp (type_opcode_d_mod_reg_rm:0101_100_1_11_101_011)
+D79A
+// cmp bb, rb (type_opcode_d_mod_reg_rm:0100_010_1_11_111_001)
+9FA2
+// push ba (type_opcode_d_mod_reg_rm:0000_010_0_11_000_110)
+6320
+// call [bb+xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_010)
+4010
+// adc rb, ba (type_opcode_d_mod_reg_rm:0101_001_1_11_001_110)
+73CA
+// test sp, sp (type_opcode_d_mod_reg_rm:0100_100_1_11_011_011)
+DB92
+// shr rb (type_opcode_d_mod_reg_rm:0001_101_0_11_000_001)
+8358
+// shr [bb+xb+] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_011)
+C258
+// not [ba+xb+] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_001)
+8268
+// sub [ba+xa+], xb (type_opcode_d_mod_reg_rm:0101_010_0_01_101_000)
+162A
+// sub [ba+xb+], rc (type_opcode_d_mod_reg_rm:0101_010_0_01_010_001)
+8A2A
+// not [ba] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_110)
+6068
+// neg ra (type_opcode_d_mod_reg_rm:0001_010_0_11_000_000)
+0328
+// call [xa] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_100)
+2010
+// cmp rc, [xa] (type_opcode_d_mod_reg_rm:0100_010_1_00_010_100)
+28A2
+// push [bb+xa-] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_101)
+A220
+// dec xb (type_opcode_d_mod_reg_rm:0001_001_0_11_000_101)
+A348
+// call [ba+xb+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_001)
+8210
+// adc ba, [ba+xa+] (type_opcode_d_mod_reg_rm:0101_001_1_01_110_000)
+0ECA
+// test sp, [bb+xa] (type_opcode_d_mod_reg_rm:0100_100_1_00_011_010)
+5892
+// sub rc, [xa] (type_opcode_d_mod_reg_rm:0101_010_1_00_010_100)
+28AA
+// shl xa (type_opcode_d_mod_reg_rm:0001_100_0_11_000_100)
+2318
+// inc ra (type_opcode_d_mod_reg_rm:0001_000_0_11_000_000)
+0308
+// call rb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_001)
+8310
+// sub xa, xa (type_opcode_d_mod_reg_rm:0101_010_1_11_100_100)
+27AA
+// sbb xb, ra (type_opcode_d_mod_reg_rm:0101_011_1_11_101_000)
+17EA
+// adc [xa], bb (type_opcode_d_mod_reg_rm:0101_001_0_00_111_100)
+3C4A
+// not [bb] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_111)
+E068
+// neg [ba+xa-] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_100)
+2228
+// or ra, rb (type_opcode_d_mod_reg_rm:0101_101_1_11_000_001)
+83DA
+// adc bb, [xb] (type_opcode_d_mod_reg_rm:0101_001_1_00_111_101)
+BCCA
+// shl [ba+xb] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_001)
+8018
+// and xa, rb (type_opcode_d_mod_reg_rm:0101_100_1_11_100_001)
+879A
+// add ba, bb (type_opcode_d_mod_reg_rm:0101_000_1_11_110_111)
+EF8A
+// mov ba, rb (type_opcode_d_mod_reg_rm:0000_000_1_11_110_001)
+8F80
+// mov sp, rc (type_opcode_d_mod_reg_rm:0000_000_1_11_011_010)
+5B80
+// shl [bb+xa+] (type_opcode_d_mod_reg_rm:0001_100_0_01_000_010)
+4218
+// neg [ba+xa+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_000)
+0228
+// sbb ra, ra (type_opcode_d_mod_reg_rm:0101_011_1_11_000_000)
+03EA
+// inc [ba+xa-] (type_opcode_d_mod_reg_rm:0001_000_0_01_000_100)
+2208
+// or sp, [xb] (type_opcode_d_mod_reg_rm:0101_101_1_00_011_101)
+B8DA
+// adc rc, rb (type_opcode_d_mod_reg_rm:0101_001_1_11_010_001)
+8BCA
+// add xa, [ba+xa] (type_opcode_d_mod_reg_rm:0101_000_1_00_100_000)
+048A
+// or xa, ra (type_opcode_d_mod_reg_rm:0101_101_1_11_100_000)
+07DA
+// mov ba, ba (type_opcode_d_mod_reg_rm:0000_000_1_11_110_110)
+6F80
+// or ba, rc (type_opcode_d_mod_reg_rm:0101_101_1_11_110_010)
+4FDA
+// sbb sp, rb (type_opcode_d_mod_reg_rm:0101_011_1_11_011_001)
+9BEA
+// and rc, [bb+xb+] (type_opcode_d_mod_reg_rm:0101_100_1_01_010_011)
+CA9A
+// shr [ba+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_100)
+2258
+// not [bb+xa-] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_101)
+A268
+// cmp rb, rb (type_opcode_d_mod_reg_rm:0100_010_1_11_001_001)
+93A2
+// or xb, [xa] (type_opcode_d_mod_reg_rm:0101_101_1_00_101_100)
+34DA
+// dec [ba+xb+] (type_opcode_d_mod_reg_rm:0001_001_0_01_000_001)
+8248
+// adc sp, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_001_1_01_011_010)
+5ACA
+// dec [xb] (type_opcode_d_mod_reg_rm:0001_001_0_00_000_101)
+A048
+// inc rc (type_opcode_d_mod_reg_rm:0001_000_0_11_000_010)
+4308
+// neg ra (type_opcode_d_mod_reg_rm:0001_010_0_11_000_000)
+0328
+// add xa, [bb+xa+] (type_opcode_d_mod_reg_rm:0101_000_1_01_100_010)
+468A
+// and [ba], ba (type_opcode_d_mod_reg_rm:0101_100_0_00_110_110)
+6C1A
+// inc rb (type_opcode_d_mod_reg_rm:0001_000_0_11_000_001)
+8308
+// test xa, [bb+xb+] (type_opcode_d_mod_reg_rm:0100_100_1_01_100_011)
+C692
+// mov sp, xb (type_opcode_d_mod_reg_rm:0000_000_1_11_011_101)
+BB80
+// add ba, [bb+xb+] (type_opcode_d_mod_reg_rm:0101_000_1_01_110_011)
+CE8A
+// mov xb, bb (type_opcode_d_mod_reg_rm:0000_000_1_11_101_111)
+F780
+// sbb rc, ba (type_opcode_d_mod_reg_rm:0101_011_1_11_010_110)
+6BEA
+// adc xa, xa (type_opcode_d_mod_reg_rm:0101_001_1_11_100_100)
+27CA
+// sub rb, sp (type_opcode_d_mod_reg_rm:0101_010_1_11_001_011)
+D3AA
+// and [ba+xa-], ba (type_opcode_d_mod_reg_rm:0101_100_0_01_110_100)
+2E1A
+// inc [ba+xa] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_000)
+0008
+// xor xa, ra (type_opcode_d_mod_reg_rm:0101_110_1_11_100_000)
+07BA
+// and rb, rc (type_opcode_d_mod_reg_rm:0101_100_1_11_001_010)
+539A
+// or ra, rc (type_opcode_d_mod_reg_rm:0101_101_1_11_000_010)
+43DA
+// cmp ra, [bb+xa] (type_opcode_d_mod_reg_rm:0100_010_1_00_000_010)
+40A2
+// xor [ba+xb+], xa (type_opcode_d_mod_reg_rm:0101_110_0_01_100_001)
+863A
+// call [bb+xa+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_010)
+4210
+// test rb, [bb] (type_opcode_d_mod_reg_rm:0100_100_1_00_001_111)
+F092
+// call rb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_001)
+8310
+// xor [bb+xb+], xa (type_opcode_d_mod_reg_rm:0101_110_0_01_100_011)
+C63A
+// not [ba+xa+] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_000)
+0268
+// inc rb (type_opcode_d_mod_reg_rm:0001_000_0_11_000_001)
+8308
+// not [bb+xa+] (type_opcode_d_mod_reg_rm:0001_011_0_01_000_010)
+4268
+// shr [xa] (type_opcode_d_mod_reg_rm:0001_101_0_00_000_100)
+2058
+// xor [ba+xa+], rb (type_opcode_d_mod_reg_rm:0101_110_0_01_001_000)
+123A
+// sbb [xa], rb (type_opcode_d_mod_reg_rm:0101_011_0_00_001_100)
+306A
+// mov xb, [bb+xb+] (type_opcode_d_mod_reg_rm:0000_000_1_01_101_011)
+D680
+// mov [xb], xa (type_opcode_d_mod_reg_rm:0000_000_0_00_100_101)
+A400
+// or [ba+xb+], rb (type_opcode_d_mod_reg_rm:0101_101_0_01_001_001)
+925A
+// sub ba, xb (type_opcode_d_mod_reg_rm:0101_010_1_11_110_101)
+AFAA
+// sbb ba, ra (type_opcode_d_mod_reg_rm:0101_011_1_11_110_000)
+0FEA
+// push ra (type_opcode_d_mod_reg_rm:0000_010_0_11_000_000)
+0320
+// neg [bb+xb] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_011)
+C028
+// neg [bb+xa+] (type_opcode_d_mod_reg_rm:0001_010_0_01_000_010)
+4228
+// inc [ba+xb] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_001)
+8008
+// or [bb+xa+], bb (type_opcode_d_mod_reg_rm:0101_101_0_01_111_010)
+5E5A
+// push ba (type_opcode_d_mod_reg_rm:0000_010_0_11_000_110)
+6320
+// and [ba+xb], rc (type_opcode_d_mod_reg_rm:0101_100_0_00_010_001)
+881A
+// or sp, rc (type_opcode_d_mod_reg_rm:0101_101_1_11_011_010)
+5BDA
+// xor rb, [bb+xb] (type_opcode_d_mod_reg_rm:0101_110_1_00_001_011)
+D0BA
+// neg [ba] (type_opcode_d_mod_reg_rm:0001_010_0_00_000_110)
+6028
+// test rb, [ba+xa] (type_opcode_d_mod_reg_rm:0100_100_1_00_001_000)
+1092
+// shl ba (type_opcode_d_mod_reg_rm:0001_100_0_11_000_110)
+6318
+// jmp [ba+xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_001)
+8050
+// sbb rc, [bb+xb+] (type_opcode_d_mod_reg_rm:0101_011_1_01_010_011)
+CAEA
+// not [xa] (type_opcode_d_mod_reg_rm:0001_011_0_00_000_100)
+2068
+// jmp [ba+xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_001)
+8050
+// shr [ba+xb+] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_001)
+8258
+// xor xa, [bb] (type_opcode_d_mod_reg_rm:0101_110_1_00_100_111)
+E4BA
+// push xb (type_opcode_d_mod_reg_rm:0000_010_0_11_000_101)
+A320
+// inc [xa] (type_opcode_d_mod_reg_rm:0001_000_0_00_000_100)
+2008
+// and bb, [xa] (type_opcode_d_mod_reg_rm:0101_100_1_00_111_100)
+3C9A
+// adc [bb+xa-], ra (type_opcode_d_mod_reg_rm:0101_001_0_01_000_101)
+A24A
+// test xa, xb (type_opcode_d_mod_reg_rm:0100_100_1_11_100_101)
+A792
+// add bb, sp (type_opcode_d_mod_reg_rm:0101_000_1_11_111_011)
+DF8A
+// or sp, ba (type_opcode_d_mod_reg_rm:0101_101_1_11_011_110)
+7BDA
+// shr sp (type_opcode_d_mod_reg_rm:0001_101_0_11_000_011)
+C358
+// sbb xa, [ba+xa] (type_opcode_d_mod_reg_rm:0101_011_1_00_100_000)
+04EA
+// add [bb+xa], rb (type_opcode_d_mod_reg_rm:0101_000_0_00_001_010)
+500A
+// push [ba+xb+] (type_opcode_d_mod_reg_rm:0000_010_0_01_000_001)
+8220
+// push rb (type_opcode_d_mod_reg_rm:0000_010_0_11_000_001)
+8320
+// add sp, [bb+xb] (type_opcode_d_mod_reg_rm:0101_000_1_00_011_011)
+D88A
+// and rb, [ba+xa+] (type_opcode_d_mod_reg_rm:0101_100_1_01_001_000)
+129A
+// sar [ba+xa] (type_opcode_d_mod_reg_rm:0001_110_0_00_000_000)
+0038
+// test [ba+xa+], xa (type_opcode_d_mod_reg_rm:0100_100_0_01_100_000)
+0612
+// shl rb (type_opcode_d_mod_reg_rm:0001_100_0_11_000_001)
+8318
+// sbb [ba+xa], ba (type_opcode_d_mod_reg_rm:0101_011_0_00_110_000)
+0C6A
+// call [bb+xa+] (type_opcode_d_mod_reg_rm:0000_100_0_01_000_010)
+4210
+// push [xa] (type_opcode_d_mod_reg_rm:0000_010_0_00_000_100)
+2020
+// neg xb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_101)
+A328
+// neg bb (type_opcode_d_mod_reg_rm:0001_010_0_11_000_111)
+E328
+// not xa (type_opcode_d_mod_reg_rm:0001_011_0_11_000_100)
+2368
+// call ra (type_opcode_d_mod_reg_rm:0000_100_0_11_000_000)
+0310
+// cmp xb, rb (type_opcode_d_mod_reg_rm:0100_010_1_11_101_001)
+97A2
+// test sp, [xb] (type_opcode_d_mod_reg_rm:0100_100_1_00_011_101)
+B892
+// cmp [bb+xa+], rc (type_opcode_d_mod_reg_rm:0100_010_0_01_010_010)
+4A22
+// call [bb] (type_opcode_d_mod_reg_rm:0000_100_0_00_000_111)
+E010
+// call xb (type_opcode_d_mod_reg_rm:0000_100_0_11_000_101)
+A310
+// mov ra, ba (type_opcode_d_mod_reg_rm:0000_000_1_11_000_110)
+6380
+// add [bb], xa (type_opcode_d_mod_reg_rm:0101_000_0_00_100_111)
+E40A
+// xor ba, xb (type_opcode_d_mod_reg_rm:0101_110_1_11_110_101)
+AFBA
+// shr [bb+xa-] (type_opcode_d_mod_reg_rm:0001_101_0_01_000_101)
+A258
+// mov sp, [bb+xb] (type_opcode_d_mod_reg_rm:0000_000_1_00_011_011)
+D880
+// jmp [ba+xb] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_001)
+8050
+// sub [ba+xb], rb (type_opcode_d_mod_reg_rm:0101_010_0_00_001_001)
+902A
+// test rb, rc (type_opcode_d_mod_reg_rm:0100_100_1_11_001_010)
+5392
+// shr sp (type_opcode_d_mod_reg_rm:0001_101_0_11_000_011)
+C358
+// not sp (type_opcode_d_mod_reg_rm:0001_011_0_11_000_011)
+C368
+// jmp [ba+xa+] (type_opcode_d_mod_reg_rm:0000_101_0_01_000_000)
+0250
+// mov xb, sp (type_opcode_d_mod_reg_rm:0000_000_1_11_101_011)
+D780
+// sbb xa, [ba+xb+] (type_opcode_d_mod_reg_rm:0101_011_1_01_100_001)
+86EA
+// neg ra (type_opcode_d_mod_reg_rm:0001_010_0_11_000_000)
+0328
+// jmp [ba] (type_opcode_d_mod_reg_rm:0000_101_0_00_000_110)
+6050
+// dec bb (type_opcode_d_mod_reg_rm:0001_001_0_11_000_111)
+E348
+// test [xa], xa (type_opcode_d_mod_reg_rm:0100_100_0_00_100_100)
+2412
+// shl [ba] (type_opcode_d_mod_reg_rm:0001_100_0_00_000_110)
+6018
+// or ra, xa (type_opcode_d_mod_reg_rm:0101_101_1_11_000_100)
+23DA

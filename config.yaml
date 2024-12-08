@@ -208,12 +208,12 @@ docusaurus:
                   - FSM/: fsm/
                   - Operation Register/: opregister/
                   - Flag RAM/: flagram/
-            # - Test Calculator Didactic:
-            #     path: cpu
-            #     subsections:
-            #       - 1/: 1/
-            #       - 2/: 2/
-            #       - 3/: 3/
+            - Test Calculator Didactic:
+                path: testcpu
+                subsections:
+                  - Fetch stage/: fetch/
+                  - Execute stage/: Exercitiul2/
+                  - Lifetime of an instruction/: full/
             - Teme:
                 path: projects
                 subsections:
