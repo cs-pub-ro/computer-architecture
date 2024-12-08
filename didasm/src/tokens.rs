@@ -140,7 +140,7 @@ impl From<ControlFlowMnemonic> for u16 {
     fn from(value: ControlFlowMnemonic) -> Self {
         match value {
             Call | Ret => 0b100,
-            Iret | Jmp => 0b010,
+            Iret | Jmp => 0b101,
             Hlt => 0b110,
         }
     }
