@@ -1,4 +1,4 @@
-# Cerinta
+# Lifetime of an instruction
 
 Scrieti cod pentru executia instructiunii (instructiune cu adresare de memorie si deplasament) astfel incat la iesirea modulului sa se obtina valoarea corecta, executia acesteia; veti primi la intrare valoarea registrului IR.
 
