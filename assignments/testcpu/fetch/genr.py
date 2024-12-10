@@ -5,6 +5,8 @@ random.seed(sys.argv[1])
 
 numbers = list(range(16))
 random.shuffle(numbers)
+d = dict([(numbers[i], i) for i in range(16)])
+
 
 f = open("lut.mem","r")
 lines = f.readlines()
@@ -19,5 +21,5 @@ for i in range(3):
     print(f"{random.randint(0, 0xffff):04x}", file=f)
 f.close()
 
-print(f"Aveti de implementat etapa de fetch si decode pentru urmatoarele pozitii de biti: |{'|'.join([f'IR{i}' for i in numbers])}|")
+print(f"Aveti de implementat etapa de fetch si decode pentru urmatoarele pozitii de biti: |{'|'.join([f'IR{d[i-1]}' for i in range(16,0,-1)])}|")
 
