@@ -1,0 +1,53 @@
+\section*{Problem}
+What are the status flags (Z, C, S, O, P) for the following operation in 8-bits: \(11 + 13\)?
+
+\section*{Solution}
+To determine the status flags for the 8-bit addition of \(11\) and \(13\), we first perform the addition and then evaluate each flag.
+
+1. Perform the addition:
+\[
+11_{10} = 00001011_2
+\]
+\[
+13_{10} = 00001101_2
+\]
+\[
+11 + 13 = 00001011_2 + 00001101_2 = 0\_00011000_2 = 24_{10}
+\]
+
+2. Evaluate the status flags:
+\begin{itemize}
+    \item \textbf{Zero flag (Z):} Set if the result is zero.
+    \[
+    \text{Z} = 0 \quad (\text{since } 24 \neq 0)
+    \]
+
+    \item \textbf{Carry flag (C):} Set if there is a carry out of the most significant bit.
+    \[
+    \text{C} = 0 \quad (\text{since there is no carry out of the most significant bit})
+    \]
+
+    \item \textbf{Sign flag (S):} Set if the most significant bit of the result is 1 (indicating a negative number in two's complement).
+    \[
+    \text{S} = 0 \quad (\text{since the most significant bit of 00011000 is 0})
+    \]
+
+    \item \textbf{Overflow flag (O):} Set if there is a signed overflow, which occurs when the sign of the result does not match the expected sign.
+    \[
+    \text{O} = 0 \quad (\text{since there is no signed overflow})
+    \]
+
+    \item \textbf{Parity flag (P):} Set if the number of set bits (1s) in the result is even.
+    \[
+    \text{P} = 1 \quad (\text{since the number of 1s in 00011000 is 2, which is even})
+    \]
+\end{itemize}
+
+Therefore, the status flags for the 8-bit addition of \(11 + 13\) are:
+\begin{itemize}
+    \item Zero flag (Z): 0
+    \item Carry flag (C): 0
+    \item Sign flag (S): 0
+    \item Overflow flag (O): 0
+    \item Parity flag (P): 1
+\end{itemize}

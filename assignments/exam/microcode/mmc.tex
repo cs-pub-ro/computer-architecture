@@ -1,0 +1,51 @@
+\subsection*{Problem}
+Given the following set of micro-instruction $\mu P(\mu I)$, with every micro-instruction table of micro-operations $\mu P(\mu O)$ executed in the table.
+How many maximum compatibility classes are?
+
+\begin{align*}
+    \mu P(\mu I) & = \{ \mu I_{0}, \mu I_{1}, \mu I_{2}, \mu I_{3}, \mu I_{4}, \mu I_{5}, \mu I_{6}\} \\
+    \mu P(\mu O) & = \{ \mu O_{0}, \mu O_{1}, \mu O_{2}, \mu O_{3}, \mu O_{4}, \mu O_{5}, \mu O_{6}, \mu O_{7}, \mu O_{8}, \mu O_{9}\}
+\end{align*}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $\mu I$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ \\
+        \hline
+        \hline
+        $\mu I_{0}$ & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        $\mu I_{1}$ & 1 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        $\mu I_{2}$ & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 0 \\ \hline
+        $\mu I_{3}$ & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\ \hline
+        $\mu I_{4}$ & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 \\ \hline
+        $\mu I_{5}$ & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 \\ \hline
+        $\mu I_{6}$ & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 \\ \hline
+    \end{tabular}
+\end{table}
+
+\section*{Solution}
+
+1. Find the compatibility between each micro-operation $\mu O_{i}$.
+
+Two micro-operations are compatible if they are not part of the same micro-instruction $\mu I_{j}$.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $MCC$ & $\mu O_{0}$ & $\mu O_{1}$ & $\mu O_{2}$ & $\mu O_{3}$ & $\mu O_{4}$ & $\mu O_{5}$ & $\mu O_{6}$ & $\mu O_{7}$ & $\mu O_{8}$ & $\mu O_{9}$ \\ \hline
+        $MCC_{0}$ & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ \hline
+        $MCC_{1}$ & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 \\ \hline
+        $MCC_{2}$ & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\ \hline
+        $MCC_{3}$ & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ \hline
+        $MCC_{4}$ & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\ \hline
+        $MCC_{5}$ & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ \hline
+        $MCC_{6}$ & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 \\ \hline
+        $MCC_{7}$ & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ \hline
+        $MCC_{8}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\ \hline
+        $MCC_{9}$ & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\ \hline
+        $MCC_{10}$ & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 \\ \hline
+    \end{tabular}
+\end{table}
+
+2. The answer is the number of maximum compatibility classes. In this case, the number of maximum compatibility classes is 11.

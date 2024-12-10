@@ -1,0 +1,128 @@
+\subsection*{Problem}
+Having the table of interrupt requests, interrupt types, and the time of the request, what is the order of the interrupts that will be handled by the CPU?
+
+\begin{table}[H]
+    \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Address} & \textbf{Name} & \textbf{Type} \\ \hline
+            0x0 & Reserved  & \multirow{3}{*}{Internal Interrupt} \\ \cline{1-2}
+            0x1 & Software Interrupt (INT) & \\ \cline{1-2}
+            0x2 & ALU Overflow & \\ \hline
+            0x3 & Lack of Voltage (Power Off) & External Non-Maskable Interrupt \\ \hline
+            0x4 & Level 0 & \multirow{8}{*}{External Maskable Interrupt} \\ \cline{1-2}
+            0x5 & Level 1 & \\ \cline{1-2}
+            0x6 & Level 2 & \\ \cline{1-2}
+            0x7 & Level 3 & \\ \cline{1-2}
+            0x8 & Level 4 & \\ \cline{1-2}
+            0x9 & Level 5 & \\ \cline{1-2}
+            0xA & Level 6 & \\ \cline{1-2}
+            0xB & Level 7 & \\ \hline
+        \end{tabular}
+        \caption{Interrupts Table}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \texttt{REQINT} & \texttt{MEXTINT} & \texttt{RUNINT} & \texttt{FR} \\ \hline
+        0x00 & 0x00 & 0x00 & Has I flag enable \\ \hline
+    \end{tabular}
+    \caption{Registers values at time 0}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Type of Request & Cycle to handle \\ \hline
+        External Maskable Interupt Level 0 & 30 \\ \hline
+        External Maskable Interupt Level 1 & 20 \\ \hline
+        External Maskable Interupt Level 2 & 10 \\ \hline
+        External Maskable Interupt Level 3 & 40 \\ \hline
+        External Maskable Interupt Level 4 & 20 \\ \hline
+        External Maskable Interupt Level 5 & 30 \\ \hline
+        External Maskable Interupt Level 6 & 10 \\ \hline
+        External Maskable Interupt Level 7 & 20 \\ \hline
+        External Non-Maskable Interupt & 5 \\ \hline
+        ALU Overflow & 10 \\ \hline
+        Software Interupt & 10 \\ \hline
+    \end{tabular}
+    \caption{Time to handle each type of interrupt}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Cycles from time 0 & Type of Request & Name \\ \hline
+        10 & External Maskable Interupt Level 5 & A \\ \hline
+        30 & External Maskable Interupt Level 3 & B \\ \hline
+        50 & External Maskable Interupt Level 7 & C \\ \hline
+        60 & External Maskable Interupt Level 1 & D \\ \hline
+        100 & External Non-Maskable Interupt & E \\ \hline
+        140 & ALU Overflow & F \\ \hline
+        150 & Software Interupt & G \\ \hline
+    \end{tabular}
+    \caption{Time of the request for each type of interrupt}
+\end{table}
+
+\subsection*{Solution}
+
+Considering interupts enable for all external maskable interrupts, the order of interrupts that will be handled by the CPU is:
+
+At Cycle 10: There is not active interupt at this time. It starts the External Maskable Interupt Level 5 called A.
+
+At Cycle 30: The External Maskable Interupt Level 5 called A is still active (20/30 cycles passed).
+The External Maskable Interupt Level 3 called B has higher priority and will be handled.
+
+At Cycle 50: The External Maskable Interupt Level 3 called B is still active (20/40 cycles passed). 
+The External Maskable Interupt Level 7 called C has lower priority and it will be queued.
+
+At Cycle 60: The External Maskable Interupt Level 3 called B is still active (30/40 cycles passed).
+The External Maskable Interupt Level 1 called D has higher priority and will be handled.
+
+At Cycle 80: The External Maskable Interupt Level 1 called D has finished (20/20 cycles passed).
+The External Maskable Interupt Level 3 called B returns to be active (30/40 cycles passed).
+
+At Cycle 90: The External Maskable Interupt Level 3 called B has finished (40/40 cycles passed).
+The External Maskable Interupt Level 5 called A returns to be active (20/30 cycles passed).
+
+At Cycle 100: The External Maskable Interupt Level 5 called A has finished (30/30 cycles passed).
+The External Non-Maskable Interupt called E has higher priority than the External Maskable Interupt Level 7 called C.
+
+At Cycle 105: The External Non-Maskable Interupt called E has finished (5/5 cycles passed).
+THe External Maskable Interupt Level 7 called C will be handled (0/20 cycles passed).
+
+At Cycle 125: The External Maskable Interupt Level 7 called C has finished (20/20 cycles passed).
+
+At Cycle 140: The ALU Overflow called F will be handled.
+
+At Cycle 150: The ALU Overflow called F has finished (10/10 cycles passed).
+The Software Interupt called G will be handled.
+
+At Cycle 160: The Software Interupt called G has finished (10/10 cycles passed).
+
+The order of interrupts that will be handled by the CPU is: D, B, A, E, C, F, G.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c||c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Cycle} & A & B & C & D & E & F & G \\ \hline
+        10 & A & & & & & & \\ \hline
+        30 & P1 & A & & & & & \\ \hline
+        50 & P1 & A & Q1 & & & & \\ \hline
+        60 & P2 & P1 & Q1 & A & & & \\ \hline
+        80 & P1 & A & Q1 & F & & & \\ \hline
+        90 & A & F & Q1 & F & & & \\ \hline
+        100 & F & F & Q1 & F & A & & \\ \hline
+        105 & F & F & A & F & F & & \\ \hline
+        125 & F & F & F & F & F & & \\ \hline
+        140 & F & F & F & F & F & A & \\ \hline
+        150 & F & F & F & F & F & F & A \\ \hline
+        160 & F & F & F & F & F & F & F \\ \hline
+    \end{tabular}
+\end{table}

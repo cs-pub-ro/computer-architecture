@@ -1,0 +1,111 @@
+\section*{Problem}
+
+Having the memory addressing table and instruction format tables, what is the instruction encoding in hexadecimal for the
+\texttt{MOV RA, [BA+XA+]} operation?
+
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{16}{|c|}{Instruction Register (IR)} \\ \hline
+            \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} & \textbf{14} & \textbf{15} \\ \hline
+            \multicolumn{7}{|c|}{OPC} & d & \multicolumn{2}{|c|}{MOD} & \multicolumn{3}{|c|}{REG} & \multicolumn{3}{|c|}{RM} \\ \hline
+            \multicolumn{16}{|c|}{immediate/data} \\ \hline
+            \multicolumn{16}{|c|}{data} \\ \hline
+        \end{tabular}
+    }
+\end{table}
+
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l||l|l|l|l|}
+            \hline
+            \multirow{2}{*}{\textbf{$IR_{1}$}} & \multirow{2}{*}{\textbf{$IR_{3}$}} & \multicolumn{2}{|l|}{$IR_{0}=0$} & \multicolumn{2}{|l|}{$IR_{0}=1$} \\ \cline{3-6}
+                                              &                                      & $IR_{2}=0$ & $IR_{2}=1$ & \multicolumn{2}{|l|}{$IR_{2}=0$} \\ \hline  \hline
+            \multirow{14}{*}{$0$}             & \multirow{7}{*}{$0$}                     & $000=\text{MOV}$ & $000=\text{MOV}$ & $000=\text{IN}$ &  \\ \cline{3-6}
+                                              &                                          & $001=$ & $001=$ & $001=\text{OUT}$ &  \\ \cline{3-6}
+                                              &                                          & $010=\text{PUSH}$ & $010=$ & $010=\text{PUSHF}$ &\\ \cline{3-6}
+                                              &                                          & $011=\text{POP}$ & $011=$ & $011=\text{POPF}$ &  \\ \cline{3-6}
+                                              &                                          & $100=\text{CALL}$ & $100=$ & $100=\text{RET}$ &  \\ \cline{3-6}
+                                              &                                          & $101=\text{JMP}$ & $101=$ & $101=\text{IRET}$ &  \\ \cline{3-6}
+                                              &                                          & $110=$ & $110=$ & $110=\text{HLT}$ & \\ \cline{3-6}
+                                              &                                          & $111=$ & $111=$ & $111=$ & \\ \cline{2-6}
+                                              & \multirow{7}{*}{$1$}                     & $000=\text{INC}$ & $000=$ & $0000=\text{JBE}$ & $1000=\text{JBA}$ \\ \cline{3-6}
+                                              &                                          & $001=\text{DEC}$ & $001=$ & $0001=\text{JB/JC}$ & $1001=\text{JAE/JNC}$ \\ \cline{3-6}
+                                              &                                          & $010=\text{NEG}$ & $010=$ & $0010=\text{JLE}$ & $1010=\text{JG}$ \\ \cline{3-6}
+                                              &                                          & $011=\text{NOT}$ & $011=$ & $0011=\text{JL}$ & $1011=\text{JGE}$ \\ \cline{3-6}
+                                              &                                          & $100=\text{SHL/SAL}$ & $100=$ & $0100=\text{JE/JZ}$ & $1100=\text{JNE/JNZ}$ \\ \cline{3-6}
+                                              &                                          & $101=\text{SHR}$ & $101=$ & $0101=\text{JO}$ & $1101=\text{JNO}$ \\ \cline{3-6}
+                                              &                                          & $110=\text{SAR}$ & $110=$ & $0110=\text{JS}$ & $1110=\text{JNS}$ \\ \cline{3-6}
+                                              &                                          & $111=$ & $111=$ & $0111=\text{JPE}$ & $1111=\text{JPO}$ \\ \hline
+            \multirow{14}{*}{$1$}             & \multirow{7}{*}{$0$}                     & $000=$ & $000=$ &  &  \\ \cline{3-6}
+                                              &                                          & $001=$ & $001=$ &  &  \\ \cline{3-6}
+                                              &                                          & $010=\text{CMP}$ & $010=\text{CMP}$ &  &\\ \cline{3-6}
+                                              &                                          & $011=$ & $011=$ &  &  \\ \cline{3-6}
+                                              &                                          & $100=\text{TEST}$ & $100=\text{TEST}$ &  &  \\ \cline{3-6}
+                                              &                                          & $101=$ & $101=$ &  &  \\ \cline{3-6}
+                                              &                                          & $110=$ & $110=$ &  & \\ \cline{3-6}
+                                              &                                          & $111=$ & $111=$ &  & \\ \cline{2-6}
+                                              & \multirow{7}{*}{$1$}                     & $000=\text{ADD}$ & $000=\text{ADD}$ &  &  \\ \cline{3-6}
+                                              &                                          & $001=\text{ADC}$ & $001=\text{ADC}$ &  &  \\ \cline{3-6}
+                                              &                                          & $010=\text{SUB}$ & $010=\text{SUB}$ &  &  \\ \cline{3-6}
+                                              &                                          & $011=\text{SBB}$ & $011=\text{SBB}$ &  &  \\ \cline{3-6}
+                                              &                                          & $100=\text{AND}$ & $100=\text{AND}$ &  &  \\ \cline{3-6}
+                                              &                                          & $101=\text{OR}$ & $101=\text{OR}$ &  &  \\ \cline{3-6}
+                                              &                                          & $110=\text{XOR}$ & $110=\text{XOR}$ &  &  \\ \cline{3-6}
+                                              &                                          & $111=$ & $111=$ &  &  \\ \hline
+        \end{tabular}
+    }
+\end{table}
+
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l||l|l|l|l|}
+            \hline
+            \multirow{2}{*}{$RM=IR_{13:15}$} &  \multicolumn{4}{|l|}{$MOD=IR_{8:9}$} \\ \cline{2-5}
+                                              & $00$ & $01$ & $10$ & $11$ \\ \hline  \hline
+            $000$ & $[BA+XA]$ & $[BA+XA+]$ & $[BA+XA+\text{Imm}]$ & $RA$ \\ \hline
+            $001$ & $[BA+XB]$ & $[BA+XB+]$ & $[BA+XB+\text{Imm}]$ & $RB$ \\ \hline
+            $010$ & $[BB+XA]$ & $[BB+XA+]$ & $[BB+XA+\text{Imm}]$ & $RC$ \\ \hline
+            $011$ & $[BB+XB]$ & $[BB+XB+]$ & $[BB+XB+\text{Imm}]$ & $SP$ \\ \hline
+            $100$ & $[XA]$ & $[BA+(-XA)]$ & $[XA+\text{Imm}]$ & $XA$ \\ \hline
+            $101$ & $[XB]$ & $[BB+(-XA)]$ & $[XB+\text{Imm}]$ & $XB$ \\ \hline
+            $110$ & $[BA]$ & $[\text{Imm}]$ & $[BA+\text{Imm}]$ & $BA$ \\ \hline
+            $111$ & $[BB]$ & $[[\text{Imm}]]$ & $[BB+\text{Imm}]$ & $BB$ \\ \hline \hline
+
+        \end{tabular}
+    }
+\end{table}
+
+
+\section*{Solution}
+
+\begin{itemize}
+    \item \textbf{Instruction}: \texttt{MOV}
+    \item \textbf{Source}: \texttt{[BA+XA+]}
+    \item \textbf{Destination}: \texttt{RA}
+\end{itemize}
+
+\textbf{Identify the opcode for \texttt{MOV} from the instruction format table}.:
+\begin{itemize}
+    \item \texttt{MOV} is encoded as \texttt{000} when $IR_{1}=0$, $IR_{3}=0$, and $IR_{0}=0$.
+    \item We don't have immediate value so $IR_{2}=0$.
+    \item Destination register is \texttt{RA} so $d$ is \texttt{0} and $REG$ is \texttt{000}.
+\end{itemize}
+
+\textbf{Determine the addressing mode for \texttt{[BA+XA+]} from the memory addressing table}:
+\begin{itemize}
+    \item $RM=IR_{13:15}=000$.
+    \item $MOD=IR_{8:9}=01$.
+\end{itemize}
+
+\textbf{Final encoding:}
+\begin{itemize}
+    \item \textbf{OPC}: \texttt{0000\_000}
+    \item \textbf{d}: \texttt{0}
+    \item \textbf{MOD}: \texttt{01}
+    \item \textbf{REG}: \texttt{000}
+    \item \textbf{RM}: \texttt{000}
+\end{itemize}
+
+Therefore, the instruction coding for the \texttt{MOV RA, [BA+XA+]} operation is \texttt{0000 0000 0100 0000} in binary and \texttt{0x0040} in hexadecimal.
