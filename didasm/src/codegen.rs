@@ -160,6 +160,7 @@ impl Ir {
         };
 
         let (d, reg) = match (op1.clone(), op2.clone()) {
+            (Some(Reg(_)), Some(Imm(_))|None) => (false, None),
             (Some(Reg(r)), _) => (true, Some(r as usize)),
             (_, Some(Reg(r))) => (false, Some(r as usize)),
             _ => (false, None),
@@ -169,7 +170,8 @@ impl Ir {
             (Some(Reg(_)), Some(Reg(ri))) => (0b11, Some(ri.into()), None),
             (Some(Imm(_)), Some(Imm(_))) => {
                 return Err("Operations between 2 immediate values is not allowed!".to_string());
-            }
+            },
+            (Some(Reg(ri)), Some(Imm(_))|None) => (0b11, Some(ri.into()), None),
             (Some(Imm(_)), Some(_)) => {
                 if matches!(
                     mnemonic,
@@ -214,7 +216,7 @@ impl Ir {
             }
             (Some(RegSum { b, x }), _) | (_, Some(RegSum { b, x })) => (
                 0b00,
-                Some(((x as usize) & 0b1) + ((b as usize) & 0b10)),
+                Some(((x as usize) & 0b1) + (((b as usize) & 0b1) << 1)),
                 None,
             ),
             (Some(Indexed { x: ri, displacement } | Based { b: ri, displacement }), _)
@@ -223,16 +225,16 @@ impl Ir {
             }
             (Some(BasedIndexed { b, x, displacement }), _) | (_, Some(BasedIndexed { b, x, displacement })) => (
                 0b10,
-                Some(((x as usize) & 0b1) + ((b as usize) & 0b10)),
+                Some(((x as usize) & 0b1) + (((b as usize) & 0b1) << 1)),
                 Some(displacement),
             ),
             (Some(RegSumAutoincrement { b, x }), _) | (_, Some(RegSumAutoincrement { b, x })) => (
                 0b01,
-                Some(((x as usize) & 0b1) + ((b as usize) & 0b10)),
+                Some(((x as usize) & 0b1) + (((b as usize) & 0b1) << 1)),
                 None,
             ),
             (Some(RegSumAutodecrement { b }), _) | (_, Some(RegSumAutodecrement { b })) => {
-                (0b01, Some(0b100 + ((b as usize >> 1) & 1)), None)
+                (0b01, Some(0b100 + ((b as usize) & 1)), None)
             }
             (Some(Direct(displacement)), _) | (_, Some(Direct(displacement))) => (0b01, Some(0b110), Some(displacement)),
             (Some(Indirect(displacement)), _) | (_, Some(Indirect(displacement))) => {
@@ -241,7 +243,7 @@ impl Ir {
             // Cases that should have been placed in _ but explicitly stated
             // to utilize the pattern matching mechanism of rust for
             // proving completeness on this match
-            (None | Some(Reg(_) | Imm(_)), None | Some(Reg(_) | Imm(_))) => (0, None, None),
+            (None | Some(Imm(_)), None | Some(Reg(_) | Imm(_))) => (0, None, None),
         };
         Ok(Ir {
             mnemonic,
@@ -471,10 +473,11 @@ impl Ir {
                 opcode.set_mod(m);
                 let x: Option<u16> = x
                     .map(|x| {
-                        x.try_into()
-                            .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
-                    })
-                    .transpose()?;
+                        x as u16
+                        // x.try_into()
+                        //     .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
+                    });
+                    // .transpose()?;
                 Ok(FullInstruction {
                     i: opcode,
                     displacement: x,
@@ -544,16 +547,18 @@ impl Ir {
                 })?);
                 let x: Option<u16> = x
                     .map(|x| {
-                        x.try_into()
-                            .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
-                    })
-                    .transpose()?;
+                        x as u16
+                        // x.try_into()
+                        //     .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
+                    });
+                    // .transpose()?;
                 let y: Option<u16> = y
                     .map(|x| {
-                        x.try_into()
-                            .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
-                    })
-                    .transpose()?;
+                        x as u16
+                        // x.try_into()
+                        //     .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
+                    });
+                    // .transpose()?;
 
                 Ok(FullInstruction {
                     i: opcode,
@@ -577,13 +582,14 @@ impl Ir {
                 })?);
                 let x: Option<u16> = x
                     .map(|x| {
-                        x.try_into()
-                            .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
-                    })
-                    .transpose()?;
-                let imm = imm
-                    .try_into()
-                    .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
+                        x as u16
+                        // x.try_into()
+                        //     .map_err(|_| format!("{x} cannot be converted to unsigned 16 bit"))
+                    });
+                    // .transpose()?;
+                let imm = imm as u16;
+                    // .try_into()
+                    // .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
                 Ok(FullInstruction {
                     i: opcode,
                     displacement: x,
@@ -605,9 +611,9 @@ impl Ir {
                 opcode.set_reg(reg.try_into().map_err(|_| {
                     "Register enum should always be convertible to u16".to_string()
                 })?);
-                let imm = imm
-                    .try_into()
-                    .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
+                let imm = imm as u16;
+                    // .try_into()
+                    // .map_err(|_| format!("{imm} cannot be converted to unsigned 16 bit"))?;
                 Ok(FullInstruction {
                     i: opcode,
                     displacement: None,
