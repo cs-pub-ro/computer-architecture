@@ -1,0 +1,1 @@
+Given the following hexadecimal string 0x{{ nhs }} in big endian format of an 32-bit IEEE754 floating-point, what is the value of it?

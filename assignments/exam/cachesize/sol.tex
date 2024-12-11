@@ -1,4 +1,5 @@
-\textbf{Problem}
+\subsection*{Problem}
+
 We have a cache with the following characteristics:
 \begin{itemize}
     \item Only one cache level
@@ -12,31 +13,32 @@ We have a cache with the following characteristics:
 \end{itemize}
 What is the speedup in average memory access time (AMAT) when the cache size is increased to $S_{NC}=128 \times 1024$ to reduce the memory miss rate to $MR_{NC}=0.02$ and increase $H_{NC}=6$?
 
-\textbf{Solution}
+\subsection*{Solution}
+
 To calculate the speedup in AMAT, we need to determine the AMAT before and after increasing the cache size and then compute the speedup.
 
 1. Calculate the initial miss penalty:
 \[
-\text{Initial miss penalty} = L_{MM} + \left(\frac{BS_{C}}{BT_{MM}}\right)
+\text{Initial miss penalty} = L_{MM} + (BS_{C} \times BT_{MM})
 \]
 \[
-\text{Initial miss penalty} = 120 \text{ cycles} + \left(\frac{16 \text{ bytes}}{12 \text{ cycles/byte}}\right) = 120 + 16 = 136 \text{ cycles}
+\text{Initial miss penalty} = 120 \text{ cycles} + (16 \text{ bytes} \times 12 \text{ cycles/byte}) = 120 + 192 = 312 \text{ cycles}
 \]
 
-2. Calculate the initial AMAT:
+2.*Calculate the initial AMAT:
 \[
 \text{Initial AMAT} = H_{C} + (MR_{C} \times \text{miss penalty})
 \]
 \[
-\text{Initial AMAT} = 4 \text{ cycles} + (0.05 \times 136 \text{ cycles}) = 4 + 6.8 = 10.8 \text{ cycles}
+\text{Initial AMAT} = 4 \text{ cycles} + (0.05 \times 312 \text{ cycles}) = 4 + 15.6 = 19.6 \text{ cycles}
 \]
 
 3. Calculate the new miss penalty:
 \[
-\text{New miss penalty} = L_{MM} + \left(\frac{BS_{C}}{BT_{MM}}\right)
+\text{New miss penalty} = L_{MM} + (BS_{C} \times BT_{MM})
 \]
 \[
-\text{New miss penalty} = 120 \text{ cycles} + \left(\frac{16 \text{ bytes}}{12 \text{ cycles/byte}}\right) = 120 + 16 = 136 \text{ cycles}
+\text{New miss penalty} = 120 \text{ cycles} + (16 \text{ bytes} \times 12 \text{ cycles/byte}) = 120 + 192 = 312 \text{ cycles}
 \]
 
 4. Calculate the new AMAT:
@@ -44,7 +46,7 @@ To calculate the speedup in AMAT, we need to determine the AMAT before and after
 \text{New AMAT} = H_{NC} + (MR_{NC} \times \text{miss penalty})
 \]
 \[
-\text{New AMAT} = 6 \text{ cycles} + (0.02 \times 136 \text{ cycles}) = 6 + 2.72 = 8.72 \text{ cycles}
+\text{New AMAT} = 6 \text{ cycles} + (0.02 \times 312 \text{ cycles}) = 6 + 6.24 = 12.24 \text{ cycles}
 \]
 
 5. Calculate the speedup:
@@ -52,8 +54,7 @@ To calculate the speedup in AMAT, we need to determine the AMAT before and after
 \text{Speedup} = \frac{\text{Initial AMAT}}{\text{New AMAT}}
 \]
 \[
-\text{Speedup} = \frac{10.8 \text{ cycles}}{8.72 \text{ cycles}} \approx 1.239
+\text{Speedup} = \frac{19.6 \text{ cycles}}{12.24 \text{ cycles}} \approx 1.60
 \]
 
-Therefore, the speedup in average memory access time (AMAT) when the cache size is increased from 64 KB to 128 KB and the hit time is increased to 6 cycles is approximately 1.239.
-
+Therefore, the speedup in average memory access time (AMAT) when the cache size is increased from 64 KB to 128 KB and the hit time is increased to 6 cycles is approximately 1.60.

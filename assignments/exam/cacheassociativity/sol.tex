@@ -1,4 +1,5 @@
-\textbf{Problem}
+\subsection*{Problem}
+
 We have a cache with the following characteristics:
 \begin{itemize}
     \item Only one cache level
@@ -13,15 +14,16 @@ We have a cache with the following characteristics:
 
 What is the speedup in average memory access time (AMAT)  when the cache becomes 4-way set associative reducing the miss rate $MR_{NC}=0.02$, but the new cycle is double in time compared to the initial cache?
 
-\textbf{Solution}
+\subsection*{Solution}
+
 To calculate the speedup in AMAT, we need to determine the AMAT before and after changing the cache to 4-way set associative and then compute the speedup.
 
 1. Calculate the initial miss penalty:
 \[
-\text{Initial miss penalty} = L_{MM} + \left(\frac{BS_{C}}{BT_{MM}}\right)
+\text{Initial miss penalty} = L_{MM} + (BS_{C} \times BT_{MM})
 \]
 \[
-\text{Initial miss penalty} = 120 \text{ cycles} + \left(\frac{16 \text{ bytes}}{12 \text{ cycles/byte}}\right) = 120 + 16 = 136 \text{ cycles}
+\text{Initial miss penalty} = 120 \text{ cycles} + (16 \text{ bytes} \times 12 \text{ cycles/byte}) = 120 + 192 = 312 \text{ cycles}
 \]
 
 2. Calculate the initial AMAT:
@@ -29,21 +31,21 @@ To calculate the speedup in AMAT, we need to determine the AMAT before and after
 \text{Initial AMAT} = H_{C} + (MR_{C} \times \text{miss penalty})
 \]
 \[
-\text{Initial AMAT} = 4 \text{ cycles} + (0.05 \times 136 \text{ cycles}) = 4 + 6.8 = 10.8 \text{ cycles}
+\text{Initial AMAT} = 4 \text{ cycles} + (0.05 \times 312 \text{ cycles}) = 4 + 15.6 = 19.6 \text{ cycles}
 \]
 
 3. Calculate the new miss penalty:
 \[
-\text{New miss penalty} = L_{MM} + \left(\frac{BS_{C}}{BT_{MM}}\right)
+\text{New miss penalty} = L_{MM} + (BS_{C} \times BT_{MM})
 \]
 \[
-\text{New miss penalty} = 120 \text{ cycles} + \left(\frac{16 \text{ bytes}}{12 \text{ cycles/byte}}\right) = 120 + 16 = 136 \text{ cycles}
+\text{New miss penalty} = 120 \text{ cycles} + (16 \text{ bytes} \times 12 \text{ cycles/byte}) = 120 + 192 = 312 \text{ cycles}
 \]
-In the number of cycles for the first cache.
+
 4. Calculate the new AMAT:
 Since the new cycle time is double that of the initial cache, the new hit time will be $2 \times H_{C} = 2 \times 4 = 8$ cycles.
 \[
-\text{New AMAT} = 8 \text{ cycles} + (0.02 \times 136 \text{ cycles}) = 8 + 2.72 = 10.72 \text{ cycles}
+\text{New AMAT} = 8 \text{ cycles} + (0.02 \times 312 \text{ cycles}) = 8 + 6.24 = 14.24 \text{ cycles}
 \]
 
 5. Calculate the speedup:
@@ -51,7 +53,7 @@ Since the new cycle time is double that of the initial cache, the new hit time w
 \text{Speedup} = \frac{\text{Initial AMAT}}{\text{New AMAT}}
 \]
 \[
-\text{Speedup} = \frac{10.8 \text{ cycles}}{10.72 \text{ cycles}} \approx 1.007
+\text{Speedup} = \frac{19.6 \text{ cycles}}{14.24 \text{ cycles}} \approx 1.38
 \]
 
-Therefore, the speedup in average memory access time (AMAT) when the cache becomes 4-way set associative, reducing the miss rate to 0.02 but doubling the cycle time, is approximately 1.007.
+Therefore, the speedup in average memory access time (AMAT) when the cache becomes 4-way set associative, reducing the miss rate to 0.02 but doubling the cycle time, is approximately 1.38.
