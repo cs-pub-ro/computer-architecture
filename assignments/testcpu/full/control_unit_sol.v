@@ -22,7 +22,8 @@ module control_unit_sol(
     output wire load_done, 
     output wire exec_done,
     output wire store_done,
-    output reg flags_we
+    output reg flags_we,
+    output reg verify_t2
 );
 
 localparam INIT = 0;
@@ -44,7 +45,7 @@ assign store_done = state == STORE_DONE;
 
 reg [7:0] state, next_state;
 
-always @(posedge clk) begin
+always @(posedge clk, negedge rst) begin
     if (!rst) state <= INIT;
     else
         state <= next_state;
@@ -104,7 +105,10 @@ always @(*) begin
     flags_we = 0;
     case(state)
     INIT: next_state = LOAD;
-    LOAD_DONE: next_state = EXEC;
+    LOAD_DONE: begin
+        verify_t2 = opc[0:6] == 7'b0000000 || opc[1] == 1'b1;
+        next_state = EXEC;
+    end
     EXEC_DONE: begin
         if ((opc[0:3] == 4'b0100)||(opc[0:3] == 4'b0000 && opc[4:6])) next_state = STORE_DONE;
         else next_state = STORE;
@@ -113,12 +117,12 @@ always @(*) begin
     // TODO define LOAD, EXEC, STORE here
     LOAD: begin
         t1_we = 1;
-        regs_addr = rm[1] ? XB : XA;
+        regs_addr = rm[2] ? XB : XA;
         regs_oe = 1;
     end
     LOAD + 1: begin
         t2_we = 1;
-        regs_addr = rm[0] ? BB : BA;
+        regs_addr = rm[1] ? BB : BA;
         regs_oe = 1;
     end
     LOAD + 2: begin
@@ -162,7 +166,7 @@ always @(*) begin
         ram_oe = 1;
         if (d) t2_we = 1;
         else t1_we = 1;
-        if (!opc[1]) next_state = LOAD_DONE;
+        if (opc[1] == 0 && opc[0:6] != 7'b0000000) next_state = LOAD_DONE;
     end
     LOAD + 10: begin
         regs_oe = 1;
@@ -212,7 +216,13 @@ always @(*) begin
 
             end else begin
                 case (opc[4:6])
-                    3'b000: next_state = EXEC_DONE;
+                    3'b000: begin
+                        t1_we = 1;
+                        t2_oe = 1;
+                        alu_opcode = ADC;
+                        alu_oe = 1;
+                        next_state = EXEC_DONE;
+                    end
                     3'b010, 3'b100: begin
                         regs_addr = SP;
                         regs_oe = 1;
@@ -297,6 +307,7 @@ always @(*) begin
     //     next_state = EXEC_DONE;
     // end
     STORE: begin
+        next_state = STORE_DONE;
         alu_opcode = OR;
         alu_oe = 1;
         t1_oe = 1;
@@ -307,7 +318,6 @@ always @(*) begin
             ma_oe = 1;
             ram_we = 1;
         end
-        next_state = STORE_DONE;
     end
     default: next_state = INIT;
     endcase

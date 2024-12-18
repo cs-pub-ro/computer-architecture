@@ -34,6 +34,8 @@ wire [15:0] sol_t1_o_w_out;
 wire [15:0] sol_t2_o_w_out;
 wire [15:0] sol_alu_o_w_out;
 wire [15:0] sol_ram_o_w_out;
+
+wire sol_verify_t2;
 control_unit_sol cu(
     .clk(sol_clk),
     .rst(rst),
@@ -58,7 +60,8 @@ control_unit_sol cu(
     .load_done(sol_load_done), 
     .exec_done(sol_exec_done),
     .store_done(sol_store_done),
-    .flags_we(sol_flags_we)
+    .flags_we(sol_flags_we),
+    .verify_t2(sol_verify_t2)
 );
 
 wire [15:0] sol_rg_o_w_out;
@@ -324,120 +327,163 @@ cram uut_cram (
 );
 
 
+reg sol_stop_clk;
+reg uut_stop_clk;
+always #5 sol_clk = sol_stop_clk ? sol_clk : ~sol_clk;
+always #5 uut_clk = uut_stop_clk ? uut_clk : ~uut_clk;
 
-reg [1:0] checker_state;
-initial begin
-    checker_state = 0;
-    ir = sol_cram.block_ram_inst.l_r_data[0];
-    #10 rst = 1;
-    // $monitor(
-    //         "Time = %0t, ", $time,
-    //         "ref t1=%h, ", sol_t1.l_r_data,
-    //         "ref t2=%h, ", sol_t2.l_r_data,
-    //         "t2=%h, ", sol_t2.l_r_data,
-    //         "rg=%b, ", cu.rm,
-    //         "pc=%h, ", sol_pc.l_r_data,
-    //     );
-    while (1) begin
-        if ($time > 1000) begin
-            $display("Timeout");
-            $finish;
+wire ready_to_compare_load;
+assign ready_to_compare_load = sol_load_done && uut_load_done;
+
+task check_load;
+   fork : f
+        begin
+            // Timeout check
+            #1000
+            $display("TIMEOUT LOAD");
+            disable f;
         end
-        if (checker_state == 0) begin
-            if (sol_load_done && uut_load_done) begin
-                if (sol_t1.l_r_data == uut_t1.l_r_data) begin
-                    $display("(LOAD) T1 OK");
-                end else begin
-                    $display("(LOAD) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
-                end
+        begin
+        // Wait on signal
+        @(posedge ready_to_compare_load);
+            if (sol_t1.l_r_data == uut_t1.l_r_data) begin
+                $display("(LOAD) T1 OK");
+            end else begin
+                $display("(LOAD) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
+            end
+            if (sol_verify_t2) begin
                 if (sol_t2.l_r_data == uut_t2.l_r_data) begin
                     $display("(LOAD) T2 OK");
                 end else begin
                     $display("(LOAD) T2 ERR: ref=%h, you=%h", sol_t2.l_r_data, uut_t2.l_r_data);
                 end
-                if (sol_pc.l_r_data == uut_pc.l_r_data) begin
-                    $display("(LOAD) PC OK");
-                end else begin
-                    $display("(LOAD) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
-                end
-                checker_state = 1;
-            end
-
-            if (sol_load_done && !uut_load_done) begin
-                uut_clk = ~uut_clk;
-            end else if (!sol_load_done && uut_load_done) begin
-                sol_clk = ~sol_clk;
             end else begin
-                uut_clk = ~uut_clk;
-                sol_clk = ~sol_clk;
-            end
-        end
-        if (checker_state == 1) begin
-            if (sol_exec_done && uut_exec_done) begin
+                // Repeat the score for T1
                 if (sol_t1.l_r_data == uut_t1.l_r_data) begin
-                    $display("(EXEC) T1 OK");
+                    $display("(LOAD) T1 OK");
                 end else begin
-                    $display("(EXEC) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
+                    $display("(LOAD) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
                 end
-                if (sol_t2.l_r_data == uut_t2.l_r_data) begin
-                    $display("(EXEC) T2 OK");
-                end else begin
-                    $display("(EXEC) T2 ERR: ref=%h, you=%h", sol_t2.l_r_data, uut_t2.l_r_data);
-                end
-                if (sol_pc.l_r_data == uut_pc.l_r_data) begin
-                    $display("(EXEC) PC OK");
-                end else begin
-                    $display("(EXEC) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
-                end
-                checker_state = 2;
             end
-
-            if (sol_exec_done && !uut_exec_done) begin
-                uut_clk = ~uut_clk;
-            end else if (!sol_exec_done && uut_exec_done) begin
-                sol_clk = ~sol_clk;
+            if (sol_pc.l_r_data == uut_pc.l_r_data) begin
+                $display("(LOAD) PC OK");
             end else begin
-                uut_clk = ~uut_clk;
-                sol_clk = ~sol_clk;
+                $display("(LOAD) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
             end
+            disable f;
         end
-        if (checker_state == 2) begin
-            if (sol_store_done && uut_store_done) begin
-                if (sol_t1.l_r_data == uut_t1.l_r_data) begin
-                    $display("(STORE) T1 OK");
-                end else begin
-                    $display("(STORE) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
-                end
-                if (sol_t2.l_r_data == uut_t2.l_r_data) begin
-                    $display("(STORE) T2 OK");
-                end else begin
-                    $display("(STORE) T2 ERR: ref=%h, you=%h", sol_t2.l_r_data, uut_t2.l_r_data);
-                end
-                if (sol_pc.l_r_data == uut_pc.l_r_data) begin
-                    $display("(STORE) PC OK");
-                end else begin
-                    $display("(STORE) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
-                end
-                $writememh("sol.hex", sol_cram.block_ram_inst.l_r_data);
-                $writememh("uut.hex", uut_cram.block_ram_inst.l_r_data);
-                $writememh("sol_regs.hex", sol_regs.l_r_data);
-                $writememh("uut_regs.hex", uut_regs.l_r_data);
+        begin
+            @(posedge sol_load_done);
+            sol_stop_clk = 1;
+        end
+        begin
+            @(posedge uut_load_done);
+            uut_stop_clk = 1;
+        end
+   join
+endtask
 
-                $finish;
-            end
+wire ready_to_compare_exec;
+assign ready_to_compare_exec = sol_exec_done && uut_exec_done;
 
-            if (sol_store_done && !uut_store_done) begin
-                uut_clk = ~uut_clk;
-            end else if (!sol_store_done && uut_store_done) begin
-                sol_clk = ~sol_clk;
+task check_exec;
+   fork : f
+        begin
+            // Timeout check
+            #1000
+            $display("TIMEOUT EXEC");
+            disable f;
+        end
+        begin
+        // Wait on signal
+        @(posedge ready_to_compare_exec);
+            if (sol_t1.l_r_data == uut_t1.l_r_data) begin
+                $display("(EXEC) T1 OK");
             end else begin
-                uut_clk = ~uut_clk;
-                sol_clk = ~sol_clk;
+                $display("(EXEC) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
             end
+            if (sol_t2.l_r_data == uut_t2.l_r_data) begin
+                $display("(EXEC) FLAGS OK");
+            end else begin
+                $display("(EXEC) FLAGS ERR: ref=%h, you=%h", sol_flags_reg.l_r_data, uut_flags_reg.l_r_data);
+            end
+            if (sol_pc.l_r_data == uut_pc.l_r_data) begin
+                $display("(EXEC) PC OK");
+            end else begin
+                $display("(EXEC) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
+            end
+            disable f;
         end
-        # 5;
-    end
-    
+        begin
+            @(posedge sol_exec_done);
+            sol_stop_clk = 1;
+        end
+        begin
+            @(posedge uut_exec_done);
+            uut_stop_clk = 1;
+        end
+   join
+endtask
+
+wire ready_to_compare_store;
+assign ready_to_compare_store = sol_store_done && uut_store_done;
+
+task check_store;
+    fork : f
+        begin
+            // Timeout check
+            #1000
+            $display("TIMEOUT STORE");
+            disable f;
+        end
+        begin
+        // Wait on signal
+        @(posedge ready_to_compare_store);
+            if (sol_pc.l_r_data == uut_pc.l_r_data) begin
+                $display("(STORE) PC OK");
+            end else begin
+                $display("(STORE) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
+            end
+            $writememh("sol.hex", sol_cram.block_ram_inst.l_r_data);
+            $writememh("uut.hex", uut_cram.block_ram_inst.l_r_data);
+            $writememh("sol_regs.hex", sol_regs.l_r_data);
+            $writememh("uut_regs.hex", uut_regs.l_r_data);
+            disable f;
+        end
+        begin
+            @(posedge sol_store_done);
+            sol_stop_clk = 1;
+        end
+        begin
+            @(posedge uut_store_done);
+            uut_stop_clk = 1;
+        end
+    join
+endtask
+
+initial begin
+    rst = 0;
+    sol_clk = 0;
+    uut_clk = 0;
+    uut_stop_clk = 0;
+    sol_stop_clk = 0;
+    ir = sol_cram.block_ram_inst.l_r_data[0];
+    #10 rst = 1;
+
+    fork
+        check_load;
+    join
+    uut_stop_clk = 0;
+    sol_stop_clk = 0;
+    fork
+        check_exec;
+    join
+    uut_stop_clk = 0;
+    sol_stop_clk = 0;
+    fork
+        check_store;
+    join
+    $finish;
 end
 
 // control_unit cu(

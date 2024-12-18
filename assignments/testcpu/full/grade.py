@@ -2,18 +2,29 @@ def process_file(filename):
     with open(filename, 'r') as file:
         lines = file.readlines()
     ok_count = 0
+    nok_count = 0
+    silent = False
     # Count lines containing "OK"
     for line in lines:
         if "OK" in line:
             ok_count += 1
         else:
-            print(f"{line.strip()}")
-            return ok_count
+            if silent == False:
+                silent = True
+                print(f"{line.strip()}")
+            if "TIMEOUT LOAD" in line:
+                nok_count += 4
+            elif "TIMEOUT EXEC" in line:
+                nok_count += 3
+            elif "TIMEOUT STORE" in line:
+                nok_count += 1
+            elif "ERR" in line:
+                nok_count += 1
 
-    return ok_count
+    return nok_count
 
 # Use the function with your file
-ok = process_file("evaluate.out")
+nok = process_file("evaluate.out")
 
 def compare_files(file1, file2):
     with open(file1, 'r') as f1, open(file2, 'r') as f2:
@@ -38,13 +49,13 @@ def compare_files(file1, file2):
     return True
 f = open("vpl_execution", "w")
 print("#!/bin/bash", file=f)
-if ok == 9:
+if nok == 0:
     result = compare_files("sol_regs.hex", "uut_regs.hex")
     result2 = compare_files("sol.hex", "uut.hex")
     if result and result2:
         print(f"echo 'Grade :=>> 100'", file=f)
     else:
-        print(f"echo 'Grade :=>> 90'", file=f)
+        print(f"echo 'Grade :=>> 70'", file=f)
 else:
-    print(f"echo 'Grade :=>> {ok*10}'", file=f)
+    print(f"echo 'Grade :=>> {(7-nok)*10}'", file=f)
 f.close()
