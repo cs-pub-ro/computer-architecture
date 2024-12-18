@@ -218,6 +218,44 @@ bus_interface_unit uut_biu(
 always #5 sol_clk = sol_stop_clk ? sol_clk : ~sol_clk;
 always #5 uut_clk = uut_stop_clk ? uut_clk : ~uut_clk;
 
+wire ready_to_compare;
+assign ready_to_compare = uut_ir_oe && sol_ir_oe;
+
+task check;
+   fork : f
+      begin
+        // Timeout check
+        #1000
+        $display("TIMEOUT 1");
+        disable f;
+      end
+      begin
+        // Wait on signal
+        @(posedge ready_to_compare);
+        if (uut_ma.l_r_data !== sol_ma.l_r_data) begin
+            $display("(ERR) MISMATCH: Got %h != Wanted %h", uut_ma.l_r_data, sol_ma.l_r_data);
+        end else $display("OK-FETCH");
+
+        if(uut_opc !== sol_opc) begin
+            $display("(ERR) OPCODE MISMATCH: Got %h != Wanted %h", uut_opc, sol_opc);
+        end else $display("OK");
+        if(uut_mod !== sol_mod) begin
+            $display("(ERR) MOD MISMATCH: Got %h != Wanted %h", uut_mod, sol_mod);
+        end else $display("OK");
+        if(uut_rg !== sol_rg) begin
+            $display("(ERR) REG MISMATCH: Got %h != Wanted %h", uut_rg, sol_rg);
+        end else $display("OK");
+        if(uut_rm !== sol_rm) begin
+            $display("(ERR) RM MISMATCH: Got %h != Wanted %h", uut_rm, sol_rm);
+        end else $display("OK");
+        if(uut_d !== sol_d) begin
+            $display("(ERR) D MISMATCH: Got %h != Wanted %h", uut_d, sol_d);
+        end else $display("OK");
+         disable f;
+      end
+   join
+endtask
+
 reg [2:0] i = 0;
 initial begin
     rst = 0;
@@ -225,56 +263,20 @@ initial begin
     uut_clk = 0;
     uut_stop_clk = 0;
     sol_stop_clk = 0;    
-    checker_is_override = 1;
-    checker_pc_override = 0;
-
-    #10 rst = 1;
-    checker_is_override = 0;
-    #20;
-    while(1) begin
-        if($time > 1000) begin
-            $display("TIMEOUT");
-            $finish;
-        end
-        if(uut_ir_oe && sol_ir_oe) begin
-            if (uut_ma.l_r_data !== sol_ma.l_r_data) begin
-                $display("(ERR) MISMATCH: Got %h != Wanted %h", uut_ma.l_r_data, sol_ma.l_r_data);
-            end else $display("OK-FETCH");
-
-            if(uut_opc !== sol_opc) begin
-                $display("(ERR) OPCODE MISMATCH: Got %h != Wanted %h", uut_opc, sol_opc);
-            end else $display("OK");
-            if(uut_mod !== sol_mod) begin
-                $display("(ERR) MOD MISMATCH: Got %h != Wanted %h", uut_mod, sol_mod);
-            end else $display("OK");
-            if(uut_rg !== sol_rg) begin
-                $display("(ERR) REG MISMATCH: Got %h != Wanted %h", uut_rg, sol_rg);
-            end else $display("OK");
-            if(uut_rm !== sol_rm) begin
-                $display("(ERR) RM MISMATCH: Got %h != Wanted %h", uut_rm, sol_rm);
-            end else $display("OK");
-            if(uut_d !== sol_d) begin
-                $display("(ERR) D MISMATCH: Got %h != Wanted %h", uut_d, sol_d);
-            end else $display("OK");
-
-            rst = 0;
-            i = i + 1;
-            checker_is_override = 1;
-            checker_pc_override = i;
-            if(i == 5) $finish;
-            #10 rst = 1;
-            checker_is_override = 0;
-        end
-        # 10;
+    #10;
+    for (i = 0; i < 5; i = i + 1) begin
+        rst = 0;
+        checker_is_override = 1;
+        checker_pc_override = i;
+        #10 rst = 1;
+        checker_is_override = 0;
+        #20;
+        fork
+            check;
+        join
+        #20;
     end
-
-    #100 
-    
-    #20 rst = 1;
-    checker_is_override = 0;
-    #400 $finish;
-
-
+    #100 $finish;
 end
 
 endmodule
