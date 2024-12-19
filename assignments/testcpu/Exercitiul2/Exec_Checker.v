@@ -40,7 +40,6 @@ module Exec_Checker;
     end
     `define STRINGIFY(x) `"x`"
     initial begin
-        $monitor("%0t ", $time, "%0h ", uut.state, "%0b", uut.l_r_t1_oe);
 
         i_w_reset = 1;
         #10;
