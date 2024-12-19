@@ -28,7 +28,7 @@ localparam DECODE = 5;
 
 reg [7:0] state, next_state;
 
-always @(posedge clk) begin
+always @(posedge clk, negedge rst) begin
     if (!rst) state <= INIT;
     else state <= next_state;
 end
