@@ -1,10 +1,12 @@
+import sys
 def process_file(filename):
+    ok_string = sys.argv[1]
     with open(filename, 'r') as file:
         lines = file.readlines()
     ok_count = 0
     # Count lines containing "OK"
     for line in lines:
-        if "OK" in line:
+        if ok_string in line:
             ok_count += 1
         else:
             print(f"{line.strip()}")
@@ -38,13 +40,13 @@ def compare_files(file1, file2):
     return True
 f = open("vpl_execution", "w")
 print("#!/bin/bash", file=f)
-if ok == 9:
+if ok >= 7:
     result = compare_files("sol_regs.hex", "uut_regs.hex")
     result2 = compare_files("sol.hex", "uut.hex")
     if result and result2:
         print(f"echo 'Grade :=>> 100'", file=f)
     else:
-        print(f"echo 'Grade :=>> 90'", file=f)
+        print(f"echo 'Grade :=>> 70'", file=f)
 else:
     print(f"echo 'Grade :=>> {ok*10}'", file=f)
 f.close()

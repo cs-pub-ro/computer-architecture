@@ -12,15 +12,18 @@
 TOP_MODULE=Exec_Checker
 maxGrade=100
 EVALUATE_FILE=evaluate.out
+secret=$(head -c 64 /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
 # -- Print the operations to be implemented --
-iverilog -Wall -Winfloop *.v -o ${TOP_MODULE}.vvp
+iverilog -Wall -Winfloop *.v -DOK=${secret} -o ${TOP_MODULE}.vvp
 if [ $? -ne 0 ]; then
     echo "Error: iverilog failed" >&2
     exit 1
 fi
 vvp ${TOP_MODULE}.vvp > ${EVALUATE_FILE}
-python3 grade.py
+rm -rf vpl_execution
+python3 grade.py ${secret}
+chmod +x vpl_execution
 # # -- Generate the solution flags --
 # solution_flags=$(generate_solution_flags ${op_sel[@]})
 

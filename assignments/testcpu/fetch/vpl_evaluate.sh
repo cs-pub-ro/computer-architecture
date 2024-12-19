@@ -31,14 +31,17 @@ EVALUATE_FILE=evaluate.out
 variation=$(generate_variation)
 task="$(python3 genr.py $variation)"
 flags=$(python3 gen_flags.py $variation)
+secret=$(head -c 64 /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+python3 desustificator.py
 # -- Print the operations to be implemented --
 echo "$task"
-iverilog -Wall -Winfloop ${TOP_MODULE}.v block_ram.v bus_interface_unit.v control_unit_sol.v control_unit.v cram.v register.v ${flags} -o ${TOP_MODULE}.vvp
+iverilog -Wall -Winfloop ${TOP_MODULE}.v block_ram.v bus_interface_unit.v control_unit_sol.v control_unit.v cram.v register.v -DOK=${secret} ${flags} -o ${TOP_MODULE}.vvp
 if [ $? -ne 0 ]; then
     echo "Error: iverilog failed" >&2
     exit 1
 fi
 vvp ${TOP_MODULE}.vvp > ${EVALUATE_FILE}
-python3 grade.py
+rm -rf vpl_execution
+python3 grade.py ${secret}
 chmod +x vpl_execution
 

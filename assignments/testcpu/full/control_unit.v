@@ -36,8 +36,9 @@ localparam STORE = 50;
 
 reg [7:0] state, next_state;
 
-always @(posedge clk) begin
-    state <= next_state;
+always @(posedge clk, negedge rst) begin
+    if(!rst) state <= INIT;
+    else state <= next_state;
 end
 
 assign load_done = state == LOAD_DONE;

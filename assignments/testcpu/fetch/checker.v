@@ -217,6 +217,7 @@ bus_interface_unit uut_biu(
 
 always #5 sol_clk = sol_stop_clk ? sol_clk : ~sol_clk;
 always #5 uut_clk = uut_stop_clk ? uut_clk : ~uut_clk;
+`define STRINGIFY(x) `"x`"
 
 reg [2:0] i = 0;
 initial begin
@@ -227,7 +228,6 @@ initial begin
     sol_stop_clk = 0;    
     checker_is_override = 1;
     checker_pc_override = 0;
-
     #10 rst = 1;
     checker_is_override = 0;
     #20;
@@ -239,23 +239,23 @@ initial begin
         if(uut_ir_oe && sol_ir_oe) begin
             if (uut_ma.l_r_data !== sol_ma.l_r_data) begin
                 $display("(ERR) MISMATCH: Got %h != Wanted %h", uut_ma.l_r_data, sol_ma.l_r_data);
-            end else $display("OK-FETCH");
+            end else $display("%s-FETCH", `STRINGIFY(`OK));
 
             if(uut_opc !== sol_opc) begin
                 $display("(ERR) OPCODE MISMATCH: Got %h != Wanted %h", uut_opc, sol_opc);
-            end else $display("OK");
+            end else $display("%s", `STRINGIFY(`OK));
             if(uut_mod !== sol_mod) begin
                 $display("(ERR) MOD MISMATCH: Got %h != Wanted %h", uut_mod, sol_mod);
-            end else $display("OK");
+            end else $display("%s", `STRINGIFY(`OK));
             if(uut_rg !== sol_rg) begin
                 $display("(ERR) REG MISMATCH: Got %h != Wanted %h", uut_rg, sol_rg);
-            end else $display("OK");
+            end else $display("%s", `STRINGIFY(`OK));
             if(uut_rm !== sol_rm) begin
                 $display("(ERR) RM MISMATCH: Got %h != Wanted %h", uut_rm, sol_rm);
-            end else $display("OK");
+            end else $display("%s", `STRINGIFY(`OK));
             if(uut_d !== sol_d) begin
                 $display("(ERR) D MISMATCH: Got %h != Wanted %h", uut_d, sol_d);
-            end else $display("OK");
+            end else $display("%s", `STRINGIFY(`OK));
 
             rst = 0;
             i = i + 1;

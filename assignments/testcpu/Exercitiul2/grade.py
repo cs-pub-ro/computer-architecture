@@ -1,10 +1,12 @@
+import sys
 def process_file(filename):
+    ok_string = sys.argv[1]
     with open(filename, 'r') as file:
         lines = file.readlines()
     ok_count = 0
     # Count lines containing "Match"
     for line in lines:
-        if "Match" in line:
+        if ok_string in line:
             ok_count += 1
         else:
             print(f"{line.strip()}")

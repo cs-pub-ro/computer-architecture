@@ -30,16 +30,19 @@ EVALUATE_FILE=evaluate.out
 
 variation=$(generate_variation)
 task="$(python3 genr.py $variation)"
-
+secret=$(head -c 64 /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+python3 desustificator.py
 # -- Print the operations to be implemented --
 echo "Aveti de implementat $task"
-iverilog -Wall -Winfloop ${TOP_MODULE}.v control_unit_sol.v regfile.v register.v bus_interface_unit.v alu.v cram.v block_ram.v control_unit.v -o ${TOP_MODULE}.vvp
+iverilog -Wall -Winfloop ${TOP_MODULE}.v control_unit_sol.v regfile.v register.v bus_interface_unit.v alu.v cram.v block_ram.v control_unit.v -DOK=${secret} -o ${TOP_MODULE}.vvp
 if [ $? -ne 0 ]; then
     echo "Error: iverilog failed" >&2
     exit 1
 fi
+rm -rf vpl_execution
 vvp ${TOP_MODULE}.vvp > ${EVALUATE_FILE}
-python3 grade.py
+python3 grade.py ${secret}
+chmod +x vpl_execution
 # # -- Generate the solution flags --
 # solution_flags=$(generate_solution_flags ${op_sel[@]})
 

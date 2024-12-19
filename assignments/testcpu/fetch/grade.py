@@ -1,13 +1,16 @@
+import sys
 def process_file(filename):
+    ok_string = sys.argv[1]
+
     with open(filename, 'r') as file:
         lines = file.readlines()
     ok_count = 0
     silent = False
     # Count lines containing "OK"
     for line in lines:
-        if "OK-FETCH" in line:
+        if f"{ok_string}-FETCH" in line:
             ok_count += 10
-        elif "OK" in line:
+        elif ok_string in line:
             ok_count += 2
         else:
             if silent == False:

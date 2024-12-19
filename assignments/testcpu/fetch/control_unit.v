@@ -24,6 +24,7 @@ module control_unit(
 localparam INIT = 0;
 localparam FETCH = 1;
 
+// Try using localparam instead of `define if possible
 
 reg [7:0] state, next_state;
 

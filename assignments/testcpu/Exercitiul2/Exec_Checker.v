@@ -38,8 +38,10 @@ module Exec_Checker;
         i_w_clk = 1;
         forever #5 i_w_clk = ~i_w_clk;
     end
-
+    `define STRINGIFY(x) `"x`"
     initial begin
+        $monitor("%0t ", $time, "%0h ", uut.state, "%0b", uut.l_r_t1_oe);
+
         i_w_reset = 1;
         #10;
         i_w_reset = 0;
@@ -55,7 +57,7 @@ module Exec_Checker;
         if (out_t1_sol !== out_t1_uut)
             $display("Mismatch [ADC]: Expected=%h, Got=%h", out_t1_sol, out_t1_uut);
         else
-            $display("Match [ADC]: %h", out_t1_uut);
+            $display("%s [ADC]: %h", `STRINGIFY(`OK), out_t1_uut);
 
         i_w_reset = 0;
         #5;
@@ -70,7 +72,7 @@ module Exec_Checker;
         if (out_t1_sol !== out_t1_uut)
             $display("Mismatch [AND]: Expected=%h, Got=%h", out_t1_sol, out_t1_uut);
         else
-            $display("Match [AND]: %h", out_t1_uut);
+            $display("%s [AND]: %h", `STRINGIFY(`OK), out_t1_uut);
 
         i_w_reset = 0;
         #5;
@@ -85,7 +87,7 @@ module Exec_Checker;
         if (out_t1_sol !== out_t1_uut)
             $display("Mismatch [OR]: Expected=%h, Got=%h", out_t1_sol, out_t1_uut);
         else
-            $display("Match [OR]: %h", out_t1_uut);
+            $display("%s [OR]: %h", `STRINGIFY(`OK), out_t1_uut);
 
         i_w_reset = 0;
         #5;
@@ -98,7 +100,7 @@ module Exec_Checker;
         if (out_t1_sol !== out_t1_uut)
             $display("Mismatch [SHL]: Expected=%h, Got=%h", out_t1_sol, out_t1_uut);
         else
-            $display("Match [SHL]: %h", out_t1_uut);
+            $display("%s [SHL]: %h", `STRINGIFY(`OK), out_t1_uut);
 
         i_w_reset = 0;
         #5;
@@ -111,7 +113,7 @@ module Exec_Checker;
         if (out_t1_sol !== out_t1_uut)
             $display("Mismatch [SHR]: Expected=%h, Got=%h", out_t1_sol, out_t1_uut);
         else
-            $display("Match [SHR]: %h", out_t1_uut);
+            $display("%s [SHR]: %h", `STRINGIFY(`OK), out_t1_uut);
 
         i_w_reset = 0;
         #5;
@@ -124,7 +126,7 @@ module Exec_Checker;
         if (out_t1_sol !== out_t1_uut)
             $display("Mismatch [SAR]: Expected=%h, Got=%h", out_t1_sol, out_t1_uut);
         else
-            $display("Match [SAR]: %h", out_t1_uut);
+            $display("%s [SAR]: %h", `STRINGIFY(`OK), out_t1_uut);
 
         $finish;
     end

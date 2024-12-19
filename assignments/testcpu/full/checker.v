@@ -34,6 +34,8 @@ wire [15:0] sol_t1_o_w_out;
 wire [15:0] sol_t2_o_w_out;
 wire [15:0] sol_alu_o_w_out;
 wire [15:0] sol_ram_o_w_out;
+
+wire sol_verify_t2;
 control_unit_sol cu(
     .clk(sol_clk),
     .rst(rst),
@@ -58,7 +60,8 @@ control_unit_sol cu(
     .load_done(sol_load_done), 
     .exec_done(sol_exec_done),
     .store_done(sol_store_done),
-    .flags_we(sol_flags_we)
+    .flags_we(sol_flags_we),
+    .verify_t2(sol_verify_t2)
 );
 
 wire [15:0] sol_rg_o_w_out;
@@ -323,20 +326,26 @@ cram uut_cram (
     .i_w_clk(uut_clk)
 );
 
-
+`define STRINGIFY(x) `"x`"
 
 reg [1:0] checker_state;
 initial begin
     checker_state = 0;
     ir = sol_cram.block_ram_inst.l_r_data[0];
     #10 rst = 1;
+    // $display("ir=%16b", ir);
     // $monitor(
     //         "Time = %0t, ", $time,
-    //         "ref t1=%h, ", sol_t1.l_r_data,
-    //         "ref t2=%h, ", sol_t2.l_r_data,
-    //         "t2=%h, ", sol_t2.l_r_data,
-    //         "rg=%b, ", cu.rm,
-    //         "pc=%h, ", sol_pc.l_r_data,
+    //         "State = %0h, ", uut.state,
+    //         "Sol state = %0h, ", cu.state,
+    //         "UUT BUS = %0h, ", uut_biu_bus_out,
+    //         "UUT MA = %0h, ", uut_ma_out[9:0],
+    //         "SOL BUS = %0h, ", sol_biu_bus_out,
+    //         "SOL MA = %0h, ", sol_ma_out[9:0],
+    //         "SOL T1 = %0h, ", sol_t1.l_r_data,
+    //         "UUT T1 = %0h, ", uut_t1.l_r_data,
+    //         "SOL T2 = %0h, ", sol_t2.l_r_data,
+    //         "UUT T2 = %0h, ", uut_t2.l_r_data,
     //     );
     while (1) begin
         if ($time > 1000) begin
@@ -346,23 +355,31 @@ initial begin
         if (checker_state == 0) begin
             if (sol_load_done && uut_load_done) begin
                 if (sol_t1.l_r_data == uut_t1.l_r_data) begin
-                    $display("(LOAD) T1 OK");
+                    $display("(LOAD) T1 %s",`STRINGIFY(`OK));
                 end else begin
                     $display("(LOAD) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
                 end
-                if (sol_t2.l_r_data == uut_t2.l_r_data) begin
-                    $display("(LOAD) T2 OK");
+                if (sol_verify_t2) begin
+                    if (sol_t2.l_r_data == uut_t2.l_r_data) begin
+                        $display("(LOAD) T2 %s",`STRINGIFY(`OK));
+                    end else begin
+                        $display("(LOAD) T2 ERR: ref=%h, you=%h", sol_t2.l_r_data, uut_t2.l_r_data);
+                    end
                 end else begin
-                    $display("(LOAD) T2 ERR: ref=%h, you=%h", sol_t2.l_r_data, uut_t2.l_r_data);
+                    // Repeat the score for T1
+                    if (sol_t1.l_r_data == uut_t1.l_r_data) begin
+                        $display("(LOAD) T1 %s",`STRINGIFY(`OK));
+                    end else begin
+                        $display("(LOAD) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
+                    end
                 end
                 if (sol_pc.l_r_data == uut_pc.l_r_data) begin
-                    $display("(LOAD) PC OK");
+                    $display("(LOAD) PC %s",`STRINGIFY(`OK));
                 end else begin
                     $display("(LOAD) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
                 end
                 checker_state = 1;
             end
-
             if (sol_load_done && !uut_load_done) begin
                 uut_clk = ~uut_clk;
             end else if (!sol_load_done && uut_load_done) begin
@@ -375,17 +392,17 @@ initial begin
         if (checker_state == 1) begin
             if (sol_exec_done && uut_exec_done) begin
                 if (sol_t1.l_r_data == uut_t1.l_r_data) begin
-                    $display("(EXEC) T1 OK");
+                    $display("(EXEC) T1 %s",`STRINGIFY(`OK));
                 end else begin
                     $display("(EXEC) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
                 end
                 if (sol_t2.l_r_data == uut_t2.l_r_data) begin
-                    $display("(EXEC) T2 OK");
+                    $display("(EXEC) FLAGS %s",`STRINGIFY(`OK));
                 end else begin
-                    $display("(EXEC) T2 ERR: ref=%h, you=%h", sol_t2.l_r_data, uut_t2.l_r_data);
+                    $display("(EXEC) FLAGS ERR: ref=%h, you=%h", sol_flags_reg.l_r_data, uut_flags_reg.l_r_data);
                 end
                 if (sol_pc.l_r_data == uut_pc.l_r_data) begin
-                    $display("(EXEC) PC OK");
+                    $display("(EXEC) PC %s",`STRINGIFY(`OK));
                 end else begin
                     $display("(EXEC) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
                 end
@@ -403,18 +420,8 @@ initial begin
         end
         if (checker_state == 2) begin
             if (sol_store_done && uut_store_done) begin
-                if (sol_t1.l_r_data == uut_t1.l_r_data) begin
-                    $display("(STORE) T1 OK");
-                end else begin
-                    $display("(STORE) T1 ERR: ref=%h, you=%h", sol_t1.l_r_data, uut_t1.l_r_data);
-                end
-                if (sol_t2.l_r_data == uut_t2.l_r_data) begin
-                    $display("(STORE) T2 OK");
-                end else begin
-                    $display("(STORE) T2 ERR: ref=%h, you=%h", sol_t2.l_r_data, uut_t2.l_r_data);
-                end
                 if (sol_pc.l_r_data == uut_pc.l_r_data) begin
-                    $display("(STORE) PC OK");
+                    $display("(STORE) PC %s",`STRINGIFY(`OK));
                 end else begin
                     $display("(STORE) PC ERR: ref=%h, you=%h", sol_pc.l_r_data, uut_pc.l_r_data);
                 end
