@@ -1,0 +1,1 @@
+What is teh binary representation of the the 5-bit status flags register (order from left Zero Flag, Carry Flag, Sign Flag, Overflow Flag, Parity Flag) after the 8-bit operation {{ m }} plus {{ r }} ?

@@ -2,21 +2,21 @@
 We have a cache with the following characteristics:
 \begin{itemize}
     \item Only one cache level
-    \item Main memory access time: 120 cycles $L_{MM}=120$
-    \item Main memory byte transfer time: 12 cycles $BT_{MM}=12$
-    \item Cache hit time: 4 cycle $H_{C}=4$
-    \item Cache miss rate: 5\% $MR_{C}=0.05$
-    \item Cache block size: 16 bytes $BS_{C}=16$
-    \item Cache size: 64 KB $S_{C}=64 \times 1024$
+    \item Main memory access time: 170 cycles $L_{MM}=170$
+    \item Main memory byte transfer time: 24 cycles $BT_{MM}=24$
+    \item Cache hit time: 6 cycle $H_{C}=6$
+    \item Cache miss rate: 8\% $MR_{C}=0.08$
+    \item Cache block size: 256 bytes $BS_{C}=256$
+    \item Cache size: 32 KB $S_{C}=32 \times 1024$
     \item Cache is Direct Mapped
 \end{itemize}
 
 What is the speedup in average memory access time (AMAT) if we add a second cache level with the following characteristics:
 \begin{itemize}
-    \item Cache hit time: 12 cycle $H_{NC}=4$
-    \item Cache miss rate: 45\% $MR_{NC}=0.45$
-    \item Cache block size: 16 bytes $BS_{NC}=16$
-    \item Cache size: 256 KB $S_{NC}=256 \times 1024$
+    \item Cache hit time: 36 cycle $H_{C2}=36$
+    \item Cache miss rate: 40\% $MR_{C2}=0.40$
+    \item Cache block size: 256 bytes $BS_{C2}=256$
+    \item Cache size: 512 KB $S_{C2}=512 \times 1024$
     \item Cache is 2-way set associative
     \item The second cache is accessed only if the first cache misses
 \end{itemize}
@@ -26,42 +26,42 @@ To calculate the speedup in AMAT, we need to determine the AMAT before and after
 
 1. Calculate the initial miss penalty:
 \[
-\text{Initial miss penalty} = L_{MM} + \left(\frac{BS_{C}}{BT_{MM}}\right)
+\text{Initial miss penalty} = L_{MM} + BS_{C} \times BT_{MM}
 \]
 \[
-\text{Initial miss penalty} = 120 \text{ cycles} + \left(\frac{16 \text{ bytes}}{12 \text{ cycles/byte}}\right) = 120 + 16 = 136 \text{ cycles}
+\text{Initial miss penalty} = 170 \text{ cycles} + 256 \text{ bytes} \times 24 \text{ cycles/byte} = 170 + 6144 = 6314 \text{ cycles}
 \]
 
 2. Calculate the initial AMAT:
 \[
-\text{Initial AMAT} = H_{C} + (MR_{C} \times \text{miss penalty})
+\text{Initial AMAT} = H_{C} + (MR_{C} \times \text{Initial miss penalty})
 \]
 \[
-\text{Initial AMAT} = 4 \text{ cycles} + (0.05 \times 136 \text{ cycles}) = 4 + 6.8 = 10.8 \text{ cycles}
+\text{Initial AMAT} = 6 \text{ cycles} + (0.08 \times 6314 \text{ cycles}) = 6 + 505.12 = 511.12 \text{ cycles}
 \]
 
-3. Calculate the new miss penalty for the second cache level:
+3. Calculate the miss penalty for the second cache level:
 \[
-\text{New miss penalty} = L_{MM} + \left(\frac{BS_{NC}}{BT_{MM}}\right)
+\text{C2 miss penalty} = L_{MM} + BS_{C2} \times BT_{MM}
 \]
 \[
-\text{New miss penalty} = 120 \text{ cycles} + \left(\frac{16 \text{ bytes}}{12 \text{ cycles/byte}}\right) = 120 + 16 = 136 \text{ cycles}
+\text{C2 miss penalty} = 170 \text{ cycles} + 256 \text{ bytes} \times 24 \text{ cycles/byte} = 170 + 6144 = 6314 \text{ cycles}
 \]
 
 4. Calculate the AMAT for the second cache level:
 \[
-\text{L2 AMAT} = H_{NC} + (MR_{NC} \times \text{new miss penalty})
+\text{C2 AMAT} = H_{C2} + (MR_{C2} \times \text{C2 miss penalty})
 \]
 \[
-\text{L2 AMAT} = 12 \text{ cycles} + (0.45 \times 136 \text{ cycles}) = 12 + 61.2 = 73.2 \text{ cycles}
+\text{C2 AMAT} = 36 \text{ cycles} + (0.40 \times 6314 \text{ cycles}) = 36 + 2525.6 = 2561.6 \text{ cycles}
 \]
 
 5. Calculate the new AMAT considering both cache levels:
 \[
-\text{New AMAT} = H_{C} + (MR_{C} \times \text{L2 AMAT})
+\text{New AMAT} = H_{C} + (MR_{C} \times \text{C2 AMAT})
 \]
 \[
-\text{New AMAT} = 4 \text{ cycles} + (0.05 \times 73.2 \text{ cycles}) = 4 + 3.66 = 7.66 \text{ cycles}
+\text{New AMAT} = 6 \text{ cycles} + (0.08 \times 2561.6 \text{ cycles}) = 6 + 204.928 = 210.928 \text{ cycles}
 \]
 
 6. Calculate the speedup:
@@ -69,7 +69,8 @@ To calculate the speedup in AMAT, we need to determine the AMAT before and after
 \text{Speedup} = \frac{\text{Initial AMAT}}{\text{New AMAT}}
 \]
 \[
-\text{Speedup} = \frac{10.8 \text{ cycles}}{7.66 \text{ cycles}} \approx 1.41
+\text{Speedup} = \frac{511.12 \text{ cycles}}{210.928 \text{ cycles}} \approx 2.42
 \]
 
-Therefore, the speedup in average memory access time (AMAT) when adding a second cache level is approximately 1.41.
+
+Therefore, the speedup in average memory access time (AMAT) when adding a second cache level is approximately 2.42.

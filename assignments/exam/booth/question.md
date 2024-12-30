@@ -1,0 +1,1 @@
+Given the 16-bit Booth's algorithm, how many additions are required for {{ m }} multiply by {{ r }} ?ß
