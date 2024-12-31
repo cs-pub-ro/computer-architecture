@@ -1,12 +1,12 @@
 \section*{Problem}
-Having the memory addressing table and instruction format tables, what instruction type has the following coding IR=\texttt{0x0040}?
+Having the memory addressing table and instruction format tables, what instruction type has the following coding IR=\texttt{0x0140}?
 
 \section*{Solution}
 
 
 \begin{itemize}
     \item \textbf{OPC}: \texttt{0000\_000}
-    \item \textbf{d}: \texttt{0}
+    \item \textbf{d}: \texttt{1}
     \item \textbf{MOD}: \texttt{01}
     \item \textbf{REG}: \texttt{000}
     \item \textbf{RM}: \texttt{000}
@@ -16,7 +16,7 @@ Having the memory addressing table and instruction format tables, what instructi
 \textbf{Identify the isntruction from the opcode using the instruction format table and the memory addressing table}.:
 \begin{itemize}
     \item \texttt{MOV} is encoded as \texttt{000} when $IR_{1}=0$, $IR_{3}=0$, $IR_{0}=0$, and $IR_{2}=0$.
-    \item $d$ is \texttt{0} and $REG$ is \texttt{000} so destination register is \texttt{RA}.
+    \item $d$ is \texttt{1} and $REG$ is \texttt{000} so destination register is \texttt{RA}.
     \item $RM=IR_{13:15}=000$ and $MOD=IR_{8:9}=01$ so the addressing mode is \texttt{[BA+XA+]}.
 \end{itemize}
 

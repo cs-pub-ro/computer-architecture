@@ -90,7 +90,7 @@ Having the memory addressing table and instruction format tables, what is the in
 \begin{itemize}
     \item \texttt{MOV} is encoded as \texttt{000} when $IR_{1}=0$, $IR_{3}=0$, and $IR_{0}=0$.
     \item We don't have immediate value so $IR_{2}=0$.
-    \item Destination register is \texttt{RA} so $d$ is \texttt{0} and $REG$ is \texttt{000}.
+    \item Destination register is \texttt{RA} so $d$ is \texttt{1} and $REG$ is \texttt{000}.
 \end{itemize}
 
 \textbf{Determine the addressing mode for \texttt{[BA+XA+]} from the memory addressing table}:
@@ -102,10 +102,10 @@ Having the memory addressing table and instruction format tables, what is the in
 \textbf{Final encoding:}
 \begin{itemize}
     \item \textbf{OPC}: \texttt{0000\_000}
-    \item \textbf{d}: \texttt{0}
+    \item \textbf{d}: \texttt{1}
     \item \textbf{MOD}: \texttt{01}
     \item \textbf{REG}: \texttt{000}
     \item \textbf{RM}: \texttt{000}
 \end{itemize}
 
-Therefore, the instruction coding for the \texttt{MOV RA, [BA+XA+]} operation is \texttt{0000 0000 0100 0000} in binary and \texttt{0x0040} in hexadecimal.
+Therefore, the instruction coding for the \texttt{MOV RA, [BA+XA+]} operation is \texttt{0000 0001 0100 0000} in binary and \texttt{0x0140} in hexadecimal.
