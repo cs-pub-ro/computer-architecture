@@ -1,0 +1,105 @@
+
+
+\subsection*{Problem}
+Having the following IO registers value, main memory address
+and data, what is the value you can find on the databus?
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Register} & \textbf{Value} \\ \hline
+        SCDMA & 0x0192 \\ \hline
+        MADMA & 0x5678 \\ \hline
+        CNTDMA & 0x0005 \\ \hline
+        INITDMA & 0x0001 \\ \hline
+        SCIO0 & 0x0000 \\ \hline
+        SCIO1 & 0x0000 \\ \hline
+        SCIO2 & 0x0000 \\ \hline
+        SCIO3 & 0x0000 \\ \hline
+    \end{tabular}
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Memory Address} & \textbf{Data} \\ \hline
+        0x5678 & 0x0000 \\ \hline
+        0x5679 & 0x0001 \\ \hline
+        0x567a & 0x0002 \\ \hline
+        0x567b & 0x0003 \\ \hline
+        0x567c & 0x0004 \\ \hline
+        0x567d & 0x0005 \\ \hline
+        0x567e & 0x0006 \\ \hline
+        0x567f & 0x0007 \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} & \textbf{14} & \textbf{15} \\ \hline
+            $SIO_{0}$ & $SIO_{1}$ & $SIO_{2}$ & $SIO_{3}$ & X & X & SDMA & EOBT & EXTIRQ & X & PIRQ & ENIRQ & X & MT & DT & ENT \\ \hline
+        \end{tabular}
+    }
+    \begin{itemize}
+        \item $SIO_{0-3}$ - Status of the I/O devices 0 - functional 1 - not functional
+        \item SDMA - DMA is active for 0 - inactive for 1
+        \item EOBT - End of block transfer for 0 - not for 1
+        \item EXTIRQ - There is an external interrupt from IO device for 0 - not for 1
+        \item PIRQ - There is a programable interrupt from CPU for 0 - not for 1 (testing)
+        \item ENIRQ - Enable interrupt for 0 - disable for 1
+        \item MT - Mode of transfer 0 - block for 1 - cycle stealing
+        \item DT - Direction of transfer 0 - from IO to memory to IO for 1 - from memory to IO
+        \item ENT - Enable transfer for 0 - disable for 1
+    \end{itemize}
+    \caption{SCDMA Register}
+\end{table}
+
+
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} & \textbf{14} & \textbf{15} \\ \hline
+            $S$ & $C$ & X & X & X & X & X & X & X & X & X & ENIRQ & X & X & DT & X \\ \hline
+        \end{tabular}
+    }
+    \begin{itemize}
+        \item $S$ - Status of the IO device 0 - functional 1 - not functional
+        \item $C$ - Start transfer for 1 - stop for 0
+        \item ENIRQ - Enable interrupt for 0 - disable for 1
+        \item DT - Direction of transfer 0 - from IO to memory to IO for 1 - from memory to IO
+    \end{itemize}
+    \caption{SCIOX Register}
+\end{table}
+
+
+\subsection*{Solution}
+To determine the value on the data bus, we need to consider the DMA transfer
+settings and the memory address being accessed.
+
+Given the values:
+\begin{itemize}
+    \item SCDMA = 0x0192
+    \item MADMA = 0x5678
+    \item CNTDMA = 0x0005
+    \item INITDMA = 0x0001
+    \item SCIO0 = 0x0000
+    \item SCIO1 = 0x0000
+    \item SCIO2 = 0x0000
+    \item SCIO3 = 0x0000
+\end{itemize}
+
+The DMA transfer is initialized (INITDMA = 0x0001),
+and the starting address for the DMA transfer is 0x5678.
+The count of data to be transferred is 5 (CNTDMA = 0x0005).
+
+Since the DMA is active (SDMA = 0), and the direction of transfer is from memory to IO (DT = 1),
+the value on the data bus will be the data at the current memory address specified by MADMA plus
+CNTDMA = 0x567d.
+
+The value at memory address 0x567d is 0x0005.
+
+Therefore, the value on the data bus is:
+\[
+\text{Data Bus Value} = 0x0005
+\]

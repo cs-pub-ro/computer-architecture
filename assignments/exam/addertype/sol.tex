@@ -1,0 +1,130 @@
+\subsection*{Problem}
+Given the X-bit adder of type Y, calculate the total number of gates and
+the number of gates on the path to the carry out. Y can be:
+\begin{itemize}
+    \item Ripple Carry Adder
+    \item Carry Lookahead Kogge-Stone
+    \item Carry Lookahead Brent-Kung
+\end{itemize}
+
+\subsection*{Solution}
+Let's calculate the total number of gates and the number of gates on the path to the carry out for each type of 32-bit adder.
+
+\textbf{Ripple Carry Adder}
+
+In a ripple carry adder, each bit addition requires a full adder, which consists of:
+\begin{itemize}
+    \item 2 XOR gates for sum
+    \item 2 AND gates and 1 OR gate for carry-out
+\end{itemize}
+For a 32-bit adder:
+\[
+\text{Total gates} = 32 \times (2 \text{ XOR} + 2 \text{ AND} + 1 \text{ OR}) = 32 \times 5 = 160 \text{ gates}
+\]
+The number of gates on the path to the carry out is:
+\[
+\text{Gates on carry-out path} = 32 \times (2 \text{ AND} + 1 \text{ OR}) = 32 \times 3 = 96 \text{ gates}
+\]
+
+\textbf{Carry Lookahead Adder (CLA)}
+
+Each bit in the adder generates two signals:
+\begin{itemize}
+    \item Generate signal: \( G_i = A_i \land B_i \) (AND gate per bit)
+    \item Propagate signal: \( P_i = A_i \oplus B_i \) (XOR gate per bit)
+\end{itemize}
+
+For an \( n \)-bit adder, this requires:
+\[
+n \times \text{AND gates} + n \times \text{XOR gates}.
+\]
+
+The sum is computed using:
+\[
+S_i = P_i \oplus C_i.
+\]
+
+This requires:
+\[
+n \times \text{XOR gates}.
+\]
+
+The carry equation is given by:
+\[
+C_{i+1} = G_i \lor (P_i \land C_i).
+\]
+
+
+\textbf{Kogge-Stone CLA:}
+The Kogge-Stone adder is a parallel prefix adder with a highly regular structure, providing optimal computation for propagate ($P$) and generate ($G$) signals in $\lceil \log_2 n \rceil$ levels.
+
+The total number of gates in the Kogge-Stone CLA depends on:
+\begin{itemize}
+    \item \textbf{Propagation of $P$ and $G$:} 
+    At each level $k$, the $P$ and $G$ values are computed using:
+    \[
+    G_i^{(k)} = G_i^{(k-1)} \lor \left(P_i^{(k-1)} \land G_{i-2^{k-1}}^{(k-1)}\right),
+    \]
+    \[
+    P_i^{(k)} = P_i^{(k-1)} \land P_{i-2^{k-1}}^{(k-1)}.
+    \]
+    This requires:
+    \begin{itemize}
+        \item \textbf{1 AND gate} for $P_i^{(k)}$.
+        \item \textbf{1 AND gate and 1 OR gate} for $G_i^{(k)}$.
+    \end{itemize}
+    \item The number of operations at each level is $n - 2^{k-1}$.
+\end{itemize}
+
+The carry-out path in a Kogge-Stone adder corresponds to the depth of the tree, which is $\lceil \log_2 n \rceil$. At each level:
+\begin{itemize}
+    \item \textbf{1 AND gate} for propagate ($P$).
+    \item \textbf{1 AND gate and 1 OR gate} for generate ($G$).
+\end{itemize}
+This results in \textbf{3 gates per level}.
+
+For an \( n \)-bit adder, the total number of carry gates is approximately:
+\begin{equation*}
+    \begin{split}
+\text{Carry Gates} & = \sum_{i=1}^{\log_2 n} \left( n - 2^{i-1} \right) \times 3 = 3 \times n \times \sum_{i=1}^{\log_2 n} 1 - 3 \times \sum_{i=1}^{\log_2 n} 2^{i-1} = \\
+                  & = 3 \times n \times \log_2 n - 3 \times \left( 2^{\log_2 n} - 1 \right) = \\
+                  & = 3 \times n \times \log_2 n - 3 \times (n - 1) = \\
+                  & = 3 \times n \times \log_2 n - 3 \times n + 3. \\
+                  & = 3 \times 32 \times 5 - 3 \times 32 + 3 = 480 - 96 + 3 = 387 \text{ gates}. \\
+\text{Total gates} & = n + n + n + 387 =  3 \times 32 + 387 = 96 + 387 = 483 \text{ gates}. \\
+\text{Carry-out path} & = 2 \times \lceil \log_2 n \rceil + 1 = 2 \times 5 + 1 = 11 \text{ gates}.
+    \end{split}
+\end{equation*}
+
+\textbf{Brent-Kung CLA:}
+The Brent-Kung adder is another form of parallel prefix adder with a different structure than Kogge-Stone.
+It keeps the same number of gates for the carry-out path, but the total number of gates is different and depth is $2 \log_2 n - 1$.
+It has a tree structure with a depth of $\log_2 n$ to compute the carry signals followed by a depth of $\log_2 n$ to compute the sum.
+For the first $\log_2 n$ levels:
+\begin{itemize}
+    \item \textbf{1 AND gate} for $P_i^{(k)}$.
+    \item \textbf{1 AND gate and 1 OR gate} for $G_i^{(k)}$.
+    \item The number of operations at each level is $ \frac{n}{2^{k}}$.
+\end{itemize}
+For the next $\log_2 n - 1$ levels:
+\begin{itemize}
+    \item \textbf{1 AND gate} for $P_i^{(k)}$.
+    \item \textbf{1 AND gate and 1 OR gate} for $G_i^{(k)}$.
+    \item The number of operations at each level is $\frac{n}{2^{k}} - 1$.
+\end{itemize}
+
+The total number of gates in the Brent-Kung CLA is:
+\begin{equation*}
+    \begin{split}
+\text{Carry Gates} & = \sum_{i=1}^{\log_2 n} \left( \frac{n}{2^{i}} \right) \times 3 + \sum_{i=1}^{\log_2 n - 1} \left( \frac{n}{2^{i}} - 1 \right) \times 3 = \\
+                  & = 3 \times n \times \sum_{i=1}^{\log_2 n} \frac{1}{2^{i}} + 3 \times \sum_{i=1}^{\log_2 n - 1} \left( \frac{n}{2^{i}} - 1 \right) = \\
+                  & = 3 \times n \times \left( 1 - \frac{1}{2^{\log_2 n}} \right) + 3 \times \left( n \times \sum_{i=1}^{\log_2 n - 1} \frac{1}{2^{i}} - \sum_{i=1}^{\log_2 n - 1} 1 \right) = \\
+                    & = 3 \times n \times \left( 1 - \frac{1}{n} \right) + 3 \times \left( n \times \left( 1 - \frac{1}{2^{\log_2 n - 1}} \right) - \left( \log_2 n - 1 \right) \right) = \\
+                  & = 3 \times n - 3 + 3 \times n \times \left( 1 - \frac{2}{n} \right) - 3 \times \left( \log_2 n - 1 \right) = \\
+                    & = 3 \times n - 3 + 3 \times n - 6 - 3 \times \log_2 n + 3 = \\
+                    & = 6 \times n - 6 - 3 \times \log_2 n = \\
+                    & = 6 \times 32 - 6 - 3 \times 5 = 192 - 6 - 15 = 171 \text{ gates}. \\
+\text{Total gates} & = n + n + n + 171 =  3 \times 32 + 171 = 96 + 171 = 267 \text{ gates}. \\
+\text{Carry-out path} & = 2 \times \log_2 n + 1 = 2 \times 5 + 1 = 11 \text{ gates}.
+    \end{split}
+\end{equation*}

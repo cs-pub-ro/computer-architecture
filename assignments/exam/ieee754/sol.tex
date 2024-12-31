@@ -1,0 +1,48 @@
+\subsection*{Problem}
+
+Given the hexadecimal string \texttt{0x44490100}, what is the value of the number in the 32-bit IEEE 754 floating-point representation?
+
+\subsection*{Solution}
+
+To convert the hexadecimal string \texttt{0x44490100} to a 32-bit IEEE 754 floating-point number, we follow these steps:
+
+1. Convert the hexadecimal string to binary:
+\[
+\texttt{0x44490100} = 0100\ 0100\ 0100\ 1001\ 0000\ 0001\ 0000\ 0000
+\]
+
+2. Identify the sign bit, exponent, and mantissa:
+\begin{itemize}
+    \item Sign bit: 0 (positive number)
+    \item Exponent: 10001000 (in binary)
+    \item Mantissa: 10010010000000100000000 (in binary)
+\end{itemize}
+
+3. Convert the exponent from binary to decimal and apply the bias (127 for 32-bit IEEE 754):
+\[
+\text{Exponent} = 10001000_2 = 136_{10}
+\]
+\[
+\text{Unbiased Exponent} = 136 - 127 = 9
+\]
+
+4. Normalize the mantissa and add the implicit leading 1:
+\[
+\text{Mantissa} = 1.10010010000000100000000_2
+\]
+
+5. Calculate the value:
+\[
+\text{Value} = (-1)^{\text{sign}} \times 1.\text{mantissa} \times 2^{\text{exponent}}
+\]
+\[
+\text{Value} = (-1)^0 \times 1.10010010000000100000000_2 \times 2^9
+\]
+\[
+\text{Value} = 1 \times 1100100100.000001_2 = 804_{10} + 2^{-6} = 804.015625_{10}
+\]
+
+Therefore, the value of the hexadecimal string \texttt{0x44490100} in the 32-bit IEEE 754 floating-point representation is:
+\[
+    804.015625
+\]

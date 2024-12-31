@@ -1,0 +1,151 @@
+\section*{Problem}
+
+Having the following registers value, main memory address and data, and the immediate value, what is the value of the MA register if we use the X addressing mode? X can be:
+\begin{itemize}
+    \item Direct Addressing
+    \item Indirect Addressing
+    \item Indirect Addressing from Register
+    \item Indirect Addressing from Base and Index Registers
+    \item Indirect Addressing from Base and Index Registers with Increment After for Index
+    \item Indirect Addressing from Base and Index Registers with Decrement Before for Index
+    \item Indirect Addressing from Base and Immediate
+    \item Indirect Addressing from Index and Immediate
+    \item Indirect Addressing from Base and Index with Immediate
+    \item Immediate Addressing
+    \item Direct Register Addressing
+\end{itemize}
+
+Given:
+Registers:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Register} & \textbf{Hex Value} \\
+    \hline
+    RA & 0x1000 \\
+    \hline
+    RB & 0x2000 \\
+    \hline
+    RC & 0x3000 \\
+    \hline
+    SP & 0x4000 \\
+    \hline
+    XA & 0x0004 \\
+    \hline
+    XB & 0x0008 \\
+    \hline
+    BA & 0x7000 \\
+    \hline
+    BB & 0x8000 \\
+    \hline
+    PC & 0x0100 \\
+    \hline
+    \end{tabular}
+    \caption{Register Values in Hexadecimal}
+\end{table}
+
+Immediate Value: 0x0096
+
+Main Memory:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Address} & \textbf{Value} \\
+    \hline
+    0x0096 & 0x4321 \\
+    \hline
+    0x1000 & 0x1234 \\
+    \hline
+    0x2000 & 0x5678 \\
+    \hline
+    0x3000 & 0x9ABC \\
+    \hline
+    0x4000 & 0xDEF0 \\
+    \hline
+    0x4500 & 0x6000 \\
+    \hline
+    0x5000 & 0x1111 \\
+    \hline
+    0x6000 & 0x2222 \\
+    \hline
+    0x7000 & 0x3333 \\
+    \hline
+    0x8000 & 0x4444 \\
+    \hline
+    \end{tabular}
+    \caption{Main Memory Values}
+\end{table}
+
+\section*{Solution}
+Let's calculate the value of the MA register for each addressing mode.
+
+\textbf{Direct Addressing}
+\[
+\text{MA} = \text{Immediate Value} = 0x0096
+\]
+
+\textbf{Indirect Addressing}
+\[
+\text{MA} = \text{MM}[\text{Immediate Value}] = 0x4321
+\]
+
+\textbf{Indirect Addressing from Register}
+Let's use RA.
+\[
+\text{MA} = RA = 0x1000
+\]
+
+\textbf{Indirect Addressing from Base and Index Registers}
+Let's use BA and XA.
+\[
+\text{MA} = BA + XA = 0x7000 + 0x0004 = 0x7004
+\]
+
+\textbf{Indirect Addressing from Base and Index Registers with Increment After for Index}
+Let's use BA and XA.
+\[
+\text{MA} = BA + XA = 0x7000 + 0x0004 = 0x7004
+\]
+\[
+XA = XA + 1 = 0x0005
+\]
+
+\textbf{Indirect Addressing from Base and Index Registers with Decrement Before for Index}
+Let's use BA and XA.
+\[
+XA = XA - 1 = 0x0003
+\]
+\[
+\text{MA} = BA + XA = 0x7000 + 0x0003 = 0x7003
+\]
+
+\textbf{Indirect Addressing from Base and Immediate}
+Let's use BA.
+\[
+\text{MA} = BA + \text{Immediate Value} = 0x7000 + 0x0096 = 0x7096
+\]
+
+\textbf{Indirect Addressing from Index and Immediate}
+Let's use XA.
+\[
+\text{MA} = XA + \text{Immediate Value} = 0x0004 + 0x0096 = 0x009A
+\]
+
+\textbf{Indirect Addressing from Base and Index with Immediate}
+Let's use BA and XA.
+\[
+\text{MA} = BA + XA + \text{Immediate Value} = 0x7000 + 0x0004 + 0x0096 = 0x709A
+\]
+
+\textbf{Immediate Addressing}
+\[
+\text{MA} = PC + \text{Immediate Value} = 0x0100 + 0x0096 = 0x0196
+\]
+
+\textbf{Direct Register Addressing}
+We don't use the memory address for this addressing mode.
+\[
+\text{MA} = 0
+\]

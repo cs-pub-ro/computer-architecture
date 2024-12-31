@@ -1,0 +1,46 @@
+\subsection*{Problem}
+
+Calculate the number of bits for the tag, index, and block offset for a cache memory with the following characteristics:
+\begin{itemize}
+    \item Cache size: 64 KB
+    \item Block size: 16 bytes
+    \item Cache is 4-way set associative
+\end{itemize}
+The address space is 32 bits.
+
+\subsection*{Solution}
+
+To calculate the number of bits for the tag, index, and block offset, we follow these steps:
+
+1. Calculate the number of blocks in the cache:
+\[
+\text{Number of blocks} = \frac{\text{Cache size}}{\text{Block size}} = \frac{64 \text{ KB}}{16 \text{ bytes}} = \frac{64 \times 1024 \text{ bytes}}{16 \text{ bytes}} = 4096 \text{ blocks}
+\]
+
+2. Calculate the number of sets in the cache:
+\[
+\text{Number of sets} = \frac{\text{Number of blocks}}{\text{Associativity}} = \frac{4096 \text{ blocks}}{4} = 1024 \text{ sets}
+\]
+
+3. Calculate the number of bits for the block offset:
+\[
+\text{Block offset bits} = \log_2(\text{Block size}) = \log_2(16 \text{ bytes}) = 4 \text{ bits}
+\]
+
+4. Calculate the number of bits for the index:
+\[
+\text{Index bits} = \log_2(\text{Number of sets}) = \log_2(1024) = 10 \text{ bits}
+\]
+
+5. Calculate the number of bits for the tag:
+Assuming a 32-bit address space:
+\[
+\text{Tag bits} = \text{Total address bits} - \text{Index bits} - \text{Block offset bits} = 32 - 10 - 4 = 18 \text{ bits}
+\]
+
+Therefore, the number of bits for the tag, index, and block offset are:
+\begin{itemize}
+    \item Tag bits: 18
+    \item Index bits: 10
+    \item Block offset bits: 4
+\end{itemize}

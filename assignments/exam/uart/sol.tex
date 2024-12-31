@@ -1,0 +1,46 @@
+\section*{Problem}
+Having the following UART configuration, what is the maximum data rate that can be achieved?
+\begin{itemize}
+    \item Baud rate: 115200
+    \item Data bits: 8
+    \item Stop bits: 1
+    \item Parity: None
+    \item Flow control: None
+\end{itemize}
+
+\section*{Solution}
+To determine the maximum data rate that can be achieved with the given UART configuration, we need to consider the baud rate and the number of bits transmitted per frame.
+
+1. Baud Rate:
+\[
+\text{Baud rate} = 115200 \text{ bits per second (bps)}
+\]
+
+2. Frame Structure:
+\begin{itemize}
+    \item Data bits: 8
+    \item Stop bits: 1
+    \item Parity bit: None
+\end{itemize}
+
+Each frame consists of:
+\[
+\text{Total bits per frame} = \text{Start bit} + \text{Data bits} + \text{Parity bit} + \text{Stop bits}
+\]
+\[
+\text{Total bits per frame} = 1 + 8 + 0 + 1 = 10 \text{ bits}
+\]
+
+3. Maximum Data Rate:
+The maximum data rate is determined by the number of data bits transmitted per second. Given the baud rate and the frame structure:
+\[
+\text{Maximum data rate} = \frac{\text{Baud rate} \times \text{Data bits}}{\text{Total bits per frame}}
+\]
+\[
+\text{Maximum data rate} = \frac{115200 \times 8}{10} = 92160 \text{ bps}
+\]
+
+Therefore, the maximum data rate that can be achieved with the given UART configuration is:
+\[
+92160 \text{ bits per second (bps)}
+\]
