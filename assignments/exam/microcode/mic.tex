@@ -51,8 +51,8 @@ Two micro-operations are incompatible if they are part of the same micro-instruc
 2. Find the incompatibility classes for each micro-operation combination of micro-operations $\mu O_{i}$.
 
 To make incompatible classes we choose micro-operation from the table of incompatible operations and AND their rows.
-If there is a 1 in the result that micro-operation is incompatible with the other micro-operations and is can be
-added to the incompatible class. If there are only 0s in the result than the current set of micro-operations is a maximum incompatible class.
+If there is 1 on the columns of the microoperations than it is a good match. After we try to add to the incompatibility
+class the other micro operation which have the value 1 on their column. If there is any 0 on the columns of the microoperations of the class than it is not a good match.
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}

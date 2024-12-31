@@ -1,7 +1,7 @@
 import re
 
 student_text = """{{ STUDENT_ANSWER }}"""
-question_answer = """{{ handled_interrupt }}"""
+question_answer = """{{ result }}"""
 precheck = {{ IS_PRECHECK }}
 
 SEPARATOR = "#<ab@17943918#@>#"

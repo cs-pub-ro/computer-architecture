@@ -1,6 +1,10 @@
-import sys, json, random
+import sys, json, random, datetime
 args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-random.seed(args['id'])
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
+week=datetime.datetime.now().isocalendar()[0]
+random.seed(secret + week + int(student_id))
 
 def calculate_miss_penalty(access_time, block_size, byte_transfer_times):
     return access_time + (block_size * byte_transfer_times)
@@ -44,21 +48,45 @@ new_miss_penalty = calculate_miss_penalty(selected_main_memory_access_time, sele
 new_amat = calculate_amat(selected_new_cache_hit_time, selected_new_cache_miss_rate, new_miss_penalty)
 speedup = initial_amat / new_amat
 
+# generate the html question
+question = """
+<div>
+    <p>We have a cache system with the following characteristics:</p>
+    <ul>
+        <li>One level cache</li>
+        <li>Main memory access time: {}</li>
+        <li>Main memory byte transfer time: {}</li>
+        <li>Cache hit time: {}</li>
+        <li>Cache miss rate: {}%</li>
+        <li>Cache block size: {} bytes</li>
+        <li>Cache size: {} KB</li>
+        <li>Cache Mapping: {}</li>
+    </ul>
+    <p>What is the speedup in average memory access time (AMAT) if we change the following characteristics:</p>
+    <ul>
+        <li>Cache hit time: {}</li>
+        <li>Cache miss rate: {}%</li>
+        <li>Cache size: {} KB</li>
+    </ul>
+</div>
+""".format(
+    selected_main_memory_access_time,
+    selected_main_memory_byte_transfer_time,
+    selected_cache_hit_time,
+    selected_cache_miss_rate * 100,
+    selected_block_size,
+    selected_cache_size,
+    selected_cache_mapping,
+    selected_new_cache_hit_time,
+    selected_new_cache_miss_rate * 100,
+    selected_new_cache_size
+)
 # Print the selected values
 print(
     json.dumps(
         {
-            'cachesize': selected_cache_size,
-            'blocksize': selected_block_size,
-            'cachemapping': selected_cache_mapping,
-            'mainmemoryaccesstime': selected_main_memory_access_time,
-            'cachehitime': selected_cache_hit_time,
-            'mainmemorybytetransfertime': selected_main_memory_byte_transfer_time,
-            'cachemissrate': selected_cache_miss_rate * 100,
-            'newcachesize': selected_new_cache_size,
-            'newcachehitime': selected_new_cache_hit_time,
-            'newcachemissrate': selected_new_cache_miss_rate * 100,
-            'speedup': speedup
+            'question': question,
+            'result': speedup
         }
     )
 )

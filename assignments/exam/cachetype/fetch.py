@@ -1,6 +1,10 @@
-import sys, json, random
+import sys, json, random, datetime
 args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-random.seed(args['id'])
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
+week=datetime.datetime.now().isocalendar()[0]
+random.seed(secret + week + int(student_id))
 
 def calculate_cache_parameter(cachesize, blocksize, cachemapping, associativity, addressbits, questiontag):
     # Calculate the number of blocks in the cache
@@ -63,16 +67,31 @@ selected_cache_parameter = calculate_cache_parameter(
 if selected_cache_mapping == 'set-associative':
     selected_cache_mapping = str(selected_associativity) + '-way set-associative'
 
+
+# generate the html question
+question = """
+<div>
+    <p>Calculate the number of bits for the {} for a cache memory with the following characteristics:</p>
+    <ul>
+        <li>Cache size: {} KB</li>
+        <li>Block size: {} bytes</li>
+        <li>Mapping: {}</li>
+    </ul>
+    <p>The address space is {} bits.</p>
+</div>
+""".format(
+    selected_question_tag,
+    selected_cache_size,
+    selected_block_size,
+    selected_cache_mapping,
+    selected_address_bits
+)
 # Print the selected values
 print(
     json.dumps(
         {
-            'cachesize': selected_cache_size,
-            'blocksize': selected_block_size,
-            'cachemapping': selected_cache_mapping,
-            'addressbits': selected_address_bits,
-            'questiontag': selected_question_tag,
-            'cacheparameter': selected_cache_parameter,
+            'question': question,
+            'result': selected_cache_parameter
         }
     )
 )

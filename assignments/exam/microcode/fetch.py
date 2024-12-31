@@ -1,13 +1,12 @@
 import sys, json, random, datetime
 import numpy as np
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
-# quzi_order can be [0, 1, 2] 0 for mic, 1 for mcc, 2 for instruction size
 quiz_order = 2
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(quiz_order + x + week)
+random.seed(secret + quiz_order + week + int(student_id))
 
 # Define the micro-instructions and micro-operations
 micro_instructions = ["μI" + str(i) for i in range(random.randint(6, 9))]

@@ -1,8 +1,8 @@
 import re
 
 student_decimal_text = """{{ STUDENT_ANSWER }}"""
-question_answer = """{{ answer }}"""
-question_answer = int(question_answer)
+question_number = """{{ result }}"""
+question_number = float(question_number)
 precheck = {{ IS_PRECHECK }}
 
 # __student_answer__ = """{{ STUDENT_ANSWER | e('py') }}"""
@@ -14,10 +14,10 @@ regex = r"^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$"
 {% for TEST in TESTCASES %}
 if re.match(regex, student_decimal_text):
     if precheck != 1:
-        if int(student_decimal_text) == question_answer:
-            print('corect')
+        if abs(float(student_decimal_text) - question_number) < 0.0001:
+            print('correct')
         else:
-            print('incorect')
+            print('incorrect')
 else:
     print("This is not a floating point number")
 # {{ TEST.testcode }}

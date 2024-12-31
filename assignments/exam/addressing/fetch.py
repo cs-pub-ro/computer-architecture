@@ -1,11 +1,10 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
-
+random.seed(secret + week + int(student_id))
 
 
 # Define the register values
@@ -135,28 +134,70 @@ addressing_modes = [
 ]
 selected_addressing_mode = random.choice(addressing_modes)
 
-question = "Having the following register values, the main memory values and the immediate value 0x{}, ".format('{:04x}'.format(immediate_value)) + selected_addressing_mode["question"]
-question += " (Write the answer in hexadecimal format (4 hex characters - MSB first) starting with 0x\n\n"
-# make a table with the register values as a string for the question
-registers_table = "| Register | Value |\n| --- | --- |\n"
+# generate the register table in html format
+registers_table = """
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr><th>Register</th><th>Value</th></tr>
+"""
 for register in registers:
-    registers_table += "| {} | 0x{} |\n".format(register, '{:04x}'.format(registers[register]))
-question += "\n\n" + registers_table + "\n"
-# make a table with the main memory values as a string for the question
-main_memory_table = "| Address | Value |\n| --- | --- |\n"
-# sort the main memory addresses in ascending order
-for address in sorted(main_memory):
-    main_memory_table += "| 0x{} | 0x{} |\n".format('{:04x}'.format(address), '{:04x}'.format(main_memory[address]))
-question += "\n" + main_memory_table + "\n"
+    registers_table += "<tr><td>{}</td><td>0x{}</td></tr>".format(register, '{:04x}'.format(registers[register]))
+registers_table += "</table>"
+# print(registers_table)
 
-print(question)
+# generate the main memory table in html format
+main_memory_table = """
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr><th>Address</th><th>Value</th></tr>
+"""
+for address in sorted(main_memory):
+    main_memory_table += "<tr><td>0x{}</td><td>0x{}</td></tr>".format('{:04x}'.format(address), '{:04x}'.format(main_memory[address]))
+main_memory_table += "</table>"
+# print(main_memory_table)
+
+# generate the question in html format
+question = """
+<div>
+    <p> Having the following register values, the main memory values and the immediate value 0x{}, </p>
+    <p> {} </p>
+    <p> Write the answer in hexadecimal format (4 hex characters - MSB first) starting with 0x </p>
+    <h3>Registers Table:</h3>
+    {}
+    <h3>Main Memory Table:</h3>
+    {}
+</div>
+""".format(
+    '{:04x}'.format(immediate_value),
+    selected_addressing_mode["question"],
+    registers_table,
+    main_memory_table
+)
+# print(question)
 
 print(
     json.dumps(
         {
             'question': question,
-            'result': '{:04x}'.format(selected_addressing_mode["result"])
+            'result': '0x{:04x}'.format(selected_addressing_mode["result"])
         }
     )
 )
-# print(m)

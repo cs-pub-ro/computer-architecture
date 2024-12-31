@@ -1,18 +1,14 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
-
-
-def format_string_fixed_length(input_string, length):
-    # Ensure the string is of the specified length, padding with spaces if necessary
-    return f"{input_string:<{length}}"
+# to be different from the encode one
+random.seed(secret + 1 + week + int(student_id))
 
 # Define the 2D array based on the LaTeX table
-instruction_table = [
+addressing_table = [
     ["[BA+XA]", "[BA+XA+]", "[BA+XA+Imm]", "RA"],
     ["[BA+XB]", "[BA+XB+]", "[BA+XB+Imm]", "RB"],
     ["[BB+XA]", "[BB+XA+]", "[BB+XA+Imm]", "RC"],
@@ -26,19 +22,32 @@ instruction_table = [
 # Define the row and column labels
 rm_labels = ["000", "001", "010", "011", "100", "101", "110", "111"]
 mod_labels = ["00", "01", "10", "11"]
-instruction_table_string = ""
-instruction_table_string += format_string_fixed_length("MOD \\ RM", 16)
-for mod in mod_labels:
-    instruction_table_string += format_string_fixed_length(mod, 16)
-instruction_table_string += "\n"
-for i, rm in enumerate(rm_labels):
-    instruction_table_string += format_string_fixed_length(rm, 16)
-    for j in range(len(mod_labels)):
-        instruction_table_string += format_string_fixed_length(instruction_table[i][j], 16)
-    instruction_table_string += "\n"
 
-# Print the 2D array as a string
-# print(instruction_table_string)
+# Generate the addressing table in html format
+addressing_table_html = """
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr><th>MOD \ RM</th>
+"""
+for mod in mod_labels:
+    addressing_table_html += f"<th>{mod}</th>"
+addressing_table_html += "</tr>\n"
+for i, rm in enumerate(rm_labels):
+    addressing_table_html += f"<tr><td>{rm}</td>"
+    for j in range(len(mod_labels)):
+        addressing_table_html += f"<td>{addressing_table[i][j]}</td>"
+    addressing_table_html += "</tr>\n"
+addressing_table_html += "</table>"
+# print(addressing_table_html)
 
 opcode_table = {
     "0000000" : "MOV",
@@ -58,39 +67,59 @@ opcode_table = {
     "0101110" : "XOR"
 }
 
-opcode_table_string = ""
-opcode_table_string += format_string_fixed_length("OPCODE", 16)
-opcode_table_string += format_string_fixed_length("INSTRUCTION", 16)
-opcode_table_string += "\n"
+# Generate the opcode table in html format
+opcode_table_html = """
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr><th>OPCODE</th><th>INSTRUCTION</th></tr>
+"""
 for opcode in opcode_table:
-    opcode_table_string += format_string_fixed_length(opcode, 16)
-    opcode_table_string += format_string_fixed_length(opcode_table[opcode], 16)
-    opcode_table_string += "\n"
-
-# Print the opcode table as a string
-# print(opcode_table_string)
+    opcode_table_html += f"<tr><td>{opcode}</td><td>{opcode_table[opcode]}</td></tr>\n"
+opcode_table_html += "</table>"
+# print(opcode_table_html)
 
 instruction_register_table = [
     ["Instruction Register (IR)"],
     ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"],
-    ["OPC", "d", "MOD", "REG", "RM"]
+    ["OPC", "OPC", "OPC", "OPC", "OPC", "OPC", "OPC", "d", "MOD", "MOD", "REG", "REG", "REG", "RM", "RM", "RM"]
 ]
-
-instruction_register_table_string = ""
-instruction_register_table_string += format_string_fixed_length("Instruction Register (IR)", 60)
-instruction_register_table_string += "\n"
+# Generate the instruction register table in html format
+instruction_register_table_html = """
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr><th colspan="16">Instruction Register (IR)</th></tr>
+    <tr>
+"""
 for i in instruction_register_table[1]:
-    instruction_register_table_string += format_string_fixed_length(i, 4)
-instruction_register_table_string += "\n"
-instruction_register_table_string += format_string_fixed_length("OPC", 28)
-instruction_register_table_string += format_string_fixed_length("d", 4)
-instruction_register_table_string += format_string_fixed_length("MOD", 8)
-instruction_register_table_string += format_string_fixed_length("REG", 12)
-instruction_register_table_string += format_string_fixed_length("RM", 12)
-instruction_register_table_string += "\n"
-
-# Print the instruction register table as a string
-# print(instruction_register_table_string)
+    instruction_register_table_html += f"<td>{i}</td>"
+instruction_register_table_html += "</tr>\n"
+instruction_register_table_html += "<tr>"
+instruction_register_table_html += "<td colspan='7'>OPC</td>"
+instruction_register_table_html += "<td>d</td>"
+instruction_register_table_html += "<td colspan='2'>MOD</td>"
+instruction_register_table_html += "<td colspan='3'>REG</td>"
+instruction_register_table_html += "<td colspan='3'>RM</td>"
+instruction_register_table_html += "</tr>\n"
+instruction_register_table_html += "</table>"
+# print(instruction_register_table_html)
 
 register_table = {
     "000" : "RA",
@@ -102,18 +131,25 @@ register_table = {
     "110" : "BA",
     "111" : "BB"
 }
-
-register_table_string = ""
-register_table_string += format_string_fixed_length("REG", 16)
-register_table_string += format_string_fixed_length("REGISTER", 16)
-register_table_string += "\n"
+# Generate the registers table in html format
+registers_table_html = """
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr><th>REG</th><th>Name</th></tr>
+"""
 for register in register_table:
-    register_table_string += format_string_fixed_length(register, 16)
-    register_table_string += format_string_fixed_length(register_table[register], 16)
-    register_table_string += "\n"
-
-# Print the register table as a string
-# print(register_table_string)
+    registers_table_html += f"<tr><td>{register}</td><td>{register_table[register]}</td></tr>"
+registers_table_html += "</table>"
+# print(registers_table_html)
 
 # Generate the random test case
 
@@ -134,32 +170,53 @@ d = '0'
 reg = "000"
 instruction_text = opcode_table[opcode] + " "
 if opcode[1] == '0' and opcode[3] == '1':
-    instruction_text += instruction_table[int(rm, 2)][int(mod, 2)]
+    instruction_text += addressing_table[int(rm, 2)][int(mod, 2)]
 else:
     d = random.choice(["0", "1"])
     reg = random.choice(list(register_table.keys()))
     if d == "1":
-        instruction_text += register_table[reg] + ", " + instruction_table[int(rm, 2)][int(mod, 2)]
+        instruction_text += register_table[reg] + ", " + addressing_table[int(rm, 2)][int(mod, 2)]
     else:
-        instruction_text += instruction_table[int(rm, 2)][int(mod, 2)] + ", " + register_table[reg]
+        instruction_text += addressing_table[int(rm, 2)][int(mod, 2)] + ", " + register_table[reg]
 
 # generate the instruction
 instruction_binary = opcode + d + mod + reg + rm
 instruction_hex = hex(int(instruction_binary, 2))
 
+# generate the question in html format
+question = """
+<div>
+    <p> Having the following memory addressing table, instruction format table, registers address table, and opcode table.  What is the following instuction encoded in hexadecimal IR={} ? </p>
+    <p> Write the answer ah "OPERATION DESTINATION, SOURCE" (space between OPERATION and DESTINATION, ", " between DESTINATION and SOURCE) </p>
+    <div>
+        <h3>Memory Addressing Table:</h3>
+        {}
+    </div>
+    <div>
+        <h3>Instruction Format Table:</h3>
+        {}
+    </div>
+    <div>
+        <h3>Registers Address Table:</h3>
+        {}
+    </div>
+    <div>
+        <h3>Opcode Table:</h3>
+        {}
+    </div>
+</div>
+""".format(
+    instruction_hex,
+    addressing_table_html,
+    instruction_register_table_html,
+    registers_table_html,
+    opcode_table_html
+)
+
+
 print(
     json.dumps({
-        "opcode": opcode,
-        "mod": mod,
-        "rm": rm,
-        "d": d,
-        "reg": reg,
-        "instruction_text": instruction_text,
-        "instruction_binary": instruction_binary,
-        "instruction_hex": instruction_hex,
-        "instruction_table": instruction_table_string,
-        "opcode_table": opcode_table_string,
-        "instruction_register_table": instruction_register_table_string,
-        "register_table": register_table_string
+        "question": question,
+        "result": instruction_text
     })
 )

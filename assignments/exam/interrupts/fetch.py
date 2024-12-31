@@ -1,10 +1,10 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
+random.seed(secret + week + int(student_id))
 # Define the problem
 interrupts_table = [
     {"address": "0x0", "name": "Reserved", "type": "Internal Interrupt"},
@@ -160,16 +160,38 @@ handled_interrupts = solve_interrupts(interrupt_requests)
 # chose a random order of the handled interupts larger than 3
 index_of_interrupts = random.randint(4, len(handled_interrupts))
 
+# generate the question in html format
+question = """
+<div>
+    <p>
+        Having the table of interrupt requests, interrupt types, and the time of the request,
+        what is {}th interupt that will be handled completly by the CPU?
+    </p>
+</div>
+<div>
+<h3>Interrupts Table:</h3>
+    {}
+</div>
+<div>
+<h3>Time to handle Interrupts Table:</h3>
+    {}
+</div>
+<div>
+<h3>Interrupts to handle Table:</h3>
+    {}
+</div>
+""".format(
+    index_of_interrupts,
+    interrupts_table_html,
+    time_to_handle_html,
+    interrupt_requests_html
+)
+
 print(
     json.dumps(
         {
-            "handled_interrupt": handled_interrupts[index_of_interrupts - 1],
-            "index_of_interrupts": index_of_interrupts,
-            "interrupts_table": interrupts_table_html,
-            "time_to_handle": time_to_handle_html,
-            "interrupt_requests": interrupt_requests_html
+            "question": question,
+            "result": handled_interrupts[index_of_interrupts - 1]
         }
     )
 )
-
-print(handled_interrupts)

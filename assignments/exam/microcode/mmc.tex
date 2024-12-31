@@ -29,6 +29,9 @@ How many maximum compatibility classes are?
 1. Find the compatibility between each micro-operation $\mu O_{i}$.
 
 Two micro-operations are compatible if they are not part of the same micro-instruction $\mu I_{j}$.
+We can find them by chosing the micro-operations from the table of incompatible operations and OR their rows.
+The columns contianing 0 are succesible to be in the same compatibility class. We need to try until we can not find
+any more compatible micro-operations.
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}

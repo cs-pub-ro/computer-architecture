@@ -1,10 +1,10 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
+random.seed(secret + week + int(student_id))
 
 def calculate_no_gates_ripple_carry_adder(n, order):
     return n * 5
@@ -53,11 +53,18 @@ elif selected_question_type == 'carry-out path':
 
 question = questions[question_types.index(selected_question_type)].format(selected_no_bits, selected_adder_type)
 
+# transform in a html format question
+question = """
+<div>
+    <p>{}</p>
+</div>
+""".format(question)
+
 print(
     json.dumps(
         {
             'question': question,
-            'answer': answer
+            'result': answer
         }
     )
 )

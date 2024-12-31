@@ -1,15 +1,10 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
-
-
-def format_string_fixed_length(input_string, length):
-    # Ensure the string is of the specified length, padding with spaces if necessary
-    return f"{input_string:<{length}}"
+random.seed(secret + week + int(student_id))
 
 io_registers = {
     "SCDMA" : "0x0192",
@@ -72,12 +67,130 @@ main_memory_table += "</table>"
 
 result = main_memory[f"0x{MADMA+CNTDMA:04X}"]
 
+# generate the question in html format
+question = """
+<div>
+    <p> Having the following I/O registers table and main memory table. What is the value on the data bus? </p>
+    <p> Write the result in hexadecimal (starting with 0x) </p>
+    <div>
+        <h3>IO Registers</h3>
+        {}
+    </div>
+    <div>
+    <h3>Main Memopry</h3>
+        {}
+    </div>
+""".format(io_registers_table, main_memory_table)
+
+question += """
+<div>
+<h3> SCDMA Register </h3>
+<table>
+    <tr>
+        <th>0</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+        <th>11</th>
+        <th>12</th>
+        <th>13</th>
+        <th>14</th>
+        <th>15</th>
+    </tr>
+    <tr>
+        <td>SIO_0</td>
+        <td>SIO_1</td>
+        <td>SIO_2</td>
+        <td>SIO_3</td>
+        <td>X</td>
+        <td>X</td>
+        <td>SDMA</td>
+        <td>EOBT</td>
+        <td>EXTIRQ</td>
+        <td>X</td>
+        <td>PIRQ</td>
+        <td>ENIRQ</td>
+        <td>X</td>
+        <td>MT</td>
+        <td>DT</td>
+        <td>ENT</td>
+    </tr>
+</table>
+
+<ul>
+    <li>SIO_0-3 - Status of the I/O devices 0 - functional 1 - not functional</li>
+    <li>SDMA - DMA is active for 0 - inactive for 1</li>
+    <li>EOBT - End of block transfer for 0 - not for 1</li>
+    <li>EXTIRQ - There is an external interrupt from IO device for 0 - not for 1</li>
+    <li>PIRQ - There is a programmable interrupt from CPU for 0 - not for 1 (testing)</li>
+    <li>ENIRQ - Enable interrupt for 0 - disable for 1</li>
+    <li>MT - Mode of transfer 0 - block for 1 - cycle stealing</li>
+    <li>DT - Direction of transfer 0 - from IO to memory to IO for 1 - from memory to IO</li>
+    <li>ENT - Enable transfer for 0 - disable for 1</li>
+</ul>
+</div>
+<div><br><br></div>
+<div>
+<h3>SCIOX Register</h3>
+<table>
+    <tr>
+        <th>0</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+        <th>11</th>
+        <th>12</th>
+        <th>13</th>
+        <th>14</th>
+        <th>15</th>
+    </tr>
+    <tr>
+        <td>S</td>
+        <td>C</td>
+        <td>X</td>
+        <td>X</td>
+        <td>X</td>
+        <td>X</td>
+        <td>X</td>
+        <td>X</td>
+        <td>X</td>
+        <td>X</td>
+        <td>X</td>
+        <td>ENIRQ</td>
+        <td>X</td>
+        <td>X</td>
+        <td>DT</td>
+        <td>X</td>
+    </tr>
+</table>
+
+<ul>
+    <li>S - Status of the IO device 0 - functional 1 - not functional</li>
+    <li>C - Start transfer for 1 - stop for 0</li>
+    <li>ENIRQ - Enable interrupt for 0 - disable for 1</li>
+    <li>DT - Direction of transfer 0 - from IO to memory to IO for 1 - from memory to IO</li>
+</ul>
+</div>
+</div>
+"""
 
 print(
     json.dumps({
-        "io_registers_table": io_registers_table,
-        "main_memory_table": main_memory_table,
-        "result": result,
-        "result_hex": f"0x{result:04X}"
+        "question": question,
+        "result": f"0x{result:04X}"
     })
 )

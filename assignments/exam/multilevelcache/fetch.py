@@ -1,10 +1,10 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
+random.seed(secret + week + int(student_id))
 
 def calculate_miss_penalty(access_time, block_size, byte_transfer_times):
     return access_time + (block_size * byte_transfer_times)
@@ -51,24 +51,51 @@ new_amat = calculate_amat(selected_cache_hit_time, selected_cache_miss_rate, new
 speedup = initial_amat / new_amat
 
 selected_new_cache_mapping = str(selected_new_associativity) + '-way set-associative'
+ 
+# generate the html question
+question = """
+<div>
+    <p>We have a cache system with the following characteristics:</p>
+    <ul>
+        <li>One level cache</li>
+        <li>Main memory access time: {}</li>
+        <li>Main memory byte transfer time: {}</li>
+        <li>Cache hit time: {}</li>
+        <li>Cache miss rate: {}%</li>
+        <li>Cache block size: {} bytes</li>
+        <li>Cache size: {} KB</li>
+        <li>Cache Mapping: {}</li>
+    </ul>
+    <p>What is the speedup in average memory access time (AMAT) if we add a second-level cache with the following characteristics:</p>
+    <ul>
+        <li>Cache hit time: {}</li>
+        <li>Cache miss rate: {}%</li>
+        <li>Cache block size: {} bytes</li>
+        <li>Cache size: {} KB</li>
+        <li>Cache Mapping: {}</li>
+    </ul>
+</div>
+""".format(
+    selected_main_memory_access_time,
+    selected_main_memory_byte_transfer_time,
+    selected_cache_hit_time,
+    selected_cache_miss_rate * 100,
+    selected_block_size,
+    selected_cache_size,
+    selected_cache_mapping,
+    selected_new_cache_hit_time,
+    selected_new_cache_miss_rate * 100,
+    selected_new_block_size,
+    selected_new_cache_size,
+    selected_new_cache_mapping
+)
 
 # Print the selected values
 print(
     json.dumps(
         {
-            'cachesize': selected_cache_size,
-            'blocksize': selected_block_size,
-            'cachemapping': selected_cache_mapping,
-            'mainmemoryaccesstime': selected_main_memory_access_time,
-            'cachehitime': selected_cache_hit_time,
-            'mainmemorybytetransfertime': selected_main_memory_byte_transfer_time,
-            'cachemissrate': selected_cache_miss_rate * 100,
-            'cache2mapping': selected_new_cache_mapping,
-            'cache2hitime': selected_new_cache_hit_time,
-            'cache2missrate': selected_new_cache_miss_rate * 100,
-            'cache2size': selected_new_cache_size,
-            'cache2blocksize': selected_new_block_size,
-            'speedup': speedup
+            'question': question,
+            'result': speedup
         }
     )
 )

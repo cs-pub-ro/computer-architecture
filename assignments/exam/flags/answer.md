@@ -1,1 +1,0 @@
-{{ flag_register_bs }}

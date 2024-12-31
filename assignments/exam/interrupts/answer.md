@@ -1,1 +1,0 @@
-{{ handled_interrupt }}

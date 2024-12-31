@@ -1,10 +1,10 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
+random.seed(secret + week + int(student_id))
 
 m = random.randint(0, 255)
 r = random.randint(0, 255)
@@ -45,19 +45,18 @@ for i in range(8):
 parity_flag = 1 if parity_flag % 2 == 0 else 0
 
 flag_register_bs = str(zero_flag) + str(carry_flag) + str(sign_flag) + str(overflow_flag) + str(parity_flag)
+# generate the html question
+question = """
+<div>
+    <p>What is teh binary representation of the the 5-bit status flags register (order from left Zero Flag, Carry Flag, Sign Flag, Overflow Flag, Parity Flag) after the 8-bit operation {} plus {} ?</p>
+</div>
+""".format(m, r)
 
 print(
     json.dumps(
         {
-            'm': m,
-            'r': r,
-            'result': result,
-            'zero_flag': zero_flag,
-            'carry_flag': carry_flag,
-            'sign_flag': sign_flag,
-            'overflow_flag': overflow_flag,
-            'parity_flag': parity_flag,
-            'flag_register_bs': flag_register_bs
+            "question": question,
+            "result": flag_register_bs
         }
     )
 )

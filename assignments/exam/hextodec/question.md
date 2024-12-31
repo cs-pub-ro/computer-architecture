@@ -1,1 +1,0 @@
-Given the following hexadecimal number 0x{{ nhs }} in big endian format, convert it to decimal.

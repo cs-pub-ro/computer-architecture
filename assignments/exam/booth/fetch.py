@@ -1,10 +1,10 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
+random.seed(secret + week + int(student_id))
 
 m = random.randint(129, 255)
 r = random.randint(129, 255)
@@ -17,13 +17,18 @@ for i in range(1, 18):
     if r_bs[i]!=r_bs[i-1]:
         no_additions += 1
 
+# generate the question in html format
+question = """
+<div>
+    <p>Given the 16-bit Booth's algorithm, how many additions are required for {} multiply by {} ?</p>
+</div>
+""".format(m, r)
+
 print(
     json.dumps(
         {
-            'm': m,
-            'r': r,
-            'no_additions': no_additions
+            "question": question,
+            "result": no_additions
         }
     )
 )
-# print(m)

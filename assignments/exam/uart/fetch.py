@@ -1,10 +1,11 @@
 import sys, json, random, datetime
-#args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
-#x=10
-#random.seed(x + args['id'])
-x=10
+args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
+student_id = args['id']
+# TODO: change for EXAM
+secret = 0
 week=datetime.datetime.now().isocalendar()[0]
-random.seed(x + week)
+random.seed(secret + week + int(student_id))
+
 
 def calculate_max_data_rate(baud_rate, data_bits, stop_bits, parity_bits):
     # Calculate the total bits per frame
@@ -54,11 +55,22 @@ else:
     uart_configuration_table += "<tr><td>Parity Bits</td><td>1</td></tr>"
 uart_configuration_table += "</table>"
 
+# generate question in html format
+question = """
+<div>
+    <p>Having the following UART configuration, what is the maximum data rate that can be achieved?</p>
+</div>
+<div>
+<h3>UART configurations:</h3>
+    {}
+</div>
+""".format(uart_configuration_table)
+
 print(
     json.dumps(
         {
-            "uart_configuration_table": uart_configuration_table,
-            "max_data_rate": max_data_rate
+            "question": question,
+            "result": max_data_rate
         }
     )
 )
