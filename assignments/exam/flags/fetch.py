@@ -48,7 +48,7 @@ flag_register_bs = str(zero_flag) + str(carry_flag) + str(sign_flag) + str(overf
 # generate the html question
 question = """
 <div>
-    <p>What is teh binary representation of the the 5-bit status flags register (order from left Zero Flag, Carry Flag, Sign Flag, Overflow Flag, Parity Flag) after the 8-bit operation {} plus {} ?</p>
+    <p>What is the binary representation of the the 5-bit status flags register (order from left Zero Flag, Carry Flag, Sign Flag, Overflow Flag, Parity Flag) after the 8-bit operation {} plus {} ?</p>
 </div>
 """.format(m, r)
 
