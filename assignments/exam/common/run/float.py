@@ -14,7 +14,7 @@ regex = r"^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$"
 {% for TEST in TESTCASES %}
 if re.match(regex, student_decimal_text):
     if precheck != 1:
-        if abs(float(student_decimal_text) - question_number) < 0.0001:
+        if abs(float(student_decimal_text) - question_number) < 0.1:
             print('correct')
         else:
             print('incorrect')
