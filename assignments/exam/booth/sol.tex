@@ -1,0 +1,22 @@
+\section*{Problem}
+Given the 16-bit Booth's algorithm, how many additions are required for \( M \times R \)? $M=13$ and $R=11$.
+
+\section*{Solution}
+To calculate the number of additions required for \( M \times R \) using Booth's algorithm, we follow these steps:
+
+1. Convert the $R$ to binary:
+\begin{align*}
+R & = 11_{10} = 0000\_0000\_0000\_1011_2
+\end{align*}
+
+2. Transofrm the $R$ to Booth's algorithm format:
+\begin{align*}
+R & = 2^{4} - 2^{3} + 2^{2} - 2^{0}
+\end{align*}
+
+3. Count the number of additions required:
+\begin{align*}
+\text{Number of additions} & = 4
+\end{align*}
+
+
