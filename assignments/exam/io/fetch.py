@@ -77,7 +77,7 @@ question = """
         {}
     </div>
     <div>
-    <h3>Main Memopry</h3>
+    <h3>Main Memory</h3>
         {}
     </div>
 """.format(io_registers_table, main_memory_table)
