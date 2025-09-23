@@ -106,7 +106,6 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 2 Verilog Combinațional:
               - Operatori:
                   path: chapters/verilog/operators
@@ -114,19 +113,16 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
               - Parametri:
                   path: chapters/verilog/parameters
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
               - Testare:
                   path: chapters/verilog/testing
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 3 Verilog Combinațional:
               - Descriere Comportamentala:
                   path: chapters/verilog/behavioral
@@ -134,7 +130,6 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 4 Verilog Secvențial:
               - Always-Edge:
                   path: chapters/verilog/always-edge
@@ -144,7 +139,6 @@ docusaurus:
                   path: chapters/verilog/debouncer
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 5 Verilog Secvențial:
               - Automate finite:
                   path: chapters/verilog/fsms
@@ -158,7 +152,6 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 6 Verilog Secvențial:
               - Unitate aritmetica logica:
                   path: chapters/microprogramable_cpu/arithmetic-logic-unit
@@ -166,22 +159,28 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
-          - 7 Calculator Didactic:
+          - 7 Verilog Design și Verificare:
+              - Design:
+                  path: chapters/design_and_verification/design
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+          - 8 Calculator Didactic:
               - Arhitectura:
                   path: chapters/microprogramable_cpu/architecture
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-          - 8 Calculator Didactic:
+          - 9 Calculator Didactic:
               - Unitate de comanda:
                   path: chapters/microprogramable_cpu/control-unit
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-          - 9 Calculator Didactic:
+          - 10 Calculator Didactic:
               - Moduri de adresare:
                   path: chapters/microprogramable_cpu/addressing-modes
                   extra:
