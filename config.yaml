@@ -11,7 +11,7 @@ make_assets:
   plugin: command
   options:
     command: make
-    locations: 
+    locations:
       - chapters/intro/soc/slides
     args:
       - all
@@ -43,6 +43,7 @@ docusaurus:
             - Instalare Vivado/: install/
             - Creare proiect Vivado/: project/
             - Simulare Vivado/: simulation/
+            - Simulare GTKWave/: gtkwave/
             - Programare FPGA Vivado/: programming/
             - Rulare exemple practice/: runtasks/
             - Docker:
@@ -53,7 +54,7 @@ docusaurus:
                   - Windows/: windows/
                   - Linux/: linux/
                   - MacOS/: macos/
-            - VPL/: vpl/ 
+            - VPL/: vpl/
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
@@ -222,7 +223,7 @@ docusaurus:
             #     path: exam
             #     subsections:
             #       - 1/: 1/
-      
+
     static_assets:
       - slides/intro: /build/make_assets/chapters/intro/soc/slides/_site
     config_meta:
