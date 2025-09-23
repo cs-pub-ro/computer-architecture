@@ -188,6 +188,12 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
+      - Practică Verilog:
+          path: chapters/tasks-verilog
+          subsections: 
+            - Laborator 1/: lab_1/
+            - Laborator 2/: lab_2/
+            - Laborator 3/: lab_3/ 
       - Curs:
           path: /build/embed_reveal
           subsections:
