@@ -159,28 +159,35 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-          - 7 Verilog Design și Verificare:
+          - 7 Verilog Simulare și Sinteză:
+              - Simulare:
+                  path: chapters/simulation_and_synthesis/simulation
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+          - 8 Verilog Design și Verificare:
               - Design:
                   path: chapters/design_and_verification/design
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-          - 8 Calculator Didactic:
+          - 9 Calculator Didactic:
               - Arhitectura:
                   path: chapters/microprogramable_cpu/architecture
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-          - 9 Calculator Didactic:
+          - 10 Calculator Didactic:
               - Unitate de comanda:
                   path: chapters/microprogramable_cpu/control-unit
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-          - 10 Calculator Didactic:
+          - 11 Calculator Didactic:
               - Moduri de adresare:
                   path: chapters/microprogramable_cpu/addressing-modes
                   extra:
