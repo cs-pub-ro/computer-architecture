@@ -1,0 +1,34 @@
+\documentclass[a4paper,landscape]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{tikz}
+\pagestyle{empty}
+\usepackage{relsize}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{anyfontsize}
+\usepackage{anyfontsize}
+\usepackage{t1enc}
+%\input t1cmr.fd
+%\DeclareFontFamily{T1}{cmr}{}
+%\DeclareFontShape{T1}{cmr}{m}{n}{<10>ecrm1000}{}
+% Define our simple macro
+\bgroup
+\catcode`@=11
+\gdef\getfontsize{\f@size pt}
+\egroup
+% Set the maximum scaled font size to 120pt
+\renewcommand\RSlargest{220pt}
+
+\begin{document}
+\begin{center}
+    \vspace*{3cm} % vertical space from top
+
+    {\Large \textbf{Associate Professor}} \\[1cm]
+    {\textlarger[12]{CHIN Wei Ngan} } \\[1cm] % Custom font size
+
+    {\Large School of Computing} \\[0.5cm]
+    {\Large National University of Singapore}
+
+    \vfill
+\end{center}
+\end{document}
