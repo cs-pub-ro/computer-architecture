@@ -54,7 +54,50 @@ docusaurus:
                   - Windows/: windows/
                   - Linux/: linux/
                   - MacOS/: macos/
-            - VPL/: vpl/
+            - VPL/: vpl/ 
+      - Laboratoare AB:
+          - 0 Recapitulare:
+              - Circuite combinaționale:
+                  path: chapters/combinational-circuits/intro
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Porti logice:
+                  path: chapters/combinational-circuits/logic-gates
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Sumatoare:
+                  path: chapters/combinational-circuits/adders
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Circuite secvențiale:
+                  path: chapters/sequential-circuits/intro
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Bistabil D:
+                  path: chapters/sequential-circuits/d-flip-flop
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Automate finite:
+                  path: chapters/sequential-circuits/fsms
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+          - 1 Limbajul Rust:
+              - Intro to rust:
+                  path: chapters/intro-to-rust/intro
+                  subsections:
+                    - Teorie/: reading/
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
