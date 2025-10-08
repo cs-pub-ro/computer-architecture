@@ -1,0 +1,19 @@
+{
+	"name": "Vivado Slim Dev Windows",
+	// "image": "gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0",
+	"build": {
+		"dockerfile": "../rust.vivado.Dockerfile",
+	},
+	"runArgs": [
+		"--rm",
+		"--privileged"
+	],
+	"mounts": ["type=bind,source=/dev,target=/dev"],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mshr-h.veriloghdl"
+			]
+		}
+	}
+}

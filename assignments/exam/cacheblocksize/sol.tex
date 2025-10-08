@@ -1,0 +1,61 @@
+\subsection*{Problem}
+
+We have a cache system with the following characteristics:
+\begin{itemize}
+    \item Only one cache level
+    \item Main memory access time: 120 cycles $L_{MM}=120$
+    \item Main memory byte transfer time: 12 cycles $BT_{MM}=12$
+    \item Cache hit time: 4 cycle $H_{C}=4$
+    \item Cache miss rate: 5\% $MR_{C}=0.05$
+    \item Cache block size: 16 bytes $BS_{C}=16$
+    \item Cache size: 64 KB $S_{C}=64 \times 1024$
+    \item Cache is Direct Mapped
+\end{itemize}
+What is the speedup in average memory access time (AMAT) when the cache block size is increased to $BS_{NC}=64$ to reduce the memory miss rate to $MR_{NC}=0.03$ and $H_{NC}=2$?
+
+\subsection*{Solution}
+
+To calculate the speedup in AMAT, we need to determine the AMAT before and after increasing the cache block size
+and then compute the speedup.
+
+1. Calculate the initial miss penalty:
+\[
+\text{Initial miss penalty} = L_{MM} + \left(BS_{C} \times BT_{MM}\right)
+\]
+\[
+\text{Initial miss penalty} = 120 \text{ cycles} + \left(16 \text{ bytes} \times 12 \text{ cycles/byte}\right) = 120 + 192 = 312 \text{ cycles}
+\]
+
+2. Calculate the initial AMAT:
+\[
+\text{Initial AMAT} = H_{C} + (MR_{C} \times \text{miss penalty})
+\]
+\[
+\text{Initial AMAT} = 4 \text{ cycles} + (0.05 \times 312 \text{ cycles}) = 4 + 15.6 = 19.6 \text{ cycles}
+\]
+
+3. Calculate the new miss penalty:
+\[
+\text{New miss penalty} = L_{MM} + \left(BS_{NC} \times BT_{MM}\right)
+\]
+\[
+\text{New miss penalty} = 120 \text{ cycles} + \left(64 \text{ bytes} \times 12 \text{ cycles/byte}\right) = 120 + 768 = 888 \text{ cycles}
+\]
+
+4. Calculate the new AMAT:
+\[
+\text{New AMAT} = H_{NC} + (MR_{NC} \times \text{miss penalty})
+\]
+\[
+\text{New AMAT} = 2 \text{ cycles} + (0.02 \times 888 \text{ cycles}) = 2 + 17.76 = 19.76 \text{ cycles}
+\]
+
+5. Calculate the speedup:
+\[
+\text{Speedup} = \frac{\text{Initial AMAT}}{\text{New AMAT}}
+\]
+\[
+\text{Speedup} = \frac{19.6 \text{ cycles}}{19.76 \text{ cycles}} \approx 0.992
+\]
+
+Therefore, the speedup in average memory access time (AMAT) when the cache block size is increased from 16 to 64 bytes and the hit time is decreased to 2 cycles is approximately 0.992.

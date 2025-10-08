@@ -11,7 +11,7 @@ make_assets:
   plugin: command
   options:
     command: make
-    locations: 
+    locations:
       - chapters/intro/soc/slides
     args:
       - all
@@ -43,6 +43,7 @@ docusaurus:
             - Instalare Vivado/: install/
             - Creare proiect Vivado/: project/
             - Simulare Vivado/: simulation/
+            - Simulare GTKWave/: gtkwave/
             - Programare FPGA Vivado/: programming/
             - Rulare exemple practice/: runtasks/
             - Docker:
@@ -148,7 +149,6 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 2 Verilog Combinațional:
               - Operatori:
                   path: chapters/verilog/operators
@@ -156,19 +156,16 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
               - Parametri:
                   path: chapters/verilog/parameters
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
               - Testare:
                   path: chapters/verilog/testing
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 3 Verilog Combinațional:
               - Descriere Comportamentala:
                   path: chapters/verilog/behavioral
@@ -176,7 +173,6 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 4 Verilog Secvențial:
               - Always-Edge:
                   path: chapters/verilog/always-edge
@@ -186,7 +182,6 @@ docusaurus:
                   path: chapters/verilog/debouncer
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 5 Verilog Secvențial:
               - Automate finite:
                   path: chapters/verilog/fsms
@@ -200,7 +195,6 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
           - 6 Verilog Secvențial:
               - Unitate aritmetica logica:
                   path: chapters/microprogramable_cpu/arithmetic-logic-unit
@@ -208,28 +202,47 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    - Practică/: drills/
-          - 7 Calculator Didactic:
+          - 7 Verilog Simulare și Sinteză:
+              - Simulare:
+                  path: chapters/simulation_and_synthesis/simulation
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+          - 8 Verilog Design și Verificare:
+              - Design:
+                  path: chapters/design_and_verification/design
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+          - 9 Calculator Didactic:
               - Arhitectura:
                   path: chapters/microprogramable_cpu/architecture
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-          - 8 Calculator Didactic:
+          - 10 Calculator Didactic:
               - Unitate de comanda:
                   path: chapters/microprogramable_cpu/control-unit
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
-          - 9 Calculator Didactic:
+          - 11 Calculator Didactic:
               - Moduri de adresare:
                   path: chapters/microprogramable_cpu/addressing-modes
                   extra:
                     - media/
                   subsections:
                     - Teorie/: reading/
+      - Practică Verilog:
+          path: chapters/tasks-verilog
+          subsections: 
+            - Laborator 1/: lab_1/
+            - Laborator 2/: lab_2/
+            - Laborator 3/: lab_3/ 
       - Curs:
           path: /build/embed_reveal
           subsections:
@@ -251,12 +264,12 @@ docusaurus:
                   - FSM/: fsm/
                   - Operation Register/: opregister/
                   - Flag RAM/: flagram/
-            # - Test Calculator Didactic:
-            #     path: cpu
-            #     subsections:
-            #       - 1/: 1/
-            #       - 2/: 2/
-            #       - 3/: 3/
+            - Test Calculator Didactic:
+                path: testcpu
+                subsections:
+                  - Fetch stage/: fetch/
+                  - Execute stage/: Exercitiul2/
+                  - Lifetime of an instruction/: full/
             - Teme:
                 path: projects
                 subsections:
@@ -265,7 +278,7 @@ docusaurus:
             #     path: exam
             #     subsections:
             #       - 1/: 1/
-      
+
     static_assets:
       - slides/intro: /build/make_assets/chapters/intro/soc/slides/_site
     config_meta:
