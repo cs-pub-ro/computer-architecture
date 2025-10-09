@@ -1,6 +1,6 @@
 # Circuite combinaționale
 
-## 1. **Sumator elementar complet** (3p)  
+## 1. **Comparator numeric pe un bit** (3p)  
 Implementați și simulați un **comparator pe un bit**. Acesta are **două intrări** și **3 ieșiri** (`less`, `equal`, `greater`).  
 
 **Hint:**  
