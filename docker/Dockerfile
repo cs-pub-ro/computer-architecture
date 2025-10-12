@@ -109,8 +109,8 @@ RUN rm -rf /tools/Xilinx/${VIVADO_VERSION}/tps/lnx64/git-2.45.0 && \
     echo "FINISHED removing git-2.46.0" && \
     rm -rf /tools/Xilinx/${VIVADO_VERSION}/tps/lnx64/gcc-8.3.0 && \
     echo "FINISHED removing gcc-8.3.0" && \
-    rm -rf /tools/Xilinx/${VIVADO_VERSION}/tps/lnx64/gcc-9.3.0 && \
-    echo "FINISHED removing gcc-9.3.0" && \
+    # rm -rf /tools/Xilinx/${VIVADO_VERSION}/tps/lnx64/gcc-9.3.0 && \
+    # echo "FINISHED removing gcc-9.3.0" && \
     rm -rf /tools/Xilinx/${VIVADO_VERSION}/tps/lnx64/clangd-8.0.0 && \
     echo "FINISHED removing clangd-8.0.0"
 
