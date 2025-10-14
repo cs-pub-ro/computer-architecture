@@ -1,0 +1,8 @@
+[package]
+name = "skel"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rhdl = {git = "https://github.com/samitbasu/rhdl.git",rev = "8d04954"}
+rhdl-fpga = {git = "https://github.com/samitbasu/rhdl.git",rev = "8d04954"}

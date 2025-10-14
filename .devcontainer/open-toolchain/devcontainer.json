@@ -9,9 +9,10 @@
 	// },
 	// Latex container for course materials
 	"name": "Computer Architecture Open Source Toolchain Dev",
-	"build": {
-		"dockerfile": "open.Dockerfile",
-	},
+	// "build": {
+	// 	"dockerfile": "open.Dockerfile",
+	// },
+	"image": "gitlab.cs.pub.ro:5050/ac-rhdl/mirror/open-toolchain",
 	"customizations": {
 		"vscode": {
 			"extensions": [

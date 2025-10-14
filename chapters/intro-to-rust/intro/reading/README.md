@@ -210,7 +210,6 @@ fn main() {
         email: String::from("someone@example.com"),
         sign_in_count: 1,
     };
-
     user1.email = String::from("anotheremail@example.com")
 }
 ```
@@ -258,7 +257,6 @@ fn main() {
         email: String::from("someone@example.com"),
         sign_in_count: 1,
     };
-
     println!("User is: {}", user1);
 }
 ```
@@ -290,7 +288,6 @@ fn main() {
         email: String::from("someone@example.com"),
         sign_in_count: 1,
     };
-
     println!("User is: {:?}", user1);
 }
 ```
@@ -311,7 +308,6 @@ Structurile tuple sunt similare cu structurile obișnuite, dar în loc de a folo
 ```rust
 struct Color(i32, i32, i32);
 struct Device(String, u8);
-
 fn main() {
     let black = Color(0, 0, 0);
     let device = Device(String::from("Raspberry Pi Pico"), 2);
@@ -395,7 +391,6 @@ enum Coin {
     Dime,
     Quarter,
 }
-
 fn value_in_cents(coin: Coin) -> u8 {
     match coin {
         Coin::Penny => 1,
@@ -523,7 +518,6 @@ fn main() {
     // apelul funcției `another_function` are un singur argument, valoarea 5
     another_function(5);
 }
-
 // funcția `another_function` are un singur parametru `x` de tip `i32`
 fn another_function(x: i32) {
     println!("The value of x is: {x}");
@@ -543,7 +537,6 @@ Funcțiile pot returna valori către codul care le apelează. Nu este nevoie să
 fn five() -> i32 {
     5
 }
-
 fn main() {
     let x = five();
     println!("The value of x is: {x}"); // "The value of x is: 5"
@@ -563,7 +556,6 @@ Toate expresiile `if` încep cu cuvântul cheie `if`, urmat de o condiție. Opț
 ```rust
 fn main() {
     let number = 3;
-
     if number < 5 {
         println!("condition was true");
     } else {
@@ -577,7 +569,6 @@ Putem combina mai multe condiții folosind `else if`:
 ```rust
 fn main() {
     let number = 6;
-
     if number % 4 == 0 {
         println!("number is divisible by 4");
     } else if number % 3 == 0 {
@@ -596,7 +587,6 @@ Pentru că `if` este o expresie, o putem folosi **în partea dreaptă** a unei d
 fn main() {
     let condition = true;
     let number = if condition { 5 } else { 6 };
-
     println!("The value of number is: {number}"); // "The value of number is: 5"
 }
 ```
@@ -627,7 +617,6 @@ fn main() {
             break counter * 2;
         }
     };
-
     println!("The result is {result}");
 }
 ```
@@ -656,7 +645,6 @@ La fiecare iterație, se returnează o referință către un element din listă.
 ```rust
 fn main() {
     let a = [10, 20, 30, 40, 50];
-
     for element in a {
         println!("the value is: {element}");
     }
@@ -739,7 +727,6 @@ let s = String::from("initial contents");
 ```
 ```rust
 let data = "initial contents";
-
 let s = data.to_string();
 
 // metoda funcționează și direct pe literal:
@@ -890,7 +877,6 @@ fn gives_ownership() -> String {        // mută valoarea returnată către apel
     let some_string = String::from("yours");
     some_string // se returnează, mutând proprietatea
 }
-
 fn takes_and_gives_back(a_string: String) -> String {
     a_string // se returnează și mută valoarea către apelant
 }
@@ -916,7 +902,6 @@ fn main() {
     let len = calculate_length(&s1);
     println!("The length of '{}' is {}.", s1, len);
 }
-
 fn calculate_length(s: &String) -> usize { // s este o referință la un String
     s.len()
 } // aici s iese din scope, dar nu deține valoarea, deci nu este eliberată
@@ -942,7 +927,6 @@ fn main() {
     let mut s = String::from("hello");
     change(&mut s);
 }
-
 fn change(some_string: &mut String) {
     some_string.push_str(", world");
 }
