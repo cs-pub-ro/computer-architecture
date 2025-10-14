@@ -1,0 +1,41 @@
+{
+	"name": "Container for Qexam",
+	"build": {
+		"dockerfile": "Fedora.Dockerfile"
+	},
+    // "workspaceFolder": "/home/sdcioc/workspace",
+    "remoteUser": "sdcioc",
+	"remoteEnv": {
+    	"DISPLAY": "unix:0"
+  	},
+	"mounts": [
+		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.vscode-pull-request-github",
+				"GitHub.copilot",
+				"ms-azuretools.vscode-docker",
+				"GitHub.copilot-chat",
+				"ms-vscode.makefile-tools",
+				"ms-python.python",
+				"tomoki1207.pdf",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.isort",
+				"ms-python.flake8",
+				"james-yu.latex-workshop",
+				"Aizhe.3d-html-viewer",
+				"redhat.vscode-xml",
+				"bierner.github-markdown-preview",
+				"myriad-dreamin.tinymist"
+			]
+		}
+	},
+	"runArgs": [
+		"--rm",
+		"--privileged"
+	],
+	"postAttachCommand": "poetry install"
+}
