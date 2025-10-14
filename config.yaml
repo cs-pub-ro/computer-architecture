@@ -98,6 +98,19 @@ docusaurus:
                   path: chapters/intro-to-rust/intro
                   subsections:
                     - Teorie/: reading/
+          - 2 RHDL Combinational:
+              - RHDL:
+                  path: chapters/rhdllab1/RHDL
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Structura:
+                  path: chapters/rhdllab1/Structura
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
