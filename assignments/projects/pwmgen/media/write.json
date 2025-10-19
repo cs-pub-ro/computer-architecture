@@ -1,0 +1,12 @@
+{signal: [
+  {name: 'cs', wave: '0................1......'},
+  {name: 'sclk', wave: 'P.......P.......P.......'},
+  {name: 'miso', wave: '10.10.1..010.1.0.x.......', phase: 0.5},
+  {name: 'spi_in', wave: 'x.......3.......3.......', data: "0x93 0xA6"},
+  {name: 'spi_out', wave: '2.......................', data: "0x00"},
+  {name: 'write', wave: 'x.......1.......x.......'},
+  {name: 'read', wave: 'x.......0...............'},
+  {name: 'address', wave: 'x........3..............', data: "0x09"},
+  {name: 'data_wr', wave: 'x................3......', data: '0xA6'},
+  {name: 'data_rd', wave: '2.......................', data: '0x00'},
+]}

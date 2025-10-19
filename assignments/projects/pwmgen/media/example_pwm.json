@@ -1,0 +1,7 @@
+{signal: [
+  {name: 'clk', wave: 'P.......P.......'},
+  {name: 'period', wave: '3.......4.......', data:'8 8'},
+  {name: 'duty_cycle', wave: '3.......4.......', data:'2 3'},
+  {name: 'align', wave: '0.......1.......'},
+  {name: 'pwm_out', wave: '0.1........0....'},
+]}
