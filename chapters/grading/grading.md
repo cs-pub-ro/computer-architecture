@@ -37,20 +37,18 @@
 ## Proiect
 
 - Se lucrează în echipe de câte 3 studenți
-- Teme propuse de echipa de asistenți în a doua săptămână de laborator
-- Documentație:
-  - Deadline 05.11.2025, 23:59
+
+- Documentație și implementare:
+  - Deadline 23.11.2025, 23:59
   - Documentarea temei alese
   - Latex/Typst/Markdown
-  - GitHub
-- Implementare:
-  - Deadline 17.12.2025, 23:59
-  - Implementarea temei alese și testare funcționalitate
+  - Implementarea temei alese și testarea funcționalitatății
   - Limbaj: Verilog/RHDL/Chisel/VHDL
   - Repo GitHub
+
 - Evaluare:
-  - Deadline 14.01.2026, 23:59
-  - Sinteză FPGA - număr de LUT-uri
+  - Deadline 14.12.2026, 23:59
+  - Sinteză FPGA
   - Repo GitHub
 
 ### Examen Final (AB)
