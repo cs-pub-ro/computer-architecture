@@ -34,7 +34,26 @@
 - Locație: sala de laborator
 - Platformă: Calculator Laborator - Moodle - VPL
 
-## Proiect
+## Proiect (AB)
+
+- Se lucrează în echipe de câte 3 studenți
+- Teme propuse de echipa de asistenți în a doua săptămână de laborator
+- Documentație:
+  - Deadline 12.11.2025, 23:59
+  - Documentarea temei alese
+  - Latex/Typst/Markdown
+  - GitHub
+- Implementare:
+  - Deadline 17.12.2025, 23:59
+  - Implementarea temei alese și testare funcționalitate
+  - Limbaj: Verilog/RHDL/Chisel/VHDL
+  - Repo GitHub
+- Evaluare:
+  - Deadline 14.01.2026, 23:59
+  - Sinteză FPGA - număr de LUT-uri
+  - Repo GitHub
+
+## Proiect (AA/AC)
 
 - Se lucrează în echipe de câte 3 studenți
 
@@ -42,7 +61,7 @@
   - Deadline 23.11.2025, 23:59
   - Documentarea temei alese
   - Latex/Typst/Markdown
-  - Implementarea temei alese și testarea funcționalitatății
+  - Implementarea temei alese și testarea funcționalității
   - Limbaj: Verilog/RHDL/Chisel/VHDL
   - Repo GitHub
 
