@@ -48,9 +48,10 @@
   - Implementarea temei alese și testare funcționalitate
   - Limbaj: Verilog/RHDL/Chisel/VHDL
   - Repo GitHub
+
 - Evaluare:
   - Deadline 14.01.2026, 23:59
-  - Sinteză FPGA - număr de LUT-uri
+  - Sinteză FPGA
   - Repo GitHub
 
 ## Proiect (AA/AC)
@@ -66,7 +67,7 @@
   - Repo GitHub
 
 - Evaluare:
-  - Deadline 14.12.2026, 23:59
+  - Deadline 14.12.2025, 23:59
   - Sinteză FPGA
   - Repo GitHub
 
