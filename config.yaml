@@ -110,7 +110,7 @@ docusaurus:
                   extra:
                     - media/
                   subsections:
-                    - Teorie/: reading
+                    - Teorie/: reading/
           - 2 RHDL Secvential:
               - Parametrizare:
                   path: chapters/rhdllab2/Parametrizare
