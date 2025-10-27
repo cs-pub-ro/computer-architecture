@@ -126,8 +126,8 @@ docusaurus:
                     - Teorie/: reading/
               - Exercitii:
                   path: chapters/rhdllab2/Exercitii
-                  # extra:
-                  #   - media/
+                  extra:
+                    - media/
                   subsections:
                     - Teorie/: reading/
                     
