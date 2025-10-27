@@ -129,9 +129,7 @@ docusaurus:
                   # extra:
                   #   - media/
                   subsections:
-                    - Alu/: alu/
-                    - Fsm/: fsm/
-
+                    - Teorie/: reading/
                     
       - Laboratoare:
           - 0 Recapitulare:
