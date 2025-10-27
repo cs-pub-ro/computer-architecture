@@ -1,0 +1,13 @@
+[package]
+name = "bitops-rhdl"
+version = "0.1.0"
+edition = "2024"
+
+
+[dependencies]
+syn = { version = "2", features = ["full", "fold"] }
+quote = "1"
+proc-macro2 = "1"
+
+[lib]
+proc-macro = true
