@@ -37,7 +37,15 @@ Pentru a putea implementa un astfel de circuit secvential, ne trebuie un struct 
 ### SynchronousDQ
 Reprezinta tipurile de date lui `D` si `Q`.
 Pentru a intelege ce reprezinta denumirile, ne vom uita la un bistabil D:
-// TODO imagine bistabil D
+
+<div align="center">
+
+![D-Flip-Flop](../media/DFF.png)
+
+_Figure: D Flip Flop_
+
+</div>
+
 `Q` reprezinta iesirea bistabilului, iar `D` intrarea.
 Dar de fapt `Q` este legat direct de continutul memoriei bistabilului, deci putem
 sa il interpretam ca si starea curenta.

@@ -110,7 +110,29 @@ docusaurus:
                   extra:
                     - media/
                   subsections:
+                    - Teorie/: reading
+          - 2 RHDL Secvential:
+              - Parametrizare:
+                  path: chapters/rhdllab2/Parametrizare
+                  # extra:
+                  #   - media/
+                  subsections:
                     - Teorie/: reading/
+              - Circuite Secventiale:
+                  path: chapters/rhdllab2/Secvential
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Exercitii:
+                  path: chapters/rhdllab2/Exercitii
+                  # extra:
+                  #   - media/
+                  subsections:
+                    - Alu/: alu/
+                    - Fsm/: fsm/
+
+                    
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:

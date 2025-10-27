@@ -1,19 +1,45 @@
 # Parametrizare
 Pana acuma, noi am facut doar circuite de marime statica. Un adder care este hardcodat la 4 biti poate avea o utilitate nisata, doar ca in general nu este util daca vrem sa adunam numere de N biti.
 
-Din fericire, Rust si RHDL ne ofera posibilitatea sa parametrizam un modul, adica sa il facem in asa fel incat sa se poata generaliza operatiile pe care le facem pe N
+Pentru a putea reutiliza circuitele pe care le scriem, pentru mai multe cazuri de utilizare, este o idee bună să le facem parametrizabile.
+Acest lucru îl putem face folosindu-ne de *generics*. 
 
-Spre exemplu, pentru un circuit de or pe biti, daca vrem sa il
-facem generic, vom avea urmatoarea functie kernel:
-```rust
+
+```rust 
 #[kernel]
-fn bitwise_or<N: BitWidth>(_cr: ClockReset, i: (Bits<N>, Bits<N>)) -> Bits<N>;
+fn my_parameterized_circuit<U: Unsigned>(_cr: ClockReset, i: (Bits<U>, Bits<U>)) -> Bits<U>
+where
+    U: Unsigned + BitWidth + Eq + Copy,
+{
+    // your logic here
+}
+
+type MyParameterizedCircuit<U> = Func<(Bits<U>, Bits<U>), Bits<U>>;
+
+fn new<U>() -> Result<MyParameterizedCircuit<U>, RHDLError>
+where
+    U: Unsigned + BitWidth + Eq + Copy,
+{
+    Func::try_new::<my_parameterized_circuit<U>>()
+}
 ```
+
+Pentru a crea instanțe pentru aceste circuite:
+
+```rust
+let circuit4: MyParameterizedCircuit<U4> = new::<U4>()?;
+let circuit8: MyParameterizedCircuit<U8> = new::<U8>()?;
+```
+
 Sunt de mentionat 2 fapte totusi, 
 in primul rand, parametrii generici, mai ales care vor fi folositi la width-ul unei structuri `Bits`, va fi obligatorie sa fie un `Type` (in cazul la `Bits` acel type va fi si obligat sa implementeze `BitWidth`).
 In al 2lea rand, orice semnatura de functie trebuie sa poata sa aibe lungimile
 deduse la compile-time.
 
+## Parametrizare derivata
+:::warning
+*NU* putem face operatii de genul ``Bits<U+T>``, cel putin nu cu metode conventionale. Putem totusi sa emulam asftel de operatii cu wrappere de type
+:::
 In ``rhdl_typenum`` avem mai multe tipuri auxiliare care ne pot ajuta sa facem operatii la nivel generic, spre exemplu:
 - `Add1`
 - `Sum`
@@ -39,11 +65,15 @@ where
 
 In prelude la rhdl, avem toate aceste tipuri auxiliare, mai putin `Diff`, acesta trebuie sa il importam in mod special din rhdl_typenum
 
-## Macro-ul op!()
+### Macro-ul op!()
 exista posibilitatea sa se foloseasca macro-ul ``op!()``, care mapeaza spre exemplu ``op!(U5+U3)`` in ``Sum<U5,U3>`` sau ``op!(U5-U3)`` in ``Diff<U5,U3>`. Desi acest macro pare ca ne face viata mai usoara,
 din pacate tot trebuie sa stim ce se intampla in spate pentru a ii da compilatorului hinturi despre trait implementation se fac.
 
 ## Crate-ul bitops_rhdl
+:::warning
+Acest crate e inca work in progress, orice vi se pare ca ar fi trebuit sa mearga si
+nu merge, anuntati asistentul de laborator sau faceti un issue pe [Github](https://github.com/cs-pub-ro/computer-architecture)
+:::
 Este un crate auxiliar creat pentru a emula 2 operatii din verilog cu o sintaxa comoda, acelea fiind bit selection si bit packing
 ### Motivatie
 Daca ati explorat un pic, ati observat probabil ca nu exista vreo cale comoda de a indexa un bit sau o sectiune de biti anume din structura Bits, analog pentru a le concatena.
