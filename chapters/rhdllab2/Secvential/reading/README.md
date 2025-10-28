@@ -134,8 +134,9 @@ Este *obligatoriu* ca tipul nostru sa implementeze traitul `Default`. De ce? Deo
 Se cere sa se creeze un automat care sa recunoasca secventa(sa se termine in) 'ab'. Automatul va avea $\Sigma=\{a,b\}$
 
 ```rust
-#[derive(Debug,PartialEq,Eq,Digital,Clone,Copy)]
+#[derive(Debug,PartialEq,Eq,Digital,Default)]
 enum In {
+    #[default]
     a,
     b
 }
@@ -173,16 +174,16 @@ impl Default for FsmAB {
 }
 
 impl SynchronousIO for FsmAB {
-    type I = In,
-    type O = bool,
-    type Kernel = fsm_ker
+    type I = In;
+    type O = bool;
+    type Kernel = fsm_ker;
 }
 ```
 
 Acesta e un boilerplate necesar pentru fiecare circuit secvential. Acuma logica automatului:
 ```rust
 #[kernel]
-fn fsm_ker(_cr: ClockReset, i: I, q: Q) -> (O, D) {
+fn fsm_ker(_cr: ClockReset, i: In, q: Q) -> (bool, D) {
     let (o,d) = match (q.state, i) {
         (StateAB::Initial, In::a) => (false, StateAB::a),
         (StateAB::a, In::b) => (false, StateAB::ab),
