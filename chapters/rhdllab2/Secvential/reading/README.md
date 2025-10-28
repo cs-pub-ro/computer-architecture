@@ -136,6 +136,7 @@ Se cere sa se creeze un automat care sa recunoasca secventa(sa se termine in) 'a
 ```rust
 #[derive(Debug,PartialEq,Eq,Digital,Default)]
 enum In {
+    #[default]
     a,
     b
 }
