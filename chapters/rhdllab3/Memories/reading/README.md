@@ -3,7 +3,7 @@
 Pentru a putea pastra o stare interna, ne folosim de *memorii* ca sa stocheze valori pentru a putea fi utilizate mai tarziu.
 Memoriile pot fi clasificate in mai multe modalitati
 
-- Viteza
+### Viteza
 <div align="center">
 
 ![Ierarhia memoriilor](../media/memory_speed.png)
@@ -14,7 +14,8 @@ _Figure: Ierarhia memoriilor_
 
 Observam ca exista mai multe viteze la memorii, registrii sunt cei mai rapizi, unde spre deosebire memoria RAM sau Disk sunt foarte lente
 
-- Volatilitate: Non-volatila contine disk, ssd, banda magnetica, eeprom, acestea isi mentin starea dupa inchidere, in schimb memoriile volatile precum ram/registri se reseteaza dupa fiecare inchidere
+### Volatilitate
+Non-volatila contine disk, ssd, banda magnetica, eeprom, acestea isi mentin starea dupa inchidere, in schimb memoriile volatile precum ram/registri se reseteaza dupa fiecare inchidere
 
 ## Tipuri de memorii RAM
 <div align="center">
