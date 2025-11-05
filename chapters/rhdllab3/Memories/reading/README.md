@@ -14,7 +14,9 @@ _Figure: Ierarhia memoriilor_
 
 Observam ca exista mai multe viteze la memorii, registrii sunt cei mai rapizi, unde spre deosebire memoria RAM sau Disk sunt foarte lente
 
-- Volatilita
+- Volatilitate: Non-volatila contine disk, ssd, banda magnetica, eeprom, acestea isi mentin starea dupa inchidere, in schimb memoriile volatile precum ram/registri se reseteaza dupa fiecare inchidere
+
+## Tipuri de memorii RAM
 <div align="center">
 
 ![Celula sram](../media/sram_cell.png)
