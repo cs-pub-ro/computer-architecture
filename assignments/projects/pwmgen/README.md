@@ -169,7 +169,7 @@ Trebuie ținut cont de faptul că toate cerințele se vor rezolva în echipe de 
 
 1. Citiți tot enunțul temei cu atenție înainte de scrierea implementării. 
 Asta va fi important să înțelegeți modul de funcționare al perifericului și modul în care veți elabora soluția.
-2. În secțiunea temei aveți un schelet de cod unde apar definițiile modulelor, și pe care voi trebuie să le completați implementările.
+2. În secțiunea temei aveți un [schelet de cod](https://github.com/cs-pub-ro/computer-architecture/tree/main/assignments/projects/pwmgen/code) unde apar definițiile modulelor, și pe care voi trebuie să le completați implementările.
 Respectați denumirile semnalelor și nu schimbați antetul modulelor la implementarea lor, mai ales la nivelul `top.v`.
 3. Va trebui să scrieți implementarea fiecărui modul care se află în structura temei, astfel încât legate împreună, să rezulte funcționarea perifericului așa cum e descris în secțiunea **Arhitectura modulului**.
 4. După veți testa acest modul cu ajutorul testbench-ului dat de către noi și verificați că niciun test nu pică.
