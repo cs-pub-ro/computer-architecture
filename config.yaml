@@ -138,7 +138,7 @@ docusaurus:
                   subsections:
                     - Teorie/: reading/
               - Exercitii:
-                  path: chapters/rhdllab3/Exercitii
+                  path: chapters/rhdllab3/Exercises
                   extra:
                     - media/
                   subsections:
