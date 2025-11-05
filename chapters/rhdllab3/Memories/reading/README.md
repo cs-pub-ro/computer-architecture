@@ -56,10 +56,12 @@ Daca intrarea e in starea de impedanta inalta, se va face pull-down la 0 automat
 
 ## RHDL
 In RHDL, avem 2 tipuri de baza de memorii:
-- ```DFF<T: Digital>```, care reprezinta un registru generic care incapsuleaza un T
+### DFF
+```DFF<T: Digital>```, care reprezinta un registru generic care incapsuleaza un T
 
 la citire feedbackul este aproape instant, scrierea se va intampla abia ciclul urmator
-- ```SyncBRAM<T: Digital, N: BitWidth>```, care reprezinta o memorie SRAM generica cu unitatea de baza T si adresa pe N biti
+### SyncBRAM
+```SyncBRAM<T: Digital, N: BitWidth>```, care reprezinta o memorie SRAM generica cu unitatea de baza T si adresa pe N biti
 Ca inputuri acesta primeste o structura care contine un `read_addr`, care e adresa de read si e ```Bits<N>```, si un `write` care e un ```Write<T,N>```, acesta contine adresa de write, data de scris si daca dai enable la write
 <div align="center">
 
