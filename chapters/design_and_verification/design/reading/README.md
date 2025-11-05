@@ -90,6 +90,7 @@ Pe lângă diagramă, există și un tabel cu semnificația semnalelor și cum a
 | set             | input        | 1             | Setează valoarea numărătorului cu cea provenită din `setcount`; are prioritate față de `ena`                               |
 | setcount        | input        | [WIDTH-1:0]   | Valoarea ce poate fi atribuită numărătorului prin semnalul de `set`                                                        |
 | ena             | input        | 1             | Actualizează valoarea numărătorului în funcție de `upnotdown` la fiecare ciclu de ceas                                     |
+| upnotdown       | input        | 1             | Determină dacă sensul numărătorului este crescător (activ pe high) sau descrescător (activ pe low)                           |
 | count           | output       | [WIDTH-1:0]   | Valoarea memorată a numărătorului                                                                                          |
 
 

@@ -254,6 +254,12 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
+              - Sinteza:
+                  path: chapters/simulation_and_synthesis/synthesis
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
           - 8 Verilog Design și Verificare:
               - Design:
                   path: chapters/design_and_verification/design
