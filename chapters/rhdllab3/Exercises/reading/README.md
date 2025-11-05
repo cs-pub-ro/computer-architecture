@@ -4,7 +4,7 @@ Se da urmatoarea structura in schelet:
 
 <div align="center">
 
-![Mini calculator didactic](minicd.png)
+![Mini calculator didactic](../media/minicd.png)
 
 _Figure: Mini calculator didactic_
 </div>
