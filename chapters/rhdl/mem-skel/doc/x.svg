@@ -1,0 +1,515 @@
+<svg viewBox="0 0 14200 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="clip">
+<rect height="320" width="14200" x="0" y="0"/>
+</clipPath>
+</defs>
+<rect fill="#0B151D" height="320" stroke="darkblue" width="14200" x="0" y="0"/>
+<line stroke="#333333" stroke-width="1" x1="200" x2="200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="200" y="10">
+0
+</text>
+<line stroke="#333333" stroke-width="1" x1="400" x2="400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="400" y="10">
+5
+</text>
+<line stroke="#333333" stroke-width="1" x1="600" x2="600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="600" y="10">
+10
+</text>
+<line stroke="#333333" stroke-width="1" x1="800" x2="800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="800" y="10">
+15
+</text>
+<line stroke="#333333" stroke-width="1" x1="1000" x2="1000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1000" y="10">
+20
+</text>
+<line stroke="#333333" stroke-width="1" x1="1200" x2="1200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1200" y="10">
+25
+</text>
+<line stroke="#333333" stroke-width="1" x1="1400" x2="1400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1400" y="10">
+30
+</text>
+<line stroke="#333333" stroke-width="1" x1="1600" x2="1600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1600" y="10">
+35
+</text>
+<line stroke="#333333" stroke-width="1" x1="1800" x2="1800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1800" y="10">
+40
+</text>
+<line stroke="#333333" stroke-width="1" x1="2000" x2="2000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="2000" y="10">
+45
+</text>
+<line stroke="#333333" stroke-width="1" x1="2200" x2="2200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="2200" y="10">
+50
+</text>
+<line stroke="#333333" stroke-width="1" x1="2400" x2="2400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="2400" y="10">
+55
+</text>
+<line stroke="#333333" stroke-width="1" x1="2600" x2="2600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="2600" y="10">
+60
+</text>
+<line stroke="#333333" stroke-width="1" x1="2800" x2="2800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="2800" y="10">
+65
+</text>
+<line stroke="#333333" stroke-width="1" x1="3000" x2="3000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="3000" y="10">
+70
+</text>
+<line stroke="#333333" stroke-width="1" x1="3200" x2="3200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="3200" y="10">
+75
+</text>
+<line stroke="#333333" stroke-width="1" x1="3400" x2="3400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="3400" y="10">
+80
+</text>
+<line stroke="#333333" stroke-width="1" x1="3600" x2="3600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="3600" y="10">
+85
+</text>
+<line stroke="#333333" stroke-width="1" x1="3800" x2="3800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="3800" y="10">
+90
+</text>
+<line stroke="#333333" stroke-width="1" x1="4000" x2="4000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4000" y="10">
+95
+</text>
+<line stroke="#333333" stroke-width="1" x1="4200" x2="4200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4200" y="10">
+100
+</text>
+<line stroke="#333333" stroke-width="1" x1="4400" x2="4400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4400" y="10">
+105
+</text>
+<line stroke="#333333" stroke-width="1" x1="4600" x2="4600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4600" y="10">
+110
+</text>
+<line stroke="#333333" stroke-width="1" x1="4800" x2="4800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4800" y="10">
+115
+</text>
+<line stroke="#333333" stroke-width="1" x1="5000" x2="5000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="5000" y="10">
+120
+</text>
+<line stroke="#333333" stroke-width="1" x1="5200" x2="5200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="5200" y="10">
+125
+</text>
+<line stroke="#333333" stroke-width="1" x1="5400" x2="5400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="5400" y="10">
+130
+</text>
+<line stroke="#333333" stroke-width="1" x1="5600" x2="5600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="5600" y="10">
+135
+</text>
+<line stroke="#333333" stroke-width="1" x1="5800" x2="5800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="5800" y="10">
+140
+</text>
+<line stroke="#333333" stroke-width="1" x1="6000" x2="6000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="6000" y="10">
+145
+</text>
+<line stroke="#333333" stroke-width="1" x1="6200" x2="6200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="6200" y="10">
+150
+</text>
+<line stroke="#333333" stroke-width="1" x1="6400" x2="6400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="6400" y="10">
+155
+</text>
+<line stroke="#333333" stroke-width="1" x1="6600" x2="6600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="6600" y="10">
+160
+</text>
+<line stroke="#333333" stroke-width="1" x1="6800" x2="6800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="6800" y="10">
+165
+</text>
+<line stroke="#333333" stroke-width="1" x1="7000" x2="7000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="7000" y="10">
+170
+</text>
+<line stroke="#333333" stroke-width="1" x1="7200" x2="7200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="7200" y="10">
+175
+</text>
+<line stroke="#333333" stroke-width="1" x1="7400" x2="7400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="7400" y="10">
+180
+</text>
+<line stroke="#333333" stroke-width="1" x1="7600" x2="7600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="7600" y="10">
+185
+</text>
+<line stroke="#333333" stroke-width="1" x1="7800" x2="7800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="7800" y="10">
+190
+</text>
+<line stroke="#333333" stroke-width="1" x1="8000" x2="8000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8000" y="10">
+195
+</text>
+<line stroke="#333333" stroke-width="1" x1="8200" x2="8200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8200" y="10">
+200
+</text>
+<line stroke="#333333" stroke-width="1" x1="8400" x2="8400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8400" y="10">
+205
+</text>
+<line stroke="#333333" stroke-width="1" x1="8600" x2="8600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8600" y="10">
+210
+</text>
+<line stroke="#333333" stroke-width="1" x1="8800" x2="8800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8800" y="10">
+215
+</text>
+<line stroke="#333333" stroke-width="1" x1="9000" x2="9000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="9000" y="10">
+220
+</text>
+<line stroke="#333333" stroke-width="1" x1="9200" x2="9200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="9200" y="10">
+225
+</text>
+<line stroke="#333333" stroke-width="1" x1="9400" x2="9400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="9400" y="10">
+230
+</text>
+<line stroke="#333333" stroke-width="1" x1="9600" x2="9600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="9600" y="10">
+235
+</text>
+<line stroke="#333333" stroke-width="1" x1="9800" x2="9800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="9800" y="10">
+240
+</text>
+<line stroke="#333333" stroke-width="1" x1="10000" x2="10000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="10000" y="10">
+245
+</text>
+<line stroke="#333333" stroke-width="1" x1="10200" x2="10200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="10200" y="10">
+250
+</text>
+<line stroke="#333333" stroke-width="1" x1="10400" x2="10400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="10400" y="10">
+255
+</text>
+<line stroke="#333333" stroke-width="1" x1="10600" x2="10600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="10600" y="10">
+260
+</text>
+<line stroke="#333333" stroke-width="1" x1="10800" x2="10800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="10800" y="10">
+265
+</text>
+<line stroke="#333333" stroke-width="1" x1="11000" x2="11000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="11000" y="10">
+270
+</text>
+<line stroke="#333333" stroke-width="1" x1="11200" x2="11200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="11200" y="10">
+275
+</text>
+<line stroke="#333333" stroke-width="1" x1="11400" x2="11400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="11400" y="10">
+280
+</text>
+<line stroke="#333333" stroke-width="1" x1="11600" x2="11600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="11600" y="10">
+285
+</text>
+<line stroke="#333333" stroke-width="1" x1="11800" x2="11800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="11800" y="10">
+290
+</text>
+<line stroke="#333333" stroke-width="1" x1="12000" x2="12000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12000" y="10">
+295
+</text>
+<line stroke="#333333" stroke-width="1" x1="12200" x2="12200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12200" y="10">
+300
+</text>
+<line stroke="#333333" stroke-width="1" x1="12400" x2="12400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12400" y="10">
+305
+</text>
+<line stroke="#333333" stroke-width="1" x1="12600" x2="12600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12600" y="10">
+310
+</text>
+<line stroke="#333333" stroke-width="1" x1="12800" x2="12800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12800" y="10">
+315
+</text>
+<line stroke="#333333" stroke-width="1" x1="13000" x2="13000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="13000" y="10">
+320
+</text>
+<line stroke="#333333" stroke-width="1" x1="13200" x2="13200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="13200" y="10">
+325
+</text>
+<line stroke="#333333" stroke-width="1" x1="13400" x2="13400" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="13400" y="10">
+330
+</text>
+<line stroke="#333333" stroke-width="1" x1="13600" x2="13600" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="13600" y="10">
+335
+</text>
+<line stroke="#333333" stroke-width="1" x1="13800" x2="13800" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="13800" y="10">
+340
+</text>
+<line stroke="#333333" stroke-width="1" x1="14000" x2="14000" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="14000" y="10">
+345
+</text>
+<line stroke="#333333" stroke-width="1" x1="14200" x2="14200" y1="0" y2="320"/>
+<text clip-path="url(#clip)" dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="14200" y="10">
+350
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" y="10">
+Time:
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="30">
+.clock
+<title>top.clock</title>
+</text>
+<path d="M 200 30 L 200 37 L 2200 37 L 2200 30" fill="none" stroke="#56C126" stroke-width="1"/>
+<rect fill="#1C400C" height="14" stroke="none" width="1998" x="2201" y="23"/>
+<path d="M 2200 30 L 2200 23 L 4200 23 L 4200 30" fill="none" stroke="#56C126" stroke-width="1"/>
+<path d="M 4200 30 L 4200 37 L 6200 37 L 6200 30" fill="none" stroke="#56C126" stroke-width="1"/>
+<rect fill="#1C400C" height="14" stroke="none" width="1998" x="6201" y="23"/>
+<path d="M 6200 30 L 6200 23 L 8200 23 L 8200 30" fill="none" stroke="#56C126" stroke-width="1"/>
+<path d="M 8200 30 L 8200 37 L 10200 37 L 10200 30" fill="none" stroke="#56C126" stroke-width="1"/>
+<rect fill="#1C400C" height="14" stroke="none" width="1998" x="10201" y="23"/>
+<path d="M 10200 30 L 10200 23 L 12200 23 L 12200 30" fill="none" stroke="#56C126" stroke-width="1"/>
+<path d="M 12200 30 L 12200 37 L 14200 37 L 14200 30" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="50">
+.input
+<title>top.input</title>
+</text>
+<path d="M 200 50 L 203 43 L 2237 43 L 2240 50 L 2237 57 L 203 57 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1220" xml:space="preserve" y="50">
+{oe: 0, we: 0, data_in: 0000, address: 000}
+<title>{oe: 0, we: 0, data_in: 0000, address: 000}</title>
+</text>
+<path d="M 2240 50 L 2243 43 L 6237 43 L 6240 50 L 6237 57 L 2243 57 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4240" xml:space="preserve" y="50">
+{oe: 0, we: 1, data_in: 0005, address: 000}
+<title>{oe: 0, we: 1, data_in: 0005, address: 000}</title>
+</text>
+<path d="M 6240 50 L 6243 43 L 10237 43 L 10240 50 L 10237 57 L 6243 57 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8240" xml:space="preserve" y="50">
+{oe: 1, we: 0, data_in: 0007, address: 000}
+<title>{oe: 1, we: 0, data_in: 0007, address: 000}</title>
+</text>
+<path d="M 10240 50 L 10243 43 L 14197 43 L 14200 50 L 14197 57 L 10243 57 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12220" xml:space="preserve" y="50">
+{oe: 0, we: 0, data_in: 0000, address: 000}
+<title>{oe: 0, we: 0, data_in: 0000, address: 000}</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="70">
+   .oe
+<title>top.input.oe</title>
+</text>
+<path d="M 200 70 L 200 77 L 6240 77 L 6240 70" fill="none" stroke="#56C126" stroke-width="1"/>
+<rect fill="#1C400C" height="14" stroke="none" width="3998" x="6241" y="63"/>
+<path d="M 6240 70 L 6240 63 L 10240 63 L 10240 70" fill="none" stroke="#56C126" stroke-width="1"/>
+<path d="M 10240 70 L 10240 77 L 14200 77 L 14200 70" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="90">
+   .we
+<title>top.input.we</title>
+</text>
+<path d="M 200 90 L 200 97 L 2240 97 L 2240 90" fill="none" stroke="#56C126" stroke-width="1"/>
+<rect fill="#1C400C" height="14" stroke="none" width="3998" x="2241" y="83"/>
+<path d="M 2240 90 L 2240 83 L 6240 83 L 6240 90" fill="none" stroke="#56C126" stroke-width="1"/>
+<path d="M 6240 90 L 6240 97 L 14200 97 L 14200 90" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="110">
+   .data_in
+<title>top.input.data_in</title>
+</text>
+<path d="M 200 110 L 203 103 L 2237 103 L 2240 110 L 2237 117 L 203 117 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1220" xml:space="preserve" y="110">
+0000
+<title>0000</title>
+</text>
+<path d="M 2240 110 L 2243 103 L 6237 103 L 6240 110 L 6237 117 L 2243 117 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4240" xml:space="preserve" y="110">
+0005
+<title>0005</title>
+</text>
+<path d="M 6240 110 L 6243 103 L 10237 103 L 10240 110 L 10237 117 L 6243 117 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8240" xml:space="preserve" y="110">
+0007
+<title>0007</title>
+</text>
+<path d="M 10240 110 L 10243 103 L 14197 103 L 14200 110 L 14197 117 L 10243 117 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12220" xml:space="preserve" y="110">
+0000
+<title>0000</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="130">
+   .address
+<title>top.input.address</title>
+</text>
+<path d="M 200 130 L 203 123 L 14197 123 L 14200 130 L 14197 137 L 203 137 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="7200" xml:space="preserve" y="130">
+000
+<title>000</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="150">
+.memory.synchronous_ram.input
+<title>top.memory.synchronous_ram.input</title>
+</text>
+<path d="M 200 150 L 203 143 L 2237 143 L 2240 150 L 2237 157 L 203 157 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1220" xml:space="preserve" y="150">
+{read_addr: 000, write: {addr: 000, value: 0000, enable: 0}}
+<title>{read_addr: 000, write: {addr: 000, value: 0000, enable: 0}}</title>
+</text>
+<path d="M 2240 150 L 2243 143 L 6237 143 L 6240 150 L 6237 157 L 2243 157 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4240" xml:space="preserve" y="150">
+{read_addr: 000, write: {addr: 000, value: 0005, enable: 1}}
+<title>{read_addr: 000, write: {addr: 000, value: 0005, enable: 1}}</title>
+</text>
+<path d="M 6240 150 L 6243 143 L 10237 143 L 10240 150 L 10237 157 L 6243 157 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8240" xml:space="preserve" y="150">
+{read_addr: 000, write: {addr: 000, value: 0007, enable: 0}}
+<title>{read_addr: 000, write: {addr: 000, value: 0007, enable: 0}}</title>
+</text>
+<path d="M 10240 150 L 10243 143 L 14197 143 L 14200 150 L 14197 157 L 10243 157 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12220" xml:space="preserve" y="150">
+{read_addr: 000, write: {addr: 000, value: 0000, enable: 0}}
+<title>{read_addr: 000, write: {addr: 000, value: 0000, enable: 0}}</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="170">
+   .read_addr
+<title>top.memory.synchronous_ram.input.read_addr</title>
+</text>
+<path d="M 200 170 L 203 163 L 14197 163 L 14200 170 L 14197 177 L 203 177 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="7200" xml:space="preserve" y="170">
+000
+<title>000</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="190">
+   .write
+<title>top.memory.synchronous_ram.input.write</title>
+</text>
+<path d="M 200 190 L 203 183 L 2237 183 L 2240 190 L 2237 197 L 203 197 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1220" xml:space="preserve" y="190">
+{addr: 000, value: 0000, enable: 0}
+<title>{addr: 000, value: 0000, enable: 0}</title>
+</text>
+<path d="M 2240 190 L 2243 183 L 6237 183 L 6240 190 L 6237 197 L 2243 197 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4240" xml:space="preserve" y="190">
+{addr: 000, value: 0005, enable: 1}
+<title>{addr: 000, value: 0005, enable: 1}</title>
+</text>
+<path d="M 6240 190 L 6243 183 L 10237 183 L 10240 190 L 10237 197 L 6243 197 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8240" xml:space="preserve" y="190">
+{addr: 000, value: 0007, enable: 0}
+<title>{addr: 000, value: 0007, enable: 0}</title>
+</text>
+<path d="M 10240 190 L 10243 183 L 14197 183 L 14200 190 L 14197 197 L 10243 197 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12220" xml:space="preserve" y="190">
+{addr: 000, value: 0000, enable: 0}
+<title>{addr: 000, value: 0000, enable: 0}</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="210">
+      .addr
+<title>top.memory.synchronous_ram.input.write.addr</title>
+</text>
+<path d="M 200 210 L 203 203 L 14197 203 L 14200 210 L 14197 217 L 203 217 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="7200" xml:space="preserve" y="210">
+000
+<title>000</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="230">
+      .value
+<title>top.memory.synchronous_ram.input.write.value</title>
+</text>
+<path d="M 200 230 L 203 223 L 2237 223 L 2240 230 L 2237 237 L 203 237 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="1220" xml:space="preserve" y="230">
+0000
+<title>0000</title>
+</text>
+<path d="M 2240 230 L 2243 223 L 6237 223 L 6240 230 L 6237 237 L 2243 237 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="4240" xml:space="preserve" y="230">
+0005
+<title>0005</title>
+</text>
+<path d="M 6240 230 L 6243 223 L 10237 223 L 10240 230 L 10237 237 L 6243 237 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="8240" xml:space="preserve" y="230">
+0007
+<title>0007</title>
+</text>
+<path d="M 10240 230 L 10243 223 L 14197 223 L 14200 230 L 14197 237 L 10243 237 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12220" xml:space="preserve" y="230">
+0000
+<title>0000</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="250">
+      .enable
+<title>top.memory.synchronous_ram.input.write.enable</title>
+</text>
+<path d="M 200 250 L 200 257 L 2240 257 L 2240 250" fill="none" stroke="#56C126" stroke-width="1"/>
+<rect fill="#1C400C" height="14" stroke="none" width="3998" x="2241" y="243"/>
+<path d="M 2240 250 L 2240 243 L 6240 243 L 6240 250" fill="none" stroke="#56C126" stroke-width="1"/>
+<path d="M 6240 250 L 6240 257 L 14200 257 L 14200 250" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="270">
+.memory.synchronous_ram.output
+<title>top.memory.synchronous_ram.output</title>
+</text>
+<path d="M 200 270 L 203 263 L 10197 263 L 10200 270 L 10197 277 L 203 277 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="5200" xml:space="preserve" y="270">
+0000
+<title>0000</title>
+</text>
+<path d="M 10200 270 L 10203 263 L 14197 263 L 14200 270 L 14197 277 L 10203 277 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12200" xml:space="preserve" y="270">
+0005
+<title>0005</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="290">
+.outputs
+<title>top.outputs</title>
+</text>
+<path d="M 200 290 L 203 283 L 10197 283 L 10200 290 L 10197 297 L 203 297 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="5200" xml:space="preserve" y="290">
+0000
+<title>0000</title>
+</text>
+<path d="M 10240 290 L 10243 283 L 14197 283 L 14200 290 L 14197 297 L 10243 297 Z" fill="none" stroke="#56C126" stroke-width="1"/>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="middle" x="12220" xml:space="preserve" y="290">
+0000
+<title>0000</title>
+</text>
+<text dominant-baseline="middle" fill="#D4D4D4" font-family="monospace" font-size="10px" text-anchor="start" x="3" xml:space="preserve" y="310">
+.reset
+<title>top.reset</title>
+</text>
+<rect fill="#1C400C" height="14" stroke="none" width="2038" x="201" y="303"/>
+<path d="M 200 310 L 200 303 L 2240 303 L 2240 310" fill="none" stroke="#56C126" stroke-width="1"/>
+<path d="M 2240 310 L 2240 317 L 14200 317 L 14200 310" fill="none" stroke="#56C126" stroke-width="1"/>
+</svg>

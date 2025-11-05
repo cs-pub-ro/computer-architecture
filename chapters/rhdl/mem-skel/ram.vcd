@@ -1,0 +1,50 @@
+$timescale 1 ps $end
+$comment
+    TraceInfo({"top.clock":Clock,"top.input":Struct((name:"mem_skel::ram::RamImput",fields:[(name:"oe",ty:Bits(1)),(name:"we",ty:Bits(1)),(name:"data_in",ty:Bits(16)),(name:"address",ty:Bits(10))])),"top.memory.synchronous_ram.input":Struct((name:"rhdl_fpga::core::ram::synchronous::In<rhdl_bits::bits_impl::Bits<rhdl_typenum::consts::U16>rhdl_typenum::consts::U10>",fields:[(name:"read_addr",ty:Bits(10)),(name:"write",ty:Struct((name:"rhdl_fpga::core::ram::synchronous::Write<rhdl_bits::bits_impl::Bits<rhdl_typenum::consts::U16>rhdl_typenum::consts::U10>",fields:[(name:"addr",ty:Bits(10)),(name:"value",ty:Bits(16)),(name:"enable",ty:Bits(1))])))])),"top.memory.synchronous_ram.output":Bits(16),"top.outputs":Bits(16),"top.reset":Reset})
+$end
+$scope module top $end
+$var wire 1 ! clock $end
+$var wire 28 " input $end
+$var wire 16 # outputs $end
+$var wire 1 $ reset $end
+$scope module memory $end
+$scope module synchronous_ram $end
+$var wire 37 % input $end
+$var wire 16 & output $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+b0 !
+b0000000000000000000000000000 "
+b0000000000000000 #
+b1 $
+b0000000000000000000000000000000000000 %
+b0000000000000000 &
+#50
+b1 !
+#51
+b0000000000000000000000010110 "
+b0 $
+b1000000000000010100000000000000000000 %
+#100
+b0 !
+#150
+b1 !
+#151
+b0000000000000000000000011101 "
+b0000000000000011100000000000000000000 %
+#200
+b0 !
+#250
+b1 !
+b0000000000000101 #
+b0000000000000101 &
+#251
+b0000000000000000000000011100 "
+b0000000000000000 #
+#300
+b0 !
+#350
+b1 !

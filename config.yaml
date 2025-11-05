@@ -130,7 +130,19 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-                    
+          - 4 RHDL Memorii:
+              - Memorii:
+                  path: chapters/rhdllab3/Memories
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Exercitii:
+                  path: chapters/rhdllab3/Exercises
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
