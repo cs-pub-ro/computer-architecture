@@ -267,6 +267,12 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
+              - Verificare:
+                  path: chapters/design_and_verification/verification
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
           - 9 Calculator Didactic:
               - Arhitectura:
                   path: chapters/microprogramable_cpu/architecture
