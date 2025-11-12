@@ -31,8 +31,7 @@ pub fn build<T: CircuitIO>(
         .map(|(index, location)| {
             let pin = location.to_string();
             format!(
-                r#"
-set_property -dict {{ PACKAGE_PIN {}     IOSTANDARD {} }} [get_ports {{ {}[{}] }}]
+                r#"set_property -dict {{ PACKAGE_PIN {}     IOSTANDARD {} }} [get_ports {{ {}[{}] }}]
 "#,
                 pin, options.io_standard, name, index,
             )

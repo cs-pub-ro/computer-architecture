@@ -1348,6 +1348,7 @@ name = "synth-skel"
 version = "0.1.0"
 dependencies = [
  "camino",
+ "miette",
  "nexys-a7",
  "rhdl",
  "rhdl-bsp",

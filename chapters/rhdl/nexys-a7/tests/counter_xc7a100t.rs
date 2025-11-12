@@ -8,6 +8,7 @@ use nexys_a7::tcl::FlashBitstream;
 use rhdl::prelude::*;
 use rhdl_bsp::builders::vivado::tcl::{GenerateBitstream, UpdateCompileOrder};
 use rhdl_bsp::{bga_pin, constraints::IOStandard};
+use nexys_a7::options::*;
 
 mod blinker {
     use super::*;
@@ -49,21 +50,9 @@ fn test_blinker_fixture() -> Result<(), RHDLError> {
     fixture.add_driver(nexys_a7::drivers::output::build(
         "rst",
         &path!(.val()),
-        &nexys_a7::drivers::output::Options {
-            io_standard: IOStandard::LowVoltageCMOS_3v3,
-            pins: vec![
-                bga_pin!(H,17),
-                bga_pin!(K,15),
-                bga_pin!(J,13),
-                bga_pin!(N,14),
-                bga_pin!(R,18),
-                bga_pin!(V,17),
-                bga_pin!(U,17),
-                bga_pin!(U,16),
-            ]
-        }
+        &lvcmos33_out(&LEDS, 0..8)
     )?);
-    let root = env!("CARGO_TARGET_TMPDIR");
+    let root = env!("CARGO_TARGET_TMPDIR").rsplit_once("/").unwrap().1;
     let path = Utf8PathBuf::from(root);
     let path = path.join("ok").join("xc7a100t").join("counter");
     let builder = rhdl_bsp::builders::vivado::builder::Builder::new(

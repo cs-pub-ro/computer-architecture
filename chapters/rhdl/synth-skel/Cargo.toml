@@ -9,3 +9,4 @@ rhdl = {git = "https://github.com/Pfat8equalsD/rhdl"}
 rhdl-fpga = {git = "https://github.com/Pfat8equalsD/rhdl"}
 rhdl-bsp = {git = "https://github.com/Pfat8equalsD/rhdl"}
 camino = "1.2.1"
+miette = "7.6.0"
