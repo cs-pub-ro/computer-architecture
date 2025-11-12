@@ -1,0 +1,13 @@
+[package]
+name = "nexys-a7"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.100"
+rhdl = {git = "https://github.com/Pfat8EqualsD/rhdl.git"}
+rhdl-fpga = {git = "https://github.com/Pfat8EqualsD/rhdl.git"}
+rhdl-bsp = {git = "https://github.com/Pfat8EqualsD/rhdl.git"}
+camino = "1.2.1"
+syn = "2.0.110"
+quote = "1.0.42"

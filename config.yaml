@@ -143,6 +143,14 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
+          - 5 Sinteza:
+                path: chapters/synth
+                extra:
+                  - media/
+                subsections:
+                  - Sintetizare/: synthesis/
+                  - Vivado RHDL/: VivadoRHDL/
+                  - Exercitii/: exercises/
       - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
