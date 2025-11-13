@@ -36,6 +36,17 @@ RUN dnf install -y \
     poetry
 RUN dnf install -y \
     texlive-scheme-full
+RUN dnf install -y \
+    gawk \
+    git \
+    curl \
+    wget \
+    cmake \
+    vim \
+    gcc \
+    make \
+    openssl \
+    openssl-devel
 
 # RUN poetry config virtualenvs.create false
 # Setup the user sdcioc for the env
@@ -67,5 +78,14 @@ RUN mkdir -p /home/$USER_NAME/.vscode-server && \
 RUN dnf install -y sudo && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER $USER_NAME
+
+# Install rustup and rust toolchain with typst-cli
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    echo 'source $HOME/.cargo/env' >> $HOME/.bashrc && \
+    source $HOME/.cargo/env && \
+    rustup install stable && \
+    rustup default stable
+
+#  && \ cargo install typst-cli
 
 # RUN poetry config virtualenvs.create false
