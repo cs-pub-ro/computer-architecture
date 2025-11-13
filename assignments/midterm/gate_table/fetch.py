@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Exercise 1: Truth Table to Gate Name (Enhanced)
+Exercise: Truth Table to Gate Name (Enhanced)
 Given a truth table (2, 3, or 4 inputs), identify the Boolean gate name in capital letters.
 Compatible with Moodle CodeRunner plugin.
 """
@@ -8,12 +8,18 @@ Compatible with Moodle CodeRunner plugin.
 import sys
 import json
 import random
+# import datetime
 
 # Parse arguments from Moodle CodeRunner
 args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
 student_id = args.get('id', '0')
 
-exam_secret = 12345  # Change this for each exam period
+# Change this for each exam period
+exam_secret = 12345
+# Seed with current hour to vary questions throughout the day
+# just for simulation purposes
+# hour=datetime.datetime.now().hour
+# random.seed(exam_secret + int(student_id) + hour)
 random.seed(exam_secret + int(student_id))
 
 gates = ["AND", "OR", "XOR", "NAND", "NOR", "XNOR"]

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Exercise 3: Moore Finite State Machine (FSM)
+Exercise: Moore Finite State Machine (FSM)
 Given a Moore FSM state transition diagram, determine the output sequence
 for a given input sequence.
 
@@ -14,13 +14,18 @@ Compatible with Moodle CodeRunner plugin.
 import sys
 import json
 import random
+# import datetime
 
 # Parse arguments from Moodle CodeRunner
 args = {param.split('=')[0]: param.split('=')[1] for param in sys.argv[1:]}
 student_id = args.get('id', '0')
 
-# Seeding strategy: Use fixed exam secret
+# Change this for each exam period
 exam_secret = 12345
+# Seed with current hour to vary questions throughout the day
+# just for simulation purposes
+# hour=datetime.datetime.now().hour
+# random.seed(exam_secret + int(student_id) + hour)
 random.seed(exam_secret + int(student_id))
 
 # ============================================================================
@@ -181,7 +186,7 @@ output = {
     'result': output_sequence,
     # 'input_sequence': input_sequence,
     # 'output_sequence': output_sequence,
-    'state_trace': state_trace,
+    # 'state_trace': state_trace,
     # 'num_states': fsm.num_states,
     # 'state_outputs': {f'q{k}': v for k, v in fsm.state_outputs.items()},
     # 'transitions': {f'q{k}': {inp: f'q{v}' for inp, v in fsm.transitions[k].items()} 

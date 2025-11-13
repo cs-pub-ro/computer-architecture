@@ -18,11 +18,12 @@
 
 ### Parțial teoretic
 
-- Materia necesară: laboratoarele 1,2,4,5 și 6
+- Materia necesară: laboratoarele 1,2,3,4,5 și 6
 - Durată: 60 de minute
 - Când: la începutul laboratorului 7
 - Strcutură: Quiz
 - Platformă: Calculator Laborator - Moodle
+- AB: 10 întrebări cu răspuns scurt
 
 ### Colocviu
 
@@ -33,13 +34,14 @@
   - Exerciții practice de implementat în Verilog/RHDL
 - Locație: sala de laborator
 - Platformă: Calculator Laborator - Moodle - VPL
+- AB: 5 exerciții de implementat
 
 ## Proiect (AB)
 
 - Se lucrează în echipe de câte 3 studenți
 - Teme propuse de echipa de asistenți în a doua săptămână de laborator
 - Documentație:
-  - Deadline 19.11.2025, 23:59
+  - Deadline 26.11.2025, 23:59
   - Documentarea temei alese
   - Latex/Typst/Markdown
   - GitHub

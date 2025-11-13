@@ -491,7 +491,7 @@ Your project consists of **three main deliverables**, each contributing to the f
 
 ## Important Deadlines
 
-- **Documentation Phase:** 19.11.2025, 23:59
+- **Documentation Phase:** 26.11.2025, 23:59
 - **Implementation Phase:** 17.12.2025, 23:59
 - **Final Evaluation:** 14.01.2026, 23:59
 
