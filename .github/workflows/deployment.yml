@@ -35,6 +35,7 @@ jobs:
           mkdir output
           docker image list
           docker run -v $GITHUB_WORKSPACE/repo:/content -v $GITHUB_WORKSPACE/output:/output oer-template/docusaurus:latest
+          docker run -v $GITHUB_WORKSPACE/output:/output rust:latest /bin/bash -c "rm -rf /output/docs-rs; git clone https://github.com/samitbasu/rhdl && cd rhdl && cargo doc && cp -r target/doc /output/docs-rs"
 
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus

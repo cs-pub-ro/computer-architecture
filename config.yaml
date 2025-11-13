@@ -111,7 +111,47 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
-      - Laboratoare AA AC:
+          - 3 RHDL Secvential:
+              - Parametrizare:
+                  path: chapters/rhdllab2/Parametrizare
+                  # extra:
+                  #   - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Circuite Secventiale:
+                  path: chapters/rhdllab2/Secvential
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Exercitii:
+                  path: chapters/rhdllab2/Exercitii
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+          - 4 RHDL Memorii:
+              - Memorii:
+                  path: chapters/rhdllab3/Memories
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Exercitii:
+                  path: chapters/rhdllab3/Exercises
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+          - 5 Sinteza:
+                path: chapters/synth
+                extra:
+                  - media/
+                subsections:
+                  - Sintetizare/: synthesis/
+                  - Vivado RHDL/: VivadoRHDL/
+                  - Exercitii/: exercises/
+      - Laboratoare:
           - 0 Recapitulare:
               - Circuite combinaționale:
                   path: chapters/combinational-circuits/intro
@@ -222,9 +262,21 @@ docusaurus:
                     - media/
                   subsections:
                     - Teorie/: reading/
+              - Sinteza:
+                  path: chapters/simulation_and_synthesis/synthesis
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
           - 8 Verilog Design și Verificare:
               - Design:
                   path: chapters/design_and_verification/design
+                  extra:
+                    - media/
+                  subsections:
+                    - Teorie/: reading/
+              - Verificare:
+                  path: chapters/design_and_verification/verification
                   extra:
                     - media/
                   subsections:

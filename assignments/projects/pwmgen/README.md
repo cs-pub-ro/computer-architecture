@@ -16,15 +16,15 @@ Un exemplu se poate vedea în graficul de mai jos:
 
 ![Un exemplu de formă de undă PWM cu diferite configurări](media/example_pwm.png)
 
-_Figură: Forma de undă pentru un semnal PWM de perioadă de 8 cicli de ceas cu factor de umplere de 25%_
+_Figură: Forma de undă pentru un semnal PWM de perioadă de 8 cicli de ceas cu factor de umplere de 75%_
 
 </div>
 
 ## Arhitectura modulului
 
-Arhitectura perifericelor nu sunt standard, ci sunt modelate în funcție de cerințele producătorului și a pieței în care acestea vor fi folosite.
+Arhitecturile perifericelor nu sunt standard, ci sunt modelate în funcție de cerințele producătorului și a pieței în care acestea vor fi folosite.
 Astfel, implementarea lor e particulară de la producător la producător, dar ca funcționalitate modulele de genul sunt asemănătoare.
-În cadrul acestei teme, acest modul îl putem asocia cu un periferic care poate fi integrat în designuri mai complexe, precum un microcontroller.
+În cadrul acestei teme, acest modul poate fi asociat cu un periferic care poate fi integrat în designuri mai complexe, precum un microcontroller.
 Acestea fiind zise, generatorul de PWM are următoarele componente majore pe care va trebui să le dezvoltați:
 
 <div align="center">
@@ -40,7 +40,7 @@ _Figură: Nivelul de ansamblu al perifericului, împreună cu legăturile dintre
 Pentru orice periferic, trebuie să existe o metodă prin care acesta să poată comunica cu mediul extern pentru a putea fi programat de către utilizator (de exemplu un inginer software embedded).
 În industrie se folosesc diverse protocoale de comunicație, fiecare cu avantajele si dezavantajele lui, dar cel mai important aspect de reținut este locul în care acesta se utilizează.
 Având în vedere că tema are scop didactic, vom utiliza un protocol serial ușor de înteles, care e [SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface) (Serial Peripheral Interface).
-Detaliile legat de protocol le găsiți și pe link-ul atașat de Wikipedia sau [aici](https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html), dar noi nu vom complet protocolul.
+Detaliile legat de protocol le găsiți și pe link-ul atașat de Wikipedia sau [aici](https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html), dar noi nu vom implementa complet protocolul.
 Ce trebuie să știti este în felul următor:
 
 - SPI este un protocol serial master-slave, adică mesajele vor fi împărțite pe biți și vor fi trimiși pe o linie într-o ordine aleasă (în cazul nostru va fi MSB primul bit transmis din mesaj), de la master, care cere sau trimite date către slave;
@@ -132,10 +132,10 @@ Acest semnal poate fi generat în diferite moduri în funcție de cerințele pro
 Pe lângă asta, caracteristicile semnalului PWM sunt controlate și de modul în care numărătorul este configurat, întrucât acesta compară valoarea la care acesta se află cu acele valori din `COMPARE1` și `COMPARE2`, și caracterizează durata semnalului PWM.
 
 Mecanismul prin care semnalul PWM e generat este descris mai jos:
-1. Sunt setate valorile din regiștrii, mai ales perioada (`PERIOD`), valorile de comparat, (`COMPARE1` și/sau `COMPARE2`), modul de funcționare (`FUNCTIONS`), valoarea de scalare (`PRESCALE`) și modul de incrementare/decrementare (`UPNOTDOWN`).
+1. Sunt setate valorile din regiștrii, mai ales perioada (`PERIOD`), valorile de comparat (`COMPARE1` și/sau `COMPARE2`), modul de funcționare (`FUNCTIONS`), valoarea de scalare (`PRESCALE`) și modul de incrementare/decrementare (`UPNOTDOWN`).
 2. Apoi numărătorul începe când se scrie 1 în `COUNTER_EN` și semnalul PWM începe a fi generat când `PWM_EN` e activat.
-3. În funcție de `FUNCTIONS`, semnalul PWM începe pe 1 când este aliniat (`FUNCTIONS[1] == 0`) la stânga (`FUNCTIONS[0] == 0`), și 0 la dreapta (`FUNCTIONS[0] == 1`).
-4. Atunci când valoarea numărătorului ajunge la `COMPARE1`, o să își schimbe starea în valoarea opusă și continuă așa până în momentul în care contorul va da overflow/underflow, de unde se reiau de la pasul 3.
+3. În funcție de `FUNCTIONS`, semnalul PWM începe pe 1 când este aliniat la stânga (`FUNCTIONS[0] == 0, FUNCTIONS[1] == 0`), și 0 cand este aliniat la dreapta (`FUNCTIONS[0] == 1, FUNCTIONS[1] == 0`).
+4. Atunci când valoarea numărătorului ajunge la `COMPARE1`, o să își schimbe starea în valoarea opusă și continuă așa până în momentul în care contorul va da overflow/underflow, de unde se reia de la pasul 3.
 5. Dacă `FUNCTIONS[1] == 1`, nu mai vorbim de aliniere, deci semnalul PWM va începe de la 0, apoi devine 1 când numărătorul ajunge la valoarea `COMPARE1`, și se resetează când ajunge la valoarea lui `COMPARE2`. Acest tip de funcționare e gândit doar pentru `COMPARE1 < COMPARE2`, cazul opus nu trebuie tratat.
 
 <div align="center">
@@ -169,7 +169,7 @@ Trebuie ținut cont de faptul că toate cerințele se vor rezolva în echipe de 
 
 1. Citiți tot enunțul temei cu atenție înainte de scrierea implementării. 
 Asta va fi important să înțelegeți modul de funcționare al perifericului și modul în care veți elabora soluția.
-2. În secțiunea temei aveți un schelet de cod unde apar definițiile modulelor, și pe care voi trebuie să le completați implementările.
+2. În secțiunea temei aveți un [schelet de cod](https://github.com/cs-pub-ro/computer-architecture/tree/main/assignments/projects/pwmgen/code) unde apar definițiile modulelor, și pe care voi trebuie să le completați implementările.
 Respectați denumirile semnalelor și nu schimbați antetul modulelor la implementarea lor, mai ales la nivelul `top.v`.
 3. Va trebui să scrieți implementarea fiecărui modul care se află în structura temei, astfel încât legate împreună, să rezulte funcționarea perifericului așa cum e descris în secțiunea **Arhitectura modulului**.
 4. După veți testa acest modul cu ajutorul testbench-ului dat de către noi și verificați că niciun test nu pică.

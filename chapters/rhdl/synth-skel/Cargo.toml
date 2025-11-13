@@ -1,0 +1,12 @@
+[package]
+name = "synth-skel"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+nexys-a7 = {path = "../nexys-a7"}
+rhdl = {git = "https://github.com/Pfat8equalsD/rhdl"}
+rhdl-fpga = {git = "https://github.com/Pfat8equalsD/rhdl"}
+rhdl-bsp = {git = "https://github.com/Pfat8equalsD/rhdl"}
+camino = "1.2.1"
+miette = "7.6.0"
