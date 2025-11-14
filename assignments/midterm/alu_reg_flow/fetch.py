@@ -36,6 +36,27 @@ register_names = ['RA', 'RB', 'RC', 'IS', 'XA', 'XB', 'BA', 'BB']
 # Initialize registers with random 4-bit values
 registers = {reg: random.randint(0, 15) for reg in register_names}
 
+
+# Initial register values table
+initial_table_html = """
+<table border="1" style="border-collapse: collapse; margin: 10px 0;">
+  <tr style="background-color: #f0f0f0;">
+    <th style="padding: 8px;">Register</th>
+    <th style="padding: 8px;">Value (Dec)</th>
+    <th style="padding: 8px;">Value (Bin)</th>
+  </tr>
+"""
+
+for reg in register_names:
+    val = registers[reg]
+    val_bin = f'{val:04b}'
+    initial_table_html += f"""  <tr>
+    <td style="padding: 8px; font-weight: bold;">{reg}</td>
+    <td style="padding: 8px; text-align: center;">{val}</td>
+    <td style="padding: 8px; text-align: center; font-family: monospace;">{val_bin}</td>
+  </tr>
+"""
+
 # ============================================================================
 # ALU Operations Definition
 # ============================================================================
@@ -194,25 +215,6 @@ final_value_bin = f'{final_value:04b}'
 # Build HTML Question
 # ============================================================================
 
-# Initial register values table
-initial_table_html = """
-<table border="1" style="border-collapse: collapse; margin: 10px 0;">
-  <tr style="background-color: #f0f0f0;">
-    <th style="padding: 8px;">Register</th>
-    <th style="padding: 8px;">Value (Dec)</th>
-    <th style="padding: 8px;">Value (Bin)</th>
-  </tr>
-"""
-
-for reg in register_names:
-    val = registers[reg]
-    val_bin = f'{val:04b}'
-    initial_table_html += f"""  <tr>
-    <td style="padding: 8px; font-weight: bold;">{reg}</td>
-    <td style="padding: 8px; text-align: center;">{val}</td>
-    <td style="padding: 8px; text-align: center; font-family: monospace;">{val_bin}</td>
-  </tr>
-"""
 
 initial_table_html += "</table>"
 
