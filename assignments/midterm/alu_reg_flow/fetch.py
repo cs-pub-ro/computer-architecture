@@ -56,6 +56,7 @@ for reg in register_names:
     <td style="padding: 8px; text-align: center; font-family: monospace;">{val_bin}</td>
   </tr>
 """
+initial_table_html += "</table>"
 
 # ============================================================================
 # ALU Operations Definition
@@ -214,9 +215,6 @@ final_value_bin = f'{final_value:04b}'
 # ============================================================================
 # Build HTML Question
 # ============================================================================
-
-
-initial_table_html += "</table>"
 
 # Operations sequence table
 operations_table_html = """
