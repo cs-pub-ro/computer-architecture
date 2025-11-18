@@ -22,7 +22,7 @@ impl<N: BitWidth + Unsigned> Default for Register<N> {
 
 impl<N: BitWidth + Unsigned> SynchronousIO for Register<N> {
     type I = RegisterInput<N>;
-    type O = Bits<N>;
+    type O = (Bits<N>, Bits<N>);
     type Kernel = reg_ker<N>;
 }
 
@@ -31,9 +31,14 @@ pub fn reg_ker<N: BitWidth + Unsigned>(
     _cr: ClockReset,
     i: RegisterInput<N>,
     q: Q<N>,
-) -> (Bits<N>, D<N>) {
+) -> ((Bits<N>, Bits<N>), D<N>) {
     (
-        if i.oe && !i.we { q.memory } else { bits(0) },
+        (
+            // Bus output
+            if i.oe && !i.we { q.memory } else { bits(0) },
+            // Bus separation
+            if i.oe { q.memory } else { bits(0) },
+        ),
         D::<N> {
             memory: if i.we { i.data_in } else { q.memory },
         },

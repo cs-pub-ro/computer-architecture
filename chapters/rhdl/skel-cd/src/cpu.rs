@@ -79,15 +79,15 @@ pub fn top_kernel(_cr: ClockReset, _i: (), q: Q) -> (Bits<U16>, D) {
         ..
     } = q.Cu;
     let alu_res = alu::<U16>(AluInput::<U16> {
-        t1: q.T1,
-        t2: q.T2,
+        t1: q.T1.1, // Non-bus output
+        t2: q.T2.1, // Non-bus output
         carry_in: alu_carry,
         opsel: alu_sel,
     });
     // let alu_res  = AluOutput::<U16> { res: bits(0), flags: AluFlags { c: false, z: false, s: false, o: false, p: false } };
     let bus = if fr_oe { q.FR } else { bits(0) }
         | if ir_oe { q.IR[15..8].resize() } else { bits(0) }
-        | q.PC
+        | q.PC.0 // Bus output
         | q.regs
         | q.RAM
         | if alu_oe { alu_res.res } else { bits(0) };
@@ -110,7 +110,7 @@ pub fn top_kernel(_cr: ClockReset, _i: (), q: Q) -> (Bits<U16>, D) {
         oe: ram_oe,
         we: ram_we,
         data_in: bus,
-        address: q.MA.resize(),
+        address: q.MA.1.resize(), // Non-bus output
     };
     d.PC = RegisterInput::<U16> {
         data_in: bus,
@@ -124,7 +124,11 @@ pub fn top_kernel(_cr: ClockReset, _i: (), q: Q) -> (Bits<U16>, D) {
 
     d.IR = if ir_we { bus } else { q.IR };
     d.FR = if fr_we {
-        if fr_sel_bus { bus } else { fr(alu_res.flags) }
+        if fr_sel_bus {
+            bus
+        } else {
+            fr(alu_res.flags)
+        }
     } else {
         q.FR
     };
@@ -147,20 +151,20 @@ mod tests {
     type S = <Cpu as Synchronous>::S;
 
     fn rg(s: &S, i: usize) -> u128 {
-        s.1.1[i].current.raw()
+        s.1 .1[i].current.raw()
     }
     fn t1(s: &S) -> u128 {
-        s.1.0;
-        s.2.1.current.raw()
+        s.1 .0;
+        s.2 .1.current.raw()
     }
     fn t2(s: &S) -> u128 {
-        s.3.1.current.raw()
+        s.3 .1.current.raw()
     }
     fn ma(s: &S) -> u128 {
-        s.4.1.current.raw()
+        s.4 .1.current.raw()
     }
     fn pc(s: &S) -> u128 {
-        s.5.1.current.raw()
+        s.5 .1.current.raw()
     }
     fn ir(s: &S) -> u128 {
         s.6.current.raw()
@@ -169,7 +173,7 @@ mod tests {
         s.7.current.raw()
     }
     fn cu_state(s: &S) -> control_unit::State {
-        s.8.1.current
+        s.8 .1.current
     }
     fn control_signals(s: &S) -> ControlSignals {
         s.0.Cu
@@ -183,10 +187,10 @@ mod tests {
             if cu_state(&s) == Fetch {
                 return;
             }
-        };
+        }
     }
 
-    fn didasm(asm_source: &str){
+    fn didasm(asm_source: &str) {
         std::fs::write("test.asm", asm_source);
         std::process::Command::new("didasm")
             .arg("test.asm")
@@ -197,7 +201,8 @@ mod tests {
     }
     #[test]
     fn sim_cpu() {
-        didasm(r#"
+        didasm(
+            r#"
 
 hlt
 test ra,[bb+xa+]
@@ -217,11 +222,12 @@ inc [bb+xa]
 inc [ba+xb+]
 inc [bb+xa-]
 inc [ba+xb+2]
-"#);
+"#,
+        );
         let cpu = Cpu::default();
         let mut s: S = cpu.init();
         for i in 0..10 {
-            run_till_next_instr(&cpu,&mut s);
+            run_till_next_instr(&cpu, &mut s);
             println!("{:?}, {}", cu_state(&s), pc(&s));
         }
     }
