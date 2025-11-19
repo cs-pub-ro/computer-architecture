@@ -237,7 +237,7 @@ pub fn alu<N: BitWidth>(i: AluInput<N>) -> AluOutput<N> {
         }
     };
     out.flags.z = !out.res.any();
-    out.flags.s = out.res.as_signed() >= signed(0);
+    out.flags.s = out.res.as_signed() < signed(0);
     out.flags.p = !out.res.xor();
     out.flags.o = match i.opsel {
         ADC => s1 == s2 && s1 != out.flags.s,

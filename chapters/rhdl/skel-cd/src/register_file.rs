@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use crate::{
     decode_unit::{Decoded, Jcond, decode},
     prelude::*,
@@ -14,6 +16,21 @@ pub enum Reg {
     XB,
     BA,
     BB,
+}
+
+impl Display for Reg {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", match self {
+            RA => "RA",
+            RB => "RB",
+            RC => "RC",
+            SP => "SP",
+            XA => "XA",
+            XB => "XB",
+            BA => "BA",
+            BB => "BB",
+        })
+    }
 }
 
 #[kernel]
