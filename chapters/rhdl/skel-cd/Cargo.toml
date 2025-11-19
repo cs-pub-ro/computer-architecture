@@ -8,3 +8,5 @@ miette = "7.6.0"
 rhdl = {git = "https://github.com/Pfat8EqualsD/rhdl.git", branch="signal"}
 rhdl-fpga = {git = "https://github.com/Pfat8EqualsD/rhdl.git", branch="signal"}
 bitops-rhdl = {path = "../bitops_rhdl"}
+colored = "3.0.0"
+termion = "4.0.5"

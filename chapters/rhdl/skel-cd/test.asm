@@ -1,6 +1,6 @@
 
-add [ba+xa], xb
 
+hlt
 test ra,[bb+xa+]
 
 sub [ba+43], 42

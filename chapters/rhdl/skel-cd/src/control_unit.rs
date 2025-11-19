@@ -31,7 +31,7 @@ pub enum State {
     Reset,
     Fetch,
     Fetch1,
-    Fecth2,
+    Fetch2,
     Decode,
 
     IncPC,
@@ -86,8 +86,8 @@ pub fn cu_kernel(_cr: ClockReset, _i: (Decoded, AluFlags), q: Q) -> (ControlSign
     let next_state = match q.state {
         State::Reset => Fetch,
         Fetch => Fetch1,
-        Fetch1 => Fecth2,
-        Fecth2 => Decode,
+        Fetch1 => Fetch2,
+        Fetch2 => Decode,
         Decode => {
             IncPC
         },

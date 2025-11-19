@@ -1,4 +1,4 @@
-use crate::{memory::sim_ram, prelude::*};
+use crate::{cpu::tests::sim_cpu, memory::sim_ram, prelude::*};
 mod alu;
 mod control_unit;
 mod cpu;
@@ -20,7 +20,8 @@ fn main() {
     // println!("{}",s.0.);
     // let x: Vec<(RegInput<U16>,Reg)> = Vec::new();
     // let x = x.with_reset(1).clock_pos_edge(100);
-    if let Err(e) = sim_top() {
+    if let Err(e) = sim_cpu() {
         println!("{}", miette_report(e));
     }
+    // sim_cpu();
 }
