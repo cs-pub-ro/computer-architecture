@@ -1,0 +1,35 @@
+FROM alpine:latest
+
+RUN apk add --no-cache \
+    bash \
+    bison \
+    build-base \
+    ca-certificates \
+    clang-extra-tools \
+    cmake \
+    colordiff \
+    coreutils \
+    flex \
+    git \
+    iproute2 \
+    iputils \
+    ncurses-libs \
+    netcat-openbsd \
+    psmisc \
+    python3 \
+    python3-dev \
+    libxslt \
+    sudo \
+    boost-dev \
+    eigen-dev
+
+RUN apk add build-base openssl-dev zlib-dev bzip2-dev readline-dev sqlite-dev \
+    libffi-dev ncurses-dev xz-dev
+RUN curl https://pyenv.run | sh
+
+RUN git clone https://github.com/f4pga/prjxray /root/prjxray
+WORKDIR /root/prjxray
+RUN git submodule update --init --recursive
+ENV ALLOW_ROOT=true
+RUN make build -j$(nproc)
+RUN make env
