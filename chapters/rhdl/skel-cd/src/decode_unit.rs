@@ -98,6 +98,7 @@ pub enum TwoOp {
     Xor,
     Cmp,
     Test,
+    Mov
 }
 
 #[bitops]
@@ -118,7 +119,6 @@ fn twop(i: Bits<U3>) -> Option<TwoOp> {
 #[derive(Debug, Digital, Default, PartialEq)]
 pub enum OneOp {
     #[default]
-    Mov,
     MovI,
     Push,
     Pop,
@@ -137,7 +137,6 @@ pub enum OneOp {
 #[kernel]
 fn eacfg(i: Bits<U3>) -> Option<OneOp> {
     match i.raw() {
-        0b000 => Some(OneOp::Mov),
         0b010 => Some(OneOp::Push),
         0b110 => Some(OneOp::Pop),
         0b001 => Some(OneOp::Call),
@@ -314,6 +313,8 @@ mod tests {
     use OneOp::*;
     use Operand::*;
     use TwoOp::*;
+    use CfNea::*;
+    use Jcond::*;
 
     #[test]
     fn inc_all_ea_types_op() {
@@ -396,6 +397,283 @@ mod tests {
                 op: Sub,
                 src: Imm,
                 dst: BasedAddr(BaseRegister::BA),
+            },
+        ];
+        assert_in_ref(inputs, expect);
+    }
+
+    #[test]
+    fn all_ea_one_op_ops_types() {
+        let inputs = vec![
+            0x0008, // INC [BA+XA]
+            0xA048, // DEC [XB]
+            0x2128, // NEG [XA + Depls]
+            0x8168, // NOT [BA+XB+Depls]
+            0x0318, // SHL RA
+            0xE158, // SHR [BB + Depls]
+            0xE238, // SAR [[Depls]]
+        ];
+
+        let expect = vec![
+            Decoded::OneOp {
+                 op: Inc, 
+                 dst: RegSum(BaseRegister::BA, IndexRegister::XA) 
+            },
+            Decoded::OneOp { 
+                op: Dec, 
+                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XB))
+            },
+            Decoded::OneOp { 
+                op: Neg, 
+                dst: IndexedAddr(IndexRegister::XA)
+            },
+            Decoded::OneOp { 
+                op: Not, 
+                dst: BasedIndexedAddr(BaseRegister::BA, IndexRegister::XB)
+            },
+            Decoded::OneOp {
+                op: Shl, 
+                dst: Reg(RA) 
+            },
+            Decoded::OneOp { 
+                op: Shr,
+                dst: BasedAddr(BaseRegister::BB) 
+            },
+            Decoded::OneOp { 
+                op: Sar, 
+                dst: IndirectAddress 
+            },
+        ];
+
+        assert_in_ref(inputs, expect);
+    }
+
+    #[test]
+    fn all_cfnea_types() {
+        let inputs = vec![
+            0x0001, // IN
+            0x0041, // OUT
+            0x0021, // PUSHF
+            0x0061, // POPF
+            0x0011, // RET
+            0x0051, // IRET
+            0x0031, // HLT
+        ];
+
+        let expect = vec![
+            Decoded::CfNea(In),
+            Decoded::CfNea(Out),
+            Decoded::CfNea(Pushf),
+            Decoded::CfNea(Popf),
+            Decoded::CfNea(Ret),
+            Decoded::CfNea(Iret),
+            Decoded::CfNea(CfNea::Hlt),
+        ];
+        assert_in_ref(inputs, expect);
+    }
+
+    #[test]
+    fn all_jumps() {
+        let inputs = vec![
+            0x0009, 0x0089, 0x0049, 0x00C9,
+            0x0029, 0x00A9, 0x0069, 0x00E9,
+            0x0019, 0x0099, 0x0059, 0x00D9,
+            0x0039, 0x00B9, 0x0079, 0x00F9,
+        ];
+        let expect = vec![
+            Decoded::Jcond(Jbe),
+            Decoded::Jcond(Jb), 
+            Decoded::Jcond(Jle), 
+            Decoded::Jcond(Jl),
+            Decoded::Jcond(Je),  
+            Decoded::Jcond(Jo), 
+            Decoded::Jcond(Js),  
+            Decoded::Jcond(Jpe),
+            Decoded::Jcond(Ja),  
+            Decoded::Jcond(Jae),
+            Decoded::Jcond(Jg),  
+            Decoded::Jcond(Jge),
+            Decoded::Jcond(Jne), 
+            Decoded::Jcond(Jno),
+            Decoded::Jcond(Jns), 
+            Decoded::Jcond(Jpo),
+        ];
+
+        assert_in_ref(inputs, expect);
+    }
+
+    #[test]
+    fn all_cf_ea_types() {
+        let inputs = vec![
+            0x8000, // MOV [BA+XB], RA
+            0x0B84, // MOVI RC, 0
+            0x4120, // PUSH [BB+XA+Depls]
+            0x2260, // POP  [BA+XA-]
+            0xC010, // CALL [BB+XB]
+            0x6250, // JMP [Depls]
+        ];
+
+        let expect = vec![
+            Decoded::TwoOp { 
+                op: Mov,
+                src: MaybeDst(Reg(RA)),
+                dst: RegSum(BaseRegister::BA, IndexRegister::XB) 
+            },
+            Decoded::OneOp { 
+                op: MovI, 
+                dst: Reg(RA)
+            },
+                Decoded::OneOp { 
+                op: Push, 
+                dst: BasedIndexedAddr(BaseRegister::BB, IndexRegister::XA) 
+            },
+            Decoded::OneOp { 
+                op: Pop, 
+                dst: RegSumDecr(BaseRegister::BA)
+            },
+                Decoded::OneOp { 
+                op: Call, 
+                dst: RegSum(BaseRegister::BB, IndexRegister::XB) 
+            },
+            Decoded::OneOp { 
+                op: Jmp, 
+                dst: DirectAddress
+            }
+        ];
+
+        assert_in_ref(inputs, expect);
+    }
+
+    #[test]
+    fn all_two_op_saving_nimm() {
+        let inputs = vec![
+            0x808A, // ADD RA, [BA+XB]
+            0x8A4A, // ADC [BA+XB+], RC
+            0x66AA, // SUB XA, [Depls]
+            0xED6A, // SBB [BB+Depls], BA
+            0x839A, // AND RA, RB
+            0x385A, // OR  [XA], IS
+            0xF23A, // XOR [[Depls]], RB
+        ];
+        let mut expect = vec![
+            Decoded::TwoOp {
+                op: Add,
+                src: MaybeDst(RegSum(BaseRegister::BA, IndexRegister::XB)),
+                dst: Reg(RA),
+            },
+            Decoded::TwoOp {
+                op: Adc,
+                src: MaybeDst(Reg(RC)),
+                dst: RegSumIncr(BaseRegister::BA, IndexRegister::XB),
+            },
+            Decoded::TwoOp {
+                op: Sub,
+                src: MaybeDst(DirectAddress),
+                dst: Reg(XA),
+            },
+            Decoded::TwoOp {
+                op: Sbb,
+                src: MaybeDst(Reg(BA)),
+                dst: BasedAddr(BaseRegister::BB),
+            },
+            Decoded::TwoOp {
+                op: And,
+                src: MaybeDst(Reg(RB)),
+                dst: Reg(RA),
+            },
+            Decoded::TwoOp {
+                op: Or,
+                src: MaybeDst(Reg(SP)),
+                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XA))
+            },
+            Decoded::TwoOp {
+                op: Xor,
+                src: MaybeDst(Reg(RB)),
+                dst: IndirectAddress,
+            }
+        ];
+        assert_in_ref(inputs, expect);
+    }
+
+    #[test]
+    fn all_two_op_saving_imm() {
+        let inputs = vec![
+            0x210E, // ADD [XA+Depls], X
+            0x824E, // ADC [BA+XB+], X
+            0x27AE, // SUB XA, X
+            0xE16E, // SBB [BB+Depls], X
+            0xA21E, // AND [BB+XA-], X
+            0x205E, // OR  [XA], X
+            0xE23E, // XOR [[Depls]], X
+        ];
+        let mut expect = vec![
+            Decoded::TwoOp {
+                op: Add,
+                src: Imm,
+                dst: IndexedAddr(IndexRegister::XA),
+            },
+            Decoded::TwoOp {
+                op: Adc,
+                src: Imm,
+                dst: RegSumIncr(BaseRegister::BA, IndexRegister::XB),
+            },
+            Decoded::TwoOp {
+                op: Sub,
+                src: Imm,
+                dst: Reg(XA),
+            },
+            Decoded::TwoOp {
+                op: Sbb,
+                src: Imm,
+                dst: BasedAddr(BaseRegister::BB),
+            },
+            Decoded::TwoOp {
+                op: And,
+                src: Imm,
+                dst: RegSumDecr(BaseRegister::BB),
+            },
+            Decoded::TwoOp {
+                op: Or,
+                src: Imm,
+                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XA))
+            },
+            Decoded::TwoOp {
+                op: Xor,
+                src: Imm,
+                dst: IndirectAddress,
+            }
+        ];
+        assert_in_ref(inputs, expect);
+    }
+
+    #[test]
+    fn cmp_and_test() {
+        let inputs = vec![
+            0xCDA2, // CMP  BA, [BB+XB+Depls]
+            0xE892, // TEST RC, [BB]
+            0xA226, // CMP  [BB+XA-], X
+            0x8116, // TEST [BA+XB+Depls], X
+        ];
+        let mut expect = vec![
+            Decoded::TwoOp {
+                op: Cmp,
+                src: MaybeDst(BasedIndexedAddr(BaseRegister::BB, IndexRegister::XB)),
+                dst: Reg(BA),
+            },
+            Decoded::TwoOp {
+                op: Test,
+                src: MaybeDst(RegisterAddress(AddrRegister::Base(BaseRegister::BB))),
+                dst: Reg(RC),
+            },
+            Decoded::TwoOp {
+                op: Cmp,
+                src: Imm,
+                dst: RegSumDecr(BaseRegister::BB),
+            },
+            Decoded::TwoOp {
+                op: Test,
+                src: Imm,
+                dst: BasedIndexedAddr(BaseRegister::BA, IndexRegister::XB),
             },
         ];
         assert_in_ref(inputs, expect);

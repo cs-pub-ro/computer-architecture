@@ -315,6 +315,17 @@ inc [ba+xb+2]
         write!(screen, "{}", termion::clear::All)?;
         write!(screen, "{}", termion::cursor::Goto(1, 1))?;
         screen.flush()?;
+
+        write!(screen, "Press ← → or q (step {})\r\n", i)?;
+        if i == v.len() {
+            let o = step(&cpu, (), &mut s);
+            v.push((o,s.clone()));
+        }
+        let (o,state) = &v[i];
+        let myst = print_cd(state, o);
+        write!(screen, "{}",myst);
+        i = i + 1;
+
         // print_cd(&s, &o);
         let stdin = std::io::stdin();
         let mut peek = 0;
