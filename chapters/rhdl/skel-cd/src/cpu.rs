@@ -325,7 +325,8 @@ inc [ba+xb+2]
         write!(screen, "{}", termion::clear::All)?;
         write!(screen, "{}", termion::cursor::Goto(1, 1))?;
         screen.flush()?;
-        write!(screen, "Press ← → or q; Press /<addr><enter> for a peek in ram (step {}, lookup MA)\r\n", i);
+        let help_str = "Press ← → for single clock cycle step, p n for instruction step or q; Press /<addr(HEX)><enter> for a peek in ram ";
+        write!(screen, "{}(step {}, lookup MA)\r\n", help_str, i);
         let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
         let myst = print_cd(state, o, peek);
         write!(screen, "{}",myst);
@@ -361,6 +362,27 @@ inc [ba+xb+2]
                     wait_for_peek=true;
                     peek_buf = 0;
                 }
+                Key::Char('n') => {
+                    let mut steps = 0;
+                    if i != v.len() {
+                        i = i + 1;
+                    }
+                    loop {
+                        if steps >= 10000  {
+                            break;
+                        }
+                        if i == v.len() {
+                            let o = step(&cpu, (), &mut s);
+                            v.push((o,s.clone()));
+                        }
+                        let (o,state) = &v[i];
+                        if matches!(cu_state(&state), Decode|Reset|Hlt) {
+                            break;
+                        }
+                        i = i + 1;
+                        steps = steps + 1;
+                    };
+                }
                 Key::Char(c @ ('0'..='9' | 'a'..='f')) if wait_for_peek => {
                     let x = c.to_digit(16).map(|d| d as u128).unwrap();
                     peek_buf = (peek_buf << 4 | x) & 0x3FF;
@@ -374,7 +396,7 @@ inc [ba+xb+2]
             }
             
             let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
-            write!(screen, "Press ← → or q; Press /<addr><enter> for a peek in ram (step {}, lookup {}{})\r\n", i, if peek == ma(&state) {
+            write!(screen, "{}(step {}, lookup {}{})\r\n", help_str, i, if peek == ma(&state) {
                 "MA"
             } else {
                 &format!("{:03X}", peek)
