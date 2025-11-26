@@ -273,7 +273,7 @@ use termion::{
             .arg("cram.data")
             .arg("--quiet")
             .output() {
-            eprintln!("Didasm not available, falling back to existing cram.data...")
+            eprintln!("Didasm not available (cargo install didasm --path <computer-architecture-path>/didasm), falling back to existing cram.data...")
         }
     }
     // #[test]
