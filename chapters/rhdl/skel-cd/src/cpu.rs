@@ -86,7 +86,7 @@ pub fn top_kernel(_cr: ClockReset, _i: (), q: Q) -> (Bits<U16>, D) {
     });
     // let alu_res  = AluOutput::<U16> { res: bits(0), flags: AluFlags { c: false, z: false, s: false, o: false, p: false } };
     let bus = if fr_oe { q.FR } else { bits(0) }
-        | if ir_oe { (q.IR[15], q.IR[15], q.IR[15], q.IR[15], q.IR[15], q.IR[15], q.IR[15], q.IR[15], q.IR[15..8]) } else { bits(0) }
+        | if ir_oe { (q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[9], q.IR[10], q.IR[11], q.IR[12], q.IR[13], q.IR[14], q.IR[15]) } else { bits(0) }
         | q.PC.0 // Bus output
         | q.regs
         | q.RAM
@@ -284,7 +284,7 @@ use termion::{
 
 hlt
 test ra,[bb+xa+]
-jc -1
+jc -3
 
 sub [ba+43], 42
 
