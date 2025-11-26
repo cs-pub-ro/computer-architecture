@@ -268,11 +268,13 @@ use termion::{
 
     fn didasm(asm_source: &str){
         std::fs::write("test.asm", asm_source);
-        let _ = std::process::Command::new("didasm")
+        if let Err(_) = std::process::Command::new("didasm")
             .arg("test.asm")
             .arg("cram.data")
             .arg("--quiet")
-            .output();
+            .output() {
+            eprintln!("Didasm not available, falling back to existing cram.data...")
+        }
     }
     // #[test]
 
