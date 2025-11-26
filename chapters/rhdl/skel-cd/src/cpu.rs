@@ -313,11 +313,6 @@ inc [ba+xb+2]
         .into_alternate_screen()
         .unwrap();
 
-        let (o,state) = &v[i];
-        let myst = print_cd(state, o);
-        write!(screen, "{}",myst);
-        i = i + 1;
-
         // print_cd(&s, &o);
         let stdin = std::io::stdin();
         let mut peek = 0;
