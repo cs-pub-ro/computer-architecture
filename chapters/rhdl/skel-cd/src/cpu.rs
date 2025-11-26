@@ -192,7 +192,7 @@ use termion::{
     fn run_till_next_instr(cpu: &Cpu, s: &mut S) {
         loop {
             let o = step(cpu, (), s);
-            print_cd(&s, &o);
+            print_cd(&s, &o, ma(&s));
 
             if cu_state(&s) == Fetch {
                 return;
@@ -210,7 +210,7 @@ use termion::{
         (res.raw(), crate::alu::fr(flags).raw())
     }
     //↑ ↓
-    fn print_cd(s: &S, o: &O) -> String {
+    fn print_cd(s: &S, o: &O, ram_addr: u128) -> String {
         let bus = bus(o);
         let regs: Vec<_> = (0..8).into_iter().map(|i| rg(s, i)).collect();
         let t1 = t1(s);
@@ -220,7 +220,7 @@ use termion::{
         let fr = fr(s);
         let ir = ir(s);
         let dec = decode(Bits::from(ir));
-        let ram = ram(s)[ma as usize];
+        let ram = ram(s)[(ram_addr as usize) & 0x3FF];
         let state = cu_state(s);
         let signals = control_signals(s);
         let (res, flags) = alu_rez(s);
@@ -268,12 +268,11 @@ use termion::{
 
     fn didasm(asm_source: &str){
         std::fs::write("test.asm", asm_source);
-        std::process::Command::new("didasm")
+        let _ = std::process::Command::new("didasm")
             .arg("test.asm")
             .arg("cram.data")
             .arg("--quiet")
-            .output()
-            .unwrap();
+            .output();
     }
     // #[test]
 
@@ -316,17 +315,31 @@ inc [ba+xb+2]
         screen.flush()?;
         // print_cd(&s, &o);
         let stdin = std::io::stdin();
+        let mut peek = 0;
+        let mut peek_buf = peek;
+        let mut wait_for_peek = false;
+        let o = step(&cpu, (), &mut s);
+        v.push((o,s.clone()));
+        write!(screen, "{}", termion::clear::All)?;
+        write!(screen, "{}", termion::cursor::Goto(1, 1))?;
+        screen.flush()?;
+        write!(screen, "Press ← → or q; Press /<addr><enter> for a peek in ram (step {}, lookup MA)\r\n", i);
+        let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
+        let myst = print_cd(state, o, peek);
+        write!(screen, "{}",myst);
         for key in stdin.keys() {
             write!(screen, "{}", termion::clear::All)?;
             write!(screen, "{}", termion::cursor::Goto(1, 1))?;
-            write!(screen, "Press ← → or q (step {})\r\n", i)?;
             screen.flush()?;
             match key.unwrap() {
                 Key::Left => {
                     i = i.saturating_sub(1);
                     let (o,state) = &v[i];
-                    let myst = print_cd(state, o);
-                    write!(screen, "{}",myst);
+                    peek = ma(&state);
+                    peek_buf = peek & 0x3FF;
+                    wait_for_peek = false;
+                    // let myst = print_cd(state, o, peek);
+                    // write!(screen, "{}",myst);
                 }
                 Key::Right => {
                     if i == v.len() {
@@ -334,13 +347,42 @@ inc [ba+xb+2]
                         v.push((o,s.clone()));
                     }
                     let (o,state) = &v[i];
-                    let myst = print_cd(state, o);
-                    write!(screen, "{}",myst);
+                    peek = ma(&state);
+                    peek_buf = peek & 0x3FF;
+                    wait_for_peek = false;
+                    // let myst = print_cd(state, o, peek);
+                    // write!(screen, "{}",myst);
                     i = i + 1
                 }
                 Key::Char('q') => break,
+                Key::Char('/') => {
+                    wait_for_peek=true;
+                    peek_buf = 0;
+                }
+                Key::Char(c @ ('0'..='9' | 'a'..='f')) if wait_for_peek => {
+                    let x = c.to_digit(16).map(|d| d as u128).unwrap();
+                    peek_buf = (peek_buf << 4 | x) & 0x3FF;
+                }
+                Key::Char('\n') => {
+                    wait_for_peek=false;
+                    peek = peek_buf;
+
+                }
                 _ => {}
             }
+            
+            let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
+            write!(screen, "Press ← → or q; Press /<addr><enter> for a peek in ram (step {}, lookup {}{})\r\n", i, if peek == ma(&state) {
+                "MA"
+            } else {
+                &format!("{:03X}", peek)
+            }, if wait_for_peek {
+                format!("; next lookup {:03X}, press enter to commit, accepts [0-3FF]", peek_buf)
+            } else {
+                "".to_string()
+            })?;
+            let myst = print_cd(state, o, peek);
+            write!(screen, "{}",myst);
         }
 
         Ok(())
