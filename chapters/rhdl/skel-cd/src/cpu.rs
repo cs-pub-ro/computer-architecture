@@ -364,6 +364,7 @@ inc [ba+xb+2]
                 }
                 Key::Char('n') => {
                     let mut steps = 0;
+                    wait_for_peek = false;
                     if i != v.len() {
                         i = i + 1;
                     }
@@ -376,12 +377,30 @@ inc [ba+xb+2]
                             v.push((o,s.clone()));
                         }
                         let (o,state) = &v[i];
+                        peek = ma(&state);
                         if matches!(cu_state(&state), Decode|Reset|Hlt) {
                             break;
                         }
                         i = i + 1;
                         steps = steps + 1;
                     };
+                }
+                Key::Char('p') => {
+                    wait_for_peek = false;
+                    let mut steps = 0;
+                    i = i.saturating_sub(1);
+                    loop {
+                        if steps >= 10000 {
+                            break;
+                        }
+                        let (o,state) = &v[i];
+                        peek = ma(&state);
+                        if matches!(cu_state(&state), Decode|Reset|Hlt) {
+                            break;
+                        }
+                        i = i.saturating_sub(1);
+                        steps = steps + 1;
+                    }
                 }
                 Key::Char(c @ ('0'..='9' | 'a'..='f')) if wait_for_peek => {
                     let x = c.to_digit(16).map(|d| d as u128).unwrap();
