@@ -191,8 +191,8 @@ pub fn alu<N: BitWidth>(i: AluInput<N>) -> AluOutput<N> {
     let mut out = AluOutput::<N>::dont_care();
     let t1 = i.t1;
     let t2 = i.t2;
-    let s1 = t1.as_signed() >= signed(0);
-    let s2 = t2.as_signed() >= signed(0);
+    let s1 = t1.as_signed() < signed(0);
+    let s2 = t2.as_signed() < signed(0);
 
     let c = btb(i.carry_in).dyn_bits();
     out.flags.c = true; // Defaults to 0 for operations that do not use it

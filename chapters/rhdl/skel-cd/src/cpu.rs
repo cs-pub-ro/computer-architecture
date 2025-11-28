@@ -86,7 +86,7 @@ pub fn top_kernel(_cr: ClockReset, _i: (), q: Q) -> (Bits<U16>, D) {
     });
     // let alu_res  = AluOutput::<U16> { res: bits(0), flags: AluFlags { c: false, z: false, s: false, o: false, p: false } };
     let bus = if fr_oe { q.FR } else { bits(0) }
-        | if ir_oe { q.IR[15..8].resize() } else { bits(0) }
+        | if ir_oe { (q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[8], q.IR[9], q.IR[10], q.IR[11], q.IR[12], q.IR[13], q.IR[14], q.IR[15]) } else { bits(0) }
         | q.PC.0 // Bus output
         | q.regs
         | q.RAM
@@ -192,7 +192,7 @@ use termion::{
     fn run_till_next_instr(cpu: &Cpu, s: &mut S) {
         loop {
             let o = step(cpu, (), s);
-            print_cd(&s, &o);
+            print_cd(&s, &o, ma(&s));
 
             if cu_state(&s) == Fetch {
                 return;
@@ -210,7 +210,7 @@ use termion::{
         (res.raw(), crate::alu::fr(flags).raw())
     }
     //↑ ↓
-    fn print_cd(s: &S, o: &O) -> String {
+    fn print_cd(s: &S, o: &O, ram_addr: u128) -> String {
         let bus = bus(o);
         let regs: Vec<_> = (0..8).into_iter().map(|i| rg(s, i)).collect();
         let t1 = t1(s);
@@ -220,7 +220,7 @@ use termion::{
         let fr = fr(s);
         let ir = ir(s);
         let dec = decode(Bits::from(ir));
-        let ram = ram(s)[ma as usize];
+        let ram = ram(s)[(ram_addr as usize) & 0x3FF];
         let state = cu_state(s);
         let signals = control_signals(s);
         let (res, flags) = alu_rez(s);
@@ -268,12 +268,13 @@ use termion::{
 
     fn didasm(asm_source: &str){
         std::fs::write("test.asm", asm_source);
-        std::process::Command::new("didasm")
+        if let Err(_) = std::process::Command::new("didasm")
             .arg("test.asm")
             .arg("cram.data")
             .arg("--quiet")
-            .output()
-            .unwrap();
+            .output() {
+            eprintln!("Didasm not available (cargo install didasm --path <computer-architecture-path>/didasm), falling back to existing cram.data...")
+        }
     }
     // #[test]
 
@@ -283,6 +284,7 @@ use termion::{
 
 hlt
 test ra,[bb+xa+]
+jc -3
 
 sub [ba+43], 42
 
@@ -311,33 +313,35 @@ inc [ba+xb+2]
         .unwrap()
         .into_alternate_screen()
         .unwrap();
-        write!(screen, "{}", termion::clear::All)?;
-        write!(screen, "{}", termion::cursor::Goto(1, 1))?;
-        screen.flush()?;
-
-        write!(screen, "Press ← → or q (step {})\r\n", i)?;
-        if i == v.len() {
-            let o = step(&cpu, (), &mut s);
-            v.push((o,s.clone()));
-        }
-        let (o,state) = &v[i];
-        let myst = print_cd(state, o);
-        write!(screen, "{}",myst);
-        i = i + 1;
 
         // print_cd(&s, &o);
         let stdin = std::io::stdin();
+        let mut peek = 0;
+        let mut peek_buf = peek;
+        let mut wait_for_peek = false;
+        let o = step(&cpu, (), &mut s);
+        v.push((o,s.clone()));
+        write!(screen, "{}", termion::clear::All)?;
+        write!(screen, "{}", termion::cursor::Goto(1, 1))?;
+        screen.flush()?;
+        let help_str = "Press ← → for single clock cycle step, p n for instruction step or q; Press /<addr(HEX)><enter> for a peek in ram ";
+        write!(screen, "{}(step {}, lookup MA)\r\n", help_str, i);
+        let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
+        let myst = print_cd(state, o, peek);
+        write!(screen, "{}",myst);
         for key in stdin.keys() {
             write!(screen, "{}", termion::clear::All)?;
             write!(screen, "{}", termion::cursor::Goto(1, 1))?;
-            write!(screen, "Press ← → or q (step {})\r\n", i)?;
             screen.flush()?;
             match key.unwrap() {
                 Key::Left => {
                     i = i.saturating_sub(1);
                     let (o,state) = &v[i];
-                    let myst = print_cd(state, o);
-                    write!(screen, "{}",myst);
+                    peek = ma(&state);
+                    peek_buf = peek & 0x3FF;
+                    wait_for_peek = false;
+                    // let myst = print_cd(state, o, peek);
+                    // write!(screen, "{}",myst);
                 }
                 Key::Right => {
                     if i == v.len() {
@@ -345,13 +349,82 @@ inc [ba+xb+2]
                         v.push((o,s.clone()));
                     }
                     let (o,state) = &v[i];
-                    let myst = print_cd(state, o);
-                    write!(screen, "{}",myst);
+                    peek = ma(&state);
+                    peek_buf = peek & 0x3FF;
+                    wait_for_peek = false;
+                    // let myst = print_cd(state, o, peek);
+                    // write!(screen, "{}",myst);
                     i = i + 1
                 }
                 Key::Char('q') => break,
+                Key::Char('/') => {
+                    wait_for_peek=true;
+                    peek_buf = 0;
+                }
+                Key::Char('n') => {
+                    let mut steps = 0;
+                    wait_for_peek = false;
+                    if i != v.len() {
+                        i = i + 1;
+                    }
+                    loop {
+                        if steps >= 10000  {
+                            break;
+                        }
+                        if i == v.len() {
+                            let o = step(&cpu, (), &mut s);
+                            v.push((o,s.clone()));
+                        }
+                        let (o,state) = &v[i];
+                        peek = ma(&state);
+                        if matches!(cu_state(&state), Decode|Reset|Hlt) {
+                            break;
+                        }
+                        i = i + 1;
+                        steps = steps + 1;
+                    };
+                }
+                Key::Char('p') => {
+                    wait_for_peek = false;
+                    let mut steps = 0;
+                    i = i.saturating_sub(1);
+                    loop {
+                        if steps >= 10000 {
+                            break;
+                        }
+                        let (o,state) = &v[i];
+                        peek = ma(&state);
+                        if matches!(cu_state(&state), Decode|Reset|Hlt) {
+                            break;
+                        }
+                        i = i.saturating_sub(1);
+                        steps = steps + 1;
+                    }
+                }
+                Key::Char(c @ ('0'..='9' | 'a'..='f')) if wait_for_peek => {
+                    let x = c.to_digit(16).map(|d| d as u128).unwrap();
+                    peek_buf = (peek_buf << 4 | x) & 0x3FF;
+                }
+                Key::Char('\n') => {
+                    wait_for_peek=false;
+                    peek = peek_buf;
+
+                }
                 _ => {}
             }
+            
+            let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
+            write!(screen, "{}(step {}, lookup {}{})\r\n", help_str, i, if peek == ma(&state) {
+                "MA"
+            } else {
+                &format!("{:03X}", peek)
+            }, if wait_for_peek {
+                format!("; next lookup {:03X}, press enter to commit, accepts [0-3FF]", peek_buf)
+            } else {
+                "".to_string()
+            })?;
+            let myst = print_cd(state, o, peek);
+            write!(screen, "{}",myst);
         }
 
         Ok(())
