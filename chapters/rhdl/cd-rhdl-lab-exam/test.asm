@@ -1,0 +1,2 @@
+add rc, rb
+hlt
