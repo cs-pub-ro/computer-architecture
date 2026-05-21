@@ -44,6 +44,9 @@ echo "$task"
 iverilog -Wall -Winfloop top.v lut.v -o top.vvp
 iverilog -Wall -Winfloop $flags top.v lut_sol.v -o top_sol.vvp
 
+# Do not let students find out [CHECKER: <hash>] prefix from just a simple grep on top.v, let them work harder for it
+rm top.v
+
 if [ $? -ne 0 ]; then
     echo "Error: iverilog failed" >&2
     exit 1
