@@ -75,6 +75,15 @@ impl<N: BitWidth + Unsigned> Default for RegFile<N> {
     }
 }
 
+impl<N: BitWidth + Unsigned> RegFile<N> {
+    pub fn new(init: [u128; 8]) -> Self {
+        Self {
+            rg: core::array::from_fn(|i| DFF::new(Bits::<N>::from(init[i]))),
+        }
+    }
+}
+
+
 impl<N: BitWidth + Unsigned> SynchronousIO for RegFile<N> {
     type I = (RegisterInput<N>, Reg);
     type O = Bits<N>;

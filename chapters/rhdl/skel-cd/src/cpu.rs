@@ -1,6 +1,6 @@
 use crate::{
     alu::{alu, flags, fr},
-    control_unit::{ControlSignals, ControlUnit},
+    control_unit::{ControlSignals, ControlUnit, State},
     decode_unit::{Decoded, decode},
     memory::{Ram, RamInput},
     prelude::*,
@@ -9,6 +9,17 @@ use bitops_rhdl::bitops;
 use rhdl::typenum::Diff;
 use rhdl_fpga::core::dff::DFF;
 
+#[derive(Clone, Debug, Default)]
+pub struct CpuDefault {
+    pub regs: [u128; 8],
+    pub T1: u128,
+    pub T2: u128,
+    pub MA: u128,
+    pub IR: u128,
+    pub PC: u128,
+    pub FR: u128,
+    pub state: State,
+}
 #[derive(Synchronous, SynchronousDQ, Clone, Debug)]
 
 pub struct Cpu {
@@ -40,6 +51,22 @@ impl Default for Cpu {
             IR: DFF::default(),
             PC: Register::default(),
             FR: DFF::default(),
+        }
+    }
+}
+
+impl Cpu {
+    pub fn new(init: CpuDefault) -> Self {
+        Self {
+            T1: Register::new(init.T1),
+            T2: Register::new(init.T2),
+            MA: Register::new(init.MA),
+            Cu: ControlUnit::new(init.state),
+            regs: RegFile::new(init.regs),
+            RAM: Ram::from_hex_file("cram.data").unwrap_or_default(),
+            IR: DFF::new(Bits::from(init.IR)),
+            PC: Register::new(init.PC),
+            FR: DFF::new(Bits::from(init.FR)),
         }
     }
 }
@@ -142,18 +169,22 @@ pub fn top_kernel(_cr: ClockReset, _i: (), q: Q) -> (Bits<U16>, D) {
 // ADD TESTBENCHES
 pub mod tests {
     use std::io::{Stdout, Write, stdout};
-use termion::{
-    event::Key,
-    input::TermRead,
-    raw::{IntoRawMode, RawTerminal},
-    screen::{IntoAlternateScreen, ToAlternateScreen, ToMainScreen}
-};
+    use std::fs::File;
+    use rand::rng;
+    use termion::{
+        event::Key,
+        input::TermRead,
+        raw::{IntoRawMode, RawTerminal},
+        screen::{IntoAlternateScreen, ToAlternateScreen, ToMainScreen}
+    };
+    use anyhow::anyhow;
     use crate::{
         alu::alu, control_unit::{self, ControlSignals}, decode_unit::{Decoded, decode}, prelude::*
     };
     type S = <Cpu as Synchronous>::S;
     type O = <Cpu as SynchronousIO>::O;
     use colored::Colorize;
+    use crate::control_unit::*;
 
     fn rg(s: &S, i: usize) -> u128 {
         s.1.1[i].current.raw()
@@ -189,15 +220,36 @@ use termion::{
     fn bus(o: &O) -> u128 {
         o.raw()
     }
-    fn run_till_next_instr(cpu: &Cpu, s: &mut S) {
+    fn run_till_next_instr(cpu: &Cpu, s: &mut S) -> O {
+        let mut steps = 0;
         loop {
-            let o = step(cpu, (), s);
-            print_cd(&s, &o, ma(&s));
-
-            if cu_state(&s) == Fetch {
-                return;
+            if steps > 10000 {
+                panic!("Instruction took too many clock cycles!");
             }
-        };
+            let o = step(cpu, (), s);
+
+            if cu_state(&s) == Decode {
+                return o;
+            }
+            steps = steps + 1;
+        }
+    }
+    fn run_till_load_done(cpu: &Cpu, s: &mut S) -> O{
+        let mut steps = 0;
+        loop {
+            if steps > 10000 {
+                panic!("Instruction took too many clock cycles!");
+            }
+            let o = step(cpu, (), s);
+            if cu_state(&s) == Decode {
+                panic!("No load was detected!");
+            }
+            let cs = control_signals(&s);
+            if cs.load_done {
+                return o;
+            }
+            steps = steps + 1;
+        }
     }
     fn hex(i: u128) -> String {
         format!("{:04X}", i)
@@ -249,7 +301,7 @@ use termion::{
             .replace("$res              ", &format!("{:^18}", format!("{:04X}",res)))
             .replace("$flag", &format!("{:05b}",flags))
             .replace("$fr  ", &format!("{:05b}",fr))
-            .replace("$state          ", &format!("{:^16}", format!("{:?}",state)))
+            .replace("$state                    ", &format!("{:^26}", format!("{:?}",state)))
             .replace("$decoded                                                                           ", &format!("{:^83}", format!("{:?}",dec)))
             .replace("$pc ", &hex(pc))
             .replace("$t1 ", &hex(t1))
@@ -277,13 +329,229 @@ use termion::{
         }
     }
     // #[test]
+    // use 
+    use super::CpuDefault;
+    /// Start a cpu test by providing its current state directly
+    fn start_cpu_test(
+        asm_source: &str,
+        def_values: CpuDefault
+    ) -> Result<(Cpu, S), RHDLError> {
+        std::fs::write("test.asm", asm_source)?;
+        let out = std::process::Command::new("didasm")
+            .arg("test.asm")
+            .arg("cram.data")
+            .arg("--quiet")
+            .output()
+            .map_err(|e| anyhow!("Didasm not available (cargo install didasm --path <computer-architecture-path>/didasm). Fallback is not available in unit tests"))?;
+        if !out.status.success() {
+            return Err(anyhow!("Assembler failed: {}", String::from_utf8(out.stderr).unwrap()).into());
+        }
+        let cpu = Cpu::new(def_values);
+
+        // Validate if cpu kernel is valid rhdl
+        let ins = vec![()].with_reset(1).clock_pos_edge(100);
+        cpu.run(ins)?;
+
+        // Initialize a state with the values provided in def_values
+        let mut s: S = cpu.init();
+        reset_step(&cpu, &mut s);
+        Ok((cpu, s))
+    }
+
+    // Test just the fetch
+    #[test]
+    fn test_fetch() {
+        let (cpu, mut s) = start_cpu_test(
+            r#"
+            hlt1
+            "#,
+            CpuDefault::default()
+        ).unwrap();
+
+        step(&cpu, (), &mut s);
+        step(&cpu, (), &mut s);
+        let state = cu_state(&s);
+        assert_eq!(state, State::Fetch(FetchStage::PcToMA));
+
+        step(&cpu, (), &mut s);
+        let state = cu_state(&s);
+        assert_eq!(state, State::Fetch(FetchStage::MaToMem));
+        let MA = ma(&s);
+        // TODO change cpu state
+        assert_eq!(MA, 0);
+
+        let o = step(&cpu, (), &mut s);
+        let state = cu_state(&s);
+        assert_eq!(state, State::Fetch(FetchStage::MemToIr));
+        let BUS = bus(&o);
+        assert_eq!(BUS, 0x0031);
+        step(&cpu, (), &mut s);
+        let state = cu_state(&s);
+        assert_eq!(state, State::Decode);
+        let IR = ir(&s);
+        assert_eq!(IR, 0x0031);
+
+
+    }
+
+    #[test]
+    fn test_cpu_default_values() {
+        let mut init = CpuDefault::default();
+        init.regs[4] = 0x69;
+        let (cpu, mut s) = start_cpu_test(
+            r#"
+            hlt
+            "#,
+            init
+        ).unwrap();
+        let o = step(&cpu, (), &mut s);
+        assert_eq!(rg(&s, 4), 0x69);
+    }
+
+    #[test]
+    fn test_load_1() {
+        let mut init = CpuDefault::default();
+        for i in 0..8 {
+            init.regs[i] = i as u128 + 1;
+        }
+        let (cpu, mut s) = start_cpu_test(
+            r#"
+            sub [ba+43], 42
+            50: 0x69
+            "#,
+            init
+        ).unwrap();
+        run_till_next_instr(&cpu, &mut s);
+        let o = run_till_load_done(&cpu, &mut s);
+        assert_eq!(0x69, t1(&s));
+        assert_eq!(42, t2(&s));
+        assert_eq!(50, ma(&s));
+        assert_eq!(2, pc(&s));
+    }
+
+    #[test]
+    fn test_load_2() {
+        let mut init = CpuDefault::default();
+        for i in 0..8 {
+            init.regs[i] = i as u128 + 1;
+        }
+        let (cpu, mut s) = start_cpu_test(
+            r#"
+            mov [ba+43], 42
+            50: 0x69
+            "#,
+            init
+        ).unwrap();
+        run_till_next_instr(&cpu, &mut s);
+        let o = run_till_load_done(&cpu, &mut s);
+        assert_ne!(0x69, t1(&s), "You don't have to load the *value* of the memory at effective address for MOV instructions if destination");
+        assert_eq!(42, t2(&s));
+        assert_eq!(50, ma(&s));
+        assert_eq!(2, pc(&s));
+    }
+
+    #[test]
+    fn test_load_5() {
+        let mut init = CpuDefault::default();
+        for i in 0..8 {
+            init.regs[i] = i as u128 + 1;
+        }
+        let (cpu, mut s) = start_cpu_test(
+            r#"
+            add ra, [ba+xb+]
+            13: 0x2
+            "#,
+            init
+        ).unwrap();
+        run_till_next_instr(&cpu, &mut s);
+        let o = run_till_load_done(&cpu, &mut s);
+        assert_eq!(true, control_signals(&s).load_done);
+        assert_eq!(1, t1(&s));
+        assert_eq!(2, t2(&s));
+        assert_eq!(13, ma(&s));
+        assert_eq!(7, rg(&s, 5));
+        assert_eq!(0, pc(&s));
+    }
+
+    #[test]
+    fn test_load_6() {
+        let mut init = CpuDefault::default();
+        for i in 0..8 {
+            init.regs[i] = i as u128 + 1;
+        }
+        let (cpu, mut s) = start_cpu_test(
+            r#"
+            cmp [bb+xa+5], 7
+            18: 0x7
+            "#,
+            init
+        ).unwrap();
+        run_till_next_instr(&cpu, &mut s);
+        let o = run_till_load_done(&cpu, &mut s);
+        assert_eq!(7, t1(&s));
+        assert_eq!(7, t2(&s));
+        assert_eq!(18, ma(&s));
+        assert_eq!(2, pc(&s));
+    }
+
+    #[test]
+    fn test_load_reg_dyn() {
+        use rand::prelude::*;
+        let mut rng = rand::rng();
+        let mut init = CpuDefault::default();
+        let mapping = [
+            "ra",
+            "rb",
+            "rc",
+            "sp",
+            "xa",
+            "xb",
+            "ba",
+            "bb",
+        ];
+
+        for i in 0..8 {
+            init.regs[i] = rng.random_range(0..u16::MAX) as u128;
+        }
+
+        let destination = rng.random_range(0..8) as usize;
+        let source = rng.random_range(0..8) as usize;
+
+        let destination_value = init.regs[destination];
+        let source_value = init.regs[source];
+
+        let asm_code = format!(
+            "add {dst}, {src}",
+            dst = mapping[destination],
+            src = mapping[source]
+        );
+
+        println!("{}", &asm_code);
+        let (cpu, mut s) = start_cpu_test(
+            &asm_code,
+            init
+        ).unwrap();
+
+        run_till_next_instr(&cpu, &mut s);
+        let o = run_till_load_done(&cpu, &mut s);
+
+        assert_eq!(0, pc(&s));
+        assert_eq!(destination_value, t1(&s));
+        assert_eq!(source_value, t2(&s));
+    }
 
     // run in an interactive way
     pub fn sim_cpu() -> Result<(), RHDLError> {
-        didasm(r#"
-
+        let mut init = CpuDefault::default();
+        for i in 0..8 {
+            init.regs[i] = i as u128 + 1;
+        }
+        init.PC = 1;
+        let (cpu, mut s) = start_cpu_test(
+            r#"
 hlt
-test ra,[bb+xa+]
+mov ra, [0x42]
+test ra,[bb+xa]
 jc -3
 
 sub [ba+43], 42
@@ -301,13 +569,12 @@ inc [bb+xa]
 inc [ba+xb+]
 inc [bb+xa-]
 inc [ba+xb+2]
-"#);
-        let cpu = Cpu::default();
-        let mut s: S = cpu.init();
+0x0308: 0x69
+            "#,
+            init
+        ).unwrap();
         let mut v = vec![];
         let mut i:usize = 0;
-        let ins = vec![(), (), ()].with_reset(1).clock_pos_edge(100);
-        cpu.run(ins)?;
         let mut screen = stdout()
         .into_raw_mode()
         .unwrap()
@@ -324,7 +591,7 @@ inc [ba+xb+2]
         write!(screen, "{}", termion::clear::All)?;
         write!(screen, "{}", termion::cursor::Goto(1, 1))?;
         screen.flush()?;
-        let help_str = "Press ← → for single clock cycle step, p n for instruction step or q; Press /<addr(HEX)><enter> for a peek in ram ";
+        let help_str = "Press ← → for single clock cycle step, p n for instruction step, d for mem.dump or q; Press /<addr(HEX)><enter> for a peek in ram ";
         write!(screen, "{}(step {}, lookup MA)\r\n", help_str, i);
         let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
         let myst = print_cd(state, o, peek);
@@ -405,6 +672,14 @@ inc [ba+xb+2]
                     let x = c.to_digit(16).map(|d| d as u128).unwrap();
                     peek_buf = (peek_buf << 4 | x) & 0x3FF;
                 }
+                Key::Char('d') => {
+                    let mut file = File::create("mem.dump")?;
+                    let (o,state) = &v[i];
+                    let ram = ram(&state);
+                    for i in ram.into_iter() {
+                        writeln!(&mut file, "{:04X}", i)?;
+                    }
+                }
                 Key::Char('\n') => {
                     wait_for_peek=false;
                     peek = peek_buf;
@@ -414,10 +689,11 @@ inc [ba+xb+2]
             }
             
             let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
+            let peek_str = format!("{:03X}", peek);
             write!(screen, "{}(step {}, lookup {}{})\r\n", help_str, i, if peek == ma(&state) {
                 "MA"
             } else {
-                &format!("{:03X}", peek)
+                &peek_str
             }, if wait_for_peek {
                 format!("; next lookup {:03X}, press enter to commit, accepts [0-3FF]", peek_buf)
             } else {

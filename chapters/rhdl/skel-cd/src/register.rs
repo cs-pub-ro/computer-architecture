@@ -20,6 +20,14 @@ impl<N: BitWidth + Unsigned> Default for Register<N> {
     }
 }
 
+impl<N: BitWidth + Unsigned> Register<N> {
+    pub fn new(init: u128) -> Self {
+        Self {
+            memory: DFF::new(Bits::<N>::from(init)),
+        }
+    }
+}
+
 impl<N: BitWidth + Unsigned> SynchronousIO for Register<N> {
     type I = RegisterInput<N>;
     type O = (Bits<N>, Bits<N>);
@@ -33,12 +41,8 @@ pub fn reg_ker<N: BitWidth + Unsigned>(
     q: Q<N>,
 ) -> ((Bits<N>, Bits<N>), D<N>) {
     (
-        (
-            // Bus output
-            if i.oe && !i.we { q.memory } else { bits(0) },
-            // Bus separation
-            if i.oe { q.memory } else { bits(0) },
-        ),
+        (if i.oe && !i.we { q.memory } else { bits(0) },
+        if i.oe {q.memory} else {bits(0)}),
         D::<N> {
             memory: if i.we { i.data_in } else { q.memory },
         },

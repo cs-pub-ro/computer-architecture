@@ -13,15 +13,15 @@ pub enum Operand {
 
 #[derive(Debug, Digital, PartialEq)]
 pub enum DstOperand {
-    DirectAddress,
-    IndirectAddress,
-    RegisterAddress(AddrRegister),
-    RegSum(BaseRegister, IndexRegister),
-    RegSumIncr(BaseRegister, IndexRegister),
-    RegSumDecr(BaseRegister),
-    BasedAddr(BaseRegister),
-    IndexedAddr(IndexRegister),
-    BasedIndexedAddr(BaseRegister, IndexRegister),
+    DirectAddress, // Lpc Ipc DispA DispL EaDone
+    IndirectAddress, // Lpc Ipc DispA DispL DdispA DdispL EaDone
+    RegisterAddress(AddrRegister), // Ldi/Ldb EaDone
+    RegSum(BaseRegister, IndexRegister), // Ldb Ldi Sum2 EaDone
+    RegSumIncr(BaseRegister, IndexRegister), // Ldb Ldi Pipd Sum2 EaDone
+    RegSumDecr(BaseRegister), // Ldb Ldi Pipd Sum2 EaDone
+    BasedAddr(BaseRegister), // Lpc Ipc DispA DispL Ldb Sum2 EaDone
+    IndexedAddr(IndexRegister), // Lpc Ipc DispA DispL Ldi Sum2 EaDone
+    BasedIndexedAddr(BaseRegister, IndexRegister), // Lpc Ipc DispA DispL Ldb Sum1 Ldi Sum2 EaDone
     Reg(Reg),
 }
 
@@ -98,7 +98,7 @@ pub enum TwoOp {
     Xor,
     Cmp,
     Test,
-    Mov
+    Mov,
 }
 
 #[bitops]
@@ -281,12 +281,153 @@ fn brx(i: Bits<U1>) -> BaseRegister {
 
 #[bitops]
 #[kernel]
-pub fn decode(_i: Bits<U16>) -> Decoded {
-    if _i == bits(0) {
-        Decoded::Invalid
-    } else {
-        Decoded::dont_care()
+/// Decodes the mod and rm parts in one go
+fn mod_rm(i: Bits<U16>) -> DstOperand {
+    let rm = i[15].resize() |
+            i[14].resize() << 1 |
+            i[13].resize() << 2;
+    let m = i[9..8];
+    match m.raw() {
+        0b11 => DstOperand::Reg(reg(rm)),
+        0b01 => {
+            if rm < bits(0b100) {
+                DstOperand::BasedIndexedAddr(brx(rm[1]), irx(rm[0]))
+            } else if rm < bits(0b110) {
+                DstOperand::IndexedAddr(irx(rm[0]))
+            } else {
+                DstOperand::BasedAddr(brx(rm[0]))
+            }
+        }
+        0b10 => {
+            if rm < bits(0b100) {
+                DstOperand::RegSumIncr(brx(rm[1]), irx(rm[0]))
+            } else if rm < bits(0b110) {
+                DstOperand::RegSumDecr(brx(rm[0]))
+            } else if rm < bits(0b111) {
+                DstOperand::DirectAddress
+            } else {
+                DstOperand::IndirectAddress
+            }
+        }
+        0b00 => {
+            if rm < bits(0b100) {
+                DstOperand::RegSum(brx(rm[1]), irx(rm[0]))
+            } else if rm < bits(0b110) {
+                DstOperand::RegisterAddress(AddrRegister::Index(irx(rm[0])))
+            } else {
+                DstOperand::RegisterAddress(AddrRegister::Base(brx(rm[0])))
+            }
+        }
+        _ => DstOperand::dont_care(),
     }
+}
+
+#[bitops]
+#[kernel]
+pub fn decode(i: Bits<U16>) -> Decoded {
+    let rm = mod_rm(i);
+    let rg_raw = i[12].resize() |
+        i[11].resize() << 1 |
+        i[10].resize() << 2;
+    let rg = DstOperand::Reg(reg(rg_raw));
+    let (src, dst) = if i[7] == bits(1) {
+        (Operand::MaybeDst(rm), rg)
+    } else {
+        (Operand::MaybeDst(rg), rm)
+    };
+    // R3..R2..R1..R0
+    match i[3..0].raw() {
+        // EA + One op + no imm + control flow
+        0b0000 => {
+            if let Some(x) = eacfg(i[6..4]) {
+                return Decoded::OneOp { op: x, dst: rm };
+            } else if i[6..4] == bits(0) {
+                return Decoded::TwoOp { op: TwoOp::Mov, src, dst };
+            }
+        }
+        // EA + One op + no imm + operation
+        0b1000 => {
+            if let Some(x) = oop(i[6..4]) {
+                return Decoded::OneOp { op: x, dst: rm };
+            }
+        }
+        0b0100 => {
+            if i[6..4] == bits(0b000) {
+                return Decoded::OneOp {
+                    op: OneOp::MovI,
+                    dst: rm,
+                };
+            }
+        }
+        // EA, TwoOp, no imm no save
+        0b0010 => {
+            if let Some(x) = twop(i[6..4]) {
+                match x {
+                    TwoOp::Sub => {
+                        return Decoded::TwoOp {
+                            op: TwoOp::Cmp,
+                            src,
+                            dst,
+                        };
+                    }
+                    TwoOp::And => {
+                        return Decoded::TwoOp {
+                            op: TwoOp::Test,
+                            src,
+                            dst,
+                        };
+                    }
+                    _ => {}
+                }
+            }
+        }
+        0b1010 => {
+            if let Some(x) = twop(i[6..4]) {
+                return Decoded::TwoOp { op: x, src, dst };
+            }
+        }
+        0b0110 => {
+            if let Some(x) = twop(i[6..4]) {
+                match x {
+                    TwoOp::Sub => {
+                        return Decoded::TwoOp {
+                            op: TwoOp::Cmp,
+                            src: Operand::Imm,
+                            dst: rm,
+                        };
+                    }
+                    TwoOp::And => {
+                        return Decoded::TwoOp {
+                            op: TwoOp::Test,
+                            src: Operand::Imm,
+                            dst: rm,
+                        };
+                    }
+                    _ => {}
+                }
+            }
+        }
+        0b1110 => {
+            if let Some(x) = twop(i[6..4]) {
+                return Decoded::TwoOp {
+                    op: x,
+                    src: Operand::Imm,
+                    dst: rm,
+                };
+            }
+        }
+        // NEA CF
+        0b0001 => {
+            if let Some(x) = neacf(i[6..4]) {
+                return Decoded::CfNea(x);
+            }
+        }
+        0b1001 => {
+            return Decoded::Jcond(jcond(i[7..4]));
+        }
+        _ => {}
+    };
+    Decoded::Invalid
 }
 
 mod tests {
@@ -315,6 +456,7 @@ mod tests {
     use TwoOp::*;
     use CfNea::*;
     use Jcond::*;
+    use rhdl::core::rhif::spec::Index;
 
     #[test]
     fn inc_all_ea_types_op() {

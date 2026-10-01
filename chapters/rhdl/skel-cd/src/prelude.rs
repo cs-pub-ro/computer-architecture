@@ -3,7 +3,8 @@ pub use crate::alu::{
     AluOp::{self, *},
     AluOutput,
 };
-pub use crate::control_unit::State::*;
+pub use crate::control_unit::{State::*};
+pub use crate::decode_unit::*;
 pub use crate::cpu::*;
 pub use crate::memory::*;
 pub use crate::register::*;
@@ -36,4 +37,23 @@ pub fn step<S: Synchronous + SynchronousIO>(s: &S, input: S::I, state: &mut S::S
         input,
         state,
     )
+}
+
+pub fn reset_step<S: Synchronous + SynchronousIO>(s: &S, state: &mut S::S) {
+    s.sim(
+        ClockReset {
+            clock: clock(false),
+            reset: reset(true),
+        },
+        S::I::dont_care(),
+        state,
+    );
+    s.sim(
+        ClockReset {
+            clock: clock(false),
+            reset: reset(true),
+        },
+        S::I::dont_care(),
+        state,
+    );
 }
