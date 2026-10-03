@@ -31,6 +31,8 @@ APT_TARGETS+=("iproute2")
 APT_TARGETS+=("iputils-ping")
 APT_TARGETS+=("net-tools")
 APT_TARGETS+=("netcat-openbsd")
+APT_TARGETS+=("openssh-client")
+APT_TARGETS+=("ssh")
 
 # Native compilation and build systems.
 APT_TARGETS+=("build-essential")
