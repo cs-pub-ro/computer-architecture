@@ -2,21 +2,15 @@
 
 - 40p examen final
 - 60p laborator
-  - 10p activitate laborator
-    - 5p prezență
-    - 5p implicare
-  - 30p Proiect laborator
-    - 10p Documentație
-    - 10p Implementare
-    - 10p Evaluare
-  - 10p Parțial teoretic
-  - 10p Colocviu
+  - 50p activitate laborator
+    - 0.5p test la finalul fiecărui laborator
+  - 10p Verficare teoretică parcus
 
 ### Promovare:
 
 - Minim 50p Total
 
-### Parțial teoretic
+### Verficare teoretică
 
 - Materia necesară: laboratoarele 1,2,3,4,5 și 6
 - Durată: 60 de minute
@@ -25,53 +19,15 @@
 - Platformă: Calculator Laborator - Moodle
 - AB: 10 întrebări cu răspuns scurt
 
-### Colocviu
+### Test laborator
 
-- Materia necesară: toate laboratoarele
-- Durată: 120 de minute
-- Când: la ultimul laborator
+- Materia necesară: laborator curent
+- Durată: 30 de minute
+- Când: la fiecare laborator
 - Strcutură:
-  - Exerciții practice de implementat în Verilog/RHDL
+  - Exerciții practice de implementat în Verilog
 - Locație: sala de laborator
 - Platformă: Calculator Laborator - Moodle - VPL
-- AB: 5 exerciții de implementat
-
-## Proiect (AB)
-
-- Se lucrează în echipe de câte 3 studenți
-- Teme propuse de echipa de asistenți în a doua săptămână de laborator
-- Documentație:
-  - Deadline 26.11.2025, 23:59
-  - Documentarea temei alese
-  - Latex/Typst/Markdown
-  - GitHub
-- Implementare:
-  - Deadline 17.12.2025, 23:59
-  - Implementarea temei alese și testare funcționalitate
-  - Limbaj: Verilog/RHDL/Chisel/VHDL/HLS C++/MyHDL
-  - Repo GitHub
-
-- Evaluare:
-  - Deadline 14.01.2026, 23:59
-  - Sinteză FPGA
-  - Repo GitHub
-
-## Proiect (AA/AC)
-
-- Se lucrează în echipe de câte 3 studenți
-
-- Documentație și implementare:
-  - Deadline 23.11.2025, 23:59
-  - Documentarea temei alese
-  - Latex/Typst/Markdown
-  - Implementarea temei alese și testarea funcționalității
-  - Limbaj: Verilog
-  - Repo GitHub
-
-- Evaluare:
-  - Deadline 14.12.2025, 23:59
-  - Sinteză FPGA
-  - Repo GitHub
 
 ### Examen Final (AB)
 

@@ -1,0 +1,29 @@
+{
+  "name": "Computer Architecture Open-Source Toolchain",
+  "build": {
+    "dockerfile": "../docker/dev.Dockerfile",
+    "context": "../docker",
+    "target": "sdc_dev_stage",
+    "args": {
+      "UBUNTU_SNAPSHOT": "20260930T000000Z"
+    }
+  },
+  "remoteUser": "devuser",
+  "updateRemoteUserUID": true,
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace",
+  "containerEnv": {
+    "SDC_ROOT": "/workspace"
+  },
+  "runArgs": ["--privileged"],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mshr-h.veriloghdl",
+        "myriad-dreamin.tinymist",
+        "rust-lang.rust-analyzer",
+        "ms-vscode.makefile-tools"
+      ]
+    }
+  }
+}

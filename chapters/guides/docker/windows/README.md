@@ -1,122 +1,47 @@
-# Utilizare imagine docker Windows
+# Mediu Docker pentru Computer Architecture — Windows
 
-## Cerințe necesare
+Imaginea Ubuntu 24.04 conține unelte open-source pentru simulare Verilog, Rust, Typst și fluxul FPGA openXC7; Vivado nu este inclus.
 
-### WSL
+## Cerințe
 
-1. Deschideți meniul Start și tastați "Windows features" în bara de căutare și faceți clic pe "Turn Windows Features On or Off".
+- WSL 2 cu Ubuntu 24.04
+- Docker Desktop cu integrarea WSL activată pentru distribuția Ubuntu
+- Visual Studio Code, extensia WSL și extensia [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-2. Bifați casetele "Windows Subsystem for Linux" și "Virtual Machine Platform" și apăsați butonul "OK".
+Instalarea WSL, dacă este necesar:
 
-3. Când operațiunea este completă, vi se va cere să reporniți computerul.
-
-4. Instalați distribuția dorită din command prompt:
-```bash
-wsl --install -d Ubuntu-22.04
+```powershell
+wsl --install -d Ubuntu-24.04
 ```
 
-Alt tutorial [Ubuntu](https://linuxconfig.org/ubuntu-22-04-on-wsl-windows-subsystem-for-linux)
+## Deschidere în container
 
-### Docker Desktop
+1. Deschideți depozitul din filesystem-ul WSL, nu dintr-un director Windows montat sub `/mnt/c`.
+2. Deschideți rădăcina `computer-architecture` în VS Code prin WSL.
+3. Rulați **Dev Containers: Reopen in Container** din Command Palette.
 
-Instalare [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+Depozitul este montat în `/workspace`, iar `SDC_ROOT=/workspace` este setat de configurația containerului.
 
-### Instalre XLaunch
+## Simulare și documente
 
-1. Descărcați [Xming X Server](http://www.straightrunning.com/XmingNotes/) - Public Domain Releases
+- Simulare: `make -C assignments/sim/mux build_solution`, apoi `vvp solution_mux.vvp`.
+- Typst: `mkdir -p build && tc slides/courses/2/main.typ build/course-2.pdf`. Pachetele Typst folosite de document sunt descărcate la prima compilare și păstrate în cache în directorul personal al utilizatorului; este necesară conexiune la internet la prima utilizare.
+- GTKWave necesită un server grafic WSLg sau un X server compatibil.
 
-![installxlaunch1](../media/installxlaunch1.png)
+## Programarea plăcii FPGA
 
-2. Deschideți installer-ul și apăsați butonul "Next".
+Docker Desktop/WSL2 nu oferă automat dispozitivele USB containerului. Instalați `usbipd-win`, apoi, într-un PowerShell pornit ca Administrator, identificați și partajați placa:
 
-![installxlaunch2](../media/installxlaunch2.png)
-
-3. Apăsați butonul "Next".
-
-![installxlaunch3](../media/installxlaunch3.png)
-
-4. Apăsați butonul "Next".
-
-![installxlaunch4](../media/installxlaunch4.png)
-
-5. Apăsați butonul "Next".
-
-![installxlaunch5](../media/installxlaunch5.png)
-
-6. Selectați "Create a desktop icon for XLaunch" și apăsați butonul "Next".
-
-![installxlaunch6](../media/installxlaunch6.png)
-
-7. Apăsați butonul "Install".
-
-![installxlaunch7](../media/installxlaunch7.png)
-
-8. Apăsați butonul "Finish".
-
-![installxlaunch8](../media/installxlaunch8.png)
-
-### Visual Studio Code
-
-Descărcați și instalați [Visual Studio Code](https://code.visualstudio.com/download)
-
-### Clonați repo-ul materiei
-
-```bash
-git clone https://github.com/cs-pub-ro/computer-architecture.git
+```powershell
+usbipd list
+usbipd bind --busid <BUSID>
+usbipd attach --wsl --busid <BUSID>
 ```
 
-## Rulare
+Verificați în Ubuntu WSL că placa apare în `/dev/bus/usb`, apoi rulați:
 
-### Porniți XLaunch
-1. Deschideți XLaunch (Desktop sau Start Menu) 
-
-2. Selectați opțiunile pentru Disaply și apăsați butonul "Next".
-
-![runxlaunch1](../media/runxlaunch1.png)
-
-3. Selectați "Start no client" și apăsați butonul "Next".
-
-![runxlaunch2](../media/runxlaunch2.png)
-
-4. Selectați "No access control" și apăsați butonul "Next".
-
-![runxlaunch3](../media/runxlaunch3.png)
-
-5. Apăsați butonul "Finish".
-
-![runxlaunch4](../media/runxlaunch4.png)
-
-
-### Opțiunea 1 din Visual Studio Code
-
-1. Deschideți directorul repo-ului în Visual Studio Code.
-```bash
-code computer-architecture
+```sh
+./synth_and_flash.sh chapters/.../design.v
 ```
 
-2. Instalați extensia [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
-
-3. După veți avea opțiunea "Dev Containers: Reopen in container" (`CTRL+SHIFT+P`).
-
-### Opțiunea 2 prin docker
-
-1. Descărcați imaginea cu docker
-```bash
-docker pull gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0
-```
-
-2. Rulați un container cu imaginea
-```bash
-docker run --rm -it -v /dev:/dev gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0 /bin/bash
-```
-
-3. Rulați vivado din imagine
-```bash
-vivado
-```
-
-
-## Troubleshooting
-### Vivado nu vede seriala catre FPGA (laptop)
-
-Urmăriți tutorialul până la finalul sesiunii "Attach the device to wsl2" [usbipd](https://hackmd.io/@aeefs2Y8TMms-cjTDX4cfw/r1fqAa_Da)
+Containerul este privilegiat pentru a accesa dispozitivul atașat. Dacă placa nu apare, verificați atașarea USB în WSL înainte de depanarea openFPGALoader.
