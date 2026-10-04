@@ -69,7 +69,7 @@
 
 #figure(
   table(
-    columns: 17,
+    columns: (1.45fr, 1.15fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
     align: center,
     table.header([*Hex*], [0], [1], [2], [3], [4], [5], [6], [7], [8], [9], [A], [B], [C], [D], [E], [F]),
     [0x0000], [NUL], [SOH], [STX], [ETX], [EOT], [ENQ], [ACK], [BEL], [BS], [TAB], [LF], [VT], [FF], [CR], [SO], [SI],

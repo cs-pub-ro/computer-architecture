@@ -1,4 +1,4 @@
-# Examen AB
+# AB Exam
 
 ## 0
 
@@ -79,3 +79,19 @@ micro-instruction table of micro-operations µP(µO) executed in the table.
 19. Compute the AMCC and how many are essential.
 
 20. Compute the aproximate minimal microinstruction coding size.
+
+## Worked Solutions PDF
+
+The English worked solutions are built with Typst. From the repository root, run:
+
+```sh
+make -C assignments/exam pdf
+```
+
+The PDF is written to `assignments/exam/build/exam-model.pdf`. To rebuild automatically when a Typst source changes, run:
+
+```sh
+make -C assignments/exam preview
+```
+
+The original LaTeX solution sources are retained for review. The unused standalone `instructionset/main.tex` reference has been removed.

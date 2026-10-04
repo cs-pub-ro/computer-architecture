@@ -1,25 +1,3 @@
-#let title = "Midterm Assignment"
-#let subtitle = "Exercise: ALU Operations with Register File"
-#let date = "November 2025"
-
-#set page(
-  paper: "a4",
-  margin: (top: 2cm, bottom: 2cm, left: 2cm, right: 2cm),
-)
-
-#set text(font: "Libertinus Serif", size: 11pt)
-
-// Title section
-#align(center)[
-  #text(size: 18pt, weight: "bold")[#title]
-
-  #text(size: 14pt)[#subtitle]
-
-  #text(size: 10pt)[#date]
-]
-
-#line(length: 100%, stroke: 0.5pt)
-
 // Problem statement
 == Problem
 
@@ -40,9 +18,7 @@ Given a register file with 8 registers, each containing initial 4-bit values, ex
   stroke: 0.5pt,
   fill: (x, y) => if y == 0 { rgb("#f0f0f0") } else { white },
   
-  text(weight: "bold")[Register],
-  text(weight: "bold")[Value(Decimal)],
-  text(weight: "bold")[Value(Binary)],
+  table.header([*Register*], [*Value (Decimal)*], [*Value (Binary)*]),
 
   [RA], [12], [1100],
   [RB], [5], [0101],
@@ -83,9 +59,7 @@ Enter the result as a *4-bit binary number* (e.g., `1010`).
 - Always provide exactly 4 bits
 - Leading zeros must be included
 
-#pagebreak()
-
-== Solution Explanation
+== Solution
 
 === Understanding the Execution Model
 
@@ -180,9 +154,6 @@ From the final state above: RA = 8 = `1000`
 *Answer:* `1000`
 
 
-#pagebreak()
-
-
 === ALU Quick Reference Table
 
 #table(
@@ -191,9 +162,7 @@ From the final state above: RA = 8 = `1000`
   stroke: 0.5pt,
   fill: (x, y) => if y == 0 { rgb("#f0f0f0") } else { white },
   
-  text(weight: "bold")[Operation],
-  text(weight: "bold")[Formula],
-  text(weight: "bold")[Uses B?],
+  table.header([*Operation*], [*Formula*], [*Uses B?*]),
   
   [ADC], [(A + B + C) mod 16], [Yes],
   [SBB1], [(A - B - C) mod 16], [Yes],

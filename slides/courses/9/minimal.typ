@@ -56,9 +56,10 @@
 
 == Example Microinstruction Program
 
-#set text(size: 12pt)
 #figure(
-  table(
+  block[
+    #set text(size: 24pt)
+    #table(
     columns: 11,
     align: center,
     table.header([*μI*], [*μO0*], [*μO1*], [*μO2*], [*μO3*], [*μO4*], [*μO5*], [*μO6*], [*μO7*], [*μO8*], [*μO9*]),
@@ -69,7 +70,8 @@
     [μI4], [0], [0], [1], [1], [1], [1], [1], [0], [0], [0],
     [μI5], [0], [0], [0], [0], [0], [1], [0], [0], [1], [1],
     [μI6], [0], [0], [0], [0], [0], [0], [1], [0], [0], [1],
-  ),
+    ),
+  ]
 )
 
 == Solution: Maximum Incompatible Classes

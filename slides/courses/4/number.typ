@@ -65,7 +65,7 @@ $
 == Carry-Lookahead Adder
 
 #figure(
-  rotate(270deg, reflow: true)[#image("media/adders_comparison.jpg", width: 50%)],
+  rotate(90deg, reflow: true)[#image("media/adders_comparison.jpg", width: 90%)],
   caption: [Carry-Lookahead Adder vs. Ripple-Carry Adder],
 )
 
@@ -92,7 +92,7 @@ $
 
 == Carry-Lookahead Adder: Brent-Kung
 
-#figure(image("media/Brent-kung-8-bit.png", width: 60%), caption: [CLA Brent-Kung])
+#figure(image("media/Brent-kung-8-bit.png", width: 50%), caption: [CLA Brent-Kung])
 
 == Carry-Skip Adder (Bypass)
 

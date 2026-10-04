@@ -62,12 +62,12 @@ var DB 5 DUP(5 DUP(5 DUP(0)))
 
 == Sections
 
-- `.data`
-- `.text`
-- `.rodata`
-- `.section`
-- `.global`
-- `.extern`
+- `.data` holds initialized data that the program can modify.
+- `.text` contains the program's executable instructions.
+- `.rodata` holds constants stored as read-only data.
+- `.section` selects a named section for the following code or data.
+- `.global` makes a symbol visible to the linker and other files.
+- `.extern` declares a symbol that is defined in another file.
 
 == Directives
 

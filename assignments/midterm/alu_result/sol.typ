@@ -1,25 +1,3 @@
-#let title = "Midterm Assignment"
-#let subtitle = "Exercise: ALU Operations (4-bit)"
-#let date = "November 2025"
-
-#set page(
-  paper: "a4",
-  margin: (top: 2cm, bottom: 2cm, left: 2cm, right: 2cm),
-)
-
-#set text(font: "Libertinus Serif", size: 11pt)
-
-// Title section
-#align(center)[
-  #text(size: 18pt, weight: "bold")[#title]
-
-  #text(size: 14pt)[#subtitle]
-
-  #text(size: 10pt)[#date]
-]
-
-#line(length: 100%, stroke: 0.5pt)
-
 // Problem statement
 == Problem
 
@@ -47,9 +25,7 @@ Enter the result as a *4-bit binary number* (e.g., `1001`).
 - Always provide exactly 4 bits
 - Leading zeros must be included
 
-#pagebreak()
-
-== Solution Explanation
+== Solution
 
 === ALU Operations Overview
 
@@ -76,8 +52,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 - Calculation: 5 + 3 + 1 = 9 = `1001`
 - *Result:* `1001`
 
----
-
 ==== 2. SBB1 (Subtract with Borrow 1)
 
 *Description:* Subtracts operand B and carry bit from operand A.
@@ -90,8 +64,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 - Carry = 1
 - Calculation: 8 - 3 - 1 = 4 = `0100`
 - *Result:* `0100`
-
----
 
 ==== 3. SBB2 (Subtract with Borrow 2)
 
@@ -107,8 +79,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 - *Result:* `0100`
 
 
----
-
 ==== 4. NOT (Bitwise NOT)
 
 *Description:* Inverts each bit of operand A.
@@ -123,8 +93,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 *Note:* Operand B is ignored.
 
 
----
-
 ==== 5. AND (Bitwise AND)
 
 *Description:* Performs logical AND between corresponding bits of A and B.
@@ -136,8 +104,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 - B = 10 (`1010`)
 - Bitwise AND: `1000`
 - *Result:* `1000` (decimal 8)
-
----
 
 ==== 6. OR (Bitwise OR)
 
@@ -151,8 +117,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 - Bitwise OR: `1110`
 - *Result:* `1110` (decimal 14)
 
----
-
 ==== 7. XOR (Bitwise XOR)
 
 *Description:* Performs exclusive OR between corresponding bits of A and B.
@@ -164,8 +128,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 - B = 10 (`1010`)
 - Bitwise XOR: `0110`
 - *Result:* `0110` (decimal 6)
-
----
 
 ==== 8. SHL/SAL (Shift Left Logical/Arithmetic)
 
@@ -181,8 +143,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 *Note:* Operand B is ignored. Logical and arithmetic left shift produce identical results.
 
 
----
-
 ==== 9. SHR (Shift Right Logical)
 
 *Description:* Shifts bits of A right by one position. Bit 3 becomes 0.
@@ -197,8 +157,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 *Note:* Operand B is ignored. Most significant bit becomes 0.
 
 
----
-
 ==== 10. SAR (Shift Right Arithmetic)
 
 *Description:* Shifts bits of A right by one position with sign extension. Bit 3 (sign bit) is preserved.
@@ -211,10 +169,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 - *Result:* `1101` (decimal 13)
 
 *Note:* Operand B is ignored. Most significant bit is duplicated (sign extension).
-
----
-
-#pagebreak()
 
 === Worked Example
 
@@ -231,9 +185,7 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
   stroke: 0.5pt,
   fill: (x, y) => if y == 0 { rgb("#f0f0f0") } else { white },
   
-  text(weight: "bold")[Bit Position],
-  text(weight: "bold")[A XOR B],
-  text(weight: "bold")[Result],
+  table.header([*Bit Position*], [*A XOR B*], [*Result*]),
   
   [3], [`1` XOR `1`], [`0`],
   [2], [`1` XOR `0`], [`1`],
@@ -242,8 +194,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 )
 
 *Final Result:* `0110` (decimal 6)
-
----
 
 === Tips for Solving
 
@@ -254,8 +204,6 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
 5. *Sign extension*: For SAR, preserve the sign bit (bit 3)
 6. *Carry awareness*: For ADC, SBB1, SBB2, include the carry bit
 
----
-
 === Quick Reference Table
 
 #table(
@@ -264,9 +212,7 @@ An Arithmetic Logic Unit (ALU) performs arithmetic and logical operations on bin
   stroke: 0.5pt,
   fill: (x, y) => if y == 0 { rgb("#f0f0f0") } else { white },
   
-  text(weight: "bold")[Operation],
-  text(weight: "bold")[Formula],
-  text(weight: "bold")[Uses B?],
+  table.header([*Operation*], [*Formula*], [*Uses B?*]),
   
   [ADC], [(A + B + C) mod 16], [Yes],
   [SBB1], [(A - B - C) mod 16], [Yes],

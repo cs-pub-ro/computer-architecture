@@ -28,25 +28,74 @@
 
 == Opcode Map: $"IR"_1 = 0$
 
-#set text(size: 12pt)
-#figure(
-  table(
-    columns: 4,
-    align: left,
-    table.header([*IR3*], [*IR0 = 0, IR2 = 0*], [*IR0 = 0, IR2 = 1*], [*IR0 = 1, IR2 = 0*]),
-    [0, transfer/control], [MOV, PUSH, POP, CALL, JMP], [MOV], [IN, OUT, PUSHF, POPF, RET, IRET, HLT],
-    [1, one operand], [INC, DEC, NEG, NOT, SHL/SAL, SHR, SAR], [ ], [JBE/JBA, JB/JC/JAE/JNC, JLE/JG, JL/JGE, JE/JZ/JNE/JNZ, JO/JNO, JS/JNS, JPE/JPO],
-  ),
-)
+#block[
+  #set text(size: 14pt)
+  #figure(
+    table(
+      columns: (0.3fr, 0.3fr, 0.7fr, 0.7fr, 0.7fr, 0.7fr),
+      align: left,
+      inset: 3pt,
+      table.header(
+        table.cell(rowspan: 2, [*IR1*]),
+        table.cell(rowspan: 2, [*IR3*]),
+        table.cell(colspan: 2, [*IR0 = 0*]),
+        table.cell(colspan: 2, [*IR0 = 1*]),
+        [*IR2 = 0*], [*IR2 = 1*],
+        table.cell(colspan: 2, [*IR2 = 0*]),
+      ),
+      table.cell(rowspan: 16, [0]), table.cell(rowspan: 8, [0]), [000 = MOV], [000 = MOV], [000 = IN], [ ],
+      [001 = ], [001 = ], [001 = OUT], [ ],
+      [010 = PUSH], [010 = ], [010 = PUSHF], [ ],
+      [011 = POP], [011 = ], [011 = POPF], [ ],
+      [100 = CALL], [100 = ], [100 = RET], [ ],
+      [101 = JMP], [101 = ], [101 = IRET], [ ],
+      [110 = ], [110 = ], [110 = HLT], [ ],
+      [111 = ], [111 = ], [111 = ], [ ],
+      table.cell(rowspan: 8, [1]), [000 = INC], [000 = ], [0000 = JBE], [1000 = JBA],
+      [001 = DEC], [001 = ], [0001 = JB/JC], [1001 = JAE/JNC],
+      [010 = NEG], [010 = ], [0010 = JLE], [1010 = JG],
+      [011 = NOT], [011 = ], [0011 = JL], [1011 = JGE],
+      [100 = SHL/SAL], [100 = ], [0100 = JE/JZ], [1100 = JNE/JNZ],
+      [101 = SHR], [101 = ], [0101 = JO], [1101 = JNO],
+      [110 = SAR], [110 = ], [0110 = JS], [1110 = JNS],
+      [111 = ], [111 = ], [0111 = JPE], [1111 = JPO],
+    ),
+  )
+]
 
 == Opcode Map: $"IR"_1 = 1$
 
-#figure(
-  table(
-    columns: 3,
-    align: left,
-    table.header([*IR3*], [*IR0 = 0, IR2 = 0*], [*IR0 = 0, IR2 = 1*]),
-    [0, compare/test], [CMP, TEST], [CMP, TEST],
-    [1, arithmetic/logical], [ADD, ADC, SUB, SBB, AND, OR, XOR], [ADD, ADC, SUB, SBB, AND, OR, XOR],
-  ),
-)
+#block[
+  #set text(size: 14pt)
+  #figure(
+    table(
+      columns: (0.3fr, 0.3fr, 0.7fr, 0.7fr, 0.7fr, 0.7fr),
+      align: left,
+      inset: 3pt,
+      table.header(
+        table.cell(rowspan: 2, [*IR1*]),
+        table.cell(rowspan: 2, [*IR3*]),
+        table.cell(colspan: 2, [*IR0 = 0*]),
+        table.cell(colspan: 2, [*IR0 = 1*]),
+        [*IR2 = 0*], [*IR2 = 1*],
+        table.cell(colspan: 2, [*IR2 = 0*]),
+      ),
+      table.cell(rowspan: 16, [1]), table.cell(rowspan: 8, [0]), [000 = ], [000 = ], [ ], [ ],
+      [001 = ], [001 = ], [ ], [ ],
+      [010 = CMP], [010 = CMP], [ ], [ ],
+      [011 = ], [011 = ], [ ], [ ],
+      [100 = TEST], [100 = TEST], [ ], [ ],
+      [101 = ], [101 = ], [ ], [ ],
+      [110 = ], [110 = ], [ ], [ ],
+      [111 = ], [111 = ], [ ], [ ],
+      table.cell(rowspan: 8, [1]), [000 = ADD], [000 = ADD], [ ], [ ],
+      [001 = ADC], [001 = ADC], [ ], [ ],
+      [010 = SUB], [010 = SUB], [ ], [ ],
+      [011 = SBB], [011 = SBB], [ ], [ ],
+      [100 = AND], [100 = AND], [ ], [ ],
+      [101 = OR], [101 = OR], [ ], [ ],
+      [110 = XOR], [110 = XOR], [ ], [ ],
+      [111 = ], [111 = ], [ ], [ ],
+    ),
+  )
+]

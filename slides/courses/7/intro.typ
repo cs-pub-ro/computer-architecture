@@ -8,10 +8,10 @@
 
 == Types of I/O Data
 
-- Fixed block
-- Variable block
-- Character
-- Hybrid
+- *Fixed block:* Transfers data in equal-sized units; suitable when devices and buffers use a known block size (e.g., disk sectors).
+- *Variable block:* Transfers blocks whose length can change; the receiver uses a length field or delimiter to find the end (e.g., network packets).
+- *Character:* Transfers individual characters or bytes in sequence; suitable for text-oriented or serial devices (e.g., keyboards and UARTs).
+- *Hybrid:* Combines character/byte streams with block transfers, such as variable-length messages carried in buffered blocks.
 
 == I/O Registers
 

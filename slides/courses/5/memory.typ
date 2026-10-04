@@ -68,19 +68,21 @@
 
 == Address Table for IR
 
-#set text(size: 11pt)
-#figure(
-  table(
-    columns: 5,
-    align: center,
-    table.header([*RM = IR[13:15]*], [*MOD = 00*], [*MOD = 01*], [*MOD = 10*], [*MOD = 11*]),
-    [000], [[BA+XA]], [[BA+XA+]], [[BA+XA+Imm]], [RA],
-    [001], [[BA+XB]], [[BA+XB+]], [[BA+XB+Imm]], [RB],
-    [010], [[BB+XA]], [[BB+XA+]], [[BB+XA+Imm]], [RC],
-    [011], [[BB+XB]], [[BB+XB+]], [[BB+XB+Imm]], [SP],
-    [100], [[XA]], [[BA+(--XA)]], [[XA+Imm]], [XA],
-    [101], [[XB]], [[BB+(--XA)]], [[XB+Imm]], [XB],
-    [110], [[BA]], [[Imm]], [[BA+Imm]], [BA],
-    [111], [[BB]], [[[Imm]]], [[BB+Imm]], [BB],
-  ),
+  #figure(
+  block[
+    #set text(size: 22pt)
+    #table(
+      columns: 5,
+      align: center,
+      table.header([*RM = IR[13:15]*], [*MOD = 00*], [*MOD = 01*], [*MOD = 10*], [*MOD = 11*]),
+      [000], [[BA+XA]], [[BA+XA+]], [[BA+XA+Imm]], [RA],
+      [001], [[BA+XB]], [[BA+XB+]], [[BA+XB+Imm]], [RB],
+      [010], [[BB+XA]], [[BB+XA+]], [[BB+XA+Imm]], [RC],
+      [011], [[BB+XB]], [[BB+XB+]], [[BB+XB+Imm]], [SP],
+      [100], [[XA]], [[BA+(--XA)]], [[XA+Imm]], [XA],
+      [101], [[XB]], [[BB+(--XA)]], [[XB+Imm]], [XB],
+      [110], [[BA]], [[Imm]], [[BA+Imm]], [BA],
+      [111], [[BB]], [[[Imm]]], [[BB+Imm]], [BB],
+    ),
+  ]
 )

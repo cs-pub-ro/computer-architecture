@@ -10,7 +10,7 @@
 
 == Lab I/O
 
-#image("media/io.png", width: 80%)
+#image("media/io.png", width: 70%)
 
 == Lab I/O DMA
 

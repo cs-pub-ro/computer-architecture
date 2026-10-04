@@ -1,3 +1,3 @@
 == Architecture
 
-#figure(image("media/architecture.png", height: 70%), caption: [Architecture])
+#figure(image("media/architecture.png", height: 80%), caption: [Architecture])

@@ -1,25 +1,3 @@
-#let title = "Midterm Assignment"
-#let subtitle = "Exercise: Truth Table Output Identification"
-#let date = "November 2025"
-
-#set page(
-  paper: "a4",
-  margin: (top: 2cm, bottom: 2cm, left: 2cm, right: 2cm),
-)
-
-#set text(font: "Libertinus Serif", size: 11pt)
-
-// Title section
-#align(center)[
-  #text(size: 18pt, weight: "bold")[#title]
-
-  #text(size: 14pt)[#subtitle]
-
-  #text(size: 10pt)[#date]
-]
-
-#line(length: 100%, stroke: 0.5pt)
-
 // Problem statement
 == Problem
 
@@ -36,11 +14,7 @@ Given the following truth table, identify the output for the specified input com
   align: center,
   stroke: 0.5pt,
   
-  // Header
-  text(weight: "bold", size: 11pt)[A],
-  text(weight: "bold", size: 11pt)[B],
-  text(weight: "bold", size: 11pt)[C],
-  text(weight: "bold", size: 11pt)[Output],
+  table.header([*A*], [*B*], [*C*], [*Output*]),
   
   // Example truth table for 3-input AND
   [0], [0], [0], [0],
@@ -57,8 +31,7 @@ Given the following truth table, identify the output for the specified input com
 
 Provide the output value (0 or 1) for the specified input combination.
 
-#pagebreak()
-== Solution Explanation
+== Solution
 
 === Truth Table Fundamentals
 
@@ -86,11 +59,7 @@ Given the following truth table, identify the output for the input combination 0
   align: center,
   stroke: 0.5pt,
   
-  // Header
-  text(weight: "bold", size: 11pt)[A],
-  text(weight: "bold", size: 11pt)[B],
-  text(weight: "bold", size: 11pt)[C],
-  text(weight: "bold", size: 11pt)[Output],
+  table.header([*A*], [*B*], [*C*], [*Output*]),
   
   // Example truth table for 3-input AND
   [0], [0], [0], [0],
@@ -107,7 +76,7 @@ Answer: Enter the output value (0 or 1)
 
 ANSWER: 0
 
-== Key Concepts
+=== Key Concepts
 
 - Truth tables are complete and deterministic
 - Each input combination maps to a single output

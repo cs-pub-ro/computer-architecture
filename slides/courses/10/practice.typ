@@ -1,7 +1,7 @@
 == Summer Practice
 
 - Summer practice is mandatory for all students.
-- It requires 360 hours (45 working days) between June 22 and September 7 (the previous year).
+- It requires 360 hours (45 working days) between June 21 and September 5 (the previous year).
 
 == Where Can I Do My Summer Practice?
 

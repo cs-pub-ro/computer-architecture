@@ -3,3 +3,4 @@ out/*
 out
 *.html
 *.pdf
+/build/

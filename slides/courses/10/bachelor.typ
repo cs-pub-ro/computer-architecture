@@ -93,13 +93,11 @@ Choose a topic that interests you; you will work on it for at least six months.
 == Other Thesis Topic Ideas
 
 - Healthcare (Flavia Oprea)
-- Contests platform (Stefan Avram, Keysight/Acadnet)
+- Contests platform (Andrei Nita, Acadnet)
 - Federated learning (Dan Badea, Bitdefender Ambassador)
-- Machine-learning security (Damian Monea, CrowdStrike)
-- Machine-learning privacy (Teodora Baluta, Georgia Tech; Ana Maria Cretu, ETH)
+- Machine-learning security (Damian Monea, Lyte.AI)
+- Machine-learning privacy (Teodora Baluta, Georgia Tech; Ana Maria Cretu, ETH, Andrei Ouatu)
 - Formal verification (Andreea Costea, Delft)
 - Ethical hacking (Florin Stancu, Radu Mantu, Mihai Chiroiu)
 - Rust programming language (Alexandru Radovici, OxidOS)
 - Computer vision (Emilian Radoi)
-- Natural-language processing (Mihai Dascalu)
-- Privacy technologies (Razvan Rughinis)

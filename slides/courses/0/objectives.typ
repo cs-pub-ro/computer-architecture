@@ -25,5 +25,4 @@
 == Course Platform
 
 - #link("https://github.com/cs-pub-ro/computer-architecture")[GitHub: https://github.com/cs-pub-ro/computer-architecture]
-- #link("https://cs-pub-ro.github.io/computer-architecture/")[Open Education Hub: https://cs-pub-ro.github.io/computer-architecture/]
-- #link("https://curs.upb.ro/2025/course/view.php?id=1762")[Moodle: https://curs.upb.ro/2025/course/view.php?id=1762]
+- #link("https://curs.upb.ro/2026/course/view.php?id=4942")[Moodle: https://curs.upb.ro/2026/course/view.php?id=4942]

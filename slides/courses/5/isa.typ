@@ -61,9 +61,11 @@ Instruction types:
 
 == Flow Control
 
-#set text(size: 13pt)
+
 #figure(
-  table(
+  block[
+    #set text(size: 10pt)
+    #table(
     columns: 3,
     align: left,
     table.header([*Goal*], [*Acronym*], [*Description*]),
@@ -91,4 +93,5 @@ Instruction types:
     [Conditional], [JPE], [Jump if parity even],
     [Conditional], [JS], [Jump if sign],
   ),
+  ],
 )

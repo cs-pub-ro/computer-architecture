@@ -101,9 +101,10 @@
 
 == Summary of Data Transfer Methods
 
-#set text(size: 14pt)
 #figure(
-  table(
+  block[
+    #set text(size: 22pt)
+    #table(
     columns: 4,
     align: left,
     table.header([*Method*], [*CPU Involvement*], [*Best For*], [*Examples*]),
@@ -114,5 +115,6 @@
     [Channel I/O], [Low], [Complex I/O], [Mainframes],
     [Port-mapped], [Moderate], [Separate I/O instructions], [x86 PCs],
     [Co-processor], [Very low], [High performance], [GPUs, DSPs],
-  ),
+    ),
+  ]
 )

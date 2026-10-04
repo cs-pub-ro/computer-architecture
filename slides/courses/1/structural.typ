@@ -27,6 +27,6 @@
 
 == Structure of a Computing System
 
-#ascii-figure(read("media/structsoc.ascii"))
+#ascii-figure(read("media/structsoc.ascii"), font-size: 0.45em)
 
 - Memory control
