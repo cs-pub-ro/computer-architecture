@@ -2,20 +2,26 @@
 #import themes.university: *
 #import "../../common/template.typ": course-theme
 
-#course-theme(2, [Information Representation])[
+#course-theme(4, [Arithmetic Logic Unit (ALU)])[
   #title-slide()
 
   == Outline <touying:hidden>
   #components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
 
-  = Information Representation
+  = ALU Structure
   #include "intro.typ"
 
-  = Textual Representation Systems
-  #include "text.typ"
+  = Bitwise Operations
+  #include "bitwise.typ"
 
-  = Number Representation Systems
+  = Arithmetic Operations
   #include "number.typ"
+
+  = Comparison Operations
+  #include "comparison.typ"
+
+  = Status Flags
+  #include "flags.typ"
 
   = Q&A
   #slide[]

@@ -2,20 +2,23 @@
 #import themes.university: *
 #import "../../common/template.typ": course-theme
 
-#course-theme(2, [Information Representation])[
+#course-theme(7, [Input/Output Systems])[
   #title-slide()
 
   == Outline <touying:hidden>
   #components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
 
-  = Information Representation
+  = I/O System Overview
   #include "intro.typ"
 
-  = Textual Representation Systems
-  #include "text.typ"
+  = Data Transfer Methods
+  #include "types.typ"
 
-  = Number Representation Systems
-  #include "number.typ"
+  = I/O Implementation
+  #include "implementation.typ"
+
+  = UART
+  #include "uart.typ"
 
   = Q&A
   #slide[]

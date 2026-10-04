@@ -2,20 +2,20 @@
 #import themes.university: *
 #import "../../common/template.typ": course-theme
 
-#course-theme(2, [Information Representation])[
+#course-theme(3, [Memory])[
   #title-slide()
 
   == Outline <touying:hidden>
   #components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
 
-  = Information Representation
-  #include "intro.typ"
+  = Memory Hierarchy
+  #include "hierarchy.typ"
 
-  = Textual Representation Systems
-  #include "text.typ"
+  = Cache Memory
+  #include "cache.typ"
 
-  = Number Representation Systems
-  #include "number.typ"
+  = Virtual Memory
+  #include "virtual.typ"
 
   = Q&A
   #slide[]

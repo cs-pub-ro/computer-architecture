@@ -2,20 +2,20 @@
 #import themes.university: *
 #import "../../common/template.typ": course-theme
 
-#course-theme(2, [Information Representation])[
+#course-theme(9, [Microcoded CPU])[
   #title-slide()
 
   == Outline <touying:hidden>
   #components.adaptive-columns(outline(title: none, indent: 1em, depth: 1))
 
-  = Information Representation
-  #include "intro.typ"
+  = Microcoded Concepts
+  #include "basic.typ"
 
-  = Textual Representation Systems
-  #include "text.typ"
+  = Implementation
+  #include "implementation.typ"
 
-  = Number Representation Systems
-  #include "number.typ"
+  = Minimal Microinstruction Coding
+  #include "minimal.typ"
 
   = Q&A
   #slide[]
