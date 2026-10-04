@@ -171,7 +171,7 @@ Shiftarea va fi mereu logică pentru `Bits` și aritmetică (bitul de semn se p�
 # Exerciții
 
 :::tip
-Se recomandă folosirea environmentului `open-toolchain` pentru a rezolva acest laborator. Scheletul de laborator se găsește la [chapters/rhdl/comb-skel](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/rhdl/comb-skel)
+Folosiți mediul open-source al cursului pentru editare și simulare. Generarea și programarea FPGA pentru acest laborator folosesc încă integrarea Vivado din schelet și nu sunt migrate la fluxul openXC7. Scheletul de laborator se găsește la [chapters/rhdl/comb-skel](https://github.com/cs-pub-ro/computer-architecture/tree/main/chapters/rhdl/comb-skel).
 :::
 
 1. Completați modulele de porți logice din helper.rs  

@@ -1,25 +1,3 @@
-#let title = "Midterm Assignment"
-#let subtitle = "Exercise: Truth Table to Gate Name"
-#let date = "November 2025"
-
-#set page(
-  paper: "a4",
-  margin: (top: 2cm, bottom: 2cm, left: 2cm, right: 2cm),
-)
-
-#set text(font: "Libertinus Serif", size: 11pt)
-
-// Title section
-#align(center)[
-  #text(size: 18pt, weight: "bold")[#title]
-
-  #text(size: 14pt)[#subtitle]
-
-  #text(size: 10pt)[#date]
-]
-
-#line(length: 100%, stroke: 0.5pt)
-
 // Problem statement
 == Problem
 
@@ -36,11 +14,7 @@ Given the following truth table, identify the Boolean gate name. The truth table
   align: center,
   stroke: 0.5pt,
   
-  // Header
-  text(weight: "bold", size: 11pt)[A],
-  text(weight: "bold", size: 11pt)[B],
-  text(weight: "bold", size: 11pt)[C],
-  text(weight: "bold", size: 11pt)[Output],
+  table.header([*A*], [*B*], [*C*], [*Output*]),
   
   // Example truth table for 3-input AND
   [0], [0], [0], [0],
@@ -61,8 +35,7 @@ Provide the gate name in *CAPITAL LETTERS* only. Acceptable answers include:
   columns: (1fr, 2fr),
   align: left,
   stroke: 0.5pt,
-  text(weight: "bold")[Gate Names],
-  text(weight: "bold")[Boolean Expression],
+  table.header([*Gate Names*], [*Boolean Expression*]),
 
   [AND], $ c=a and b $,
   [OR], $ c=a or b $,
@@ -72,8 +45,7 @@ Provide the gate name in *CAPITAL LETTERS* only. Acceptable answers include:
   [XNOR], $ c=not (a xor b) $,
 )
 
-#pagebreak()
-== Solution Explanation
+== Solution
 
 === Truth Table Fundamentals
 
@@ -95,14 +67,7 @@ Each row is unique and represents one input combination.
   stroke: 0.5pt,
   fill: (x, y) => if y == 0 { rgb("#f0f0f0") } else { white },
   
-  text(weight: "bold", size: 10pt)[A],
-  text(weight: "bold", size: 10pt)[B],
-  text(weight: "bold", size: 10pt)[AND],
-  text(weight: "bold", size: 10pt)[OR],
-  text(weight: "bold", size: 10pt)[XOR],
-  text(weight: "bold", size: 10pt)[NAND],
-  text(weight: "bold", size: 10pt)[NOR],
-  text(weight: "bold", size: 10pt)[XNOR],
+  table.header([*A*], [*B*], [*AND*], [*OR*], [*XOR*], [*NAND*], [*NOR*], [*XNOR*]),
   
   text(weight: "bold")[0], [0], [0], [0], [0], [1], [1], [1],
   text(weight: "bold")[0], [1], [0], [1], [1], [1], [0], [0],
@@ -129,11 +94,7 @@ Given the following truth table, identify the Boolean gate name:
   align: center,
   stroke: 0.5pt,
   
-  // Header
-  text(weight: "bold", size: 11pt)[A],
-  text(weight: "bold", size: 11pt)[B],
-  text(weight: "bold", size: 11pt)[C],
-  text(weight: "bold", size: 11pt)[Output],
+  table.header([*A*], [*B*], [*C*], [*Output*]),
   
   // Example truth table for 3-input AND
   [0], [0], [0], [0],
@@ -154,7 +115,7 @@ AND, OR, XOR, NAND, NOR, XNOR
 
 ANSWER: AND
 
-== Key Concepts
+=== Key Concepts
 
 - Truth tables are complete and deterministic
 - Gate output pattern uniquely identifies the gate type

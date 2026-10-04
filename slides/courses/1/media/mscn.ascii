@@ -1,6 +1,6 @@
 +---------+        +-----------+    +-------------------+    +-----------+         +---------+
 |         |        |           |    |                   |    |           |         |         |
-| Intrare +------->| Subsistem +--->|    Subsistem      +--->| Subsistem +-------->| Ieșire  |
-|         |        |  Intrare  |    |    Prelucrare     |    |  Ieșire   |         |         |
+|  Input  +------->| Subsystem +--->|    Subsystem      +--->| Subsystem +-------->| Output  |
+|         |        |   Input   |    |    Processing     |    |  Output   |         |         |
 |         |        |           |<-->|                   |<-->|           |         |         |
 +---------+        +-----------+    +-------------------+    +-----------+         +---------+

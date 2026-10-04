@@ -1,56 +1,35 @@
-# Utilizare imagine docker MacOS
+# Mediu Docker pentru Computer Architecture — macOS
 
-## Cerințe necesare
+Imaginea Ubuntu 24.04 oferă unelte open-source pentru simulare Verilog, Rust, Typst și fluxul FPGA openXC7. Vivado nu este inclus.
 
-### Docker Desktop
+## Cerințe
 
-Instalare [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+- Docker Desktop
+- Visual Studio Code și extensia [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-### Instalre XQuartz
+## Deschidere în container
 
-Instalare [XQuartz](https://www.xquartz.org/)
+1. Deschideți rădăcina depozitului `computer-architecture` în VS Code.
+2. Rulați **Dev Containers: Reopen in Container** din Command Palette.
+3. La prima utilizare, construiți imaginea `sdc_dev_stage`; compilarea uneltelor FPGA poate dura și folosi mai mulți GB de memorie.
 
-### Visual Studio Code
+Depozitul este montat în `/workspace`, cu `SDC_ROOT=/workspace`. Funcțiile zsh sunt încărcate din depozitul montat.
 
-Descărcați și instalați [Visual Studio Code](https://code.visualstudio.com/download)
+## Utilizare
 
-### Clonați repo-ul materiei
+- Simulare: `make -C assignments/sim/mux build_solution`, apoi `vvp solution_mux.vvp`.
+- Typst: `mkdir -p build && tc slides/courses/2/main.typ build/course-2.pdf`. Pachetele Typst folosite de document sunt descărcate la prima compilare și păstrate în cache în directorul personal al utilizatorului; este necesară conexiune la internet la prima utilizare.
+- Sinteză și bitstream: `./synth_and_flash.sh chapters/.../design.v`.
 
-```bash
-git clone https://github.com/cs-pub-ro/computer-architecture.git
+Docker Desktop pentru macOS nu expune USB-ul fizic către container. Pentru programare, instalați pe gazdă o versiune compatibilă openFPGALoader, de exemplu `brew install openfpgaloader`, conectați placa și folosiți `synth_and_flash.sh`; compilarea rulează în container, iar flash-ul rulează pe macOS. XQuartz este necesar numai dacă doriți să deschideți GTKWave cu interfață grafică.
+
+## Build și run fără VS Code
+
+Din rădăcina depozitului:
+
+```sh
+docker build --file docker/dev.Dockerfile --target sdc_dev_stage --tag computer-architecture/dev:latest docker
+docker run --rm -it --volume "$PWD:/workspace" --workdir /workspace --env SDC_ROOT=/workspace computer-architecture/dev:latest
 ```
 
-## Rulare
-
-### Porniți XQuartz
-
-1. Deschideți Applications > Utilities > XQuartz
-
-
-### Opțiunea 1 din Visual Studio Code
-
-1. Deschideți directorul repo-ului în Visual Studio Code.
-```bash
-code computer-architecture
-```
-
-2. Instalați extensia [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
-
-3. După veți avea opțiunea "Dev Containers: Reopen in container" (`CTRL+SHIFT+P`).
-
-### Opțiunea 2 prin docker
-
-1. Descărcați imaginea cu docker
-```bash
-docker pull gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0
-```
-
-2. Rulați un container cu imaginea
-```bash
-docker run --rm -it -v /dev:/dev gitlab.cs.pub.ro:5050/ac/ac-public/vivado-slim:1.0.0 /bin/bash
-```
-
-3. Rulați vivado din imagine
-```bash
-vivado
-```
+Pe Apple Silicon se construiește imaginea arm64 nativ. Ubuntu Ports nu oferă metadate pentru serviciul Snapshot; instalarea apt folosește pachetele curente ale Ubuntu Ports.

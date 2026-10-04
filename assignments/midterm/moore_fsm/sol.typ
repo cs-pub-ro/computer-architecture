@@ -1,36 +1,14 @@
-#let title = "Midterm Assignment"
-#let subtitle = "Exercise: Moore Finite State Machine (FSM)"
-#let date = "November 2025"
-
-#set page(
-  paper: "a4",
-  margin: (top: 2cm, bottom: 2cm, left: 2cm, right: 2cm),
-)
-
-#set text(font: "Libertinus Serif", size: 11pt)
-
-// Title section
-#align(center)[
-  #text(size: 18pt, weight: "bold")[#title]
-
-  #text(size: 14pt)[#subtitle]
-
-  #text(size: 10pt)[#date]
-]
-
-#line(length: 100%, stroke: 0.5pt)
-
 // Problem statement
 == Problem
 
-Given the following Moore FSM state transition diagram, trace through the FSM with the provided input sequence and determine the complete output sequence.
+Given the following Moore FSM state transition table, trace through the FSM with the provided input sequence and determine the complete output sequence, including the initial and final state outputs.
 
 #text(size: 10pt, style: "italic")[
   *Note:* Each student receives a different FSM and input sequence based on their student ID.
 ]
 
 In a Moore FSM:
-- Output depends **ONLY** on the current state (not on the input)
+- Output depends *ONLY* on the current state (not on the input)
 - Each state has an associated output value
 - Transitions occur based on input symbols
 
@@ -41,21 +19,17 @@ In a Moore FSM:
   align: center,
   stroke: 0.5pt,
   
-  // Header
-  text(weight: "bold", size: 11pt)[Current State],
-  text(weight: "bold", size: 11pt)[Output],
-  text(weight: "bold", size: 11pt)[Input: 0],
-  text(weight: "bold", size: 11pt)[Input: 1],
+  table.header([*Current State*], [*Output*], [*Input: 0*], [*Input: 1*]),
   
   // S0
-  text(weight: "bold", size: 11pt)[S0],
-  text(weight: "bold", size: 11pt, fill: rgb("#ffe0e0"))[A],
+  text(weight: "bold")[S0],
+  text(weight: "bold")[A],
   [S0],
   [S1],
   
   // S1
-  text(weight: "bold", size: 11pt)[S1],
-  text(weight: "bold", size: 11pt, fill: rgb("#ffe0e0"))[B],
+  text(weight: "bold")[S1],
+  text(weight: "bold")[B],
   [S1],
   [S0],
 )
@@ -68,9 +42,7 @@ Enter the complete output sequence as a string of characters.
 
 Each character in the output sequence corresponds to the output of the state when each input is processed.
 
-#pagebreak()
-
-== Solution Explanation
+== Solution
 
 === Understanding Moore FSMs
 
@@ -95,8 +67,8 @@ Follow these steps to trace through an input sequence:
    - Add this output to your sequence
    - Follow the transition arrow based on the current input
    - Move to the next state
-3. Continue until all inputs are processed
-4. Concatenate all outputs to get the final sequence
+3. After processing all inputs, include the output of the final state
+4. Concatenate the initial-state output and each subsequent state output
 
 === Worked Example
 
@@ -110,20 +82,18 @@ Given the FSM above with input sequence: `0110`
   stroke: 0.5pt,
   fill: (x, y) => if y == 0 { rgb("#f0f0f0") } else { white },
   
-  text(weight: "bold")[Step],
-  text(weight: "bold")[Current State],
-  text(weight: "bold")[State Output],
-  text(weight: "bold")[Input],
-  text(weight: "bold")[Next State],
+  table.header([*Step*], [*Current State*], [*State Output*], [*Input*], [*Next State*]),
   
-  [0], [S0], text(weight: "bold", fill: rgb("#ffe0e0"))[A], [0], [S0],
-  [1], [S0], text(weight: "bold", fill: rgb("#ffe0e0"))[A], [1], [S1],
-  [2], [S1], text(weight: "bold", fill: rgb("#ffe0e0"))[B], [1], [S0],
-  [3], [S0], text(weight: "bold", fill: rgb("#ffe0e0"))[A], [0], [S0],
-  [4], [S0], text(weight: "bold", fill: rgb("#ffe0e0"))[A], [---], [---],
+  [0], [S0], text(weight: "bold")[A], [0], [S0],
+  [1], [S0], text(weight: "bold")[A], [1], [S1],
+  [2], [S1], text(weight: "bold")[B], [1], [S0],
+  [3], [S0], text(weight: "bold")[A], [0], [S0],
+  [4], [S0], text(weight: "bold")[A], [---], [---],
 )
 
-*Output sequence:* Concatenate the state outputs: \(A + A + B + A + A = \) *AABAA*
+The trace includes the initial state and the state reached after each input, so four input symbols produce five outputs.
+
+*Output sequence:* `A` + `A` + `B` + `A` + `A` = *AABAA*
 
 
 === Tips for Solving
@@ -132,5 +102,5 @@ Given the FSM above with input sequence: `0110`
 2. *Read carefully*: Make sure you're reading the correct transition
 3. *Track state*: Keep track of which state you're in
 4. *Output first*: Generate output BEFORE transitioning
-5. *Verify*: Count your outputs match the input length plus one (for initial state)
+5. *Verify*: The output length is the input length plus one (including initial and final state outputs)
 6. *Check ordering*: Make sure outputs are in correct sequence order
