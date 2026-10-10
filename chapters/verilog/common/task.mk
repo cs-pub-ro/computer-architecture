@@ -53,7 +53,14 @@ simulation: run
 		exit 1; \
 	fi
 	command -v "$(SIMULATOR)" >/dev/null 2>&1 || { echo "Waveform viewer not found: $(SIMULATOR)" >&2; exit 1; }
-	$(SIMULATOR) "$(BUILD_PATH)/test.vcd"
+	@viewer_log=$$(mktemp); \
+		viewer_status=0; \
+		$(SIMULATOR) "$(BUILD_PATH)/test.vcd" 2>"$$viewer_log" || viewer_status=$$?; \
+		if grep -Eq 'Could not initialize GTK|Authorization required' "$$viewer_log"; then \
+			cat "$$viewer_log" >&2; rm -f "$$viewer_log"; \
+			echo 'GTKWave could not connect to the forwarded display.' >&2; exit 1; \
+		fi; \
+		cat "$$viewer_log" >&2; rm -f "$$viewer_log"; exit "$$viewer_status"
 
 synth: check-build-dir check-inputs
 	@mkdir -p "$(BUILD_PATH)"

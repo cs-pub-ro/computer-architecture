@@ -21,8 +21,7 @@
   ],
   "containerEnv": {
     "SDC_ROOT": "/workspace",
-    "DISPLAY": "${localEnv:DISPLAY}",
-    "XAUTHORITY": "/tmp/.Xauthority"
+    "DISPLAY": "host.docker.internal:0"
   },
   "runArgs": [
     "--privileged",

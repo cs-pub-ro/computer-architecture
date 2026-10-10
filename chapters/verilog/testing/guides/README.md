@@ -17,6 +17,10 @@ We use `make` or `make all` to compile only; these commands do not run a simulat
 We open a waveform with `make simulation`, or pass `build/test.vcd` to GTKWave ourselves.
 GTKWave requires the container to have access to a graphical display, including its display socket and authorization.
 If the viewer cannot connect, `make run` still generates the VCD without requiring a graphical session.
+On macOS, we start XQuartz, enable “Allow connections from network clients” in its Security settings, then run `xhost +127.0.0.1` in a host terminal before reopening the devcontainer.
+The devcontainer connects to XQuartz at `host.docker.internal:0`.
+We can revoke that local access with `xhost -127.0.0.1` when finished.
+We do not use plain `xhost +`, which disables X11 access control for every host.
 
 We use `make synth` to inspect the synthesized circuit as `build/<top>_synth.svg`.
 This target is headless and does not use the FPGA constraints.
