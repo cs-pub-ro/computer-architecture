@@ -1,0 +1,4 @@
+**/drills/tasks/*/build/
+**/drills/extra/*/build/
+**/build_project/
+**/.Xil/

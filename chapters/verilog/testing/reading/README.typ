@@ -2,7 +2,7 @@
 
 Pentru testarea unui modul folosind simulatorul se creează module speciale de test, în care, printre altele, se vor atribui valori intrărilor. Simularea permite detecția rapidă a erorilor de implementare și corectarea acestora. 
 
-Pentru a crea un modul de test și a-l simula puteți urma tutorialul de simulare #link("https://cs-pub-ro.github.io/computer-architecture/Tutoriale/Simulare%20Vivado/")[aici], iar această secțiune va prezenta câteva din construcțiile de limbaj pe care le puteți folosi într-un astfel de modul. 
+Pentru a crea un modul de test și a-l simula, consultați ghidul pentru #link("../guides/")[toolchain-ul Verilog], iar această secțiune va prezenta câteva din construcțiile de limbaj pe care le puteți folosi într-un astfel de modul.
 
 
 

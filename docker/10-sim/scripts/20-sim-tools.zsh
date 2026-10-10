@@ -7,6 +7,7 @@ APT_TARGETS=()
 APT_TARGETS+=("iverilog")
 APT_TARGETS+=("verilator")
 APT_TARGETS+=("gtkwave")
+APT_TARGETS+=("graphviz")
 
 # Yosys runtime libraries not guaranteed by its build dependencies.
 APT_TARGETS+=("libffi8")
@@ -29,6 +30,7 @@ yosys -V
 iverilog -V >/dev/null 2>&1
 verilator --version
 gtkwave --version >/dev/null 2>&1 || true
+dot -V
 
 apt-get -q clean
 rm -rf /var/lib/apt/lists/*
