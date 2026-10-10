@@ -1,5 +1,5 @@
 module debouncer #(
-    parameter p_counter_width = 2;
+    parameter p_counter_width = 2
 )(
     output wire o_w_out,
     input wire i_w_in,

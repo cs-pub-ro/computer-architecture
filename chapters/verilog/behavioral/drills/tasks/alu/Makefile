@@ -1,20 +1,4 @@
-all: build
+TOP_MODULE := alu
+SOURCES := adder.v alu.v ../multiplier/multiplier.v
 
-build: build_project/build.xpr
-
-build_project/build.xpr:
-	vivado -mode batch -source tcl_files/build.tcl
-
-run: build_project/build.xpr
-	vivado -mode batch -source tcl_files/run.tcl
-
-simulation: build_project/build.xpr
-	vivado -mode batch -source tcl_files/simulation.tcl
-
-vivado: build_project/build.xpr
-	vivado build_project/build.xpr
-
-clean:
-	rm -rf vivado*
-	rm -rf build_project
-	rm -rf .Xil
+include ../../../../common/task.mk
