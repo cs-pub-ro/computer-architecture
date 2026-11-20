@@ -49,23 +49,20 @@ fn sim_cpu() -> Result<(), RHDLError> {
     let mut dump_ram = true;
     let mut continuous_dump = false;
     let o = step(&cpu, bits(0x0), &mut s);
-    v.push((o,s.clone()));
+    v.push((o,s.clone(),ram(&s)));
     write!(screen, "{}", termion::clear::All)?;
     write!(screen, "{}", termion::cursor::Goto(1, 1))?;
     screen.flush()?;
     let help_str = "Press ← → for single clock cycle step, p n for instruction step, d for mem.dump(c for continuous dump) or q; Press /<addr(HEX)><enter> for a peek in ram ";
     write!(screen, "{}(step {}, lookup MA)\r\n", help_str, i);
-    let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
+    let (o,state,_) = &v[if i >= v.len() {v.len() - 1} else {i}];
     let myst = print_cd(state, o, peek);
     write!(screen, "{}",myst);
     for key in stdin.keys() {
-        write!(screen, "{}", termion::clear::All)?;
-        write!(screen, "{}", termion::cursor::Goto(1, 1))?;
-        screen.flush()?;
         match key.unwrap() {
             Key::Left => {
                 i = i.saturating_sub(1);
-                let (_,state) = &v[i.saturating_sub(1)];
+                let (_,state,_) = &v[i.saturating_sub(1)];
                 peek = control_signals(&state).ma_oe.then_some(ma(&state));
                 peek_buf = peek.unwrap_or(0) & 0x3FF;
                 wait_for_peek = false;
@@ -73,11 +70,11 @@ fn sim_cpu() -> Result<(), RHDLError> {
                 // write!(screen, "{}",myst);
             }
             Key::Right => {
-                if i == v.len() {
+                if i == v.len().saturating_sub(1) {
                     let o = step(&cpu, bits(0x0), &mut s);
-                    v.push((o,s.clone()));
+                    v.push((o,s.clone(),ram(&s)));
                 }
-                let (_,state) = &v[i.saturating_sub(1)];
+                let (_,state,_) = &v[i];
                 peek = control_signals(&state).ma_oe.then_some(ma(&state));
                 peek_buf = peek.unwrap_or(0) & 0x3FF;
                 wait_for_peek = false;
@@ -93,19 +90,19 @@ fn sim_cpu() -> Result<(), RHDLError> {
             Key::Char('n') => {
                 let mut steps = 0;
                 wait_for_peek = false;
-                if i != v.len() {
+                if i != v.len().saturating_sub(1) {
                     i = i + 1;
                 }
                 loop {
                     if steps >= 10000  {
                         break;
                     }
-                    if i == v.len() {
+                    if i == v.len().saturating_sub(1) {
                         let o = step(&cpu, bits(0x0), &mut s);
-                        v.push((o,s.clone()));
+                        v.push((o,s.clone(),ram(&s)));
                     }
-                    let (_,state) = &v[i];
-                    let (_,state_p) = &v[i.saturating_sub(1)];
+                    let (_,state,_) = &v[i];
+                    let (_,state_p,_) = &v[i.saturating_sub(1)];
                     peek = control_signals(&state_p).ma_oe.then_some(ma(&state_p));
                     if matches!(cu_state(&state), Decode|Reset|Hlt) {
                         break;
@@ -122,8 +119,8 @@ fn sim_cpu() -> Result<(), RHDLError> {
                     if steps >= 10000 {
                         break;
                     }
-                    let (_,state) = &v[i];
-                    let (_,state_p) = &v[i.saturating_sub(1)];
+                    let (_,state,_) = &v[i];
+                    let (_,state_p,_) = &v[i];
                     peek = control_signals(&state_p).ma_oe.then_some(ma(&state_p));
                     if matches!(cu_state(&state), Decode|Reset|Hlt) {
                         break;
@@ -149,18 +146,21 @@ fn sim_cpu() -> Result<(), RHDLError> {
             }
             _ => {}
         }
-        
-        let (o,state) = &v[if i >= v.len() {v.len() - 1} else {i}];
+        let dump_step = if i >= v.len() {v.len() - 1} else {i}; 
+        let (o,state,ram_state) = &v[dump_step];
         if dump_ram {
             let mut file = File::create("mem.dump")?;
-            let ram = ram(&state);
+            let ram = ram_state;
             for value in ram.into_iter() {
                 writeln!(&mut file, "{:04X}", value)?;
             }
             if !continuous_dump { dump_ram = false; }
         }
+        write!(screen, "{}", termion::clear::All)?;
+        write!(screen, "{}", termion::cursor::Goto(1, 1))?;
+        screen.flush()?;
         let peek_str = if let Some(peek) = peek { format!("{:03X}", peek) } else { "????".to_string() };
-        write!(screen, "{}(step {}, lookup {}{})\r\n", help_str, i, &peek_str,
+        write!(screen, "{}(step {}(dump:{}), lookup {}{})\r\n", help_str, i, dump_step, &peek_str,
         if wait_for_peek {
             format!("; next lookup {:03X}, press enter to commit, accepts [0-3FF]", peek_buf)
         } else {
