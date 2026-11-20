@@ -124,7 +124,7 @@ pub fn alu_rez(s: &S) -> (u128, u128) {
 }
 
 
-pub fn print_cd(s: &S, o: &O, ram_addr: u128) -> String {
+pub fn print_cd(s: &S, o: &O, ram_addr: Option<u128>) -> String {
     let bus = bus(o);
     let regs: Vec<_> = (0..8).into_iter().map(|i| rg(s, i)).collect();
     let t1 = t1(s);
@@ -134,7 +134,11 @@ pub fn print_cd(s: &S, o: &O, ram_addr: u128) -> String {
     let fr = fr(s);
     let ir = ir(s);
     let dec = decode(Bits::from(ir));
-    let ram = ram(s)[(ram_addr as usize) & 0x3FF];
+    let ram = if let Some(ram_addr) = ram_addr {
+        ram(s)[(ram_addr as usize) & 0x3FF]
+    } else {
+        0
+    };
     let state = cu_state(s);
     let signals = control_signals(s);
     let (res, flags) = alu_rez(s);
@@ -170,7 +174,7 @@ pub fn print_cd(s: &S, o: &O, ram_addr: u128) -> String {
         .replace("$t2 ", &hex(t2))
         .replace("$ir ", &hex(ir))
         .replace("$adr", &hex(ma))
-        .replace("$val", &hex(ram))
+        .replace("$val", &(if ram_addr.is_some() { hex(ram) } else { "????".to_string() }) )
         .replace("$bus", &hex(bus));
     for (i, v) in regs.iter().enumerate() {
         let st = crate::register_file::reg(bits(i as u128)).to_string().to_ascii_lowercase();
