@@ -749,6 +749,7 @@ fn stage_exec(s: ExecStage, mut cs: ControlSignals, i: Decoded, fin: AluFlags) -
                     if check_condition(jc, fin) {
                         ExecJcond
                     } else {
+                        to_inc_pc = true;
                         ExecDone
                     }
                 }
