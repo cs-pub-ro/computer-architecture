@@ -18,8 +18,6 @@ module block_dpram #(
     localparam l_p_depth = 2**p_address_width;
     // set the ram_style attribute to "block" to infer block RAM
     (* ram_style = "block" *) reg [(p_data_width-1) : 0] l_r_data [(l_p_depth-1):0];
-    //reg [(p_data_width-1) : 0] l_r_data [(l_p_depth-1):0];
-
 
 
     // init the RAM with the data from the file
