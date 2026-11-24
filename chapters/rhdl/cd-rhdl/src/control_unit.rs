@@ -1,4 +1,5 @@
 use crate::{decode_unit::{Decoded, DstOperand, Operand, TwoOp}, prelude::*};
+use std::fmt;
 
 #[derive(Digital, PartialEq, Debug)]
 pub struct ControlSignals {
@@ -152,6 +153,69 @@ pub enum State {
 }
 
 use State::*;
+
+impl fmt::Display for State {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.pad(match self {
+            Reset => "Reset",
+            Fetch(PcToMA) => "Fetch (PC → MA)",
+            Fetch(MaToMem) => "Fetch (wait instruction RAM address)",
+            Fetch(MemToIr) => "Fetch (RAM{instr} → IR)",
+            Fetch(FetchDone) => "Fetch (done)",
+            Decode => "Decode",
+            LoadEa(Lea) => "Load Effective Address",
+            LoadEa(Lpc) => "Load Effective Address (PC → T1)",
+            LoadEa(Ipc) => "Load Effective Address (Increment PC)",
+            LoadEa(DdispA) => "Load Effective Address (wait [displacement] RAM address)",
+            LoadEa(DdispL) => "Load Effective Address (RAM{[disp]} → T)",
+            LoadEa(DispA) => "Load Effective Address (wait displacement RAM address)",
+            LoadEa(DispL) => "Load Effective Address (RAM{disp} → T, MA)",
+            LoadEa(Ldi) => "Load Effective Address (index → T)",
+            LoadEa(Pipd) => "Load Effective Address (Increment/Decrement index)",
+            LoadEa(Ldb) => "Load Effective Address (base → T)",
+            LoadEa(Sum1) => "Load Effective Address (disp + base → T1)",
+            LoadEa(Sum2) => "Load Effective Address (T1 + T2 → T)",
+            LoadEa(EaDone) => "Load Effective Address (done)",
+            LoadImm(ImmLpc) => "Load Immediate (PC → T2)",
+            LoadImm(ImmIpc) => "Load Immediate (Increment PC)",
+            LoadImm(ImmA) => "Load Immediate (wait immediate RAM address)",
+            LoadImm(ImmL) => "Load Immediate (RAM{imm} → T2)",
+            LoadImm(ImmDone) => "Load Immediate (done)",
+            LoadTemps(LoadTs) => "Load Operands",
+            LoadTemps(LoadT2Reg) => "Load Operands (source register → T2)",
+            LoadTemps(LoadT1Reg) => "Load Operands (load destination register into T1 if needed)",
+            LoadTemps(EAToMA) => "Load Operands (EA → MA if needed)",
+            LoadTemps(TempsMA) => "Load Operands (wait operand RAM address)",
+            LoadTemps(TempsML) => "Load Operands (RAM{operand} → T)",
+            LoadTemps(LoadDone) => "Load Operands (done)",
+            Exec(ExecStart) => "Execute",
+            Exec(ExecDone) => "Execute (done)",
+            Exec(ExecPop) => "Execute (wait stack RAM address, increment SP)",
+            Exec(ExecPop2) => "Execute (RAM{popped word} → T2)",
+            Exec(ExecPop3) => "Execute (T1 → MA for pop destination)",
+            Exec(ExecPush) => "Execute (SP − 1 → SP, MA)",
+            Exec(ExecPush2) => "Execute (T1 → stack for PUSH, PC → stack for CALL)",
+            Exec(ExecCall) => "Execute (T1 → PC for CALL)",
+            Exec(ExecJcond) => "Execute (PC → T2 for taken branch)",
+            Exec(ExecJcond2) => "Execute (PC + branch offset → PC)",
+            Nea(IoaL) => "No Effective Address (IR{port} → I/O address)",
+            Nea(IoW) => "No Effective Address (select port, RA → port for OUT)",
+            Nea(IoR) => "No Effective Address (port → RA)",
+            Nea(PopSP) => "No Effective Address (SP → T1, MA)",
+            Nea(PopfMA) => "No Effective Address (wait flags RAM address, T1 + 1 → SP, T1, MA)",
+            Nea(PopfL) => "No Effective Address (RAM{flags} → FR)",
+            Nea(RetMA) => "No Effective Address (wait return PC RAM address, increment SP)",
+            Nea(RetL) => "No Effective Address (RAM{return PC} → PC)",
+            Nea(PushfSP) => "No Effective Address (SP → T1)",
+            Nea(PushfDec) => "No Effective Address (T1 − 1 → SP, MA)",
+            Nea(PushfW) => "No Effective Address (FR → stack)",
+            Store => "Store",
+            IncPC => "Increment PC (PC → T1)",
+            IncPC1 => "Increment PC (T1 + 1 → PC)",
+            Hlt => "Halted",
+        })
+    }
+}
 
 #[derive(Synchronous, SynchronousDQ, Clone, Debug)]
 pub struct ControlUnit {

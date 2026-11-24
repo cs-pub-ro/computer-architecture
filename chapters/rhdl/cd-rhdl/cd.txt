@@ -26,6 +26,10 @@
                     irw$║ ║$ri┌──────────────────────╥──────────────────────────┐            
                     ┌───╨─╨───┤      Decode Unit     ║  Control Unit            │            
                     │ IR $ir  │                      ║                          │            
-                    └─────────┤                      ║$state                    │            
+                    └─────────┤                      ║$debug_state              │
                               └──────────╥───────────╨──────────────────────────┘            
-$decoded                                                                           
+$debug_decoded
+
+Human Readable
+State:   $state
+Decoded: $decoded

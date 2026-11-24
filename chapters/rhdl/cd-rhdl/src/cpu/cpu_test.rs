@@ -8,6 +8,7 @@ use crate::{
     alu::alu, control_unit::ControlSignals, decode_unit::decode
 };
 use super::*;
+use std::path::Path;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 static FIRST_TIME: AtomicBool = AtomicBool::new(true);
@@ -15,19 +16,27 @@ static FIRST_TIME: AtomicBool = AtomicBool::new(true);
 fn first_time() -> bool {
     FIRST_TIME.swap(false, Ordering::SeqCst)
 }
+
+#[cfg(test)]
 pub fn start_cpu_test(
     asm_source: &str,
     def_values: CpuDefault
 ) -> Result<(Cpu, S), RHDLError> {
-    std::fs::write("test.asm", asm_source)?;
+    let asm_file = Path::new("test.asm");
+    std::fs::write(asm_file, asm_source)?;
+    start_cpu_from_file(asm_file, def_values)
+}
+
+pub fn start_cpu_from_file(asm_file: &Path, def_values: CpuDefault) -> Result<(Cpu, S), RHDLError> {
     let out = std::process::Command::new("didasm")
-        .arg("test.asm")
+        .arg(asm_file)
         .arg("cram.data")
         .arg("--quiet")
         .output()
-        .map_err(|e| anyhow!("Didasm not available (cargo install didasm --path <computer-architecture-path>/didasm). Fallback is not available in unit tests"))?;
+        .map_err(|e| anyhow!("Could not run didasm: {e} (cargo install --path <computer-architecture-path>/didasm)"))?;
     if !out.status.success() {
-        return Err(anyhow!("Assembler failed: {}", String::from_utf8(out.stderr).unwrap()).into());
+        let message = String::from_utf8_lossy(&out.stderr);
+        return Err(anyhow!("Could not assemble {}: {}", asm_file.display(), message.trim_end()).into());
     }
     let cpu = Cpu::new(def_values);
 
@@ -167,8 +176,10 @@ pub fn print_cd(s: &S, o: &O, ram_addr: Option<u128>) -> String {
         .replace("$res              ", &format!("{:^18}", format!("{:04X}",res)))
         .replace("$flag", &format!("{:05b}",flags))
         .replace("$fr  ", &format!("{:05b}",fr))
-        .replace("$state                    ", &format!("{:^26}", format!("{:?}",state)))
-        .replace("$decoded                                                                           ", &format!("{:^83}", format!("{:?}",dec)))
+        .replace("$debug_state              ", &format!("{:^26}", format!("{state:?}")))
+        .replace("$debug_decoded", &format!("{:^83}", format!("{dec:?}")))
+        .replace("$state", &state.to_string())
+        .replace("$decoded", &dec.to_string())
         .replace("$pc ", &hex(pc))
         .replace("$t1 ", &hex(t1))
         .replace("$t2 ", &hex(t2))

@@ -17,11 +17,12 @@ use termion::{
 };
 use std::io::{Write, stdout};
 use std::fs::File;
+use std::path::Path;
 
 
 
 // run in an interactive way
-fn sim_cpu() -> Result<(), RHDLError> {
+fn sim_cpu(asm_file: &Path) -> Result<(), RHDLError> {
     let mut init = CpuDefault::default();
     for i in 0..8 {
         init.regs[i] = i as u128 + 1;
@@ -29,10 +30,7 @@ fn sim_cpu() -> Result<(), RHDLError> {
     init.regs[3] = 420 as u128;
     init.PC = 0;
     
-    let (cpu, mut s) = start_cpu_test(
-        &std::fs::read_to_string("test.asm").unwrap(),
-        init
-    )?;
+    let (cpu, mut s) = start_cpu_from_file(asm_file, init)?;
     let mut v = vec![];
     let mut i:usize = 0;
     let mut screen = stdout()
@@ -186,8 +184,14 @@ fn main() {
     // println!("{}",s.0.);
     // let x: Vec<(RegInput<U16>,Reg)> = Vec::new();
     // let x = x.with_reset(1).clock_pos_edge(100);
-    if let Err(e) = sim_cpu() {
-        println!("{}", miette_report(e));
+    let mut args = std::env::args_os().skip(1);
+    let asm_file = args.next().unwrap_or_else(|| "test.asm".into());
+    if args.next().is_some() {
+        eprintln!("Usage: cd-rhdl [assembly-file]");
+        std::process::exit(2);
     }
-    // sim_cpu();
+    if let Err(e) = sim_cpu(Path::new(&asm_file)) {
+        eprintln!("{}", miette_report(e));
+        std::process::exit(1);
+    }
 }

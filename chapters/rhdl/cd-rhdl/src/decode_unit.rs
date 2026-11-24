@@ -2,6 +2,7 @@
 
 use bitops_rhdl::bitops;
 use rhdl::typenum::Diff;
+use std::fmt;
 
 use crate::{prelude::*, register_file::reg};
 
@@ -13,14 +14,14 @@ pub enum Operand {
 
 #[derive(Debug, Digital, PartialEq)]
 pub enum DstOperand {
-    DirectAddress, // Lpc Ipc DispA DispL EaDone
-    IndirectAddress, // Lpc Ipc DispA DispL DdispA DdispL EaDone
-    RegisterAddress(AddrRegister), // Ldi/Ldb EaDone
-    RegSum(BaseRegister, IndexRegister), // Ldb Ldi Sum2 EaDone
-    RegSumIncr(BaseRegister, IndexRegister), // Ldb Ldi Pipd Sum2 EaDone
-    RegSumDecr(BaseRegister), // Ldb Ldi Pipd Sum2 EaDone
-    BasedAddr(BaseRegister), // Lpc Ipc DispA DispL Ldb Sum2 EaDone
-    IndexedAddr(IndexRegister), // Lpc Ipc DispA DispL Ldi Sum2 EaDone
+    DirectAddress,                                 // Lpc Ipc DispA DispL EaDone
+    IndirectAddress,                               // Lpc Ipc DispA DispL DdispA DdispL EaDone
+    RegisterAddress(AddrRegister),                 // Ldi/Ldb EaDone
+    RegSum(BaseRegister, IndexRegister),           // Ldb Ldi Sum2 EaDone
+    RegSumIncr(BaseRegister, IndexRegister),       // Ldb Ldi Pipd Sum2 EaDone
+    RegSumDecr(BaseRegister),                      // Ldb Ldi Pipd Sum2 EaDone
+    BasedAddr(BaseRegister),                       // Lpc Ipc DispA DispL Ldb Sum2 EaDone
+    IndexedAddr(IndexRegister),                    // Lpc Ipc DispA DispL Ldi Sum2 EaDone
     BasedIndexedAddr(BaseRegister, IndexRegister), // Lpc Ipc DispA DispL Ldb Sum1 Ldi Sum2 EaDone
     Reg(Reg),
 }
@@ -261,6 +262,89 @@ pub enum Decoded {
     Invalid,
 }
 
+impl fmt::Display for DstOperand {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Reg(r) => write!(f, "{r}"),
+            Self::DirectAddress => f.write_str("[disp]"),
+            Self::IndirectAddress => f.write_str("[[disp]]"),
+            Self::RegisterAddress(r) => write!(f, "[{}]", artr(*r)),
+            Self::RegSum(b, i) => write!(f, "[{b:?}+{i:?}]"),
+            Self::RegSumIncr(b, i) => write!(f, "[{b:?}+{i:?}+]"),
+            Self::RegSumDecr(b) => write!(f, "[{b:?}+XA-]"),
+            Self::BasedAddr(b) => write!(f, "[{b:?}+disp]"),
+            Self::IndexedAddr(i) => write!(f, "[{i:?}+disp]"),
+            Self::BasedIndexedAddr(b, i) => write!(f, "[{b:?}+{i:?}+disp]"),
+        }
+    }
+}
+
+impl fmt::Display for Operand {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::MaybeDst(dst) => fmt::Display::fmt(dst, f),
+            Self::Imm => f.write_str("imm"),
+        }
+    }
+}
+
+fn mnemonic(op: &impl fmt::Debug) -> String {
+    format!("{op:?}").to_ascii_uppercase()
+}
+
+fn disassembly(d: Decoded) -> String {
+    match d {
+        Decoded::OneOp {
+            op: OneOp::MovI,
+            dst,
+        } => format!("MOV {dst}, imm"),
+        Decoded::OneOp { op, dst } => format!("{} {dst}", mnemonic(&op)),
+        Decoded::TwoOp { op, dst, src } => format!("{} {dst}, {src}", mnemonic(&op)),
+        Decoded::CfNea(op @ (CfNea::In | CfNea::Out)) => format!("{} port", mnemonic(&op)),
+        Decoded::CfNea(op) => format!("{}", mnemonic(&op)),
+        Decoded::Jcond(op) => format!("{} offset", mnemonic(&op)),
+        Decoded::Invalid => format!("HLT ; invalid instruction"),
+    }
+}
+
+impl fmt::Display for Decoded {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::TwoOp { op, dst, src } => write!(
+                f,
+                "Two operands, Operation: {}, destination: {dst}, src: {src}",
+                mnemonic(op)
+            ),
+            Self::OneOp {
+                op: OneOp::MovI,
+                dst,
+            } => {
+                write!(
+                    f,
+                    "One operand, Operation: MOV, destination: {dst}, src: imm"
+                )
+            }
+            Self::OneOp { op, dst } => {
+                write!(
+                    f,
+                    "One operand, Operation: {}, operand: {dst}",
+                    mnemonic(op)
+                )
+            }
+            Self::CfNea(op) => {
+                write!(
+                    f,
+                    "Control flow with no effective address, Operation: {}",
+                    mnemonic(op)
+                )
+            }
+            Self::Jcond(op) => write!(f, "Conditional jump, Operation: {}", mnemonic(op)),
+            Self::Invalid => f.write_str("Invalid instruction"),
+        };
+        write!(f, "\nDissassembly: {}", disassembly(*self))
+    }
+}
+
 #[kernel]
 fn irx(i: Bits<U1>) -> IndexRegister {
     if i == bits(1) {
@@ -283,9 +367,7 @@ fn brx(i: Bits<U1>) -> BaseRegister {
 #[kernel]
 /// Decodes the mod and rm parts in one go
 fn mod_rm(i: Bits<U16>) -> DstOperand {
-    let rm = i[15].resize() |
-            i[14].resize() << 1 |
-            i[13].resize() << 2;
+    let rm = i[15].resize() | i[14].resize() << 1 | i[13].resize() << 2;
     let m = i[9..8];
     match m.raw() {
         0b11 => DstOperand::Reg(reg(rm)),
@@ -326,9 +408,7 @@ fn mod_rm(i: Bits<U16>) -> DstOperand {
 #[kernel]
 pub fn decode(i: Bits<U16>) -> Decoded {
     let rm = mod_rm(i);
-    let rg_raw = i[12].resize() |
-        i[11].resize() << 1 |
-        i[10].resize() << 2;
+    let rg_raw = i[12].resize() | i[11].resize() << 1 | i[10].resize() << 2;
     let rg = DstOperand::Reg(reg(rg_raw));
     let (src, dst) = if i[7] == bits(1) {
         (Operand::MaybeDst(rm), rg)
@@ -342,7 +422,11 @@ pub fn decode(i: Bits<U16>) -> Decoded {
             if let Some(x) = eacfg(i[6..4]) {
                 return Decoded::OneOp { op: x, dst: rm };
             } else if i[6..4] == bits(0) {
-                return Decoded::TwoOp { op: TwoOp::Mov, src, dst };
+                return Decoded::TwoOp {
+                    op: TwoOp::Mov,
+                    src,
+                    dst,
+                };
             }
         }
         // EA + One op + no imm + operation
@@ -557,32 +641,32 @@ mod tests {
 
         let expect = vec![
             Decoded::OneOp {
-                 op: Inc, 
-                 dst: RegSum(BaseRegister::BA, IndexRegister::XA) 
-            },
-            Decoded::OneOp { 
-                op: Dec, 
-                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XB))
-            },
-            Decoded::OneOp { 
-                op: Neg, 
-                dst: IndexedAddr(IndexRegister::XA)
-            },
-            Decoded::OneOp { 
-                op: Not, 
-                dst: BasedIndexedAddr(BaseRegister::BA, IndexRegister::XB)
+                op: Inc,
+                dst: RegSum(BaseRegister::BA, IndexRegister::XA),
             },
             Decoded::OneOp {
-                op: Shl, 
-                dst: Reg(RA) 
+                op: Dec,
+                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XB)),
             },
-            Decoded::OneOp { 
+            Decoded::OneOp {
+                op: Neg,
+                dst: IndexedAddr(IndexRegister::XA),
+            },
+            Decoded::OneOp {
+                op: Not,
+                dst: BasedIndexedAddr(BaseRegister::BA, IndexRegister::XB),
+            },
+            Decoded::OneOp {
+                op: Shl,
+                dst: Reg(RA),
+            },
+            Decoded::OneOp {
                 op: Shr,
-                dst: BasedAddr(BaseRegister::BB) 
+                dst: BasedAddr(BaseRegister::BB),
             },
-            Decoded::OneOp { 
-                op: Sar, 
-                dst: IndirectAddress 
+            Decoded::OneOp {
+                op: Sar,
+                dst: IndirectAddress,
             },
         ];
 
@@ -616,27 +700,25 @@ mod tests {
     #[test]
     fn all_jumps() {
         let inputs = vec![
-            0x0009, 0x0089, 0x0049, 0x00C9,
-            0x0029, 0x00A9, 0x0069, 0x00E9,
-            0x0019, 0x0099, 0x0059, 0x00D9,
-            0x0039, 0x00B9, 0x0079, 0x00F9,
+            0x0009, 0x0089, 0x0049, 0x00C9, 0x0029, 0x00A9, 0x0069, 0x00E9, 0x0019, 0x0099, 0x0059,
+            0x00D9, 0x0039, 0x00B9, 0x0079, 0x00F9,
         ];
         let expect = vec![
             Decoded::Jcond(Jbe),
-            Decoded::Jcond(Jb), 
-            Decoded::Jcond(Jle), 
+            Decoded::Jcond(Jb),
+            Decoded::Jcond(Jle),
             Decoded::Jcond(Jl),
-            Decoded::Jcond(Je),  
-            Decoded::Jcond(Jo), 
-            Decoded::Jcond(Js),  
+            Decoded::Jcond(Je),
+            Decoded::Jcond(Jo),
+            Decoded::Jcond(Js),
             Decoded::Jcond(Jpe),
-            Decoded::Jcond(Ja),  
+            Decoded::Jcond(Ja),
             Decoded::Jcond(Jae),
-            Decoded::Jcond(Jg),  
+            Decoded::Jcond(Jg),
             Decoded::Jcond(Jge),
-            Decoded::Jcond(Jne), 
+            Decoded::Jcond(Jne),
             Decoded::Jcond(Jno),
-            Decoded::Jcond(Jns), 
+            Decoded::Jcond(Jns),
             Decoded::Jcond(Jpo),
         ];
 
@@ -655,31 +737,31 @@ mod tests {
         ];
 
         let expect = vec![
-            Decoded::TwoOp { 
+            Decoded::TwoOp {
                 op: Mov,
                 src: MaybeDst(Reg(RA)),
-                dst: RegSum(BaseRegister::BA, IndexRegister::XB) 
+                dst: RegSum(BaseRegister::BA, IndexRegister::XB),
             },
-            Decoded::OneOp { 
-                op: MovI, 
-                dst: Reg(RA)
+            Decoded::OneOp {
+                op: MovI,
+                dst: Reg(RA),
             },
-                Decoded::OneOp { 
-                op: Push, 
-                dst: BasedIndexedAddr(BaseRegister::BB, IndexRegister::XA) 
+            Decoded::OneOp {
+                op: Push,
+                dst: BasedIndexedAddr(BaseRegister::BB, IndexRegister::XA),
             },
-            Decoded::OneOp { 
-                op: Pop, 
-                dst: RegSumDecr(BaseRegister::BA)
+            Decoded::OneOp {
+                op: Pop,
+                dst: RegSumDecr(BaseRegister::BA),
             },
-                Decoded::OneOp { 
-                op: Call, 
-                dst: RegSum(BaseRegister::BB, IndexRegister::XB) 
+            Decoded::OneOp {
+                op: Call,
+                dst: RegSum(BaseRegister::BB, IndexRegister::XB),
             },
-            Decoded::OneOp { 
-                op: Jmp, 
-                dst: DirectAddress
-            }
+            Decoded::OneOp {
+                op: Jmp,
+                dst: DirectAddress,
+            },
         ];
 
         assert_in_ref(inputs, expect);
@@ -725,13 +807,13 @@ mod tests {
             Decoded::TwoOp {
                 op: Or,
                 src: MaybeDst(Reg(SP)),
-                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XA))
+                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XA)),
             },
             Decoded::TwoOp {
                 op: Xor,
                 src: MaybeDst(Reg(RB)),
                 dst: IndirectAddress,
-            }
+            },
         ];
         assert_in_ref(inputs, expect);
     }
@@ -776,13 +858,13 @@ mod tests {
             Decoded::TwoOp {
                 op: Or,
                 src: Imm,
-                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XA))
+                dst: RegisterAddress(AddrRegister::Index(IndexRegister::XA)),
             },
             Decoded::TwoOp {
                 op: Xor,
                 src: Imm,
                 dst: IndirectAddress,
-            }
+            },
         ];
         assert_in_ref(inputs, expect);
     }
