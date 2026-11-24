@@ -1,0 +1,197 @@
+mod alu;
+mod control_unit;
+mod cpu;
+mod decode_unit;
+mod memory;
+mod prelude;
+mod register;
+mod register_file;
+mod io_unit;
+
+use crate::prelude::*;
+use termion::{
+    event::Key,
+    input::TermRead,
+    raw::IntoRawMode,
+    screen::IntoAlternateScreen
+};
+use std::io::{Write, stdout};
+use std::fs::File;
+use std::path::Path;
+
+
+
+// run in an interactive way
+fn sim_cpu(asm_file: &Path) -> Result<(), RHDLError> {
+    let mut init = CpuDefault::default();
+    for i in 0..8 {
+        init.regs[i] = i as u128 + 1;
+    }
+    init.regs[3] = 420 as u128;
+    init.PC = 0;
+    
+    let (cpu, mut s) = start_cpu_from_file(asm_file, init)?;
+    let mut v = vec![];
+    let mut i:usize = 0;
+    let mut screen = stdout()
+    .into_raw_mode()
+    .unwrap()
+    .into_alternate_screen()
+    .unwrap();
+
+    // print_cd(&s, &o);
+    let stdin = std::io::stdin();
+    let mut peek = None;
+    let mut peek_buf = 0;
+    let mut wait_for_peek = false;
+    let mut dump_ram = true;
+    let mut continuous_dump = false;
+    let o = step(&cpu, bits(0x0), &mut s);
+    v.push((o,s.clone(),ram(&s)));
+    write!(screen, "{}", termion::clear::All)?;
+    write!(screen, "{}", termion::cursor::Goto(1, 1))?;
+    screen.flush()?;
+    let help_str = "Press ← → for single clock cycle step, p n for instruction step, d for mem.dump(c for continuous dump) or q; Press /<addr(HEX)><enter> for a peek in ram ";
+    write!(screen, "{}(step {}, lookup MA)\r\n", help_str, i);
+    let (o,state,_) = &v[if i >= v.len() {v.len() - 1} else {i}];
+    let myst = print_cd(state, o, peek);
+    write!(screen, "{}",myst);
+    for key in stdin.keys() {
+        match key.unwrap() {
+            Key::Left => {
+                i = i.saturating_sub(1);
+                let (_,state,_) = &v[i.saturating_sub(1)];
+                peek = control_signals(&state).ma_oe.then_some(ma(&state));
+                peek_buf = peek.unwrap_or(0) & 0x3FF;
+                wait_for_peek = false;
+                // let myst = print_cd(state, o, peek);
+                // write!(screen, "{}",myst);
+            }
+            Key::Right => {
+                if i == v.len().saturating_sub(1) {
+                    let o = step(&cpu, bits(0x0), &mut s);
+                    v.push((o,s.clone(),ram(&s)));
+                }
+                let (_,state,_) = &v[i];
+                peek = control_signals(&state).ma_oe.then_some(ma(&state));
+                peek_buf = peek.unwrap_or(0) & 0x3FF;
+                wait_for_peek = false;
+                // let myst = print_cd(state, o, peek);
+                // write!(screen, "{}",myst);
+                i = i + 1
+            }
+            Key::Char('q') => break,
+            Key::Char('/') => {
+                wait_for_peek=true;
+                peek_buf = 0;
+            }
+            Key::Char('n') => {
+                let mut steps = 0;
+                wait_for_peek = false;
+                if i != v.len().saturating_sub(1) {
+                    i = i + 1;
+                }
+                loop {
+                    if steps >= 10000  {
+                        break;
+                    }
+                    if i == v.len().saturating_sub(1) {
+                        let o = step(&cpu, bits(0x0), &mut s);
+                        v.push((o,s.clone(),ram(&s)));
+                    }
+                    let (_,state,_) = &v[i];
+                    let (_,state_p,_) = &v[i.saturating_sub(1)];
+                    peek = control_signals(&state_p).ma_oe.then_some(ma(&state_p));
+                    if matches!(cu_state(&state), Decode|Reset|Hlt) {
+                        break;
+                    }
+                    i = i + 1;
+                    steps = steps + 1;
+                };
+            }
+            Key::Char('p') => {
+                wait_for_peek = false;
+                let mut steps = 0;
+                i = i.saturating_sub(1);
+                loop {
+                    if steps >= 10000 {
+                        break;
+                    }
+                    let (_,state,_) = &v[i];
+                    let (_,state_p,_) = &v[i];
+                    peek = control_signals(&state_p).ma_oe.then_some(ma(&state_p));
+                    if matches!(cu_state(&state), Decode|Reset|Hlt) {
+                        break;
+                    }
+                    i = i.saturating_sub(1);
+                    steps = steps + 1;
+                }
+            }
+            Key::Char(c @ ('0'..='9' | 'a'..='f')) if wait_for_peek => {
+                let x = c.to_digit(16).map(|d| d as u128).unwrap();
+                peek_buf = (peek_buf << 4 | x) & 0x3FF;
+            }
+            Key::Char('d') => {
+                dump_ram = true;
+            }
+            Key::Char('c') => {
+                continuous_dump = !continuous_dump;
+            }
+            Key::Char('\n') => {
+                wait_for_peek=false;
+                peek = Some(peek_buf);
+
+            }
+            _ => {}
+        }
+        let dump_step = if i >= v.len() {v.len() - 1} else {i}; 
+        let (o,state,ram_state) = &v[dump_step];
+        if dump_ram {
+            let mut file = File::create("mem.dump")?;
+            let ram = ram_state;
+            for value in ram.into_iter() {
+                writeln!(&mut file, "{:04X}", value)?;
+            }
+            if !continuous_dump { dump_ram = false; }
+        }
+        write!(screen, "{}", termion::clear::All)?;
+        write!(screen, "{}", termion::cursor::Goto(1, 1))?;
+        screen.flush()?;
+        let peek_str = if let Some(peek) = peek { format!("{:03X}", peek) } else { "????".to_string() };
+        write!(screen, "{}(step {}(dump:{}), lookup {}{})\r\n", help_str, i, dump_step, &peek_str,
+        if wait_for_peek {
+            format!("; next lookup {:03X}, press enter to commit, accepts [0-3FF]", peek_buf)
+        } else {
+            "".to_string()
+        })?;
+        let myst = print_cd(state, o, peek);
+        write!(screen, "{}",myst);
+    }
+
+    Ok(())
+}
+
+
+fn main() {
+    // let reg = RegFile::<U16>::default();
+    // let mut s = reg.init();
+    // println!("{}",s.0.binary_string());
+    // let _ = reg.sim(ClockReset { clock: clock(true), reset: reset(false) }, (RegInput::<U16> { data_in: Bits::from(69), oe: false, we: true }, RA), &mut s);
+    // println!("{}",s.0.binary_string());
+
+    // let _ = reg.sim(ClockReset { clock: clock(false), reset: reset(false) }, (RegInput::<U16> { data_in: Bits::from(69), oe: false, we: true }, RA), &mut s);
+    // let _ = reg.sim(ClockReset { clock: clock(true), reset: reset(false) }, (RegInput::<U16> { data_in: Bits::from(69), oe: false, we: false }, RA), &mut s);
+    // println!("{}",s.0.);
+    // let x: Vec<(RegInput<U16>,Reg)> = Vec::new();
+    // let x = x.with_reset(1).clock_pos_edge(100);
+    let mut args = std::env::args_os().skip(1);
+    let asm_file = args.next().unwrap_or_else(|| "test.asm".into());
+    if args.next().is_some() {
+        eprintln!("Usage: cd-rhdl [assembly-file]");
+        std::process::exit(2);
+    }
+    if let Err(e) = sim_cpu(Path::new(&asm_file)) {
+        eprintln!("{}", miette_report(e));
+        std::process::exit(1);
+    }
+}

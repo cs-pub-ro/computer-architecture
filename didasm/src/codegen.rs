@@ -28,7 +28,7 @@ impl ParsedStatement {
     pub fn from_statement(s: Statement) -> Result<Self, String> {
         Ok(ParsedStatement {
             mnemonic: Mnemonic::from_str(&s.mnemonic)
-                .map_err(|_| format!("'{}' is not a supported mnemonic", &s.mnemonic))?,
+                .map_err(|_| format!("'{}' is not a supported mnemonic", s.mnemonic))?,
             op1: s.op1.map(|op| Operand::from_str(&op)).transpose()?,
             op2: s.op2.map(|op| Operand::from_str(&op)).transpose()?,
         })

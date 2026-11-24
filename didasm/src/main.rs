@@ -7,6 +7,7 @@ mod tokens;
 use codegen::{Instruction, Ir, ParsedStatement, Statement};
 use std::str::FromStr;
 use tokens::*;
+use std::cell::OnceCell;
 
 
 /// Represents the actions each line of the input file can make
@@ -33,6 +34,7 @@ fn main() {
         eprintln!("No such file or directory");
         std::process::exit(2);
     };
+    let addr_len: OnceCell<(usize, u8)> = OnceCell::new();
 
     // These should never ever ever fail
     let line_parser = Regex::new(r#"^(?:\s*([a-zA-Z_0-9]+)\s*:)?\s*(?:(.*?);.*|(.*))$"#)
@@ -41,24 +43,60 @@ fn main() {
         .expect("Statement parser regex was tampered with and has syntax errors");
     let equ_parser = Regex::new(r#"^([a-z_][a-z_0-9]*)\s+equ\s+(.*)$"#)
         .expect("Equ parser regex was tampered with and has syntax errors");
+    let pragma_parser = Regex::new(r#"^@pragma\s+(?<key>[a-zA-Z_]+)\(\s*(?<val>[0-9]*)\s*\)\s*(?:;.*)?$"#)
+        .expect("Pragma parser regex was tampered with and has syntax errors");
 
-    // The memory we will be writing to. It might also contain comments in mem_instr that are related to the given memory addresses
-    let mut mem: Vec<u16> = (0..1024).map(|_| 0).collect();
-    // May also represent separators between each word
-    let mut mem_instr: Vec<String> = (0..1024).map(|_| "\n".to_string()).collect();
     // All code implicitly starts at memory address 0
     let mut cursor: usize = 0;
 
     let mut label_queue = Vec::<String>::new();
+    let mut pragma_error = false;
     // Needed 3 of these because of borrow checking rules of mutable references inside closures
     let mut any_error1 = false;
     let mut any_error2 = false;
     let mut any_error3 = false;
 
+    for (lineno, line) in file.lines().enumerate() {
+        let lineno = lineno + 1;
+        if let Some(captures) = pragma_parser.captures(line) {
+            match &captures["key"] {
+                "ADDRESS_LEN" => {
+                    if let Ok(val) = captures["val"].parse::<u8>() {
+                        if val > 16 || val == 0 {
+                            pragma_error = true;
+                            eprintln!("Invalid value '{}' at line {}, requires numeric value greater than 0 and up to 16(included)", val, lineno);
+                        } else {
+                            if addr_len.set((lineno, val)).is_err() {
+                                pragma_error = true;
+                                let Some((lineno_prev, val_prev)) = addr_len.get() else {
+                                    unreachable!("If it errored due to value being set it cannot return none which is tha case of the value being unset");
+                                };
+                                eprintln!("ADDR_LEN was already set before at line {} with value {}, and now it is set again at line {}: '{}'",
+                                    lineno_prev, val_prev, lineno, line);
+                            }
+                        }
+                    } else {
+                        pragma_error = true;
+                        eprintln!("Invalid value '{}' at line {}, requires numeric value greater than 0 and up to 16(included)", &captures["val"], lineno);
+                    }
+                }
+                _ => {
+                    pragma_error = true;
+                    eprintln!("Unsupported pragma: '{}'", line);
+                }
+            }
+        }
+    }
+
+    if pragma_error {
+        std::process::exit(1);
+    }
+
     // Contains all labels and definitions, we will need a 2 pass system for name resolution
     let mut symtable = HashMap::<String, isize>::new();
     let statements = file.to_lowercase().lines()
     .enumerate()
+    .filter(|(_, line)| !pragma_parser.is_match(line))
     .map(|(lineno, line)| (lineno, line_parser.captures(line)
         .expect("Line parser regex was tampered with. It is supposed to match anything, it's capture groups are the ones that are allowed to fail")))
     // We will return a vector of actions for each line, which will be flattened later
@@ -99,7 +137,7 @@ fn main() {
         // Parse statements as either equ, instruction or arbitrary word
         if let Some(stmt) = stmt {
             // Evaluate equ statements first, as the identifier might be seen as an invalid mnemonic in later stage
-            if let Some(c) = equ_parser.captures(&stmt) {
+            if let Some(c) = equ_parser.captures(stmt) {
                 let key = c.get(1).expect("Equ parser regex was tampered with and no longer detects key properly: {lineno}").as_str();
                 if symtable.contains_key(key) {
                     eprintln!("Redefinition of {key} at line {}\n{}", lineno + 1, stmt);
@@ -113,7 +151,7 @@ fn main() {
                         })
                         .map(|x| symtable.insert(key.to_string(), x));
                 }
-            } else if let Some(c) = stmt_parser.captures(&stmt) {
+            } else if let Some(c) = stmt_parser.captures(stmt) {
                 v.push(Action::Stmt(Statement {
                     lineno: lineno + 1,
                     line: stmt.to_owned(),
@@ -122,7 +160,7 @@ fn main() {
                     op1: c.get(2).map(|x| x.as_str().to_string()),
                     op2: c.get(3).map(|x| x.as_str().to_string()),
                 }));
-            } else if let Ok(Expr::Int(x)) = Expr::from_str(&stmt) {
+            } else if let Ok(Expr::Int(x)) = Expr::from_str(stmt) {
                 v.push(Action::PushWord(x as u16));
             } else {
                 eprintln!("Syntax error on line {}: Line should be of either format:\n<MNEMONIC>\n<MNEMONIC> op1\n<MNEMONIC> op1, op2\nwhere the mnemonic is only formed out of letters\n{}", lineno + 1, stmt);
@@ -213,7 +251,15 @@ fn main() {
     let mut prev_labels = String::new();
     let mut any_error = false;
     cursor = 0;
-
+    let (_, addr_len) = addr_len.get_or_init(|| { (0, 9u8) });
+    let max_memory = 1 << addr_len;
+    let max_memory_mask = max_memory - 1;
+    println!("{max_memory}");
+    // The memory we will be writing to. It might also contain comments in mem_instr that are related to the given memory addresses
+    let mut mem: Vec<u16> = (0..max_memory).map(|_| 0).collect();
+    // May also represent separators between each word
+    let mut mem_instr: Vec<String> = (0..max_memory).map(|_| "\n".to_string()).collect();
+    
     for action in statements {
         match action {
             Action::PushIr(lineno, line, ir) => {
@@ -224,7 +270,7 @@ fn main() {
                         eprintln!("Semantic error at line {}: {}\n{}", lineno, e, line)
                     }
                     Ok(instr) => {
-                        mem_instr[cursor] = format!(
+                        mem_instr[cursor & max_memory_mask] = format!(
                             "{}\n// {line}{}\n",
                             prev_labels,
                             // a tribute to cioc's description of my code
@@ -238,16 +284,16 @@ fn main() {
                             }
                         );
                         prev_labels.clear();
-                        mem[cursor] = instr.get_i();
+                        mem[cursor & max_memory_mask] = instr.get_i();
                         cursor += 1;
                         if let Some(x) = instr.displacement {
-                            mem_instr[cursor] = " ".to_string(); // Space instead of newline to see which words are part of the same instruction
-                            mem[cursor] = x;
+                            mem_instr[cursor & max_memory_mask] = " ".to_string(); // Space instead of newline to see which words are part of the same instruction
+                            mem[cursor & max_memory_mask] = x;
                             cursor += 1;
                         }
                         if let Some(x) = instr.imm {
-                            mem_instr[cursor] = " ".to_string(); // Space instead of newline to see which words are part of the same instruction
-                            mem[cursor] = x;
+                            mem_instr[cursor & max_memory_mask] = " ".to_string(); // Space instead of newline to see which words are part of the same instruction
+                            mem[cursor & max_memory_mask] = x;
                             cursor += 1;
                         }
                     }
@@ -259,13 +305,13 @@ fn main() {
             }
             // Analogue step to PushWord in label resolution step, but this time for consuming the comments generated by them
             Action::PushWord(x) => {
-                mem[cursor] = x;
-                mem_instr[cursor] = if prev_labels.is_empty() { "\n".to_string() } else { prev_labels.clone() };
+                mem[cursor & max_memory_mask] = x;
+                mem_instr[cursor & max_memory_mask] = if prev_labels.is_empty() { "\n".to_string() } else { prev_labels.clone() };
                 cursor += 1;
             }
             // Analogue step to SetCursor in label resolution step, but this time for consuming the comments generated by them
             Action::SetCursor(x) => {
-                mem_instr[cursor] = if prev_labels.is_empty() { "\n".to_string() } else { prev_labels.clone() };
+                mem_instr[cursor & max_memory_mask] = if prev_labels.is_empty() { "\n".to_string() } else { prev_labels.clone() };
                 cursor = x;
             }
             _ => {}
@@ -293,7 +339,8 @@ fn main() {
         })
         .collect::<Vec<_>>()
         .join("");
-    if std::fs::write(args[2].clone(), &statements).is_err() {
+    // First char is always a \n
+    if std::fs::write(args[2].clone(), &statements[1..]).is_err() {
         eprintln!("Error writing to {}", args[2].clone());
     }
 }
