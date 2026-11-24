@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-"""Watch ./mem.dump on the alternate terminal screen; stop with Ctrl+C."""
+"""Watch ./mem.dump. Type /<hex address> and press Enter to toggle yellow text.
+
+Stop with Ctrl+C.
+"""
 
 from pathlib import Path
 from itertools import zip_longest
+import os
 import re
+import select
 import shutil
 import sys
 import time
@@ -20,22 +25,24 @@ def format_dump(data, width=80):
     return "\n".join("  ".join(entries[i:i + columns]) for i in range(0, len(entries), columns))
 
 
+def highlight_line(line, highlighted):
+    return re.sub(
+        r"(^|  )([0-9A-F]{3}: )([0-9A-F]{1,4})(?=  |$)",
+        lambda entry: (
+            entry[1] + entry[2] + f"\033[33m{entry[3]}\033[39m"
+            if int(entry[2][:3], 16) in highlighted else entry[0]
+        ),
+        line,
+    )
+
+
 def screen_updates(previous, current):
-    updates = []
-    for row, (old, new) in enumerate(zip_longest(previous, current, fillvalue=""), 1):
-        if old == new:
-            continue
-        width = max(len(old), len(new))
-        old, new = old.ljust(width), new.ljust(width)
-        start = None
-        for column in range(width + 1):
-            if column < width and old[column] != new[column]:
-                if start is None:
-                    start = column
-            elif start is not None:
-                updates.append(f"\033[{row};{start + 1}H" + new[start:column])
-                start = None
-    return "".join(updates)
+    # Redraw changed rows so cursor positions never count color escapes as text.
+    return "".join(
+        f"\033[{row};1H\033[K{new}"
+        for row, (old, new) in enumerate(zip_longest(previous, current, fillvalue=""), 1)
+        if old != new
+    )
 
 
 def main():
@@ -46,7 +53,18 @@ def main():
     empty_since = None
     error_since = None
     terminal = sys.stdout.isatty()
+    input_fd = None
+    original_termios = None
+    highlighted = set()
     try:
+        if terminal and sys.stdin.isatty() and os.name == "posix":
+            import termios
+
+            input_fd = sys.stdin.fileno()
+            original_termios = termios.tcgetattr(input_fd)
+            settings = original_termios.copy()
+            settings[3] = (settings[3] | termios.ICANON) & ~(termios.ECHO | termios.ECHONL)
+            termios.tcsetattr(input_fd, termios.TCSANOW, settings)
         if terminal:
             print("\033[?1049h\033[?25l", end="", flush=True)
         while True:
@@ -80,8 +98,10 @@ def main():
             if terminal:
                 # ponytail: show the first screen only; add paging for later addresses.
                 lines = [line[:size.columns] for line in lines[:size.lines]]
+                if highlighted:
+                    lines = [highlight_line(line, highlighted) for line in lines]
                 if size != previous_size:
-                    update = "\033[H\033[J" + "\r\n".join(lines)
+                    update = "\033[H\033[J" + screen_updates([], lines)
                 else:
                     update = screen_updates(previous, lines)
             else:
@@ -89,8 +109,18 @@ def main():
             if update:
                 print(update, end="", flush=True)
             previous, previous_size = lines, size
-            time.sleep(0.1)
+            if input_fd is None:
+                time.sleep(0.1)
+            elif select.select([input_fd], [], [], 0.1)[0]:
+                command = os.read(input_fd, 4096)
+                match = re.fullmatch(rb"/(?:0[xX])?([0-9a-fA-F]{1,3})\n", command)
+                if match:
+                    highlighted.symmetric_difference_update({int(match[1], 16)})
+                elif not command:
+                    input_fd = None
     finally:
+        if original_termios is not None:
+            termios.tcsetattr(sys.stdin.fileno(), termios.TCSANOW, original_termios)
         if terminal:
             print("\033[?25h\033[?1049l", end="", flush=True)
 
